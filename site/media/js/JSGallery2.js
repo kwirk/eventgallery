@@ -1,3 +1,7 @@
+var $defined = function(obj){
+    return (obj != undefined);
+};
+
 var JSGallery2 = new Class({
 	Implements: Options,
 	options: {
@@ -50,6 +54,7 @@ var JSGallery2 = new Class({
 		}
 		this.setOptions(options);
 		this.thumbs = thumbs;
+		
 		this.bigImage = bigImageContainer;
 		this.pageContainer = pageContainer;
 		this.convertThumbs();
@@ -63,11 +68,9 @@ var JSGallery2 = new Class({
 			var objRegExp  = /(^\d\d*$)/;
 			if (objRegExp.test(strippedUrl[1]) == true) {
 				this.initialIndex = strippedUrl[1];		
+				
 			}
 		} 
-		
-		
-		
 
 		this.createControls();
 
@@ -95,8 +98,8 @@ var JSGallery2 = new Class({
 	createControls: function() {
 		this.prevLink = new Element('a', {
 			events: {
-				'click': this.prevImage.bindWithEvent(this),
-				'mouseleave': this.mouseLeaveHandler.bindWithEvent(this)
+				'click': this.prevImage.bind(this),
+				'mouseleave': this.mouseLeaveHandler.bind(this)
 			},
 			styles: {
 				'width': '63px',
@@ -110,15 +113,16 @@ var JSGallery2 = new Class({
 				
 			},
 			'href': '#'
-		}).injectInside(this.bigImage.getParent());
-		this.prevLink.addEvent('mouseover', this.focusControl.bindWithEvent(this, this.prevLink));
-		
-		
+		}).inject(this.bigImage.getParent());
 			
-		this.zoomLink = this.prevLink.clone().injectAfter(this.prevLink).set({
+		this.prevLink.addEvent('mouseover', function(e){
+		    this.focusControl(e, this.prevLink);
+		}.bind(this));
+			
+		this.zoomLink = this.prevLink.clone().inject(this.prevLink,'after').set({
 			'events': {
-				'click': this.zoomImage.bindWithEvent(this),
-				'mouseleave': this.mouseLeaveHandler.bindWithEvent(this)
+				'click': this.zoomImage.bind(this),
+				'mouseleave': this.mouseLeaveHandler.bind(this)
 			},
 			'styles': {
 				'width': '80%',
@@ -129,13 +133,15 @@ var JSGallery2 = new Class({
 			'rel': 'lightbo2'
 		});
 
-		this.zoomLink.addEvent('mouseover', this.focusControl.bindWithEvent(this, this.zoomLink));
-
+		this.zoomLink.addEvent('mouseover', function(e){
+		    this.focusControl(e, this.zoomLink);
+		}.bind(this));
+	
 		
-		this.nextLink = this.prevLink.clone().injectAfter(this.zoomLink).set({
+		this.nextLink = this.prevLink.clone().inject(this.zoomLink, 'after').set({
 			'events': {
-				'click': this.nextImage.bindWithEvent(this),
-				'mouseleave': this.mouseLeaveHandler.bindWithEvent(this)
+				'click': this.nextImage.bind(this),
+				'mouseleave': this.mouseLeaveHandler.bind(this)
 			},
 			'styles': {
 				'right': '0px', 
@@ -146,13 +152,17 @@ var JSGallery2 = new Class({
 			}
 		});
 		this.prevLink.setStyle('left', 0);
-		this.nextLink.addEvent('mouseover', this.focusControl.bindWithEvent(this, this.nextLink));
+		
+		this.nextLink.addEvent('mouseover', function(e){
+		    this.focusControl(e, this.nextLink);
+		}.bind(this));
+	
 		
 		this.bigImage.addEvents({
-			'mousemove': this.mouseOverHandler.bindWithEvent(this),
-			'mouseleave': this.mouseLeaveHandler.bindWithEvent(this)
+			'mousemove': this.mouseOverHandler.bind(this),
+			'mouseleave': this.mouseLeaveHandler.bind(this)
 		});
-		document.addEvent('keydown', this.keyboardHandler.bindWithEvent(this));
+		document.addEvent('keydown', this.keyboardHandler.bind(this));
 		this.mouseLeaveHandler();
 		
 	},
@@ -163,7 +173,7 @@ var JSGallery2 = new Class({
 	 * @param {HTMLElement} control
 	 */
 	focusControl: function(event, control) {
-		control.set('opacity', 1);
+		control.setStyle('opacity', 1);
 	},
 	/**
 	 *	Handles mouse movement over the big image.
@@ -178,27 +188,27 @@ var JSGallery2 = new Class({
 			op = this.options.maxOpacity - this.getDistanceToMouse(this.nextLink, event) / activeRange;			
 			
 		}
-		this.nextLink.set('opacity', op);
+		this.nextLink.setStyle('opacity', op);
 		
 		op = 0;
 		if(currentIndex > 0) {
 			op = this.options.maxOpacity - this.getDistanceToMouse(this.prevLink, event) / activeRange;
 		
 		}
-		this.prevLink.set('opacity', op);
+		this.prevLink.setStyle('opacity', op);
 		
 		op = 0;
 		op = this.options.maxOpacity - this.getDistanceToMouse(this.zoomLink, event) / activeRange*2;		
 		op = 1;
-		this.zoomLink.set('opacity', op);		
+		this.zoomLink.setStyle('opacity', op);		
 	},
 	/**
 	 * Hides the controls.
 	 */
 	mouseLeaveHandler: function() {
-		this.nextLink.set('opacity', 0);
-		this.prevLink.set('opacity', 0);
-		this.zoomLink.set('opacity', 0);
+		this.nextLink.setStyle('opacity', 0);
+		this.prevLink.setStyle('opacity', 0);
+		this.zoomLink.setStyle('opacity', 0);
 	},
 	/**
 	 * Handles keyboard interactions.
@@ -266,7 +276,7 @@ var JSGallery2 = new Class({
 			'rel': bigImage,
 			'longdesc': fullSizeImage,
 			'description': decodeURI(thumbContainer.getElements('img')[0].get('title'))
-		}).injectTop(thumbContainer).set('opacity', this.options.loadingOpacity);
+		}).inject(thumbContainer, 'top').setStyle('opacity', this.options.loadingOpacity);
 		thumbContainer.getElements('img')[0].set('title', '');
 	},
 	/**
@@ -329,7 +339,7 @@ var JSGallery2 = new Class({
 		if (!window.opera) {
 			var thumbContainer = this.thumbs[this.loadedImages].getFirst();
 			if($defined(this.options.loadingImage)) {
-				new Element('img', {'src': this.options.loadingImage}).injectTop(thumbContainer);
+				new Element('img', {'src': this.options.loadingImage}).inject(thumbContainer, 'top');
 			}
 			var imageToLoad = thumbContainer.get('rel');			
 			
@@ -350,7 +360,7 @@ var JSGallery2 = new Class({
 			thumbContainer.getFirst().getFirst().destroy();
 		}
 		//remove loading styles
-		thumbContainer.getFirst().setStyle('background-color', 'transparent').setOpacity(1);
+		thumbContainer.getFirst().setStyle('background-color', 'transparent').setStyle('opacity',1);
 		if(this.loadedImages < this.thumbs.length) {
 			this.loadNextImage();
 		}
@@ -428,7 +438,7 @@ var JSGallery2 = new Class({
 	 *	Selects the previous image.
 	 */
 	prevImage: function(e) {
-		e = new Event(e).stop();
+		e.stop();
 		this.selectByIndex(this.thumbs.indexOf(this.selectedContainer) - 1);
 
 	
@@ -437,7 +447,7 @@ var JSGallery2 = new Class({
 	 *	Selects the next image.
 	 */
 	nextImage: function(e) {
-		e = new Event(e).stop();
+		e.stop();
 		this.selectByIndex(this.thumbs.indexOf(this.selectedContainer) + 1);
 	},
 	
@@ -445,7 +455,7 @@ var JSGallery2 = new Class({
 	* Zooms an image
 	*/	
 	zoomImage: function(e) {
-		e = new Event(e).stop();
+		e.stop();
 	},
 	/**
 	 *	Navigates to given page and selects the first image of it.
@@ -455,12 +465,11 @@ var JSGallery2 = new Class({
 	 */
 	gotoPage: function(pageNumber, selectImage) {
 		//if we like to select another image on that page than the first one
-		if (pageNumber == 1) {
-			selectImage = $pick(selectImage, this.thumbs[pageNumber * this.imagesPerFirstPage]);
+		if (pageNumber == 0) {
+			selectImage = [selectImage, this.thumbs[pageNumber * this.imagesPerFirstPage]].pick();
 		} else {
-			selectImage = $pick(selectImage, this.thumbs[pageNumber * this.imagesPerPage]);
+			selectImage = [selectImage, this.thumbs[pageNumber * this.imagesPerPage]].pick();
 		}
-
 		
 		if(pageNumber >= 0 && pageNumber < this.lastPage) {
 			this.pageContainer.set('tween', {
