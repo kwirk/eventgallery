@@ -1,0 +1,112 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+<h4>Filter: <?php
+
+$filters = preg_split('/;/',$this->filter);
+$total = count($filters);
+$count = 0;
+
+foreach($filters as $filterItem)
+{
+    $temp = preg_split('/;/',$this->filter);
+    $filterArray = Array();
+    foreach($temp as $item)
+    {
+        if (strcmp($item,$filterItem)!=0)
+        {
+            array_push($filterArray,$item);
+        }
+    }
+    $filterString = implode(';',$filterArray);
+    if (strlen($filterItem)>0)
+    {
+        echo "<a href=\"";
+        echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter='.$filterString );
+        echo "\">$filterItem</a>";
+        if ($count<$total-2)
+        {
+            echo " &gt;&gt; ";
+        }
+    }
+    $count++;
+}
+
+?></h4>
+
+<form action="index.php" method="post" name="adminForm">
+<div id="editcell">
+<table class="adminlist">
+	<thead>
+		<tr>
+			<th width="5"><?php echo JText::_( 'ID' ); ?></th>
+			<th width="20"><input type="checkbox" name="toggle" value=""
+				onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>
+			<th>Root</th>
+			<th><?php echo JText::_( 'Name' ); ?></th>
+			<th></th>
+			<th><?php echo JText::_( 'Text' ); ?></th>
+			<th><?php echo JText::_( 'Date' ); ?></th>
+			<th><?php echo JText::_( 'IP' ); ?></th>
+			<th><?php echo JText::_( 'UserID' ); ?></th>
+			<th><?php echo JText::_( 'Filter' ); ?></th>
+		</tr>
+	</thead>
+	<?php
+	$k = 0;
+	for ($i=0, $n=count( $this->items ); $i < $n; $i++)
+	{	    $row = &$this->items[$i];
+	    $checked 	= JHTML::_('grid.id',   $i, $row->id );
+	    $published =  JHTML::_('grid.published', $row, $i , 'tick.png', 'publish_x.png','Comment');
+	    $link 		= JRoute::_( 'index.php?option=com_eventgallery&task=editComment&cid[]='. $row->id );
+
+	    ?>
+	<tr class="<?php echo "row$k"; ?>">
+		<td><a href="<?php echo $link; ?>"><?php echo $row->id; ?></a></td>
+		<td><?php echo $checked; ?></td>
+		<td><a
+			href="<?php echo $link?>">
+			<?php echo JHTML::image(JURI::base().("../components/com_eventgallery/helpers/thumbnail.php?view=thumbnail&folder=".$row->folder."&file=".$row->file."&option=com_eventgallery"),'image');?>
+		</a></td>
+
+		<td><a
+			href="<?php echo $link; ?>"><?php echo $row->name; ?></a>
+		</td>
+		<td><?php echo $published; ?></td>
+		<td><a href="<?php echo $link; ?>"><?php echo $row->text; ?></a></td>
+		<td><a href="<?php echo $link; ?>"><?php echo JHTML::date($row->date)?></a>
+		</td>
+		<td><a
+			href="<?php echo $link; ?>"><?php echo $row->ip; ?></a>
+		</td>
+		<td><a
+			href="<?php echo $link; ?>"><?php echo $row->user_id; ?></a>
+		</td>
+		<td>
+			<a 
+			href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=folder='.$row->folder.';'.$this->filter) ?>">+ Folder</a>
+			<br>
+			<a 
+			href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=file='.$row->file.';folder='.$row->folder.';'.$this->filter) ?>">+ Bild</a>
+			<br>
+			<a
+			href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=name='.$row->name.';'.$this->filter) ?>">+ Name</a>
+			<br>
+			<a
+			href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=ip='.$row->ip.';'.$this->filter) ?>">+ IP</a>
+			<br>
+			<a
+			href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=user_id='.$row->user_id.';'.$this->filter) ?>">+ User</a>
+		</td>		
+	</tr>
+	<?php
+	$k = 1 - $k;
+}
+?>
+</table>
+</div>
+
+<input type="hidden" name="option" value="com_eventgallery" /> <input
+	type="hidden" name="task" value="comments" /> <input type="hidden"
+	name="boxchecked" value="0" /> <?php echo $this->pageNav->getListFooter(); ?>
+
+
+</form>

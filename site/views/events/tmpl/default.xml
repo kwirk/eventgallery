@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Events">
+		<message>
+			<![CDATA[EVENTS LAYOUT]]>
+		</message>
+	</layout>
+	<fields name="params">
+		
+		<fieldset name="params" label="Events Layout">
+		
+				<field 	name="greetings" 
+				id="greetings" 
+				type="textarea" 
+				default="" 
+				label="Greeting" 
+				rows="3" 
+				cols="50" 
+				description="Begrüßungstext" 
+				/>
+		
+			<field name="tags" type="text" default="" label="Tags" description="Tags which are necessary to display a event." />
+		
+			<field name="max_events" type="text" default="0" label="Max Events on Page" description="0 = all events" />
+			
+			<field type="spacer" />
+			<field name="max_big_events" type="text" default="1" label="Max Big Events on Page" description="Big events are show with description" />
+			<field name="max_big_events_thumbnails" type="text" default="12" label="Number of Thumbnails" description="" />
+			<field name="max_big_events_thumbnails_width" type="text" default="50" label="Width of Thumbnails" description="" />
+			<field type="spacer" />
+			<field name="max_middle_events" type="text" default="3" label="Max Middle Events on Page" description="Middle Events are show with thumbnails but without description" />
+			<field name="max_middle_events_thumbnails" type="text" default="3" label="Number of Thumbnails" description="" />
+			<field name="max_middle_events_thumbnails_width" type="text" default="50" label="Width of Thumbnails" description="" />
+			<field name="use_slider" type="radio" default="0" label="Use Slider" description="shows middle Events in a kind of javascript-slider">
+				<option value="0">no</option>
+				<option value="1">yes</option>
+			</field>
+			<field type="spacer" />
+			<field name="show_thumbnails" type="radio" default="1" label="Show Thumbnails" description="">
+				<option value="0">hide</option>
+				<option value="1">show</option>
+			</field>
+			<field name="show_more_link" type="radio" default="1" label="Show More Link" description="">
+				<option value="0">hide</option>
+				<option value="1">show</option>
+			</field>
+		</fieldset>
+		<fieldset name="params" label="Event Layout">
+			<field
+				name="event_layout"
+				type="componentlayout"
+				label="Event Layout"
+				description="Choose the event layout"
+				menuitems="true"
+				extension="com_eventgallery"
+				view="event"
+				useglobal="false"
+				/>
+			<field 	name="image_array" 
+				id="image_array" 
+				type="textarea" 
+				default="50x50 50x50 50x50" 
+				label="Image Array for images on event page" 
+				rows="6" 
+				cols="50" 
+				description="Bildgrößen: BreitexHöhe, Leerzeichen für gleiche Zeile, Zeilenumbruch für nächste Zeile" />
+			<field name="page_width" id="page_width" type="text" default="600" label="Breite der Seite" />
+			<field type="spacer" />
+			<field type="spacer" />
+			<field type="spacer" />
+		</fieldset>
+	</fields>
+</metadata>

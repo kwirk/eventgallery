@@ -1,0 +1,55 @@
+<?php
+/**
+ * Hellos View for Hello World Component
+ * 
+ * @package    Joomla.Tutorials
+ * @subpackage Components
+ * @link http://dev.joomla.org/component/option,com_jd-wiki/Itemid,31/id,tutorials:components/
+ * @license		GNU/GPL
+ */
+
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die();
+
+jimport( 'joomla.application.component.view' );
+jimport( 'joomla.html.pagination');
+
+/**
+ * Hellos View
+ *
+ * @package    Joomla.Tutorials
+ * @subpackage Components
+ */
+class EventgalleryViewComments extends JViewLegacy
+{
+
+	function display($tpl = null)
+	{
+		
+		$app = JFactory::getApplication();
+		
+		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_COMMENTS' ), 'generic.png' );
+		JToolBarHelper::deleteList('Remove all comments?','removeComment','Remove');
+		JToolBarHelper::editList('editComment','Edit');
+		//JToolBarHelper::addNewX('editComment','New');
+		JToolBarHelper::publishList('Commentpublish');
+		JToolBarHelper::unpublishList('Commentunpublish');
+
+		
+		$model = $this->getModel();		
+		
+		
+		$filter = $app->getUserStateFromRequest('com_eventgallery.comments.filter','filter');       
+		$model->setState('com_eventgallery.comments.filter',$filter);
+				   
+		$pageNav = $model->getPagination();		
+		$items = $model->getItems();
+		
+		$this->assignRef('items',		$items);
+		$this->assignRef('pageNav', $pageNav);
+		$this->assignRef('filter', $filter);
+
+		parent::display($tpl);
+	}
+
+}

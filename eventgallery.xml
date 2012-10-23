@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0.0" method="upgrade">
+	<name>COM_EVENTGALLERY</name>
+	<author>Sven Blüge</author>
+	<creationDate>Nov 2012</creationDate>
+	<copyright></copyright>
+	<license></license>
+	<authorEmail>svenbluege@gmail.com</authorEmail>
+	<authorUrl>www.svenbluege.de</authorUrl>
+	<version>2.3.0</version>
+	<description>COM_EVENTGALLERY_XML_DESCRIPTION</description>
+	
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install/install.mysql.sql</file>
+		</sql>
+	</install>
+    <uninstall>
+	  <sql>
+	    <file charset="utf8" driver="mysql">sql/install/uninstall.mysql.sql</file>
+	  </sql>
+	</uninstall>
+
+	<files folder="site">
+		<folder>controllers</folder>
+		<folder>helpers</folder>
+		<folder>media</folder>
+		<folder>models</folder>
+		<folder>views</folder>		
+		<folder>language</folder>		
+		<filename>controller.php</filename>
+		<filename>eventgallery.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<administration>
+		<menu img="class:media">COM_EVENTGALLERY_MENU</menu>
+		<submenu>
+			<menu img="class:media"  link="option=com_eventgallery&amp;view=eventgallery">COM_EVENTGALLERY_MENU_EVENTS</menu>
+			<menu img="class:article"  link="option=com_eventgallery&amp;view=comments">COM_EVENTGALLERY_MENU_COMMENTS</menu>
+			<menu img="class:purge"  link="option=com_eventgallery&amp;task=clearCache">COM_EVENTGALLERY_MENU_CLEAR_CACHE</menu>
+			<menu img="class:clear"  link="option=com_eventgallery&amp;task=refreshDatabase">COM_EVENTGALLERY_MENU_SYNC_DATABASE</menu>
+		</submenu>		
+		<files folder="admin">
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>media</folder>
+			<folder>models</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<folder>sql</folder>
+			<filename>access.xml</filename>
+			<filename>eventgallery.php</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.sys.ini</language>
+		</languages>
+	</administration>
+	
+	<!-- UPDATESERVER DEFINITION -->
+	<updateservers>
+		<!-- Note: No spaces or linebreaks allowed between the server tags -->
+		<!-- <server type="extension" priority="1" name="Eventgallery Update Site">http://127.0.0.1:92/eventgallery-update.xml</server> -->
+	</updateservers>
+	
+</extension >

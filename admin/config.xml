@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+
+<fieldset name="Eventgallery" label="General">
+
+		<field 	name="adminmail" 
+				id="adminmail" 
+				type="text" 
+				default="" 
+				label="Admin-Mail" 
+				rows="3" 
+				cols="50" 
+				description="Email-Adresse mit Kommas getrennt." />
+		
+		
+		<field name="paging_images_count" id="paging_images_count" type="text" default="6" label="Anzahl Vorschaubilder auf Einzelbildseite" rows="3" cols="50" description="Gibt die Zahl der Vorschaubilder an, die insgesamt geholt werden, um die vorherigen/nachsten Bilder auf der Einzelbildansicht darzustellen" />
+		
+		<field name="use_comments" type="radio" default="0" label="use comments" description="Use Comments">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		
+
+		
+		<field name="use_autorotation" type="radio" default="0" label="use autorotation for images" description="maybe there are exif-informations in the image file. then we can use those informations to rotate the image automaticaly.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		
+		<field name="use_watermark" type="radio" default="0" label="use watermark for single-images (not thumbs)" description="you can use watermarks for logo, title for you single images. This is not for Thumbnails!">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		
+		<field name="singleimage_preview" type="radio" default="slider" label="choose which kind of preview you want on a singleimage-page" description="">
+			<option value="none">none</option>
+			<option value="slider">Slider</option>
+			<option value="zoomer">Zoomer</option>
+		</field>
+		
+	
+	
+</fieldset>
+<fieldset name="accesscontrol" label="Permissions">
+ 
+		<field name="asset_id" type="hidden" filter="unset" /> 
+ 
+		<field
+			name="rules"
+			type="rules"
+			label="Permissions"
+			translate_label="false"
+			filter="rules"
+			validate="rules"
+			class="inputbox"
+			component="com_eventgallery"
+			section="component" />
+	</fieldset>
+</config>
