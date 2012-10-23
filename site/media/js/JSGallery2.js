@@ -370,7 +370,7 @@ var JSGallery2 = new Class({
 	 * @param {integer} index of the thumbnail, starting with 0
 	 */
 	selectByIndex: function(index) {
-		this.mouseLeaveHandler();
+		//this.mouseLeaveHandler();
 		if(index < 0 || this.thumbs.length <= index) {
 			index = 0;
 		}
@@ -411,7 +411,7 @@ var JSGallery2 = new Class({
 			if($defined($(this.options.titleTarget))) {
 				$(this.options.titleTarget).set('html', newText);
 			}
-			this.mouseLeaveHandler();
+			//this.mouseLeaveHandler();
 			effect.start('opacity', 1).chain(this.unBlockKeys.bind(this));
 			
 			// tack page event
