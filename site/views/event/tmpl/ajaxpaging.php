@@ -25,7 +25,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 var resizePage = function() {
 	var size = $$('.ajaxpaging .navigation').getLast().getSize();
 	$$('.navigation .page').setStyle('width',size.x+"px");
-	myGallery.gotoPage(myGallery.currentPageNumber);
+	if (myGallery != undefined) {
+		myGallery.gotoPage(myGallery.currentPageNumber);
+	}
+	
 };
 
 window.addEvent('load', resizePage);

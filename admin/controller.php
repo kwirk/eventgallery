@@ -384,10 +384,9 @@ class EventgalleryController extends JControllerLegacy
 		$model = $this->getModel('file');
 		$model->publish(1);
 
-		#$file = & $model->getData();
+		$file = & $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_UNPUBLISHED' );
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
 	
 	/**
@@ -397,14 +396,11 @@ class EventgalleryController extends JControllerLegacy
 	 */	
 	function Fileunpublish()
 	{
-		
 		$model = $this->getModel('file');
 		$model->publish(0);
-
-		#$file = & $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_PUBLISHED' );
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid='.JRequest::getVar('folderid'), $msg );
+		$file = & $model->getData();
+		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_PUBLISHED' );	
+		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
 	
 	/**
@@ -420,7 +416,8 @@ class EventgalleryController extends JControllerLegacy
 		$file = & $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_ENABLE_FOR_FILE' );
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid='.JRequest::getVar('folderid'), $msg );
+
+		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
 	
 	/**
@@ -436,7 +433,7 @@ class EventgalleryController extends JControllerLegacy
 		$file = & $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_DISABLE_FOR_FILE' );
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}	
 	
 	/**

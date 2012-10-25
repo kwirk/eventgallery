@@ -2,14 +2,14 @@
 <form action="index.php" method="post" id="adminForm" name="adminForm">
 
 <div id="editcell">
-	<table class="adminlist">
+	<table class="adminlist table table-striped">
 	<thead>
 		<tr>
 			<th width="5">
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ID' ); ?>
 			</th>
-			<th width="20">
-				<?php echo JText::_('COM_EVENTGALLERY_EVENTS_UPLOAD'); ?>
+			<th class="nowrap" width="1%">
+				
 			</th>
 			<th>
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_FOLDERNAME' ); ?>
@@ -20,11 +20,7 @@
 			<th>
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ORDER' ); ?> 
 				<?php echo JHTML::_('grid.order',  $this->items, 'filesave.png', 'saveEventOrder' ); ?>	
-			</th>
-			<th width="50">
-				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PUBLISHED' ); ?>
-			</th>		
-				
+			</th>				
 			<th>
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_DESCRIPTION' ); ?>
 			</th>
@@ -34,13 +30,13 @@
 			<th>
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PICASA_KEY' ); ?>
 			</th>
-			<th>
+			<th class="nowrap">
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_EVENT_DATE' ); ?>
 			</th>
-			<th>
+			<th class="nowrap">
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_COMMENTS' ); ?>
 			</th>
-			<th>
+			<th class="nowrap">
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_MODIFIED_BY' ); ?>
 			</th>
 			
@@ -52,7 +48,8 @@
 	{
 		$row = &$this->items[$i];		
 		$checked 	= JHTML::_('grid.id',   $i, $row->id );
-		$published =  JHTML::_('grid.published', $row, $i );
+		$published =  JHTML::_('jgrid.published', $row->published, $i );
+		#$published = JHtml::_('jgrid.published', $row->published, $i, 'articles.', true, 'cb', $row->publish_up, $row->publish_down);
 		$link 		= JRoute::_( 'index.php?option=com_eventgallery&task=edit&cid[]='. $row->id );
 		$uploadlink = JRoute::_( 'index.php?option=com_eventgallery&task=upload&cid[]='. $row->id );
 
@@ -62,9 +59,12 @@
 				<a href="<?php echo $link; ?>"><?php echo $row->id; ?></a>
 			</td>
 			<td>
-				<a href="<?php echo $uploadlink; ?>">
-					<?php echo JHTML::_('image','menu/icon-16-upload.png', 'sss', array('border' => 0), true); ?>
-				</a>
+				<div class="btn-group">
+					<?php echo $published; ?>
+					<a href="<?php echo $uploadlink; ?>" class="btn btn-micro">
+						<i class="icon-upload"></i>					
+					</a>
+				</div>				
 			</td>
 			<td>
 				<a href="<?php echo $link; ?>"><?php echo $row->folder; ?></a>
@@ -72,16 +72,15 @@
 			<td>
 				<?php echo $checked; ?>
 			</td>
-			<td class="order">
+			<td class="order nowrap">
 				
+				
+				<?php $disabled = $this->ordering ?  '' : 'disabled="disabled"'; ?>						
+				<input type="number" name="order[]" size="3"  value="<?php echo $row->ordering; ?>" <?php echo $disabled; ?> class="input-mini" style="text-align: center" />
 				<span><?php echo $this->pageNav->orderUpIcon( $i, true, 'orderEventUp', 'JLIB_HTML_MOVE_UP', $this->ordering); ?></span>
 				<span><?php echo $this->pageNav->orderDownIcon( $i, $n, true, 'orderEventDown', 'JLIB_HTML_MOVE_UP', $this->ordering ); ?></span>
-				<?php $disabled = $this->ordering ?  '' : 'disabled="disabled"'; ?>						
-				<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" <?php echo $disabled; ?> class="text_area" style="text-align: center" />
 			</td>
-			<td>
-				<?php echo $published; ?>
-			</td>
+
 			<td>
 				<a href="<?php echo $link; ?>"><?php echo $row->description; ?></a>
 			</td>
@@ -91,16 +90,16 @@
 			<td>
 				<a href="<?php echo $link; ?>"><?php echo $row->picasakey; ?></a>
 			</td>
-			<td>
-				<?php echo JHTML::Date($row->date, JText::_('DATE_FORMAT_LC1')); ?><br>		
+			<td class="nowrap">
+				<?php echo JHTML::Date($row->date, JText::_('DATE_FORMAT_LC3')); ?><br>		
 			</td>			
-			<td>
+			<td class="center">
 				<a href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=folder='.$row->folder) ?>">
-					<?php echo $row->commentCount ?> Kommentare
+					<?php echo $row->commentCount ?>
 				</a>
 			</td>
 			<td>
-				<?php $user = JFactory::getUser($row->userid); echo $user->name;?>, <?php echo JHTML::Date($row->lastmodified,JText::_('DATE_FORMAT_LC2')) ?>
+				<?php $user = JFactory::getUser($row->userid); echo $user->name;?>, <?php echo JHTML::Date($row->lastmodified,JText::_('DATE_FORMAT_LC3')) ?>
 			</td>
 			
 		</tr>

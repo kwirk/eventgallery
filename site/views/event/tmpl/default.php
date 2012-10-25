@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			rowHeight: 100,
 			rowHeightJitter: 0,
 			firstImageRowHeight: 1,
-			eventgallerySelector: '.imagelist',
+			eventgallerySelector: '.thumbnails',
 			eventgalleryImageSelector: '.thumbnail',
 			initComplete: function() {
 				lazyloader = new LazyLoad({ 
@@ -34,7 +34,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 			},
 			resizeStart: function() {
-				$$('.imagelist img').setStyle('opacity',0);
+				$$('.thumbnails img').setStyle('opacity',0);
 			
 			
 			},
@@ -84,7 +84,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	
 	<div style="clear:both"></div>
 		
-	<div class="imagelist">
+	<div class="thumbnails">
 		<?php foreach($this->entries as $entry) :?>
 			    <?php $this->assign('entry',$entry)?>
 			    

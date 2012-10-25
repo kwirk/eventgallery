@@ -97,33 +97,34 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<?php ENDIF ?>
 	<a name="image"></a>
 
-	
-	<a href="<?php echo JRoute::_("index.php?view=event&folder=".$this->model->folder->folder."&limitstart=".$this->model->currentLimitStart); ?>"><img title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_OVERVIEW') ?>" src="<?php echo JURI::base().'components/com_eventgallery/media/images/blank.gif'; ?>" class="button_uebersicht"></a> 
+<div class="btn-group">
+	<a class="btn" href="<?php echo JRoute::_("index.php?view=event&folder=".$this->model->folder->folder."&limitstart=".$this->model->currentLimitStart); ?>" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_OVERVIEW') ?>"><i class="icon-list"></i></a> 
 	
 	<?php IF ($this->model->firstFile): ?>
-	<a href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->firstFile->folder."&file=".$this->model->firstFile->file) ?>#image"><img title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_START') ?>" src="<?php echo JURI::base().'components/com_eventgallery/media/images/blank.gif'; ?>" class="button_start"></a> 
+		<a class="btn" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->firstFile->folder."&file=".$this->model->firstFile->file) ?>#image" title="title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_START') ?>""><i class="icon-fast-backward"></i></a> 
 	<?php ENDIF ?>
 	
 	<?php IF ($this->model->prevFile): ?>
-	<a id="prev_image" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->prevFile->folder."&file=".$this->model->prevFile->file) ?>#image"><img title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_PREV') ?>" src="<?php echo JURI::base().'components/com_eventgallery/media/images/blank.gif'; ?>" class="button_zurueck"></a> 
+		<a class="btn" id="prev_image" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->prevFile->folder."&file=".$this->model->prevFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_PREV') ?>"><i class="icon-backward"></i></a> 
 	<?php ENDIF ?>
 	
 	<?php IF ($this->model->nextFile): ?>
-	<a id="next_image" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->nextFile->folder."&file=".$this->model->nextFile->file) ?>#image"><img title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_NEXT') ?>" src="<?php echo JURI::base().'components/com_eventgallery/media/images/blank.gif'; ?>" class="button_vor"></a> 
+		<a class="btn" id="next_image" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->nextFile->folder."&file=".$this->model->nextFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_NEXT') ?>"><i class="icon-forward"></i></a> 
 	<?php ENDIF ?>
 	
 	<?php IF ($this->model->lastFile): ?>
-	<a href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->lastFile->folder."&file=".$this->model->lastFile->file) ?>#image"><img title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_END') ?>" src="<?php echo JURI::base().'components/com_eventgallery/media/images/blank.gif'; ?>" class="button_ende"></a>
+		<a class="btn" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->lastFile->folder."&file=".$this->model->lastFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_END') ?>"><i class="icon-fast-forward"></i></a>
 	<?php ENDIF ?>
 	
 	<?php IF ($this->model->file->allowcomments==1 && $this->use_comments==1): ?>	
-		 <a href="#" id="toggle_comment"><img title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_COMMENT') ?>" src="<?php echo JURI::base().'components/com_eventgallery/media/images/blank.gif'; ?>" class="button_kommentar"></a>
+		 <a class="btn" href="#" id="toggle_comment" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_COMMENT') ?>"><i class="icon-comment"></i></a>
 	<?php ENDIF ?>
 		
-	<a href="<?php echo $this->model->file->getImageUrl(null, null, true) ?>" rel="lightbo2"><img title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_ZOOM') ?>" src="<?php echo JURI::base().'components/com_eventgallery/media/images/blank.gif'; ?>" class="button_lupe"></a>
+	<a class="btn" href="<?php echo $this->model->file->getImageUrl(null, null, true) ?>" rel="lightbo2" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_ZOOM') ?>"><i class="icon-zoom-in"></i></a>
 	<?php IF (isset($this->model->file->hits)): ?>		
-		<div class="hits"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_HITS') ?> <?php echo $this->model->file->hits?></div>
+		<div  class="btn"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_HITS') ?> <?php echo $this->model->file->hits?></div>
 	<?php ENDIF ?>
+</div>
 	<br>
 	<?php echo $this->loadTemplate('commentform');?>	
 	<br>

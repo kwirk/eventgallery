@@ -24,6 +24,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			rowHeight: 150,
 			rowHeightJitter: 50,
 			firstImageRowHeight: 2,
+			eventgallerySelector: '.thumbnails',
+			eventgalleryImageSelector: '.thumbnail',
 			initComplete: function() {
 				lazyloader = new LazyLoad({ 
 				    range: 100, 
@@ -43,7 +45,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				});
 			},
 			resizeStart: function() {
-				$$('.imagelist img').setStyle('opacity',0);
+				$$('.thumbnails img').setStyle('opacity',0);
 			
 			
 			},
@@ -100,10 +102,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		$layout_col=0;
 	?>
 	
-	<div class="imagelist">
+	<div class="thumbnails">
 		<?php foreach($this->entries as $entry) :?>
 		    <?php $this->assign('entry',$entry)?>
-	    	<a class="imagelink" href="<?php echo $this->entry->getImageUrl(null, null, true); ?>"
+	    	<a class="thumbnail pull-left" href="<?php echo $this->entry->getImageUrl(null, null, true); ?>"
 	            title="<?php echo $entry->caption?><?PHP IF(isset($entry->exif)):?><br /><?php echo $entry->exif->model?>, <?php echo $entry->exif->focallength?> mm, f/<?php echo $entry->exif->fstop?>, ISO <?php echo $entry->exif->iso?><?php ENDIF ?>";
 	            rel="lightbo2[gallery]"><?php echo $this->entry->getLazyThumbImgTag($layout[$layout_row][$layout_col]['w'], $layout[$layout_row][$layout_col]['h']);?>
 			    <noscript>

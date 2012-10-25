@@ -144,9 +144,6 @@
 }
 
 #event .thumbnail .details {
-	border: 5px solid #fff;
-	/*box-shadow:5px 5px 5px #222;*/
-	border-radius: 5px;
 	z-index: 100;
     position: absolute;
     width: 100%;
@@ -166,9 +163,7 @@
 }
 
 .imagelist img {
-	border: 5px solid #000;
-	box-shadow: 1px 1px 3px #000;
-	margin: 0px;
+	
 }
 
 /* Event - Ajaxpaging */

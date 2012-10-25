@@ -35,7 +35,7 @@ class EventgalleryModelEvent extends JModelLegacy
 
 	function &getFiles()
     {
-    	
+
         $query = 'SELECT file.*, IF (isNull(comment.id),0,sum(1)) commentCount
         	  from #__eventgallery_file file join #__eventgallery_folder folder on folder.folder=file.folder
         	  left join #__eventgallery_comment comment on file.folder=comment.folder and file.file=comment.file
@@ -47,6 +47,10 @@ class EventgalleryModelEvent extends JModelLegacy
 
 		$limit		= $this->getState('limit');
         $limitstart = $this->getState('com_eventgallery.event.limitstart');
+   		if ($limitstart>$this->getTotal($this->_id)) {
+			$limitstart = 0;
+		}
+
         $entries = $this->_getList($query, $limitstart, $limit);
 		
 		if (strpos($this->_data->folder,'@')>-1) {
