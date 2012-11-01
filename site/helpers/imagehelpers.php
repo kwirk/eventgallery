@@ -50,28 +50,4 @@ function calcImagesize($im, $color)
 	return $scale;
 }
 
-/**
- * Determine EXIF-Informations from a given image-File
- * 
- * @param $image_file the imagefile including the path
- * @return Array with EXIF-Informations
- */
-function getExif($image_file)
-{
-	$Toolkit_Dir = JPATH_COMPONENT.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'exif'.DIRECTORY_SEPARATOR ;     // Ensure dir name includes trailing slash
-	//Hide any unknown EXIF tags
-	$GLOBALS['HIDE_UNKNOWN_TAGS'] = TRUE;
-	include_once $Toolkit_Dir . 'Toolkit_Version.php';          // Change: added as of version 1.11
-	include_once $Toolkit_Dir . 'JPEG.php';                     // Change: Allow this example file to be easily relocatable - as of version 1.11
-	include_once $Toolkit_Dir . 'JFIF.php';
-	include_once $Toolkit_Dir . 'PictureInfo.php';
-	include_once $Toolkit_Dir . 'XMP.php';
-	include_once $Toolkit_Dir . 'Photoshop_IRB.php';
-	include_once $Toolkit_Dir . 'EXIF.php';
-	
-	$exif = @get_EXIF_JPEG($image_file);
-	
-	return $exif;
-        
-}
 ?>
