@@ -9,12 +9,12 @@ class com_eventgalleryInstallerScript
 	/*
 	 * The release value to be displayed and checked against throughout this file.
 	 */
-	private $release = '2.3.0';
+	private $release = '2.4.0';
  
 	/*
 	 * Find mimimum required joomla version for this extension. It will be read from the version attribute (install tag) in the manifest file
 	 */
-     private $minimum_joomla_release = '2.5.0';    
+     private $minimum_joomla_release = '3.0.0';    
  
 	/*
 	 * $parent is the class calling this method.

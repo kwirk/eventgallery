@@ -1,9 +1,7 @@
 <?php
 
 jimport('joomla.application.component.controller');
-require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'multi_bit_shift_helper.php');
-require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'validate_mbs_file.php');
-require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'uploaded_files_helpers.php');
+
 
 class EventgalleryController extends JControllerLegacy
 {
@@ -282,6 +280,7 @@ class EventgalleryController extends JControllerLegacy
 			foreach($files as $file)
 			{
 				@list($width, $height, $type, $attr) = getimagesize($maindir.$folder.DIRECTORY_SEPARATOR.$file);
+
 				
 				$query = "insert IGNORE into #__eventgallery_file set folder='$folder', file='$file', width='$width', height='$height', published=1";
 				$db->setQuery($query);
@@ -509,27 +508,87 @@ class EventgalleryController extends JControllerLegacy
 		$view->display();
 	}
 	
-	/**
-	 * function to remove a file from db an filesystem
-	 * @return unknown_type
-	 */
-	function removeFile()
-	{
- 		$path=JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR.JRequest::getVar('folder').DIRECTORY_SEPARATOR ;
-	    $path=str_replace('..','',$path);
+
+
+	function uploadFileByAjax() {
+
+		$user =& JFactory::getUser();
+
+		$path = JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery';
+		@mkdir($path, 0777);
 		
-		while (list($key, $val) = each($_REQUEST['file'])) {
-		    if (file_exists($path.$val)) {
-		    	unlink($path.$val);
-		    	$db =& JFactory::getDBO();
-		    	$query = "delete from #__eventgallery_file where folder='".JRequest::getVar('folder')."' and file='".$val."'";		    	
-				$db->setQuery($query);
-				$db->query();
-		    }
+		
+		$folder = JRequest::getVar('folder');
+		$folder=str_replace('..','',$folder);
+
+		$path=$path.DIRECTORY_SEPARATOR.$folder.DIRECTORY_SEPARATOR ;
+		@mkdir($path, 0777);
+
+
+		$fn = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SERVER['HTTP_X_FILENAME'] : false);
+		$fn = str_replace('..','',$fn);
+
+		$uploadedFiles = Array();
+
+		$ajaxMode = false;
+
+		if ($fn) {
+
+			// AJAX call
+			$ajaxMode = true;
+			file_put_contents(
+				$path. $fn,
+				file_get_contents('php://input')
+			);
+			#echo "$fn uploaded in folder $folder";
+			echo '<img class="thumbnail" src="'.JURI::base().("../components/com_eventgallery/helpers/image.php?view=resizeimage&folder=".$folder."&file=".$fn."&option=com_eventgallery&width=100&height=50").'" />';
+			array_push($uploadedFiles, $fn);
+
 		}
-		echo "<success/>";	
+		else {
+
+			// form submit
+			$files = $_FILES['fileselect'];
+
+			foreach ($files['error'] as $id => $err) {
+				if ($err == UPLOAD_ERR_OK) {
+					$fn = $files['name'][$id];
+					$fn = str_replace('..','',$fn);
+					move_uploaded_file(
+						$files['tmp_name'][$id],
+						$path. $fn
+					);
+					array_push($uploadedFiles, $fn);
+				}
+			}
+
+		}
+
+		$db =& JFactory::getDBO();
+		foreach($uploadedFiles as $uploadedFile) {
+			if (file_exists($path.$uploadedFile)) {
+			
+				
+				@list($width, $height, $type, $attr) = getimagesize($path.$uploadedFile);
+				
+				$query = "REPLACE into #__eventgallery_file set 
+							folder=".$db->Quote($folder).", 
+							file=".$db->Quote($uploadedFile).",
+							width=".$db->Quote($width).",
+							height=".$db->Quote($height).",
+							userid=".$db->Quote($user->id);
+
+				$db->setQuery($query);
+				$db->query();			
+			} 
+		}
+
+		if (!$ajaxMode) {
+			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_COMPLETE' );
+			$this->setRedirect( 'index.php?option=com_eventgallery&task=upload', $msg );
+		}
+
 	}
-	
 	/**
 	 * function to provide the upload-View 
 	 * @return unknown_type

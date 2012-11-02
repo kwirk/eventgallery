@@ -8,8 +8,7 @@ require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'captcha.php');
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'imagehelpers.php');
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'picasa.php');
-require_once(JPATH_COMPONENT_ADMINISTRATOR.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'validate_mbs_file.php');
-require_once(JPATH_COMPONENT_ADMINISTRATOR.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'uploaded_files_helpers.php');
+
 
 class EventgalleryController extends JControllerLegacy
 {
@@ -127,65 +126,6 @@ class EventgalleryController extends JControllerLegacy
 			$view->display();
 		}
 	}
-
-	function uploadFile()
-	{
-		$validate = new ValidateMbsFile("files");
-
-		$path = JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery';
-		@mkdir($path, 0777);
-		
-		$folder = JRequest::getVar('folder');
-		$folder=str_replace('..','',$folder);
-		$path=$path.DIRECTORY_SEPARATOR.$folder.DIRECTORY_SEPARATOR ;
-		
-	  
-		$token = JRequest::getString('token');
-	  
-		$db =& JFactory::getDBO();		
-		$query = "select * from #__eventgallery_token 
-		          where token=".$db->Quote($token)." 
-		            and folder=".$db->Quote($folder)." 
-		            and now()-date<6000";
-		
-		$db->setQuery($query);
-		$result = $db->loadObject();
-	
-		if ($db->getAffectedRows()==1)
-		{
-			@mkdir($path, 0777);
-
-			$uploadfile = $path.basename($_FILES['Filedata']['name']);
-
-			if (!file_exists($uploadfile)&&@move_uploaded_file($_FILES['Filedata']['tmp_name'], $uploadfile)) {
-				if ($validate->validate_file($uploadfile, files_on_server($_REQUEST['folder']))) {
-					
-					@list($width, $height, $type, $attr) = getimagesize($uploadfile);
-					
-					$query = "insert into #__eventgallery_file set 
-								folder=".$db->Quote($result->folder).", 
-								file=".$db->Quote(basename($_FILES['Filedata']['name'])).",
-								width=".$db->Quote($width).",
-								height=".$db->Quote($height).",
-								userid=".$db->Quote($result->userid);
-					$db->setQuery($query);
-					$db->query();
-
-					echo "<success/>";
-				} else {
-					unlink($uploadfile);
-					header("HTTP/1.1 409 Conflict", true, 409);
-				}
-			} else {
-				header("HTTP/1.1 409 Conflict", true, 409);
-			}
-		}
-		else
-		{
-			header("HTTP/1.1 408 Conflict", true, 409);
-		}
-	}
-	
 
 	function displayCaptcha() 
 	{

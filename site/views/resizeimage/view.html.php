@@ -85,21 +85,7 @@ class EventgalleryViewResizeimage extends JViewLegacy
 		if ($debug || !file_exists($image_thumb_file))
 		{
 
-		 	$exif = getExif($image_file);          
-            # get the rotation information from exif
-            $rotation = @$exif['0']['274']['Data']['0'];
-            
-            switch ($rotation)
-            {
-            	case 3: {$rotation=180; break;}
-            	case 6: {$rotation=270; break;}
-            	case 8: {$rotation=90;  break;}
-            	default: $rotation = 0;          	
-            }
-			
-			
-			#echo $rotation;
-			#die();
+		 	
 			$ext = substr($image_file, -3);
 
 			if (strtolower($ext) == "gif") {
@@ -117,14 +103,8 @@ class EventgalleryViewResizeimage extends JViewLegacy
 			} else {
 				die;
 			}
-
 		
-
-			$params	 = &$app->getParams();
-			$use_autorotation = $params->get('use_autorotation');
-			if ($use_autorotation==1) {	
-				$im_original= imagerotate($im_original,$rotation,0xFFFFFF);
-			}
+			$params	 = &$app->getParams();			
 
 			$orig_width = imagesx($im_original);
             $orig_height = imagesy($im_original);

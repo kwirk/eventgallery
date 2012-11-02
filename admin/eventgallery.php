@@ -11,6 +11,11 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+if (!JFactory::getUser()->authorise('core.manage', 'com_eventgallery'))
+{
+	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+}
+
 // Require the base controller
 require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controller.php');
 

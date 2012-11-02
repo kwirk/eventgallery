@@ -1,3 +1,5 @@
+drop table IF EXISTS `#__eventgallery_token`;
+
 CREATE TABLE IF NOT EXISTS `#__eventgallery_comment` (
   `id` int(11) NOT NULL auto_increment,
   `file` varchar(125) NOT NULL,

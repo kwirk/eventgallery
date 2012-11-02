@@ -169,7 +169,7 @@
 			    </div>	
 			</td>
 			<td>
-				<a href="<?php echo $link; ?>"><?php echo $row->caption; ?></a>
+				<?php echo $row->caption; ?>
 			</td>
 			<td class="center">
 				<a href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=folder='.$row->folder) ?>">

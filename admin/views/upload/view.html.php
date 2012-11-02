@@ -15,7 +15,7 @@ class EventgalleryViewUpload extends JViewLegacy
 		
 		JToolBarHelper::title(   JText::_( 'Event' ).': <small><small>[ upload ]</small></small>' );
 
-		JToolBarHelper::back('Back', 'javascript:history.back()');
+		JToolBarHelper::cancel( 'cancelEvent', 'Close' );
 
 		$this->assignRef('event',		$event);
 		$this->assignRef('files',		$files);
