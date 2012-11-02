@@ -610,7 +610,7 @@ class EventgalleryController extends JControllerLegacy
 	{
 		
 		$path=JPATH_BASE.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'com_eventgallery';
-		removeDir($path);
+		rrmDir($path);
 		$msg = JText::_( 'COM_EVENTGALLERY_CLEAR_CACHE_DONE' );
 		$this->setRedirect( 'index.php?option=com_eventgallery', $msg );
 	}
@@ -667,5 +667,15 @@ class EventgalleryController extends JControllerLegacy
 		
 		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid='.JRequest::getVar('folderid'), $msg );		
 	}
+}
+
+function rrmdir($dir) {
+    foreach(glob($dir . '/*') as $file) {
+        if(is_dir($file))
+            rrmdir($file);
+        else
+            unlink($file);
+    }
+    rmdir($dir);
 }
 ?>
