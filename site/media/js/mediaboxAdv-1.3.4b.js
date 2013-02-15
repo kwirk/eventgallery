@@ -143,7 +143,7 @@ var Mediabox;
 
 			margin = center.getStyle('padding-left').toInt()+image.getStyle('margin-left').toInt()+image.getStyle('padding-left').toInt();
 
-			if ((Browser.firefox) && (Browser.Engine.version<2)) {	// Fixes Firefox 2 and Camino 1.6 incompatibility with opacity + flash
+			if ((Browser.firefox) && (Browser.Engine) && (Browser.Engine.version<2)) {	// Fixes Firefox 2 and Camino 1.6 incompatibility with opacity + flash
 				foxfix = true;
 				options.overlayOpacity = 1;
 				overlay.className = 'mbOverlayFF';

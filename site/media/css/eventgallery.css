@@ -158,11 +158,11 @@
 
 /* Event - Imagelist */
 
-.imagelist a{
+.thumbnails a{
 	float: left;
 }
 
-.imagelist img {
+.thumbnails img {
 	
 }
 
