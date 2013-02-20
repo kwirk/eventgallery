@@ -46,11 +46,15 @@ class EventgalleryModelSingleimage extends JModelLegacy
 	    	
 	    	$files = Array();
 	    	
+            // picasa files are not stored in the database
+            $countHits = true;
+
 	    	if (strpos($folder,'@')>-1) {
 				$values = explode("@",$folder,2);
 				$picasakey = $this->folder->picasakey;
 				$album = picasaweb_ListAlbum($values[0], $values[1], $picasakey);
 				$files = $album->photos;
+                $countHits = false;
 			} else {
 	    	
 	    	    $db =& JFactory::getDBO();
@@ -71,6 +75,8 @@ class EventgalleryModelSingleimage extends JModelLegacy
         	
             $i=0;
             $filesCount = count($files);
+
+
             foreach($files as $file)
             {
                 if (strcmp($file->file,$filename)==0)
@@ -78,10 +84,12 @@ class EventgalleryModelSingleimage extends JModelLegacy
                     /**
                      * Update Hits
                      */
-                    $table = $this->getTable('File');
-                    $table->bind($file);
-                    $table->hits++;
-                    $table->store(); 
+                    if ($countHits == true) {
+                        $table = $this->getTable('File');
+                        $table->bind($file);
+                        $table->hits++;
+                        $table->store(); 
+                    }
             
                     /**
                      * Set Data
