@@ -3,7 +3,7 @@ defined('_JEXEC') or die('Restricted access');
 $cache = & JFactory::getCache();
 ?>
 
-
+<?php include 'components/com_eventgallery/views/cart.php'; ?>
 <div id="events">
 	<p class="greetings"><?php echo $this->params->get('greetings'); ?></p>	
 

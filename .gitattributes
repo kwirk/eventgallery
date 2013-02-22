@@ -157,6 +157,10 @@ site/models/index.html -text
 site/models/singleimage.php -text
 site/router.php -text
 site/views/cart.php -text
+site/views/cart/index.html svneol=native#text/html
+site/views/cart/tmpl/default.php -text
+site/views/cart/tmpl/index.html svneol=native#text/html
+site/views/cart/view.html.php -text
 site/views/checkout/index.html svneol=native#text/html
 site/views/checkout/tmpl/default.php -text
 site/views/checkout/tmpl/index.html svneol=native#text/html

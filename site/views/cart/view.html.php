@@ -4,7 +4,7 @@
 jimport( 'joomla.application.component.view');
 
 
-class EventgalleryViewCheckout extends JViewLegacy
+class EventgalleryViewCart extends JViewLegacy
 {
 	function display($tpl = null)
 	{		
@@ -45,7 +45,7 @@ class EventgalleryViewCheckout extends JViewLegacy
 		$this->assign('params', $params);
 		
 		$pathway =& JSite::getPathWay();		
-		$pathway->addItem(JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH'));
+		$pathway->addItem(JText::_('COM_EVENTGALLERY_CART_PATH'));
 		
 		$this->_prepareDocument();
 		
@@ -73,7 +73,7 @@ class EventgalleryViewCheckout extends JViewLegacy
 
 		$title = $this->params->get('page_title', '');
 
-		$title .= " - ".JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH');
+		$title .= " - ".JText::_('COM_EVENTGALLERY_CART_PATH');
 
 
 		// Check for empty title and add site name if param is set

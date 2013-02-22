@@ -482,7 +482,10 @@ div.img:hover .button-alreadyInCart i.big
 	text-align: right;
 }		
 
-.eventgallery-cart .cart-items img{
+.eventgallery-cart .cart-items img,
+.eventgallery-checkout .cart-items img,
+.eventgallery-checkout .cart-items input
+{
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #666;
@@ -513,3 +516,19 @@ div.img:hover .button-alreadyInCart i.big
 	float: left;
 	width: 100%;
 }
+
+.eventgallery-checkout .cart-item {
+	padding: 20px;
+	float:left;
+}
+
+.eventgallery-checkout fieldset  {
+	border: 1px solid #666;
+	padding: 20px 0px;
+	margin-bottom: 20px;
+}
+
+.eventgallery-checkout .invalid {	
+	background-color: #600;
+}
+

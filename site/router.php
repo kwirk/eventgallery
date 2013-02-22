@@ -40,9 +40,6 @@ function EventgalleryBuildRoute(&$query)
 	        unset( $query['file'] );
 	};
 	
-     
-    
-	
 
 	return $segments;
 }
