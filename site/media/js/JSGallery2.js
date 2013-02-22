@@ -146,9 +146,6 @@ var JSGallery2 = new Class({
 			'styles': {
 				'right': '0px', 
 				'background-image': 'url(' + this.options.next_image + ')',
-
-
-
 			}
 		});
 		this.prevLink.setStyle('left', 0);
@@ -157,7 +154,28 @@ var JSGallery2 = new Class({
 		    this.focusControl(e, this.nextLink);
 		}.bind(this));
 	
+		this.add2cartLink = new Element('a', {
+		    href: '#',
+		    'class': 'eventgallery-add2cart',
+		    html: '<i class="big"></i>',
+		    id: 'ajax-add2cartbuttoncount',
+		    styles: {
+		    	'font-size': '59px',
+		    	'right': '0px', 
+		    	'z-index': 999,
+		    	'position' : 'absolute',
+		    	'display' : 'block',
+		    	'right': '10px', 
+		    	'top': '10px'
+		    }
+		});
+
+		this.add2cartLink.addEvent('click',function(e) {
+			
+		}.bind(this));
 		
+		this.bigImage.getParent().grab(this.add2cartLink);
+
 		this.bigImage.addEvents({
 			'mousemove': this.mouseOverHandler.bind(this),
 			'mouseleave': this.mouseLeaveHandler.bind(this)
@@ -215,6 +233,11 @@ var JSGallery2 = new Class({
 	 * @param {Event} event
 	 */
 	keyboardHandler: function(event){
+		if (Mediabox && Mediabox.isActive() 
+	        		 && mediaBoxImages 
+	        		 && mediaBoxImages[0][2]=='cart') {
+	     		return;
+	    }
 		if(!this.blockKeys) {
 			if(event.code >= 49 && event.code <= 57) {
 				this.gotoPage(event.key - 1);
@@ -263,6 +286,7 @@ var JSGallery2 = new Class({
 		thumbContainer.addEvent('click', this.select.bind(this, thumbContainer)).setStyle('position', 'relative').set('counter', count);
 		var bigImage = thumbContainer.getFirst().set('href', 'javascript: void(0);').get('rel');
 		var fullSizeImage = thumbContainer.getFirst().get('longdesc');
+		var id = thumbContainer.getFirst().get('data-id');
 		var border = new Element('div', {
 			styles: {
 				'border': this.options.borderWidthDeselected + 'px solid ' + this.options.borderColor,
@@ -274,6 +298,7 @@ var JSGallery2 = new Class({
 				'left': 0
 			},
 			'rel': bigImage,
+			'data-id': id,
 			'longdesc': fullSizeImage,
 			'description': decodeURI(thumbContainer.getElements('img')[0].get('title'))
 		}).inject(thumbContainer, 'top').setStyle('opacity', this.options.loadingOpacity);
@@ -293,6 +318,8 @@ var JSGallery2 = new Class({
 		if(this.blockKeys || !$defined(container)) {
 			return false;
 		}
+
+
 		this.blockKeys = true;
 		if($defined(this.selectedContainer)) {
 			//this prevents an ugly effect if you click on the currently selected item
@@ -329,6 +356,13 @@ var JSGallery2 = new Class({
 		});
 		var source = container.getFirst();
 	
+		// prepare the add2cart button
+		this.add2cartLink.set('data-id', source.get('data-id'));
+		
+		$(document.body).fireEvent('updatecartlinks');
+		
+		
+		// now lets set the image
 		this.setImage(source.get('rel'), source.get('longdesc'), source.get('description'));
 		
 	},
@@ -392,9 +426,17 @@ var JSGallery2 = new Class({
 	 *	@param {String} newSrc, new target of the full size image
 	 *	@param {String} newText, new text for the info element
 	 */
-	setImage: function(newSrc, newFullSizeImage, newText) {
-		var effect = new Fx.Tween(this.bigImage, {duration: this.options.fadeSpeed, transition: Fx.Transitions.Quad.easeOut});
-		effect.start('opacity', 0).chain(function(){
+	setImage: function(newSrc, newFullSizeImage, newText) {		
+
+		if (this.effect === undefined) {
+			this.effect = new Fx.Tween(this.bigImage, {duration: this.options.fadeSpeed, transition: Fx.Transitions.Quad.easeOut});
+		} else {
+			this.effect.cancel();
+		}
+
+
+		this.effect.start('opacity', 0).chain(function(){
+
 			this.bigImage.set('src', newSrc);
 			this.zoomLink.set('href', newFullSizeImage);
 		
@@ -412,7 +454,7 @@ var JSGallery2 = new Class({
 				$(this.options.titleTarget).set('html', newText);
 			}
 			//this.mouseLeaveHandler();
-			effect.start('opacity', 1).chain(this.unBlockKeys.bind(this));
+			this.effect.start('opacity', 1).chain(this.unBlockKeys.bind(this));
 			
 			// tack page event
 			try {
@@ -567,8 +609,9 @@ var JSGallery2 = new Class({
 		
 	},
 		
+
 	createCountLink: function(gallery, countHandle, currentPageNumber) {
-			var myAnchor = new Element('a', {
+		var myAnchor = new Element('a', {
 		    href: '#',
 		    'class': 'count inactive',
 		    html: currentPageNumber+1,

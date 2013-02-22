@@ -68,11 +68,26 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 	
 	var myKeyboardEvents = new Keyboard({
-	    eventType: 'keyup', 
+	    eventType: 'keydown', 
 	    events: { 
-	        'left': function() {if ($('prev_image')) document.location.href=$('prev_image').get('href');},
-	        'right': function() {if ($('next_image')) document.location.href=$('next_image').get('href');}
-	       
+	        'left': function(e) {
+	        	if (Mediabox && Mediabox.isActive() 
+	        			&& mediaBoxImages && mediaBoxImages[0][2]=='cart') {
+	        		return;
+	        	}
+	        	if ($('prev_image')) {
+	        		document.location.href=$('prev_image').get('href'); 
+	        	}
+	        },
+	        'right': function(e) {
+	        	if (Mediabox && Mediabox.isActive() 
+	        			&& mediaBoxImages && mediaBoxImages[0][2]=='cart') {
+	        		return;
+	        	}
+	        	if ($('next_image')) {
+	        		document.location.href=$('next_image').get('href');
+	        	} 	        	
+	        }	       
 	    }
     });
     
@@ -80,6 +95,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
     	
 
 </script>
+
+<?php include 'components/com_eventgallery/views/cart.php'; ?>
+
 <div id="singleimage">
 	
 
@@ -121,6 +139,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<?php ENDIF ?>
 		
 	<a class="btn" href="<?php echo $this->model->file->getImageUrl(null, null, true) ?>" rel="lightbo2" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_ZOOM') ?>"><i class="icon-zoom-in"></i></a>
+
+	<a href="#" class="btn button-add2cart eventgallery-add2cart" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" data-id="folder=<?php echo $this->model->file->folder."&file=".$this->model->file->file ?>"><i class="icon-cart-small"></i></a>
+
 	<?php IF (isset($this->model->file->hits)): ?>		
 		<div  class="btn"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_HITS') ?> <?php echo $this->model->file->hits?></div>
 	<?php ENDIF ?>
@@ -132,7 +153,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<div class="singleimage">
 		<a id="bigimagelink" href="<?php echo  $this->model->file->getImageUrl(null, null, true) ?>" rel="lightbo2">
 			<?php echo $this->model->file->getLazyThumbImgTag(100,100); ?>
-		</a>
+		</a>		
 	</div>	
 
 	

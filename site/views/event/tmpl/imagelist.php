@@ -11,10 +11,13 @@ defined('_JEXEC') or die('Restricted access'); ?>
 940x250
 
 */	
+
+include 'components/com_eventgallery/views/cart.php';
+
 ?>
 
-<script type="text/javascript">
 
+<script type="text/javascript">
 
 	var eventgalleryImageList;
 	var lazyloader;
@@ -45,7 +48,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				});
 			},
 			resizeStart: function() {
-				$$('.thumbnails img').setStyle('opacity',0);
+				$$('.thumbnails thumbnail.img').setStyle('opacity',0);
 			
 			
 			},
@@ -59,9 +62,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
  		eventgalleryImageList= new EventgalleryImagelist(options);
 		
 	});
-	
 </script>
-
 
 <div class="event">
 	<h4 class="date">
@@ -105,12 +106,11 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<div class="thumbnails">
 		<?php foreach($this->entries as $entry) :?>
 		    <?php $this->assign('entry',$entry)?>
-	    	<a class="thumbnail pull-left" href="<?php echo $this->entry->getImageUrl(null, null, true); ?>"
+		    <div class="thumbnail-container">
+	    	<a class="thumbnail" href="<?php echo $this->entry->getImageUrl(null, null, true); ?>"
 	            title="<?php echo $entry->caption?><?PHP IF(isset($entry->exif)):?><br /><?php echo $entry->exif->model?>, <?php echo $entry->exif->focallength?> mm, f/<?php echo $entry->exif->fstop?>, ISO <?php echo $entry->exif->iso?><?php ENDIF ?>";
 	            rel="lightbo2[gallery]"><?php echo $this->entry->getLazyThumbImgTag($layout[$layout_row][$layout_col]['w'], $layout[$layout_row][$layout_col]['h']);?>
-			    <noscript>
-			    	<?php echo $this->entry->getThumbImgTag($layout[$layout_row][$layout_col]['w'], $layout[$layout_row][$layout_col]['h']);?>
-			    </noscript></a>
+			    </a><a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" class="button-add2cart eventgallery-add2cart" data-id="folder=<?php echo $this->entry->folder."&file=".$this->entry->file ?>"><i class="big"></i></a></div>
 	        <?php 
 	    		$layout_col++;
 	    		if ($layout_col>=sizeof($layout[$layout_row])) {

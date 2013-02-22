@@ -70,6 +70,7 @@ admin/views/upload/view.html.php -text
 /eventgallery.xml -text
 /script.php -text
 site/controller.php -text
+site/controllers/Rest.php -text
 site/controllers/index.html -text
 site/eventgallery.php -text
 site/helpers/buzzwords.php -text
@@ -129,6 +130,10 @@ site/media/images/Resized/blank_97x146.gif -text
 site/media/images/Resized/blank_98x147.gif -text
 site/media/images/Resized/index.html -text
 site/media/images/blank.gif -text
+site/media/images/cart/buttons.png -text svneol=unset#image/png
+site/media/images/cart/source/Shapes4FREE-ecommerce.csh -text
+site/media/images/cart/source/buttons.psd -text
+site/media/images/cart/source/preview-60-shopping-shapes-Shapes4FREE.jpg -text svneol=unset#image/jpeg
 site/media/images/closelabel.gif -text
 site/media/images/loading.gif -text
 site/media/images/loading_s.gif -text
@@ -151,6 +156,11 @@ site/models/events.php -text
 site/models/index.html -text
 site/models/singleimage.php -text
 site/router.php -text
+site/views/cart.php -text
+site/views/checkout/index.html svneol=native#text/html
+site/views/checkout/tmpl/default.php -text
+site/views/checkout/tmpl/index.html svneol=native#text/html
+site/views/checkout/view.html.php -text
 site/views/commentmail/index.html -text
 site/views/commentmail/tmpl/default.php -text
 site/views/commentmail/tmpl/index.html -text
@@ -173,8 +183,13 @@ site/views/events/tmpl/index.html -text
 site/views/events/tmpl/list.php -text
 site/views/events/tmpl/list.xml -text
 site/views/events/view.html.php -text
+site/views/index.html svneol=native#text/html
 site/views/resizeimage/index.html -text
 site/views/resizeimage/view.html.php -text
+site/views/rest/index.html svneol=native#text/html
+site/views/rest/tmpl/default.php -text
+site/views/rest/tmpl/index.html svneol=native#text/html
+site/views/rest/view.html.php -text
 site/views/singleimage/index.html -text
 site/views/singleimage/tmpl/default.php -text
 site/views/singleimage/tmpl/default_commentform.php -text

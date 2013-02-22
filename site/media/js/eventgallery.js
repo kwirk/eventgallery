@@ -313,3 +313,175 @@
 		}
 	
 	});
+
+	/*
+		This is out cart class. 
+	*/
+	var EventgalleryCart = new Class({
+		Implements: [Options],
+		cart : new Array(),
+		options: {
+			cartSelector: '.eventgallery-cart',
+			cartItemContainerSelector: '.cart-items-container',
+			cartItemsSelector: '.eventgallery-cart .cart-items',
+			cartCountSelector: '.itemscount',
+			buttonDownSelector: '.toggle-down',
+			buttonUpSelector: '.toggle-up',
+			cartItemsMinHeight: 130,
+			removeUrl :  "",
+			add2cartUrl : "",
+			getCartUrl: "",
+			removeLinkTitle : "Remove",
+	
+		},
+		
+		initialize: function(options) {
+		    this.setOptions(options);
+
+		    this.myVerticalSlide = new Fx.Tween($$(this.options.cartItemContainerSelector).getLast(),{
+			    duration: 'short',
+			    transition: 'quad:in',
+			    link: 'cancel',
+			    property: 'height'
+			});
+
+			$$(this.options.buttonDownSelector).addEvent('click', function(event){
+				event.stop();    
+				this.myVerticalSlide.start($$(this.options.cartItemsSelector).getLast().getSize().y);
+				$$(this.options.buttonDownSelector).hide();
+				$$(this.options.buttonUpSelector).show();
+			}.bind(this));
+
+			$$(this.options.buttonUpSelector).addEvent('click', function(event){
+				event.stop();
+				this.myVerticalSlide.start(120);	
+				$$(this.options.buttonUpSelector).hide();
+				$$(this.options.buttonDownSelector).show();
+			}.bind(this));
+
+			$(document.body).addEvent('click:relay(.eventgallery-add2cart)', function(e) {this.add2cart(e)}.bind(this));
+			$(document.body).addEvent('click:relay(.eventgallery-removeFromCart)', function(e) {this.removeFromCart(e)}.bind(this));
+			$(document.body).addEvent('updatecartlinks', function(e) {
+				this.populateCart(true);
+			}.bind(this));
+
+			this.updateCart();
+
+		},
+
+		updateCartItemContainer: function() {
+			if ($$(this.options.cartItemsSelector).getLast().getSize().y>this.options.cartItemsMinHeight) {
+				$$(this.options.buttonDownSelector).show();	
+			} else {  		
+				this.myVerticalSlide.start(120);	
+				$$(this.options.buttonUpSelector).hide();
+				$$(this.options.buttonDownSelector).hide();	
+			}
+		},
+
+		/* Populate the cart element on the page with the data we used */
+		populateCart: function(linksOnly) {
+
+			if (this.cart.length==0) {
+				$$(this.options.cartSelector).hide();
+			} else {
+				$$(this.options.cartSelector).show();
+			}
+				// define where all the cart html items are located
+
+			var cartHTML = $$(this.options.cartItemsSelector).getLast();
+			if (cartHTML == null) {
+				return;
+			}
+			// clear the html showing the current cart
+			if (!linksOnly) {				
+				cartHTML.set('html',"");
+			}
+
+				// reset cart button icons
+			$$('a.eventgallery-add2cart').addClass('button-add2cart').removeClass('button-alreadyInCart');
+	        	
+
+			for (var i = this.cart.length - 1; i >= 0; i--) {
+				//create the id. It's always folder=foo&file=bar
+				var id = 'folder='+this.cart[i].folder+'&file='+this.cart[i].file;					
+				//add the item to the cart. Currently we simple refresh the whole cart.
+				if (!linksOnly) {
+					cartHTML.set('html',cartHTML.get('html')+'<div class="cart-item">'+this.cart[i].imagetag+'<a href="#" title="'+this.options.removeLinkTitle+'" class="eventgallery-removeFromCart button-removeFromCart" data-id="'+id+'"><i class="big"></i></a></div>');
+				}
+				// mark the add2cart link to show the item is already in the cart
+				$$('a.eventgallery-add2cart[data-id="'+id+'"]').addClass('button-alreadyInCart').removeClass('button-add2cart');				
+				
+			};		
+
+			if (!linksOnly) {
+				cartHTML.set('html',cartHTML.get('html')+'<div style="clear:both"></div>');
+				this.updateCartItemContainer();
+			}
+
+			$$('.itemscount').set('html',this.cart.length);
+			Mediabox.scanPage();
+		},
+
+		/* Get the current version of the cart from the server */
+		updateCart: function() {		
+			var jsonReq = new Request.JSON({
+				url: this.options.getCartUrl,
+				method: 'post',
+				data: {
+					json: 'yes'
+				},
+				onComplete: function(response){
+					if (response !== undefined) {
+						this.cart = response;
+					}
+					this.populateCart();
+				}.bind(this)
+			}).send();
+
+		}, 
+
+		/* Send a request to the server to remove an item from the cart */
+		removeFromCart: function(e) {
+			var data;
+			if (e.target.tagName=='A') {
+				data = $(e.target).get('data-id');
+			} else {
+				data = $(e.target).getParent('A').get('data-id');
+			}
+			var myRequest = new Request(
+				{
+	        		url: this.options.removeUrl,
+	        		method: "POST",
+	        		data: data,
+		        	onSuccess: function(msg){
+	                    this.updateCart();
+	               	}.bind(this)
+	        }).send();
+	        e.stopPropagation();
+	        e.preventDefault();
+		},
+
+		/* Send a request to the server to add an item to the cart */
+		add2cart: function(e)  {
+			var data;
+			if (e.target.tagName=='A') {
+				data = $(e.target).get('data-id');
+			} else {
+				data = $(e.target).getParent('A').get('data-id');
+			}
+			var myRequest = new Request(
+				{
+	        		url: this.options.add2cartUrl,
+	        		method: "POST",
+	        		data: data,
+		        	onSuccess: function(msg){
+	                    this.updateCart();
+	               	}.bind(this)
+	        }).send();
+	        e.stopPropagation();
+	        e.preventDefault();
+	        return true;
+		}
+
+	});

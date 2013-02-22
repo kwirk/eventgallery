@@ -49,6 +49,15 @@ var Mediabox;
 	/*	API		*/
 
 	Mediabox = {
+		getRelation: function()  {
+
+		},
+
+		isActive: function() {
+			return center.getStyle('display')!='none';
+		},
+
+
 		close: function(){
 			close();	// Thanks to Yosha on the google group for fixing the close function API!
 		},
@@ -290,6 +299,7 @@ var Mediabox;
 					next();
 			}
 		}
+
 		if (options.stopKey) { return false; };
 	}
 

@@ -49,16 +49,19 @@ defined('_JEXEC') or die('Restricted access'); ?>
  		eventgalleryImageList= new EventgalleryImagelist(options);
 		
 	});
-</script>
 
-
-<script>
-	window.addEvent('domready', function() {
-			//create_event_view();
+	// add the click event if somebody hits a thumbnail.
+	// just open a redirect if the target was not a link
+	window.addEvent("domready", function() {		
+		$$('.thumbnail').addEvent('click',function(e){
+			if ($(e.target).tagName != 'A' && $(e.target).tagName != 'I') {
+				document.location.href=$(e.target).getParent('.thumbnail').get('data-url');								
+			}
+		})
 	});
-
 </script>
 
+<?php include 'components/com_eventgallery/views/cart.php'; ?>
 
 <div id="event">
 	<h4>
@@ -88,8 +91,11 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		<?php foreach($this->entries as $entry) :?>
 			    <?php $this->assign('entry',$entry)?>
 			    
-				<div class="thumbnail" onClick="document.location.href='<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->entry->folder."&file=".$this->entry->file) ?>'">				
-					<div class="img"><?php echo $entry->getLazyThumbImgTag(250,250,"",true); ?></div>
+				<div class="thumbnail" data-url="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->entry->folder."&file=".$this->entry->file) ?>">				
+					<div class="img">
+						<?php echo $entry->getLazyThumbImgTag(250,250,"",true); ?>
+						<a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" class="button-add2cart eventgallery-add2cart" data-id="folder=<?php echo $this->entry->folder."&file=".$this->entry->file ?>"><i class="big"></i></a>
+					</div>
 					<div class="details">
 					
 				

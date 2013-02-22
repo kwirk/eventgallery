@@ -22,22 +22,23 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	});
 	/* ]]> */
 
-var resizePage = function() {
-	var size = $$('.ajaxpaging .navigation').getLast().getSize();
-	$$('.navigation .page').setStyle('width',size.x+"px");
-	if (myGallery != undefined) {
-		myGallery.gotoPage(myGallery.currentPageNumber);
-	}
-	
-};
+	var resizePage = function() {
+		var size = $$('.ajaxpaging .navigation').getLast().getSize();
+		$$('.navigation .page').setStyle('width',size.x+"px");
+		if (myGallery != undefined) {
+			myGallery.gotoPage(myGallery.currentPageNumber);
+		}
+		
+	};
 
-window.addEvent('load', resizePage);
-window.addEvent('resize', resizePage);
+	window.addEvent('load', resizePage);
+	window.addEvent('resize', resizePage);
 
 
 
 </script>
 
+<?php include 'components/com_eventgallery/views/cart.php'; ?>
 	
 <div class="ajaxpaging">
 	
@@ -80,6 +81,7 @@ window.addEvent('resize', resizePage);
 								 <a longdesc="<?php echo $entry->getImageUrl(null, null, true);?>" 
 									 href="<?php echo $entry->getImageUrl(null, null, true);?>"
 								     rel="<?php echo $entry->getImageUrl(800, 800, false, false); ?>"
+								     data-id="folder=<?php echo $entry->folder ?>&file=<?php echo $entry->file ?>"
 									 >
 								    <?php echo JHTML::image($entry->getThumbUrl(50, 50),'',array('title'=>JHTML::Date($this->folder->date).' - '.$this->folder->description."&lt;br /&gt; Bild $imageCount von $this->entriesCount"));?>
 								 </a>
@@ -110,6 +112,7 @@ window.addEvent('resize', resizePage);
 			<div id="bigimageContainer">
 				<img src="<?php echo JURI::base().'components/com_eventgallery/media/images/loading_s.gif'?>" alt="" id="bigImage"/>
 				<span id="bigImageDescription" class="img_overlay img_overlay_fotos overlay_3"><?php echo JText::_('COM_EVENTGALLERY_EVENT_AJAX_LOADING') ?></span>
+
 			</div>
 		
 		</div>	

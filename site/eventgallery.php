@@ -11,24 +11,34 @@
 * See COPYRIGHT.php for copyright notices and details.
 */
 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
 // Require the base controller
 require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controller.php');
 
+
 // Require specific controller if requested
 if($controller = JRequest::getVar('controller')) {
 	require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.$controller.'.php');
 }
 
-// Create the controller
-$classname	= 'EventgalleryController'.$controller;
+
+$view = JRequest::getVar( 'view' , 'null' );
+if (strcmp('rest',$view)==0) {
+	require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.ucfirst($view).'.php');	
+	$classname = ucfirst($view).'Controller'.$controller;
+} else {
+	// Create the controller
+	$classname	= 'EventgalleryController'.$controller;
+
+}
+
 $controller = new $classname( );
 
 // Perform the Request task
-
-$controller->execute( JRequest::getVar('task'));
+$controller->execute(JFactory::getApplication()->input->get('task'));
 
 // Redirect if set by the controller
 $controller->redirect();
