@@ -321,6 +321,7 @@
 		Implements: [Options],
 		cart : new Array(),
 		options: {
+			buttonShowType: 'block',
 			cartSelector: '.eventgallery-cart',
 			cartItemContainerSelector: '.cart-items-container',
 			cartItemsSelector: '.eventgallery-cart .cart-items',
@@ -328,7 +329,7 @@
 			cartCountSelector: '.itemscount',
 			buttonDownSelector: '.toggle-down',
 			buttonUpSelector: '.toggle-up',
-			cartItemsMinHeight: 140,
+			cartItemsMinHeight: null,
 			removeUrl :  "",
 			add2cartUrl : "",
 			getCartUrl: "",
@@ -350,14 +351,14 @@
 				event.stop();    
 				this.myVerticalSlide.start($$(this.options.cartItemsSelector).getLast().getSize().y);
 				$$(this.options.buttonDownSelector).setStyle('display', 'none');
-				$$(this.options.buttonUpSelector).setStyle('display', 'block');
+				$$(this.options.buttonUpSelector).setStyle('display', this.options.buttonShowType);
 			}.bind(this));
 
 			$$(this.options.buttonUpSelector).addEvent('click', function(event){
 				event.stop();
 				this.myVerticalSlide.start(this.options.cartItemsMinHeight);	
 				$$(this.options.buttonUpSelector).setStyle('display', 'none');
-				$$(this.options.buttonDownSelector).setStyle('display', 'block');
+				$$(this.options.buttonDownSelector).setStyle('display', this.options.buttonShowType);
 			}.bind(this));
 
 			$(document.body).addEvent('click:relay(.eventgallery-add2cart)', function(e) {this.add2cart(e)}.bind(this));
@@ -386,7 +387,12 @@
 			}.bind(this));
 
 			if (multiline) {
-				$$(this.options.buttonDownSelector).setStyle('display', 'block');	
+				// prevent showing the wrong button. Basically this is an inital action if a second row is created
+				var down = $$(this.options.buttonDownSelector);
+				var up = $$(this.options.buttonUpSelector);
+				if (down.getStyle('display')=='none' && up.getStyle('display')=='none') {
+					down.setStyle('display', this.options.buttonShowType);
+				}
 			} else {  		
 				this.myVerticalSlide.start(this.options.cartItemsMinHeight);	
 				$$(this.options.buttonUpSelector).setStyle('display', 'none');
@@ -431,6 +437,9 @@
 
 			if (!linksOnly) {
 				cartHTML.set('html',cartHTML.get('html')+'<div style="clear:both"></div>');
+				if (null == this.options.cartItemsMinHeight) {
+		    		this.options.cartItemsMinHeight = $$(this.options.cartItemContainerSelector).getLast().getSize().y;
+		    	}
 				this.updateCartItemContainer();
 			}
 

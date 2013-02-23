@@ -4,6 +4,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <script type="text/javascript">	
 	window.addEvent("domready", function() {
 		var options = {
+			buttonShowType: 'inline',
 			cartSelector: '.eventgallery-cart',
 			cartItemContainerSelector: '.cart-items-container',
 			cartItemsSelector: '.eventgallery-cart .cart-items',
@@ -25,13 +26,14 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<div class="cart-items-container">
 		<div class="cart-items"></div>
 	</div>
-	<div style="clear:both"></div>
-	<a class="toggle-down" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN')?></a>
-	<a class="toggle-up" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP')?></a>	
 	
-	<div class="cart-summary">
-		<span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS')?>
-		<a href="<?php echo JRoute::_("index.php?view=checkout");?>" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_ORDER')?></a>
+	<div class="cart-summary btn-group">
+		<button class="btn"><span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS')?></button>
+		<button class="btn toggle-down" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN')?></button>
+		<button class="btn toggle-up" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP')?></button>	
+		<button href="<?php echo JRoute::_("index.php?view=checkout");?>" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_ORDER')?></button>
 	</div>
-	
+
+	<div style="clear:both"></div>
+
 </div>
