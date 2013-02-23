@@ -4,7 +4,7 @@
 jimport( 'joomla.application.component.view');
 
 
-class EventgalleryViewCheckout extends JViewLegacy
+class CheckoutViewCheckout extends JViewLegacy
 {
 	function display($tpl = null)
 	{		

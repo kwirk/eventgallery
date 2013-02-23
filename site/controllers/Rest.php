@@ -6,7 +6,6 @@ class RestController extends JControllerLegacy
 {
 	public function display($cachable = false, $urlparams = false)
 	{			
-		die('controller');
 		parent::display($cachable, $urlparams);		
 	}
 
@@ -19,13 +18,13 @@ class RestController extends JControllerLegacy
 			return;
 		}
 
-		$mainframe =& JFactory::getApplication();
+		$app =& JFactory::getApplication();
 		 
 		// store the variable that we would like to keep for next time
 		// function syntax is setUserState( $key, $value );
-		$option = $mainframe->input->get('option');
+		$option = $app->input->get('option');
 
-		$cartJson = $mainframe->getUserState("$option.cart","");
+		$cartJson = $app->getUserState("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {
@@ -48,19 +47,19 @@ class RestController extends JControllerLegacy
 			array_push($cart, $item);
 		}
 		
-		$mainframe->setUserState( "$option.cart", json_encode($cart) );
+		$app->setUserState( "$option.cart", json_encode($cart) );
 
 		echo "done";
 		
 	}
 
 	public function getCart() {
-		$mainframe =& JFactory::getApplication();		 
+		$app =& JFactory::getApplication();		 
 		// store the variable that we would like to keep for next time
 		// function syntax is setUserState( $key, $value );
-		$option = $mainframe->input->get('option');
+		$option = $app->input->get('option');
 
-		$cartJson = $mainframe->getUserState("$option.cart","");
+		$cartJson = $app->getUserState("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {
@@ -78,12 +77,12 @@ class RestController extends JControllerLegacy
 			return;
 		}
 
-		$mainframe =& JFactory::getApplication();		 
+		$app =& JFactory::getApplication();		 
 		// store the variable that we would like to keep for next time
 		// function syntax is setUserState( $key, $value );
-		$option = $mainframe->input->get('option');
+		$option = $app->input->get('option');
 
-		$cartJson = $mainframe->getUserState("$option.cart","");
+		$cartJson = $app->getUserState("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {
@@ -102,6 +101,6 @@ class RestController extends JControllerLegacy
 		}		
 		
 
-		$mainframe->setUserState( "$option.cart", json_encode($newCart) );
+		$app->setUserState( "$option.cart", json_encode($newCart) );
 	}
 }

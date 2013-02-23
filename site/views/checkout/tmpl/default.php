@@ -7,12 +7,12 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ITEMS_IN_YOUR_CART')?></h1>
 <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_TEXT')?>	
 <a class="" href="<?php echo JRoute::_("index.php?view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>
-	<form action="<?php echo JRoute::_("index.php?view=checkout&task=order") ?>" method="post" class="form-validate form-horizontal checkout-form">
+	<form action="<?php echo JRoute::_("index.php?view=checkout&task=sendOrder") ?>" method="post" class="form-validate form-horizontal checkout-form">
 		<div class="cart-items">
 			<?php foreach($this->cart as $lineitem) :?>
 				<div class="cart-item">
 					<?php echo $lineitem['imagetag'] ?><br />
-					<input class="validate-numeric input-small" type="integer" name="<?php echo $lineitem['folder'] ?>/<?php echo $lineitem['file'] ?>" value="<?php echo $lineitem['count'] ?>"/>			
+					<input class="validate-numeric input-small" type="integer" name="count_<?php echo md5($lineitem['folder'].$lineitem['file']) ?>" value="<?php echo $lineitem['count'] ?>"/>			
 				</div>
 			<?php endforeach?>
 			<div style="clear:both"></div>
@@ -51,5 +51,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				<input type="submit" class="validate btn btn-primary" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SUBMIT')?>"/>           
 			</div>
 	    </fieldset>
+	    <?php echo JHtml::_('form.token'); ?>
 	</form>
 </div>

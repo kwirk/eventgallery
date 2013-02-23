@@ -70,6 +70,7 @@ admin/views/upload/view.html.php -text
 /eventgallery.xml -text
 /script.php -text
 site/controller.php -text
+site/controllers/Checkout.php -text
 site/controllers/Rest.php -text
 site/controllers/index.html -text
 site/eventgallery.php -text
