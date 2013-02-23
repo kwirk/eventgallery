@@ -512,8 +512,6 @@ var JSGallery2 = new Class({
 		} else {
 			selectImage = [selectImage, this.thumbs[(pageNumber-1) * this.imagesPerPage + this.imagesPerFirstPage]].pick();
 		}
-
-		console.log(pageNumber + " -->" + selectImage.id);
 		
 		if(pageNumber >= 0 && pageNumber < this.lastPage) {
 			this.pageContainer.set('tween', {
