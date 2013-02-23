@@ -523,6 +523,18 @@ var JSGallery2 = new Class({
 				this.pageContainer.getLast().getSize().x * pageNumber * -1
 			);
 
+			// fix height of the page-container
+			var maxHeight = 0;
+			$(this.pageContainer).getChildren().each(function(page){
+
+				var height = page.getSize().y;
+				if (height>maxHeight) {
+					maxHeight = height;
+				}
+				console.log(height);
+			});
+
+			this.pageContainer.setStyle('height',maxHeight);
 			
 			this.currentPageNumber = pageNumber;
 			this.select(selectImage);
