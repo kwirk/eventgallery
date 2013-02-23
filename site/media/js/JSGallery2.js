@@ -508,10 +508,12 @@ var JSGallery2 = new Class({
 	gotoPage: function(pageNumber, selectImage) {
 		//if we like to select another image on that page than the first one
 		if (pageNumber == 0) {
-			selectImage = [selectImage, this.thumbs[pageNumber * this.imagesPerFirstPage]].pick();
+			selectImage = [selectImage, this.thumbs[0]].pick();
 		} else {
-			selectImage = [selectImage, this.thumbs[pageNumber * this.imagesPerPage]].pick();
+			selectImage = [selectImage, this.thumbs[(pageNumber-1) * this.imagesPerPage + this.imagesPerFirstPage]].pick();
 		}
+
+		console.log(pageNumber + " -->" + selectImage.id);
 		
 		if(pageNumber >= 0 && pageNumber < this.lastPage) {
 			this.pageContainer.set('tween', {
