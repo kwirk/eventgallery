@@ -31,7 +31,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		<button class="btn"><span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS')?></button>
 		<button class="btn toggle-down" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN')?></button>
 		<button class="btn toggle-up" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP')?></button>	
-		<button href="<?php echo JRoute::_("index.php?view=checkout");?>" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_ORDER')?></button>
+		<button onclick="document.location.href='<?php echo JRoute::_("index.php?view=checkout");?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_ORDER')?></button>
 	</div>
 
 	<div style="clear:both"></div>

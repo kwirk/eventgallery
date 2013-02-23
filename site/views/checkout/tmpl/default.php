@@ -5,17 +5,22 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 <div class="eventgallery-checkout">
 <h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ITEMS_IN_YOUR_CART')?></h1>
-<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_TEXT')?>	
+<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_TEXT')?>
 <a class="" href="<?php echo JRoute::_("index.php?view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>
 	<form action="<?php echo JRoute::_("index.php?view=checkout&task=sendOrder") ?>" method="post" class="form-validate form-horizontal checkout-form">
 		<div class="cart-items">
-			<?php foreach($this->cart as $lineitem) :?>
-				<div class="cart-item">
-					<?php echo $lineitem['imagetag'] ?><br />
-					<input class="validate-numeric required input-small" type="number" name="count_<?php echo md5($lineitem['folder'].$lineitem['file']) ?>" value="<?php echo $lineitem['count'] ?>"/>			
+			<div class="control-group">
+				<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_ITEMS')?>
+				<div class="controls">
+					<?php foreach($this->cart as $lineitem) :?>
+						<div class="cart-item">
+							<?php echo $lineitem['imagetag'] ?><br />
+							<input class="validate-numeric required input-small" type="number" name="count_<?php echo md5($lineitem['folder'].$lineitem['file']) ?>" value="<?php echo $lineitem['count'] ?>"/>			
+						</div>
+					<?php endforeach?>
+					<div style="clear:both"></div>
 				</div>
-			<?php endforeach?>
-			<div style="clear:both"></div>
+			</div>
 		</div>		
 	    <fieldset>	    		
 

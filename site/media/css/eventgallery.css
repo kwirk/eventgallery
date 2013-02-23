@@ -519,13 +519,17 @@ div.img:hover .button-alreadyInCart i.big
 	width: 100%;
 }
 
+.eventgallery-checkout .checkout-form {
+	margin-top: 20px;
+}
+
 .eventgallery-checkout .cart-item {
-	padding: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
 	float:left;
 }
 
-.eventgallery-checkout fieldset  {
-	border: 1px solid #666;
-	padding: 20px 0px;
+.eventgallery-checkout fieldset  {	
+	padding: 0px 0px;
 	margin-bottom: 20px;
 }
