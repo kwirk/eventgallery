@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<?php foreach($this->cart as $lineitem) :?>
 				<div class="cart-item">
 					<?php echo $lineitem['imagetag'] ?><br />
-					<input class="validate-numeric input-small" type="integer" name="count_<?php echo md5($lineitem['folder'].$lineitem['file']) ?>" value="<?php echo $lineitem['count'] ?>"/>			
+					<input class="validate-numeric required input-small" type="number" name="count_<?php echo md5($lineitem['folder'].$lineitem['file']) ?>" value="<?php echo $lineitem['count'] ?>"/>			
 				</div>
 			<?php endforeach?>
 			<div style="clear:both"></div>

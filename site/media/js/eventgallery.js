@@ -257,7 +257,7 @@
 				/*if we have a large image, we have to hide it to get the real available space*/
 				image.tag.setStyle('display', 'none');
 				rowWidth = $$(this.options.eventgallerySelector).getLast().getSize().x;
-				image.tag.setStyle('display', 'inline');
+				image.tag.setStyle('display', 'block');
 				
 				var imageHeight  = this.options.firstImageRowHeight * this.options.rowHeight;
 				var imageWidth   = Math.floor(image.width / image.height * imageHeight);
@@ -324,10 +324,11 @@
 			cartSelector: '.eventgallery-cart',
 			cartItemContainerSelector: '.cart-items-container',
 			cartItemsSelector: '.eventgallery-cart .cart-items',
+			cartItemSelector: '.eventgallery-cart .cart-items .cart-item',
 			cartCountSelector: '.itemscount',
 			buttonDownSelector: '.toggle-down',
 			buttonUpSelector: '.toggle-up',
-			cartItemsMinHeight: 130,
+			cartItemsMinHeight: 140,
 			removeUrl :  "",
 			add2cartUrl : "",
 			getCartUrl: "",
@@ -348,15 +349,15 @@
 			$$(this.options.buttonDownSelector).addEvent('click', function(event){
 				event.stop();    
 				this.myVerticalSlide.start($$(this.options.cartItemsSelector).getLast().getSize().y);
-				$$(this.options.buttonDownSelector).hide();
-				$$(this.options.buttonUpSelector).show();
+				$$(this.options.buttonDownSelector).setStyle('display', 'none');
+				$$(this.options.buttonUpSelector).setStyle('display', 'block');
 			}.bind(this));
 
 			$$(this.options.buttonUpSelector).addEvent('click', function(event){
 				event.stop();
-				this.myVerticalSlide.start(120);	
-				$$(this.options.buttonUpSelector).hide();
-				$$(this.options.buttonDownSelector).show();
+				this.myVerticalSlide.start(this.options.cartItemsMinHeight);	
+				$$(this.options.buttonUpSelector).setStyle('display', 'none');
+				$$(this.options.buttonDownSelector).setStyle('display', 'block');
 			}.bind(this));
 
 			$(document.body).addEvent('click:relay(.eventgallery-add2cart)', function(e) {this.add2cart(e)}.bind(this));
@@ -370,12 +371,26 @@
 		},
 
 		updateCartItemContainer: function() {
-			if ($$(this.options.cartItemsSelector).getLast().getSize().y>this.options.cartItemsMinHeight) {
-				$$(this.options.buttonDownSelector).show();	
+			
+			// detect multiple rows
+
+			var multiline = false;
+			var y = -1;
+			$$(this.options.cartItemSelector).each(function(item){
+				var posY = item.getPosition().y;
+				if (y<0) {
+					y = posY;
+				} else if (y!=posY) {
+					multiline = true;
+				}
+			}.bind(this));
+
+			if (multiline) {
+				$$(this.options.buttonDownSelector).setStyle('display', 'block');	
 			} else {  		
-				this.myVerticalSlide.start(120);	
-				$$(this.options.buttonUpSelector).hide();
-				$$(this.options.buttonDownSelector).hide();	
+				this.myVerticalSlide.start(this.options.cartItemsMinHeight);	
+				$$(this.options.buttonUpSelector).setStyle('display', 'none');
+				$$(this.options.buttonDownSelector).setStyle('display', 'none');	
 			}
 		},
 
@@ -383,9 +398,9 @@
 		populateCart: function(linksOnly) {
 
 			if (this.cart.length==0) {
-				$$(this.options.cartSelector).hide();
+				$$(this.options.cartSelector).setStyle('display', 'none');
 			} else {
-				$$(this.options.cartSelector).show();
+				$$(this.options.cartSelector).setStyle('display', 'block');
 			}
 				// define where all the cart html items are located
 

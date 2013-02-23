@@ -8,7 +8,7 @@ class EventgalleryViewSingleImage extends JViewLegacy
 {
 	function display($tpl = null)
 	{		
-	    JHtmlBehavior::framework();
+	    JHtmlBehavior::framework('mootools-more.js');
 	    $app	 = &JFactory::getApplication();
 	    $document =& JFactory::getDocument();
 	    
