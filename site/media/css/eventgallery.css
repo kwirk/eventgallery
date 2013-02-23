@@ -473,11 +473,9 @@ div.img:hover .button-alreadyInCart i.big
 
 /* cart */
 
-.eventgallery-cart {
-	
+.eventgallery-cart {	
 	margin-bottom: 20px;
 	display: none;
-	border: 1px solid #333;
 	padding: 10px;
 }
 
