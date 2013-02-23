@@ -5,8 +5,8 @@ var $defined = function(obj){
 var JSGallery2 = new Class({
 	Implements: Options,
 	options: {
-		'borderWidthDeselected': 2,	//the width of the border of an deselected image (should be the same as in css)
-		'borderWidthSelected': 7,	//border width of the selected image
+		'borderWidthDeselected': 1,	//the width of the border of an deselected image (should be the same as in css)
+		'borderWidthSelected': 3,	//border width of the selected image
 		'borderColor': '#fff',		//the color of the borders
 		'loadingMask': '#000',		//color of the mask overlay during loading of the big images
 		'loadingOpacity': 0.6,		//opacity of the border div during loading (including the mask)
@@ -290,8 +290,8 @@ var JSGallery2 = new Class({
 		var border = new Element('div', {
 			styles: {
 				'border': this.options.borderWidthDeselected + 'px solid ' + this.options.borderColor,
-				'width': thumbContainer.getSize().x,
-				'height': thumbContainer.getSize().y,
+				'width': thumbContainer.getSize().x-this.options.borderWidthDeselected,
+				'height': thumbContainer.getSize().y-this.options.borderWidthDeselected,
 				'position': 'absolute',
 				'background-color': loadingMask,
 				'top': 0,
@@ -417,8 +417,8 @@ var JSGallery2 = new Class({
 	deselect: function(container) {
 		new Fx.Morph(container.getFirst(), {duration: this.options.selectSpeed, transition: Fx.Transitions.Quad.easeOut}).start({
 			'border-width': this.options.borderWidthDeselected + 'px',
-			'width': container.getSize().x,
-			'height': container.getSize().y
+			'width': container.getSize().x-this.options.borderWidthDeselected,
+			'height': container.getSize().y-this.options.borderWidthDeselected
 		});
 	},
 	/**
@@ -518,7 +518,12 @@ var JSGallery2 = new Class({
 				duration: this.options.pageSpeed, 
 				transition: Fx.Transitions.Quint.easeInOut
 			});
-			this.pageContainer.tween('margin-left', this.pageContainer.getFirst().getSize().x * pageNumber * -1);
+			this.pageContainer.tween(
+				'margin-left', 
+				this.pageContainer.getLast().getSize().x * pageNumber * -1
+			);
+
+			
 			this.currentPageNumber = pageNumber;
 			this.select(selectImage);
 			this.updateHandles();

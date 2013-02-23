@@ -13,11 +13,15 @@ class EventgalleryViewEvents extends JViewLegacy
 		$app	 = &JFactory::getApplication();
 		$document =& JFactory::getDocument();	
 
-	    JHtmlBehavior::framework();
-
-		$css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
-		$document->addStyleSheet($css);
-		$js=JURI::base().'components/com_eventgallery/media/js/eventgallery.js';
+		JHtmlBehavior::framework(true);
+		
+	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
+		$document->addStyleSheet($css);		
+		$css=JURI::base().'components/com_eventgallery/media/css/mediaboxAdvBlack21.css';
+		$document->addStyleSheet($css);		
+	    $js=JURI::base().'components/com_eventgallery/media/js/eventgallery.js';
+		$document->addScript($js);
+		$js=JURI::base().'components/com_eventgallery/media/js/mediaboxAdv-1.3.4b.js';
 		$document->addScript($js);
 		
 		

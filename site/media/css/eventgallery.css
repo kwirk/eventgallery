@@ -190,6 +190,9 @@
 .ajaxpaging .navigation {
 	overflow: hidden;
 	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border-width: 0px;
 }
 
 .ajaxpaging #pageContainer {
@@ -205,15 +208,17 @@
 
 .ajaxpaging .page {
 	float: left;
-	width: 700px;
+	width: 500px;
 	margin-bottom: 10px;
 }
 
 .ajaxpaging .thumbnail {
 	float: left;
-	margin: 0 20px 20px 0;
+	margin: 0px 14px 14px 0;
 	width: 48px;
 	height: 48px;
+	padding: 0px;
+	border-width: 0px;
 }
 
 .ajaxpaging pre {
@@ -281,7 +286,7 @@
 
 
 .ajaxpaging a img {
-	border: 2px solid #fff;
+	
 }
 
 .ajaxpaging .img_overlay {
