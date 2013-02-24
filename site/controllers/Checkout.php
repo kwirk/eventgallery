@@ -48,7 +48,7 @@ class CheckoutController extends JControllerLegacy
 		$mailer =& JFactory::getMailer();
 
 		$config =& JFactory::getConfig();
-		print_r($config);
+		
 		$sender = array( 
 		    $config->get( 'config.mailfrom' ),
 		    $config->get( 'config.fromname' ) 
@@ -86,8 +86,8 @@ class CheckoutController extends JControllerLegacy
 		    $this->setRedirect(JRoute::_("index.php?view=checkout"),$msg);
 		}  else {
 			$msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_STORED');
-			$app->setUserState( "$option.cart", "" );
-			$this->setRedirect(JRoute::_("index.php?"),$msg);
+			//$app->setUserState( "$option.cart", "" );
+			//$this->setRedirect(JRoute::_("index.php?"),$msg);
 		}
 
 		
