@@ -55,8 +55,10 @@ class CheckoutController extends JControllerLegacy
 		);
  
  		$mailer->setSubject('Eventgallery: Image Order');
-		$mailer->setSender($sender);		
-		$mailer->addRecipient("svenbluege@gmail.com");
+		$mailer->setSender($sender);	
+
+		$params = &JComponentHelper::getParams('com_eventgallery');	
+		$mailer->addRecipient($params->get('adminmail'));
 
 		$body   = '<h1>User</h1>';		
 		$body  .= "From: $name<br>";
