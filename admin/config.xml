@@ -17,12 +17,13 @@
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</field>
-		
+
+		<field name="use_cart" type="radio" default="1" label="use cart" description="Use Cart">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
 
 		
-		
-	
-	
 </fieldset>
 <fieldset name="accesscontrol" label="Permissions">
  
