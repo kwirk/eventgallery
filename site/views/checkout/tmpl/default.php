@@ -10,7 +10,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<form action="<?php echo JRoute::_("index.php?view=checkout&task=sendOrder") ?>" method="post" class="form-validate form-horizontal checkout-form">
 		<div class="cart-items">
 			<div class="control-group">
-				<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_ITEMS')?>
+				<label class="control-label" for="images"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_ITEMS')?></label>
 				<div class="controls">
 					<?php foreach($this->cart as $lineitem) :?>
 						<div class="cart-item">
