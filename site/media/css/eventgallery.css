@@ -480,7 +480,8 @@ div.img:hover .button-alreadyInCart i.big
 }
 
 .eventgallery-cart .cart-items-container{		
-	height: 140px; 
+	min-height: 140px; 
+	height: 140px;
 	overflow: hidden;
 }
 

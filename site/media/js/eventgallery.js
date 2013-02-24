@@ -387,11 +387,17 @@
 			}.bind(this));
 
 			if (multiline) {
-				// prevent showing the wrong button. Basically this is an inital action if a second row is created
+				// prevent showing the wrong button. Basically this is an inital action if a second row is created.
+
 				var down = $$(this.options.buttonDownSelector);
 				var up = $$(this.options.buttonUpSelector);
 				if (down.getStyle('display')=='none' && up.getStyle('display')=='none') {
 					down.setStyle('display', this.options.buttonShowType);
+				} else {
+					// update if a third or more row is created
+					if (up.getStyle('display')!='none') {
+						this.myVerticalSlide.start($$(this.options.cartItemsSelector).getLast().getSize().y);
+					}
 				}
 			} else {  		
 				this.myVerticalSlide.start(this.options.cartItemsMinHeight);	
