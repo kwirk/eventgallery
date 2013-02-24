@@ -1,4 +1,73 @@
 /*
+---
+description: Left and right swipe events for touch devices.
+
+license: MIT-style.
+
+authors:
+- Caleb Troughton
+
+requires:
+  core/1.2.4:
+  - Element.Event
+  - Class
+  - Class.Extras
+
+provides:
+- MooSwipe
+
+...
+*/
+var MooSwipe = MooSwipe || new Class({
+	Implements: [Options, Events],
+
+	options: {
+		//onSwipeLeft: $empty,
+		//onSwipeRight: $empty,
+		//onSwipe: $empty,
+		tolerance: 20,
+		preventDefaults: true
+	},
+
+	element: null,
+	startX: null,
+	isMoving: false,
+
+	initialize: function(el, options) {
+		this.setOptions(options);
+		this.element = $(el);
+		this.element.addListener('touchstart', this.onTouchStart.bind(this));
+	},
+
+	cancelTouch: function() {
+		this.element.removeListener('touchmove', this.onTouchMove);
+		this.startX = null;
+		this.isMoving = false;
+	},
+
+	onTouchMove: function(e) {
+		this.options.preventDefaults && e.preventDefault();
+		if (this.isMoving) {
+			var x = e.touches[0].pageX;
+			var dx = this.startX - x;
+			if (Math.abs(dx) >= this.options.tolerance) {
+				this.cancelTouch();
+				this.fireEvent(dx > 0 ? 'swipeLeft' : 'swipeRight');
+				this.fireEvent('swipe', dx > 0 ? 'left' : 'right');
+			}
+		}
+	},
+
+	onTouchStart: function(e) {
+		if (e.touches.length == 1) {
+			this.startX = e.touches[0].pageX;
+			this.isMoving = true;
+			this.element.addListener('touchmove', this.onTouchMove.bind(this));
+		}
+	}
+});
+
+/*
 	mediaboxAdvanced v1.3.4b - The ultimate extension of Slimbox and Mediabox; an all-media script
 	updated 2010.09.21
 		(c) 2007-2010 John Einselen <http://iaian7.com>
@@ -29,6 +98,8 @@ var Mediabox;
 			]).setStyle("display", "none")
 		);
 
+		
+
 		image = new Element("div", {id: "mbImage"}).inject(center);
 		bottom = new Element("div", {id: "mbBottom"}).inject(center).adopt(
 			closeLink = new Element("a", {id: "mbCloseLink", href: "#"}).addEvent("click", close),
@@ -38,6 +109,11 @@ var Mediabox;
 			number = new Element("div", {id: "mbNumber"}),
 			caption = new Element("div", {id: "mbCaption"})
 		);
+
+		new MooSwipe('mbCenter', {
+		    onSwipeLeft: next,
+		    onSwipeRight: previous
+		});
 
 		fx = {
 			overlay: new Fx.Tween(overlay, {property: "opacity", duration: 360}).set(0),
@@ -182,6 +258,9 @@ var Mediabox;
 			fx.resize = new Fx.Morph(center, Object.append({duration: options.resizeDuration, onComplete: imageAnimate}, options.resizeTransition ? {transition: options.resizeTransition} : {}));
 			center.setStyles({top: top, left: left, width: options.initialWidth, height: options.initialHeight, marginTop: -(options.initialHeight/2)-margin, marginLeft: -(options.initialWidth/2)-margin, display: ""});
 			fx.overlay.start(options.overlayOpacity);
+			
+			
+			
 			return changeImage(startImage);
 		}
 	};
@@ -967,3 +1046,4 @@ Mediabox.scanPage = function() {
 	});
 };
 window.addEvent("domready", Mediabox.scanPage);
+
