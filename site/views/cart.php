@@ -4,7 +4,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <?php 
 	$myApp	 = &JFactory::getApplication();
 	$myParams	 = &$myApp->getParams();
-	$use_cart = (0!=$myParams->get('use_cart'));
+	$use_cart = !(strcmp('0',$myParams->get('use_cart','1'))==0);
 ?>
 
 <?php IF($use_cart): ?>
