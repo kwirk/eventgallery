@@ -17,6 +17,11 @@ class EventgalleryController extends JControllerLegacy
 			JText::_('COM_EVENTGALLERY_SUBMENU_COMMENTS'),
 			'index.php?option=com_eventgallery&view=comments',
 			$vName == 'comments');
+
+		JSubMenuHelper::addEntry(
+			JText::_('COM_EVENTGALLERY_SUBMENU_ORDERS'),
+			'index.php?option=com_eventgallery&view=orders',
+			$vName == 'orders');
 		
 		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_CLEAR_CACHE'),

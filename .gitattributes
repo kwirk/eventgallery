@@ -55,6 +55,10 @@ admin/views/eventgallery/tmpl/default.php -text
 admin/views/eventgallery/tmpl/index.html -text
 admin/views/eventgallery/view.html.php -text
 admin/views/index.html -text
+admin/views/orders/index.html svneol=native#text/html
+admin/views/orders/tmpl/default.php -text
+admin/views/orders/tmpl/index.html svneol=native#text/html
+admin/views/orders/view.html.php -text
 admin/views/publishcommentbymail/index.html -text
 admin/views/publishcommentbymail/tmpl/default.php -text
 admin/views/publishcommentbymail/tmpl/index.html -text

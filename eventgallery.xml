@@ -33,11 +33,13 @@
 		<filename>router.php</filename>
 		<filename>index.html</filename>
 	</files>
+	
 	<administration>
 		<menu img="class:media">COM_EVENTGALLERY_MENU</menu>
 		<submenu>
 			<menu img="class:media"  link="option=com_eventgallery&amp;view=eventgallery">COM_EVENTGALLERY_MENU_EVENTS</menu>
 			<menu img="class:article"  link="option=com_eventgallery&amp;view=comments">COM_EVENTGALLERY_MENU_COMMENTS</menu>
+			<menu img="class:article"  link="option=com_eventgallery&amp;view=orders">COM_EVENTGALLERY_MENU_ORDERS</menu>
 			<menu img="class:purge"  link="option=com_eventgallery&amp;task=clearCache">COM_EVENTGALLERY_MENU_CLEAR_CACHE</menu>
 			<menu img="class:clear"  link="option=com_eventgallery&amp;task=refreshDatabase">COM_EVENTGALLERY_MENU_SYNC_DATABASE</menu>
 		</submenu>		
