@@ -87,7 +87,7 @@ class CheckoutController extends JControllerLegacy
 		}  else {
 			$msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_STORED');
 			$app->setUserState( "$option.cart", "" );
-			$this->setRedirect(JRoute::_("index.php?"),$msg);
+			$this->setRedirect(JRoute::_("index.php?"),$msg,'info');
 		}
 
 		
