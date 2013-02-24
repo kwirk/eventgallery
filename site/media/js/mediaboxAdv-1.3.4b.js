@@ -6,6 +6,7 @@ license: MIT-style.
 
 authors:
 - Caleb Troughton
+https://github.com/imakewebthings/mooswipe/
 
 requires:
   core/1.2.4:
