@@ -5,7 +5,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 <div class="eventgallery-checkout">
 <h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ITEMS_IN_YOUR_CART')?></h1>
-<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_TEXT')?>
+<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_TEXT')?>&nbsp;
 <a class="" href="<?php echo JRoute::_("index.php?view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>
 	<form action="<?php echo JRoute::_("index.php?view=checkout&task=sendOrder") ?>" method="post" class="form-validate form-horizontal checkout-form">
 		<div class="cart-items">
