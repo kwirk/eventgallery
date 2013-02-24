@@ -40,7 +40,7 @@ class CheckoutController extends JControllerLegacy
 		}
 
 
-		$name    = $this->input->getString( 'file' , null );
+		$name    = $this->input->getString( 'name' , null );
 		$email   = $this->input->getString( 'email' , null );
 		$message = $this->input->getString( 'message' , null );
 
