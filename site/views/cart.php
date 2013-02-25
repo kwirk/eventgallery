@@ -31,6 +31,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	</script>
 
 	<div class="eventgallery-cart">
+
+		<h2><?php echo JText::_('COM_EVENTGALLERY_CART')?></h2>
+
 		<div class="cart-items-container">
 			<div class="cart-items"></div>
 		</div>
