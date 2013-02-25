@@ -9,11 +9,16 @@
 
 
 		if (!defined('_JDEFINES')) {
-			define('JPATH_BASE', $_SERVER['DOCUMENT_ROOT']);
+			// remove the first 3 folders because
+			// we're in a subfolder and have not 
+			// native Joomla help. Doing this will
+			// enable this comonent to run in a subdirectory
+			// like http://foo.bar/foobar
+			$basefolders = explode(DIRECTORY_SEPARATOR,__DIR__);
+			$basefolders = array_splice($basefolders, 0, count($basefolders)-3);
+			define('JPATH_BASE', implode(DIRECTORY_SEPARATOR, $basefolders));
 			require_once JPATH_BASE.'/includes/defines.php';
 		}
-
-
 
 		require_once JPATH_BASE.'/includes/framework.php';
 
