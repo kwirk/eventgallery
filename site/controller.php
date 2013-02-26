@@ -41,7 +41,7 @@ class EventgalleryController extends JControllerLegacy
 		
 	}
 
-	function save_comment()
+	function save_comment($cachable = false, $urlparams = false)
 	{
 		$app = JFactory::getApplication();
 
@@ -75,10 +75,15 @@ class EventgalleryController extends JControllerLegacy
 		if ($store)
 		{
 			$row = $model->store_comment($post,$buzzwordsClean?1:0);
-			if ($row && $buzzwordsClean)
-			$this->setRedirect(JRoute::_("index.php?view=singleimage&success=true&folder=".JRequest::getVar('folder')."&file=".JRequest::getVar('file'),false));
-			else
-			$this->setRedirect(JRoute::_("index.php?view=singleimage&success=false&folder=".JRequest::getVar('folder')."&file=".JRequest::getVar('file'),false));
+			if ($row && $buzzwordsClean)			{
+				
+				$msg = JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_SAVE_SUCCESS');
+				$this->setRedirect(JRoute::_("index.php?view=singleimage&success=true&folder=".JRequest::getVar('folder')."&file=".JRequest::getVar('file'),false),$msg,'success');
+			}
+			else {
+				$msg = JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_SAVE_FAILED');
+				$this->setRedirect(JRoute::_("index.php?view=singleimage&success=false&folder=".JRequest::getVar('folder')."&file=".JRequest::getVar('file'),false),$msg, 'error');
+			}
 
 
 
@@ -125,7 +130,8 @@ class EventgalleryController extends JControllerLegacy
 		}
 		else
 		{
-			$view->display();
+			parent::display($cachable, $urlparams);
+
 		}
 	}
 

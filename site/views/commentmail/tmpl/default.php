@@ -1,12 +1,15 @@
 <?php // no direct access
 defined('_JEXEC') or die('Restricted access'); ?>
 
+
+
 <html>
 <body>
 <table width=500 border=1 bordercolor="#000000" cellspacing=0>
 	<tr valign=top>
 		<td width="100" bgcolor="#EEEEEE"><img
-			src="cid:image"></td>
+			src="<?php echo $this->file->getImageUrl(200, 200, false);?>"></td>
+
 		<td>
 		<table cellspacing=0 cellpadding=0 width="100%" bgcolor="#EEEEEE">
 			<tr>
@@ -47,7 +50,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		</td>
 	</tr>
 	<tr>
-		<td bgcolor=#EEEEEE colspan=2>
+		<td bgcolor="#EEEEEE" colspan="2">
 		<a
 			href="<?php echo JURI::base().JRoute::_("administrator/index.php?option=com_eventgallery&task=editComment&cid[]=".$this->newComment->id,false,-1) ?>"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_ACTION_EDIT') ?></a> <br>
 		<a

@@ -353,8 +353,6 @@
 
 
 #singleimage .comment {
-	border-radius:5px;
-	border: 1px solid #000;
 	width: 100%;
 	float: left;
 	margin: 0px;
@@ -368,8 +366,7 @@
 }
 
 #singleimage .comment:hover {
-	background-color: #222;
-	border: 1px solid #333;
+
 }
 
 #singleimage .details .content{
@@ -711,19 +708,13 @@ div.img:hover .button-alreadyInCart i.big
   font-style: normal;
 }
 
-a:hover {
-	
+
+ 	
+.icon-list {
+  background-position: -360px -48px;
+  font-size:0px;
 }
 
-div.btn {
-	height: 15px;
-	font-size: 12px;
-}
- 
- 	
- .icon-list {
-  background-position: -360px -48px;
-}
 .icon-forward {
   background-position: -336px -72px;
 }
@@ -743,7 +734,12 @@ div.btn {
 .icon-backward {
   background-position: -240px -72px;
 }
-
+.icon-comment {
+  background-position: -240px -120px;
+  font-size:0px;
+}
 .icon-zoom-in {
   background-position: -336px 0;
+  font-size:0px;
 }
+

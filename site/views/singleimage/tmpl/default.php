@@ -57,8 +57,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 			var myVerticalSlide = <?php echo ($this->getErrors())?"new Fx.Slide('commentform').show();":"new Fx.Slide('commentform').hide();"; ?>
 			
-			$('toggle_comment').addEvent('click', function(e){
-				e = new Event(e);
+			$('toggle_comment').addEvent('click', function(e){				
 				e.stop();
 				myVerticalSlide.toggle();
 			});
@@ -104,15 +103,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<h4><?php echo JHTML::date($this->model->folder->date) ?></h4>
 	<h1><?php echo $this->model->folder->description ?></h1>
 	
-	<?php IF (JRequest::getVar('success')): ?>
-		<div class="info">
-			<?php IF (JRequest::getVar('success')=='true'): ?>
-				<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_SAVE_SUCCESS') ?>
-			<?php ELSE: ?>
-				<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_SAVE_FAILED') ?>
-			<?php ENDIF ?>
-		</div>
-	<?php ENDIF ?>
 	<a name="image"></a>
 
 <div class="btn-group">

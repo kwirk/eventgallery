@@ -227,7 +227,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
     
     function getBuzzwords()
     {
-        $query = "SELECT * from #__buzzword where published=1";
+        /*$query = "SELECT * from #__buzzword where published=1";
         $buzzwordList = $this->_getList($query);
         $buzzwords = Array();
         if (is_array($buzzwordList))
@@ -236,7 +236,8 @@ class EventgalleryModelSingleimage extends JModelLegacy
 	        {
 	            array_push($buzzwords, $buzzword->buzzword);
 	        }
-        }
+        }*/
+        $buzzwords = array();
         return $buzzwords;
         
     } 

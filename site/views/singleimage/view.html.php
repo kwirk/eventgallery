@@ -12,7 +12,7 @@ class EventgalleryViewSingleImage extends JViewLegacy
 	    $app	 = &JFactory::getApplication();
 	    $document =& JFactory::getDocument();
 	    
-	    JHtml::_('behavior.framework');    
+	    JHtml::_('behavior.framework', true);    
 		
 	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
 		$document->addStyleSheet($css);		
