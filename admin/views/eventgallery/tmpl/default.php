@@ -61,8 +61,9 @@
 			<td>
 				<div class="btn-group">
 					<?php echo $published; ?>
-					<a href="<?php echo $uploadlink; ?>" class="btn btn-micro">
-						<i class="icon-upload"></i>					
+					<?php /*the following mix of jgrid and btn is for being compatible with joomla 2.5 and 3.0*/ ?>
+					<a href="<?php echo $uploadlink; ?>" class="btn btn-micro jgrid">
+						<span class="state icon-16-newcategory "><i class="icon-upload"></i>	<span class="text"></span></span>					
 					</a>
 				</div>				
 			</td>
