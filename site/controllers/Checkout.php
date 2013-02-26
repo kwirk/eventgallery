@@ -31,7 +31,7 @@ class CheckoutController extends JControllerLegacy
 		$order = array();
 
 		foreach($cart as $lineitem){
-			$count = $this->input->getString( 'count_'.md5($lineitem['folder'].$lineitem['file']) , 0 );
+			$count = JRequest::getString( 'count_'.md5($lineitem['folder'].$lineitem['file']) , 0 );
 			if ($count>0) {
 				$lineitem['count'] = $count;
 				array_push($order, $lineitem);
@@ -40,9 +40,10 @@ class CheckoutController extends JControllerLegacy
 		}
 
 
-		$name    = $this->input->getString( 'name' , null );
-		$email   = $this->input->getString( 'email' , null );
-		$message = $this->input->getString( 'message' , null );
+		$name    = JRequest::getString( 'name' , null );
+		$email   = JRequest::getString( 'email' , null );
+		$message = JRequest::getString( 'message' , null );
+		$subject_message = JRequest::getString( 'subject' , null );
 
 
 		$mailer =& JFactory::getMailer();
@@ -63,6 +64,7 @@ class CheckoutController extends JControllerLegacy
 		$body   = '<h1>User</h1>';		
 		$body  .= "From: $name<br>";
 		$body  .= "EMail: $email<br>";
+		$body  .= "Subject: $subject_message<br>";
 		$body  .= "Message: $message<br><br><br>";
 		$body  .= '<h1>Items</h1>';
 
