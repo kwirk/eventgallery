@@ -40,22 +40,24 @@ foreach($filters as $filterItem)
 			<th width="5"><?php echo JText::_( 'ID' ); ?></th>
 			<th width="20"><input type="checkbox" name="toggle" value=""
 				onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>
-			<th>Root</th>
+			<th width="110">Image</th>
 			<th><?php echo JText::_( 'Name' ); ?></th>
 			<th></th>
 			<th><?php echo JText::_( 'Text' ); ?></th>
 			<th><?php echo JText::_( 'Date' ); ?></th>
 			<th><?php echo JText::_( 'IP' ); ?></th>
 			<th><?php echo JText::_( 'UserID' ); ?></th>
-			<th><?php echo JText::_( 'Filter' ); ?></th>
+			<th width="50"><?php echo JText::_( 'Filter' ); ?></th>
 		</tr>
 	</thead>
 	<?php
 	$k = 0;
 	for ($i=0, $n=count( $this->items ); $i < $n; $i++)
-	{	    $row = &$this->items[$i];
+	{
+	    $row = &$this->items[$i];
 	    $checked 	= JHTML::_('grid.id',   $i, $row->id );
-	    $published =  JHTML::_('grid.published', $row, $i , 'tick.png', 'publish_x.png','Comment');
+	    //$published =  JHTML::_('grid.published', $row, $i , 'tick.png', 'publish_x.png','Comment');
+	    $published =  JHTML::_('jgrid.published', $row->published, $i,'Comment' );
 	    $link 		= JRoute::_( 'index.php?option=com_eventgallery&task=editComment&cid[]='. $row->id );
 
 	    ?>
@@ -63,8 +65,8 @@ foreach($filters as $filterItem)
 		<td><a href="<?php echo $link; ?>"><?php echo $row->id; ?></a></td>
 		<td><?php echo $checked; ?></td>
 		<td><a
-			href="<?php echo $link?>">
-			<?php echo JHTML::image(JURI::base().("../components/com_eventgallery/helpers/thumbnail.php?view=thumbnail&folder=".$row->folder."&file=".$row->file."&option=com_eventgallery"),'image');?>
+			href="<?php echo $link?>">			
+			<img class="thumbnail" src="<?php echo JURI::base().("../components/com_eventgallery/helpers/image.php?view=resizeimage&folder=".$row->folder."&file=".$row->file."&option=com_eventgallery&width=100&height=50")?>" />
 		</a></td>
 
 		<td><a

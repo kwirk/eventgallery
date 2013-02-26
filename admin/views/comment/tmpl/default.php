@@ -8,7 +8,7 @@
 		<table class="admintable">
 		<tr>
 			<td colspan=2>
-				<?php echo JHTML::image(JURI::base().("../components/com_eventgallery/helpers/thumbnail.php?view=thumbnail&folder=".$this->comment->folder."&file=".$this->comment->file."&option=com_eventgallery"),'image');?>
+				<img class="thumbnail" src="<?php echo JURI::base().("../components/com_eventgallery/helpers/image.php?view=resizeimage&folder=".$this->comment->folder."&file=".$this->comment->file."&option=com_eventgallery&width=100&height=50")?>" />
 			</td>
 		</tr>
 		<tr>
