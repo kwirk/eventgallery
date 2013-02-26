@@ -77,9 +77,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<form method="post" name="adminForm">
 
 		<div class="pagination">
-			<div class="float_left"><?php echo $this->pageNav->getPagesCounter(); ?></div>
-			<div class="float_left"><?php echo $this->pageNav->getPagesLinks(); ?></div>
-			<div class="float_left limitbox"><?php echo $this->pageNav->getLimitBox(); ?></div>
+			<div class="pull-right limitbox"><?php echo $this->pageNav->getLimitBox(); ?></div>
 			<div class="clear"></div>
 		</div>
 
@@ -116,9 +114,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<form method="post" name="adminForm">
 
 	<div class="pagination">
-	<div class="float_left"><?php echo $this->pageNav->getPagesCounter(); ?></div>
+	<div class="counter pull-right"><?php echo $this->pageNav->getPagesCounter(); ?></div>
 	<div class="float_left"><?php echo $this->pageNav->getPagesLinks(); ?></div>
-	<div class="float_left limitbox"><?php echo $this->pageNav->getLimitBox(); ?></div>
 	<div class="clear"></div>
 	</div>
 		
