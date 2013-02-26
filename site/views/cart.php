@@ -13,6 +13,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		window.addEvent("domready", function() {
 			var options = {
 				buttonShowType: 'inline',
+				emptyCartSelector: '.eventgallery-cart-empty',
 				cartSelector: '.eventgallery-cart',
 				cartItemContainerSelector: '.cart-items-container',
 				cartItemsSelector: '.eventgallery-cart .cart-items',
@@ -48,6 +49,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		<div style="clear:both"></div>
 
 	</div>
+
 <?php ELSE: ?>
 	<style type="text/css">
 		.button-add2cart {

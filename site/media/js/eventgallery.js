@@ -322,6 +322,7 @@
 		cart : new Array(),
 		options: {
 			buttonShowType: 'block',
+			emptyCartSelector: '.eventgallery-cart-empty',
 			cartSelector: '.eventgallery-cart',
 			cartItemContainerSelector: '.cart-items-container',
 			cartItemsSelector: '.eventgallery-cart .cart-items',
@@ -410,9 +411,11 @@
 		populateCart: function(linksOnly) {
 
 			if (this.cart.length==0) {
+				$$(this.options.emptyCartSelector).setStyle('display', 'block');
 				$$(this.options.cartSelector).setStyle('display', 'none');
 			} else {
 				$$(this.options.cartSelector).setStyle('display', 'block');
+				$$(this.options.emptyCartSelector).setStyle('display', 'none');
 			}
 				// define where all the cart html items are located
 
