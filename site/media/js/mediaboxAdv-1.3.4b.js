@@ -37,11 +37,11 @@ var MooSwipe = MooSwipe || new Class({
 	initialize: function(el, options) {
 		this.setOptions(options);
 		this.element = $(el);
-		this.element.addListener('touchstart', this.onTouchStart.bind(this));
+		this.element.addEvent('touchstart', this.onTouchStart.bind(this));
 	},
 
 	cancelTouch: function() {
-		this.element.removeListener('touchmove', this.onTouchMove);
+		this.element.removeEvent('touchmove', this.onTouchMove);
 		this.startX = null;
 		this.isMoving = false;
 	},
@@ -56,14 +56,15 @@ var MooSwipe = MooSwipe || new Class({
 				this.fireEvent(dx > 0 ? 'swipeLeft' : 'swipeRight');
 				this.fireEvent('swipe', dx > 0 ? 'left' : 'right');
 			}
-		}
+		}		
 	},
 
 	onTouchStart: function(e) {
+		this.options.preventDefaults && e.preventDefault();
 		if (e.touches.length == 1) {
 			this.startX = e.touches[0].pageX;
 			this.isMoving = true;
-			this.element.addListener('touchmove', this.onTouchMove.bind(this));
+			this.element.addEvent('touchmove', this.onTouchMove.bind(this));
 		}
 	}
 });
@@ -75,6 +76,9 @@ var MooSwipe = MooSwipe || new Class({
 	based on Slimbox v1.64 - The ultimate lightweight Lightbox clone
 		(c) 2007-2008 Christophe Beyls <http://www.digitalia.be>
 	MIT-style license.
+
+	modified by me ;-)
+
 */
 var mediaBoxImages  = null;
 
@@ -99,8 +103,6 @@ var Mediabox;
 			]).setStyle("display", "none")
 		);
 
-		
-
 		image = new Element("div", {id: "mbImage"}).inject(center);
 		bottom = new Element("div", {id: "mbBottom"}).inject(center).adopt(
 			closeLink = new Element("a", {id: "mbCloseLink", href: "#"}).addEvent("click", close),
@@ -111,7 +113,7 @@ var Mediabox;
 			caption = new Element("div", {id: "mbCaption"})
 		);
 
-		new MooSwipe('mbCenter', {
+		new MooSwipe('mbImage', {
 		    onSwipeLeft: next,
 		    onSwipeRight: previous
 		});
@@ -149,6 +151,7 @@ var Mediabox;
 				alpha: true,					// Adds 'x', 'c', 'p', and 'n' when keyboard control is also set to true
 				stopKey: false,					// Stops all default keyboard actions while overlay is open (such as up/down arrows)
 													// Does not apply to iFrame content, does not affect mouse scrolling
+				preventScrolling: true,
 				overlayOpacity: 0.7,			// 1 is opaque, 0 is completely transparent (change the color in the CSS file)
 				resizeOpening: true,			// Determines if box opens small and grows (true) or starts at larger size (false)
 				resizeDuration: 240,			// Duration of each of the box resize animations (in milliseconds)
@@ -229,6 +232,7 @@ var Mediabox;
 
 			margin = center.getStyle('padding-left').toInt()+image.getStyle('margin-left').toInt()+image.getStyle('padding-left').toInt();
 
+
 			if ((Browser.firefox) && (Browser.Engine) && (Browser.Engine.version<2)) {	// Fixes Firefox 2 and Camino 1.6 incompatibility with opacity + flash
 				foxfix = true;
 				options.overlayOpacity = 1;
@@ -245,6 +249,20 @@ var Mediabox;
 			if (typeof _images == "string") {	// Used for single images only, with URL and Title as first two arguments
 				_images = [[_images,startImage,_options]];
 				startImage = 0;
+			}
+
+
+			// prevent scrolling and touch scrolling if the lightbox is active
+			var stopEvent = function(e) {
+				e.preventDefault();
+			};
+
+			if (options.preventScrolling) {
+				overlay.addEvent('mousewheel', stopEvent).addEvent('touchmove', stopEvent);
+				center.addEvent('mousewheel', stopEvent).addEvent('touchmove', stopEvent);
+			} else {
+				overlay.removeEvent('mousewheel', stopEvent).removeEvent('touchmove', stopEvent);
+				center.removeEvent('mousewheel', stopEvent).removeEvent('touchmove', stopEvent);
 			}
 
 			images = _images;
