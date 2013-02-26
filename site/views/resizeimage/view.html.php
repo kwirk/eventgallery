@@ -10,11 +10,8 @@ class EventgalleryViewResizeimage extends JViewLegacy
 	{
 		$app = JFactory::getApplication();
 
-
 		$file=JRequest::getString('file');
-		$folder=JRequest::getString('folder');
-		
-		
+		$folder=JRequest::getString('folder');		
 
 		$width=JRequest::getInt('width',-1);
 		$height=JRequest::getInt('height',-1);
@@ -23,7 +20,12 @@ class EventgalleryViewResizeimage extends JViewLegacy
 		if ($width>1441) $width = 1440;
 		if ($height>1441) $height = 1440;
 		
-		$mode=JRequest::getString('mode','nocrop');		
+		$mode=JRequest::getString('mode','nocrop');	
+		if (strcmp($mode,'full')==0) {
+			$mode = 'nocrop';
+			$width = 1440;
+			$height = 1440;
+		}	
 		
 
 

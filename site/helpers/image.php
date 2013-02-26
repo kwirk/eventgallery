@@ -49,6 +49,14 @@
 		$mode = STR_REPLACE("\\","",$mode);
 
 
+
+		//full means max size.
+		if (strcmp('full',$mode)==0)
+		{
+            $width=5000;
+            $height=5000;
+		}
+
 		$basedir=JPATH_BASE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR ;
 		$sourcedir=$basedir.$folder;
 		$cachebasedir=JPATH_CACHE.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR ;
@@ -60,14 +68,7 @@
 		$last_modified = gmdate('D, d M Y H:i:s T', filemtime ($image_file));
 
 
-		if (strcmp('full',$mode)==0 && strtolower(substr($image_file, -3)) == "jpg")
-		{
-			header("Content-Type: image/jpeg");
-			echo readfile($image_file);		
-			$app = JFactory::getApplication();
-            $app->close();
-            die();
-		}
+		
 
 		$debug = false;
 		if ($debug || !file_exists($image_thumb_file)) 
