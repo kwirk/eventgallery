@@ -8,12 +8,11 @@ class EventgalleryViewSingleImage extends JViewLegacy
 {
 	function display($tpl = null)
 	{		
-	    JHtmlBehavior::framework('mootools-more.js');
+
 	    $app	 = &JFactory::getApplication();
 	    $document =& JFactory::getDocument();
 	    
-	    
-	    
+	    JHtml::_('behavior.framework');    
 		
 	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
 		$document->addStyleSheet($css);		
