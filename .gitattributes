@@ -151,6 +151,7 @@ site/media/images/next_button.png -text
 site/media/images/prev_button.png -text
 site/media/images/spacer.gif -text
 site/media/images/zoom_button.png -text
+site/media/img_joomla3/glyphicons-halflings.png -text svneol=unset#image/png
 site/media/js/JSGallery2.js -text
 site/media/js/LazyLoad.js -text
 site/media/js/eventgallery.js -text
