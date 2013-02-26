@@ -6,7 +6,7 @@
 <form id="upload" action="<?php echo JRoute::_("index.php?option=com_eventgallery&task=uploadFileByAjax&folder=".$this->event->folder."&format=raw&",false); ?>" method="POST" enctype="multipart/form-data">  
 <fieldset>  
 
-<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="3000000" />  
+<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="30000000" />  
 <div>  
     <label for="fileselect"><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_FILES_TO_UPLOAD' ); ?>:</label>  
     <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />  
