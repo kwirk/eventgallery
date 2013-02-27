@@ -1,5 +1,15 @@
 <?php 
-    defined('_JEXEC') or die;
+
+/**
+ * @package     Sven.Bluege
+ * @subpackage  com_eventgallery
+ *
+ * @copyright   Copyright (C) 2005 - 2013 Sven Bluege All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+defined('_JEXEC') or die;
+
 ?>
 <?php echo $this->comment->folder?>/<?php echo $this->comment->file?>
 <br>

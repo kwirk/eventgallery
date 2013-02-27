@@ -1,13 +1,11 @@
 <?php
 /**
- * Hellos View for Hello World Component
- * 
- * @package    Joomla.Tutorials
- * @subpackage Components
- * @link http://dev.joomla.org/component/option,com_jd-wiki/Itemid,31/id,tutorials:components/
- * @license		GNU/GPL
+ * @package     Sven.Bluege
+ * @subpackage  com_eventgallery
+ *
+ * @copyright   Copyright (C) 2005 - 2013 Sven Bluege All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
