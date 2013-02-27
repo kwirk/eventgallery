@@ -72,7 +72,6 @@ admin/views/upload/tmpl/default.php -text
 admin/views/upload/tmpl/index.html -text
 admin/views/upload/view.html.php -text
 /eventgallery.xml -text
-/script.php -text
 site/controller.php -text
 site/controllers/Checkout.php -text
 site/controllers/Rest.php -text
