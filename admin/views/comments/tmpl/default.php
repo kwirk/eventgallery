@@ -32,14 +32,15 @@ foreach($filters as $filterItem)
 
 ?></h4>
 
-<form action="index.php" method="post" name="adminForm">
+<form action="index.php" method="post" id="adminForm" name="adminForm">
 <div id="editcell">
-<table class="adminlist">
+<table class="adminlist table table-striped">
 	<thead>
 		<tr>
 			<th width="5"><?php echo JText::_( 'ID' ); ?></th>
-			<th width="20"><input type="checkbox" name="toggle" value=""
-				onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>
+			<th width="20">
+				<!--<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>-->
+				<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 			<th width="110">Image</th>
 			<th><?php echo JText::_( 'Name' ); ?></th>
 			<th></th>
@@ -56,7 +57,6 @@ foreach($filters as $filterItem)
 	{
 	    $row = &$this->items[$i];
 	    $checked 	= JHTML::_('grid.id',   $i, $row->id );
-	    //$published =  JHTML::_('grid.published', $row, $i , 'tick.png', 'publish_x.png','Comment');
 	    $published =  JHTML::_('jgrid.published', $row->published, $i,'Comment' );
 	    $link 		= JRoute::_( 'index.php?option=com_eventgallery&task=editComment&cid[]='. $row->id );
 
@@ -106,9 +106,9 @@ foreach($filters as $filterItem)
 </table>
 </div>
 
-<input type="hidden" name="option" value="com_eventgallery" /> <input
-	type="hidden" name="task" value="comments" /> <input type="hidden"
-	name="boxchecked" value="0" /> <?php echo $this->pageNav->getListFooter(); ?>
-
+<input type="hidden" name="option" value="com_eventgallery" /> 
+<input type="hidden" name="task" value="comments" />
+<input type="hidden" name="boxchecked" value="0" />
+<?php echo $this->pageNav->getListFooter(); ?>
 
 </form>
