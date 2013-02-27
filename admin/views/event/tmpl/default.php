@@ -58,6 +58,20 @@
 		</tr>
 		<tr>
 			<td width="100" align="right" class="key">
+				
+					Published:
+				
+			</td>
+			<td>				
+				<select name="published" id="published">
+						<option value="0">unpublished</option>
+						<option value="1" <?php if ($this->event->published==1) echo "selected=\"selected\"" ; ?>>published</option>						
+				</select>
+			</td>	
+		</tr>	
+
+		<tr>
+			<td width="100" align="right" class="key">
 				<label for="text">
 					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_TEXT' ); ?>:
 				</label>
