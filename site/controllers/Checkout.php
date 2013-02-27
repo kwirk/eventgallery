@@ -75,13 +75,21 @@ class CheckoutController extends JControllerLegacy
 		$body  .= '<h1>Items</h1>';
 
 
-		$body  .= '<ul>';
+		$body  .= '<table>';
+		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_COUNT').'</th>';
+		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_FILE').'</th>';
+		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_THUMBNAIL').'</th>';
+
 		foreach($order as $lineitem){
-			$body  .= '<li>';
-			$body  .= $lineitem['count'].'x <pre>'.$lineitem['folder'].' / '.$lineitem['file'].'</pre><br>'.$lineitem['imagetag'];
-			$body  .= '</li>';				
+			$body  .= '<tr><td>';
+			$body  .= $lineitem['count'];
+			$body  .= '</td><td>';
+			$body  .= '<pre>'.$lineitem['folder'].' / '.$lineitem['file'].'</pre>';
+			$body  .= '</td><td>';
+			$body  .= $lineitem['imagetag'];
+			$body  .= '</td></tr>';				
 		}
-		$body  .= '</ul>';
+		$body  .= '</table>';
 
 		$mailer->isHTML(true);
 		$mailer->Encoding = 'base64';
