@@ -2,6 +2,7 @@
 admin/access.xml -text
 admin/build/build.properties -text
 admin/build/build.xml -text
+admin/build/index.html svneol=native#text/html
 admin/config.xml -text
 admin/controller.php -text
 admin/controllers/index.html -text
@@ -25,6 +26,7 @@ admin/models/folder.php -text
 admin/models/index.html -text
 admin/models/token.php -text
 admin/sql/index.html -text
+admin/sql/install/index.html svneol=native#text/html
 admin/sql/install/install.mysql.sql -text
 admin/sql/install/uninstall.mysql.sql -text
 admin/sql/updates/2.2.0.sql -text
@@ -72,6 +74,7 @@ admin/views/upload/tmpl/default.php -text
 admin/views/upload/tmpl/index.html -text
 admin/views/upload/view.html.php -text
 /eventgallery.xml -text
+/index.html svneol=native#text/html
 site/controller.php -text
 site/controllers/Checkout.php -text
 site/controllers/Rest.php -text
@@ -87,6 +90,7 @@ site/index.html -text
 site/language/de-DE/de-DE.com_eventgallery.ini -text
 site/language/en-GB/en-GB.com_eventgallery.ini -text
 site/media/css/eventgallery.css -text
+site/media/css/index.html svneol=native#text/html
 site/media/css/mediaboxAdvBlack21.css -text
 site/media/images/Resized/blank_100x146.gif -text
 site/media/images/Resized/blank_108x158.gif -text
@@ -135,14 +139,18 @@ site/media/images/Resized/blank_98x147.gif -text
 site/media/images/Resized/index.html -text
 site/media/images/blank.gif -text
 site/media/images/cart/buttons.png -text svneol=unset#image/png
+site/media/images/cart/index.html svneol=native#text/html
 site/media/images/cart/source/Shapes4FREE-ecommerce.csh -text
 site/media/images/cart/source/buttons.psd -text
+site/media/images/cart/source/index.html svneol=native#text/html
 site/media/images/cart/source/preview-60-shopping-shapes-Shapes4FREE.jpg -text svneol=unset#image/jpeg
 site/media/images/closelabel.gif -text
+site/media/images/index.html svneol=native#text/html
 site/media/images/loading.gif -text
 site/media/images/loading_s.gif -text
 site/media/images/mediabox/50.gif -text
 site/media/images/mediabox/80.png -text
+site/media/images/mediabox/index.html svneol=native#text/html
 site/media/images/mediabox/loading.gif -text
 site/media/images/mediabox/loading2.gif -text
 site/media/images/mediabox/loading3.gif -text
@@ -151,9 +159,12 @@ site/media/images/prev_button.png -text
 site/media/images/spacer.gif -text
 site/media/images/zoom_button.png -text
 site/media/img_joomla3/glyphicons-halflings.png -text svneol=unset#image/png
+site/media/img_joomla3/index.html svneol=native#text/html
+site/media/index.html svneol=native#text/html
 site/media/js/JSGallery2.js -text
 site/media/js/LazyLoad.js -text
 site/media/js/eventgallery.js -text
+site/media/js/index.html svneol=native#text/html
 site/media/js/mediaboxAdv-1.3.4b.js -text
 site/models/comment.php -text
 site/models/event.php -text

@@ -1,5 +1,5 @@
-<?php
-
+<?php 
+defined('_JEXEC') or die;
 
 jimport( 'joomla.application.component.view');
 jimport( 'joomla.application.pathway');
@@ -15,7 +15,7 @@ class EventgalleryViewEvent extends JViewLegacy
 		$document = JFactory::getDocument();
 		$params	 = $app->getParams();
 		
-		JHtml::_('behavior.framework');
+		JHtml::_('behavior.framework', true);
 		
 	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
 		$document->addStyleSheet($css);		

@@ -1,4 +1,5 @@
-<?php
+<?php 
+    defined('_JEXEC') or die;
 
 /**
  * Trys to determine the border and available size of an Image

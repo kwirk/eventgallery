@@ -1,3 +1,6 @@
+<?php 
+    defined('_JEXEC') or die;
+?>
 <?php echo $this->comment->folder?>/<?php echo $this->comment->file?>
 <br>
 <?php echo JHTML::image(JURI::base().JRoute::_("../index.php?view=thumbnail&folder=".$this->comment->folder."&file=".$this->comment->file."&option=com_eventgallery"),'image');?>

@@ -1,4 +1,5 @@
-<?php
+<?php 
+    defined('_JEXEC') or die;
 	jimport('joomla.error.log');
 	
 	
