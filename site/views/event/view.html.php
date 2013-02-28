@@ -80,7 +80,6 @@ class EventgalleryViewEvent extends JViewLegacy
 		elseif ($this->getLayout() =='imagelist') {
 			$js=JURI::base().'components/com_eventgallery/media/js/LazyLoad.js';
 			$document->addScript($js);
-			$this->assign('image_array', $params->get('image_array'));
 		} else {
 			$js=JURI::base().'components/com_eventgallery/media/js/LazyLoad.js';
 			$document->addScript($js);

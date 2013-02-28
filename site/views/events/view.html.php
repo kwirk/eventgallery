@@ -14,6 +14,10 @@ jimport( 'joomla.application.component.view');
 
 class EventgalleryViewEvents extends JViewLegacy
 {
+
+
+
+
 	function display($tpl = null)
 	{	
 		$cache = & JFactory::getCache();
@@ -49,8 +53,7 @@ class EventgalleryViewEvents extends JViewLegacy
 	    $this->assignRef('fileCount',$model->getFileCount());
 	    $this->assignRef('folderCount',$model->getFolderCount());
 	    $this->assignRef('eventModel',$eventModel);
-	    
-	    
+    
         
 		parent::display($tpl);
 	}

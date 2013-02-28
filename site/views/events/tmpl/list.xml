@@ -1,72 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="Events - Simple List">
+	<layout title="COM_EVENTGALLERY_LAYOUT_EVENTS_SIMPLE_LIST" option="list">
 		<message>
-			<![CDATA[EVENTS LAYOUT]]>
+			<![CDATA[COM_EVENTGALLERY_LAYOUT_EVENTS_SIMPLE_LIST_MESSAGE]]>
 		</message>
 	</layout>
+
 	<fields name="params">
 		
-		<fieldset name="params" label="Events Layout">
+		<fieldset name="params" label="Events">
+			<field
+				name="event_layout"
+				type="componentlayout"
+				label="COM_EVENTGALLERY_OPTIONS_EVENTS_LAYOUT_LABEL"
+				description="COM_EVENTGALLERY_OPTIONS_EVENTS_LAYOUT_DESC"
+				menuitems="true"
+				extension="com_eventgallery"
+				view="event"
+				useglobal="false"
+				/>		
+		</fieldset>
+		
+		<fieldset name="params1" label="COM_EVENTGALLERY_LAYOUT_EVENTS_FIELDSET_LABEL">
 		
 			<field 	name="greetings" 
 				id="greetings" 
 				type="textarea" 
 				default="" 
-				label="Greeting" 
+				label="COM_EVENTGALLERY_OPTIONS_EVENTS_GREETING_LABEL" 
 				rows="3" 
 				cols="50" 
-				description="Begrüßungstext" 
-				/>
+				description="COM_EVENTGALLERY_OPTIONS_EVENTS_GREETING_DESC" 
+			/>
 		
-			<field name="tags" type="text" default="" label="Tags" description="Tags which are necessary to display a event." />
 		
-			<field name="max_events" type="text" default="0" label="Max Events on Page" description="0 = all events" />
+			<field name="tags" type="text" default="" label="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_DESC" />
+		
+			<field name="max_events" type="text" default="0" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_ON_PAGE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_ON_PAGE_DESC" />
 			
 			<field type="spacer" />
-			<field name="max_big_events" type="text" default="1" label="Max Big Events on Page" description="Big events are show with description" />
-			<field name="max_big_events_thumbnails" type="text" default="12" label="Number of Thumbnails" description="" />
-			<field name="max_big_events_thumbnails_width" type="text" default="50" label="Width of Thumbnails" description="" />
+			<field name="max_big_events" type="text" default="1000" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_MAX_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_MAX_DESC" />
+			<field name="max_big_events_thumbnails" type="text" default="1" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAILS_DESC" />
+			<field name="max_big_events_thumbnails_width" type="text" default="320" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAIL_WIDTH_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAIL_WIDTH_DESC" />
 			<field type="spacer" />
-			<field name="max_middle_events" type="text" default="3" label="Max Middle Events on Page" description="Middle Events are show with thumbnails but without description" />
-			<field name="max_middle_events_thumbnails" type="text" default="3" label="Number of Thumbnails" description="" />
-			<field name="max_middle_events_thumbnails_width" type="text" default="50" label="Width of Thumbnails" description="" />
-			<field name="use_slider" type="radio" default="0" label="Use Slider" description="shows middle Events in a kind of javascript-slider">
-				<option value="0">no</option>
-				<option value="1">yes</option>
-			</field>
+			<field name="max_middle_events" type="text" default="0" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_MAX_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_MAX_DESC" />
+			<field name="max_middle_events_thumbnails" type="text" default="3" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAILS_DESC" />
+			<field name="max_middle_events_thumbnails_width" type="text" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAIL_WIDTH_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAIL_WIDTH_DESC" />
+
 			<field type="spacer" />
-			<field name="show_thumbnails" type="radio" default="1" label="Show Thumbnails" description="">
+			<field name="show_thumbnails" type="radio" default="1" label="COM_EVENTGALLERY_OPTIONS_EVENTS_SHOW_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_SHOW_THUMBNAILS_DESC">
 				<option value="0">hide</option>
 				<option value="1">show</option>
 			</field>
-			<field name="show_more_link" type="radio" default="1" label="Show More Link" description="">
+			<field name="show_more_link" type="radio" default="0" label="COM_EVENTGALLERY_OPTIONS_EVENTS_SHOW_MORE_LINK_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_SHOW_MORE_LINK_DESC">
 				<option value="0">hide</option>
 				<option value="1">show</option>
 			</field>
 		</fieldset>
-		<fieldset name="params" label="Event Layout">
-			<field
-				name="event_layout"
-				type="componentlayout"
-				label="Event Layout"
-				description="Choose the event layout"
-				menuitems="true"
-				extension="com_eventgallery"
-				view="event"
-				useglobal="false"
-				/>
-			<field 	name="image_array" 
-				id="image_array" 
-				type="textarea" 
-				default="50x50 50x50 50x50" 
-				label="Image Array for images on event page" 
-				rows="6" 
-				cols="50" 
-				description="Bildgrößen: BreitexHöhe, Leerzeichen für gleiche Zeile, Zeilenumbruch für nächste Zeile" />
-			<field type="spacer" />
-			<field type="spacer" />
-			<field type="spacer" />
+		<fieldset name="params2" label="COM_EVENTGALLERY_LAYOUT_EVENT_AJAX_LIST">
+		</fieldset>
+		<fieldset name="params3" label="COM_EVENTGALLERY_LAYOUT_EVENT_DEFAULT_LIST">
+			<field name="event_default_list_thumbnail_height" id="event_image_list_thumbnail_height" type="integer" first="0" last="1000" step="10" default="150" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
+			<field name="event_default_list_thumbnail_jitter" id="event_image_list_thumbnail_jitter" type="integer" first="0" last="500" step="10" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC" />
+		</fieldset>
+		<fieldset name="params4" label="COM_EVENTGALLERY_LAYOUT_EVENT_IMAGE_LIST">
+			<field name="event_image_list_thumbnail_height" id="event_default_list_thumbnail_height" type="integer" first="0" last="1000" step="10" default="150" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
+			<field name="event_image_list_thumbnail_jitter" id="event_default_list_thumbnail_jitter" type="integer" first="0" last="500" step="10" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC" />
+			<field name="event_image_list_thumbnail_first_item_height" id="event_default_list_thumbnail_first_item_height" type="integer" first="1" last="10" step="1" default="2" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_DESC"/>
 		</fieldset>
 	</fields>
+
 </metadata>

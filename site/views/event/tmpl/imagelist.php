@@ -84,32 +84,6 @@ include 'components/com_eventgallery/views/cart.php';
 	</div>
 	
 	<div style="clear:both"></div>
-
-	<?php 
-		
-		// process the array;
-		$layout = Array();
-		$this->image_array = "50x50";
-		foreach(explode("\n",$this->image_array) as $line) {
-			if (strlen(trim($line))==0) continue;
-			$items = explode(" ",trim($line));
-				
-			
-			$itemsArray = Array();
-			foreach($items as $item) {
-				if (strlen(trim($item))==0) continue;
-				$tempItem = explode("x",trim($item));
-				$itemArray = Array();
-				$itemArray['w'] = $tempItem[0];
-				$itemArray['h'] = $tempItem[1];
-				array_push($itemsArray, $itemArray);
-			}
-			array_push($layout, $itemsArray);
-		}
-		
-		$layout_row=0;
-		$layout_col=0;
-	?>
 	
 	<div class="thumbnails">
 		<?php foreach($this->entries as $entry) :?>
@@ -117,18 +91,8 @@ include 'components/com_eventgallery/views/cart.php';
 		    <div class="thumbnail-container">
 	    	<a class="thumbnail" href="<?php echo $this->entry->getImageUrl(null, null, true); ?>"
 	            title="<?php echo $entry->caption?><?PHP IF(isset($entry->exif)):?><br /><?php echo $entry->exif->model?>, <?php echo $entry->exif->focallength?> mm, f/<?php echo $entry->exif->fstop?>, ISO <?php echo $entry->exif->iso?><?php ENDIF ?>";
-	            rel="lightbo2[gallery]"><?php echo $this->entry->getLazyThumbImgTag($layout[$layout_row][$layout_col]['w'], $layout[$layout_row][$layout_col]['h']);?>
+	            rel="lightbo2[gallery]"><?php echo $this->entry->getLazyThumbImgTag(50,50);?>
 			    </a><a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" class="button-add2cart eventgallery-add2cart" data-id="folder=<?php echo $this->entry->folder."&file=".$this->entry->file ?>"><i class="big"></i></a></div>
-	        <?php 
-	    		$layout_col++;
-	    		if ($layout_col>=sizeof($layout[$layout_row])) {
-	    			$layout_col=0;
-	    			$layout_row++;
-	    		}
-	    		if ($layout_row>=sizeof($layout)) {
-	    			$layout_row=0;
-	    		} 
-	    	?>
 		<?php endforeach?>
 		<div style="clear: both"></div>
 	</div>

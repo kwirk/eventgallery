@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="Event - Default List">
+	<layout title="COM_EVENTGALLERY_LAYOUT_EVENT_DEFAULT_LIST">
 		<message>
-			<![CDATA[EVENT LAYOUT]]>
+			<![CDATA[COM_EVENTGALLERY_LAYOUT_EVENT_DEFAULT_LIST_MESSAGE]]>
 		</message>
 	</layout>
 	<!-- Add fields to the request variables for the layout. -->
@@ -11,32 +11,17 @@
 			addfieldpath="/administrator/components/com_eventgallery/models/fields">
 
 			<field name="folder" type="modal_folder"
-				label="Select folder"
+				label="COM_EVENTGALLERY_LAYOUT_EVENT_FOLDER_LABEL"
 				required="true"
-				description="Select the folder to display."
+				description="COM_EVENTGALLERY_LAYOUT_EVENT_FOLDER_DESC"
 			/>
 		</fieldset>
 	</fields>
 	<fields name="params">
 	
-		<fieldset name="params" label="Event Layout">
-			<field name="display_type" type="radio" default="0" label="event gallery type" description="which gallery type do you want to use">
-				<option value="0">default (events, event, single image page)</option>
-				<option value="1">Ajax paging</option>
-				<option value="2">events, event page without paging</option>
-			</field>
-			<field 	name="image_array" 
-				id="image_array" 
-				type="textarea" 
-				default="50x50 50x50 50x50" 
-				label="Image Array for images on event page" 
-				rows="6" 
-				cols="50" 
-				description="Bildgrößen: BreitexHöhe, Leerzeichen für gleiche Zeile, Zeilenumbruch für nächste Zeile" />
-			<field name="page_width" id="page_width" type="text" default="600" label="Breite der Seite" />
-			<field type="spacer" />
-			<field type="spacer" />
-			<field type="spacer" />
+		<fieldset name="params" label="COM_EVENTGALLERY_LAYOUT_EVENT_FIELDSET_LABEL">
+			<field name="event_default_list_thumbnail_height" id="event_image_list_thumbnail_height" type="integer" first="0" last="1000" step="10" default="150" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
+			<field name="event_default_list_thumbnail_jitter" id="event_image_list_thumbnail_jitter" type="integer" first="0" last="500" step="10" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC" />
 		</fieldset>
 	</fields>
 </metadata>

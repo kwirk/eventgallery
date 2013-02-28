@@ -11,7 +11,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 <div id="events">
 	<h1>(<?php echo $this->fileCount ?> <?php echo JText::_('COM_EVENTGALLERY_EVENTS_LIST_IMAGESIN') ?> <?php echo $this->folderCount ?> <?php echo JText::_('COM_EVENTGALLERY_EVENTS_LIST_FOLDERS') ?>)</h1>
-	<p><?php echo $this->greetings; ?></p>	
+	<p><?php echo $this->params->get('greetings',''); ?></p>	
 	
 	<div>
 		<ul>
