@@ -32,9 +32,9 @@ include 'components/com_eventgallery/views/cart.php';
 	
 	window.addEvent("domready", function() {
 		var options = {
-			rowHeight: 150,
-			rowHeightJitter: 50,
-			firstImageRowHeight: 2,
+			rowHeight: <?php echo $this->params->get('event_image_list_thumbnail_height',150); ?>,
+			rowHeightJitter: <?php echo $this->params->get('event_image_list_thumbnail_jitter',50); ?>,
+			firstImageRowHeight: <?php echo $this->params->get('event_image_list_thumbnail_first_item_height',2); ?>,
 			eventgallerySelector: '.thumbnails',
 			eventgalleryImageSelector: '.thumbnail',
 			initComplete: function() {

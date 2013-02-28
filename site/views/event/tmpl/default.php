@@ -20,9 +20,9 @@ defined('_JEXEC') or die('Restricted access');
 	
 	window.addEvent("domready", function() {
 		var options = {
-			rowHeight: 100,
-			rowHeightJitter: 0,
-			firstImageRowHeight: 1,
+			rowHeight: <?php echo $this->params->get('event_default_list_thumbnail_height',100); ?>,
+			rowHeightJitter: <?php echo $this->params->get('event_default_list_thumbnail_jitter', 0); ?>,
+			firstImageRowHeight: <?php echo $this->params->get('event_default_list_thumbnail_first_item_height',1); ?>,
 			eventgallerySelector: '.thumbnails',
 			eventgalleryImageSelector: '.thumbnail',
 			initComplete: function() {

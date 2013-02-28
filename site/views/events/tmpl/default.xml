@@ -59,13 +59,14 @@
 		<fieldset name="params2" label="COM_EVENTGALLERY_LAYOUT_EVENT_AJAX_LIST">
 		</fieldset>
 		<fieldset name="params3" label="COM_EVENTGALLERY_LAYOUT_EVENT_DEFAULT_LIST">
-			<field name="event_default_list_thumbnail_height" id="event_image_list_thumbnail_height" type="integer" first="0" last="1000" step="10" default="150" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
-			<field name="event_default_list_thumbnail_jitter" id="event_image_list_thumbnail_jitter" type="integer" first="0" last="500" step="10" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC" />
+			<field name="event_default_list_thumbnail_height" id="event_default_list_thumbnail_height" type="integer" first="0" last="1000" step="10" default="150" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
+			<field name="event_default_list_thumbnail_jitter" id="event_default_list_thumbnail_jitter" type="integer" first="0" last="500" step="10" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC" />
+			<field name="event_default_list_thumbnail_first_item_height" id="event_default_list_thumbnail_first_item_height" type="integer" first="1" last="10" step="1" default="2" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_DESC"/>
 		</fieldset>
 		<fieldset name="params4" label="COM_EVENTGALLERY_LAYOUT_EVENT_IMAGE_LIST">
-			<field name="event_image_list_thumbnail_height" id="event_default_list_thumbnail_height" type="integer" first="0" last="1000" step="10" default="150" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
-			<field name="event_image_list_thumbnail_jitter" id="event_default_list_thumbnail_jitter" type="integer" first="0" last="500" step="10" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC" />
-			<field name="event_image_list_thumbnail_first_item_height" id="event_default_list_thumbnail_first_item_height" type="integer" first="1" last="10" step="1" default="2" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_DESC"/>
+			<field name="event_image_list_thumbnail_height" id="event_image_list_thumbnail_height" type="integer" first="0" last="1000" step="10" default="150" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
+			<field name="event_image_list_thumbnail_jitter" id="event_image_list_thumbnail_jitter" type="integer" first="0" last="500" step="10" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC" />
+			<field name="event_image_list_thumbnail_first_item_height" id="event_image_list_thumbnail_first_item_height" type="integer" first="1" last="10" step="1" default="2" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_DESC"/>
 		</fieldset>
 	</fields>
 </metadata>
