@@ -184,7 +184,7 @@ class EventgalleryModelEvent extends JModelLegacy
 			if (strlen($foldername)>0)
 			{
 				$path=JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR.$foldername.DIRECTORY_SEPARATOR ;
-				removeDir($path);
+				$this->delTree($path);
 			}
 			
 		}
@@ -221,6 +221,14 @@ class EventgalleryModelEvent extends JModelLegacy
 		$query = 'select * from #__eventgallery_file file, #__eventgallery_folder folder where folder.folder=file.folder and folder.id='.$this->_db->Quote($this->_id);		
 		return $this->_getListCount($query);
 	}
+
+	private function delTree($dir) { 
+	   $files = array_diff(scandir($dir), array('.','..')); 
+	    foreach ($files as $file) { 
+	      (is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : unlink("$dir/$file"); 
+	    } 
+	    return rmdir($dir); 
+	  } 
 	
 
 }
