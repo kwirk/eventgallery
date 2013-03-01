@@ -37,7 +37,7 @@ $cache = & JFactory::getCache();
 
 								<?php IF ($this->params->get('show_thumbnails',true)):?>
 									<?php 
-										$files = $cache->call( array($this->eventModel, 'getEntries'), $entry->folder,1,$this->params->get('max_big_events_thumbnails',1) );
+										$files = $cache->call( array($this->eventModel, 'getEntries'), $entry->folder,0,$this->params->get('max_big_events_thumbnails',1),1 );
 										if (isset($this->entry->titleImage)) {
 											array_pop($files);
 											array_unshift($files,$this->entry->titleImage);

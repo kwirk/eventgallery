@@ -33,7 +33,7 @@ class EventgalleryModelEvent extends JModelLegacy
 		$this->setState('com_eventgallery.event.limitstart',$limitstart);
 	}
 
-    function getEntries($folder='',$limitstart=0,$limit=0)
+    function getEntries($folder='',$limitstart=0,$limit=0,$imagesForEvents=0)
     {
 		if($limit==0)  $limit = $this->getState('limit');
         
@@ -60,29 +60,40 @@ class EventgalleryModelEvent extends JModelLegacy
     	}
     	
     	// database handling
-    	
-        $query = 'SELECT file.*, IF (isNull(comment.id),0,sum(1)) commentCount
-        	  from #__eventgallery_file file join #__eventgallery_folder folder on folder.folder=file.folder and folder.published=1
-        	  left join #__eventgallery_comment comment on file.folder=comment.folder and file.file=comment.file
+    	if ($imagesForEvents == 0) {
+            // find files which are allowed to show in a list        
+            $query = 'SELECT file.*, IF (isNull(comment.id),0,sum(1)) commentCount
+            	  from #__eventgallery_file file join #__eventgallery_folder folder on folder.folder=file.folder and folder.published=1
+            	  left join #__eventgallery_comment comment on file.folder=comment.folder and file.file=comment.file
+                      where file.folder='.$this->_db->Quote($folder).'
+                        and file.published=1
+                        and (comment.published=1 or isNull(comment.published))
+                        and file.ismainimageonly=0                    
+                      group by file.folder, file.file
+                      order by ordering desc, file.file';
+        } else {
+            // find files and sort them with the main images first
+            $query = 'SELECT file.*, IF (isNull(comment.id),0,sum(1)) commentCount
+              from #__eventgallery_file file join #__eventgallery_folder folder on folder.folder=file.folder and folder.published=1
+              left join #__eventgallery_comment comment on file.folder=comment.folder and file.file=comment.file
                   where file.folder='.$this->_db->Quote($folder).'
                     and file.published=1
-                    and (comment.published=1 or isNull(comment.published))
-                    and file.ismainimageonly=0
+                    and (comment.published=1 or isNull(comment.published))                    
                   group by file.folder, file.file
-                  order by ordering desc, file.file';
-
-
+                  order by file.ismainimage desc, ordering desc, file.file';
+        }
 
 		if ($limit!=0) {
         	$entries = $this->_getList($query, $limitstart, $limit);
         } else {
         	$entries = $this->_getList($query);
         }
-        
+
         $result = Array();
         foreach($entries as $entry) {
         	$result[] = new EventGalleryImage($entry);
         }
+
         
         return $result;
     }

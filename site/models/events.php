@@ -24,8 +24,9 @@ class EventgalleryModelEvents extends JModelLegacy
     	
         $query = 'SELECT folder.*, count(1) overallCount 
         		  FROM #__eventgallery_folder folder left join #__eventgallery_file file on 
-        		  		folder.folder = file.folder AND folder.published=1 AND file.published=1 
+        		  		folder.folder = file.folder AND folder.published=1 AND file.published=1                         
         		  WHERE folder.published=1 
+                    and file.ismainimageonly=0
         		  GROUP by folder.folder
         		  ORDER by ordering desc';
         
