@@ -447,6 +447,72 @@ class EventgalleryController extends JControllerLegacy
 
 		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}	
+
+	/**
+	 * function to enable an image as main image for  single file/multiple files
+	 * 
+	 * @return unknown_type
+	 */
+	function isMainImage()
+	{
+		$model = $this->getModel('file');
+		$model->setMainImage(1);
+
+		$file = & $model->getData();
+		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_ENABLE_FOR_FILE' );
+
+
+		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+	}
+	
+	/**
+	 * function to enable an image as main image for a single file/multiple files
+	 * 
+	 * @return unknown_type
+	 */	
+	function isNotMainImage()
+	{
+		$model = $this->getModel('file');
+		$model->setMainImage(0);
+
+		$file = & $model->getData();
+		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_DISABLE_FOR_FILE' );
+
+		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+	}	
+
+	/**
+	 * function to enable an image as main image for  single file/multiple files
+	 * 
+	 * @return unknown_type
+	 */
+	function isMainImageOnly()
+	{
+		$model = $this->getModel('file');
+		$model->setMainImageOnly(1);
+
+		$file = & $model->getData();
+		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_ENABLE_FOR_FILE' );
+
+
+		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+	}
+	
+	/**
+	 * function to enable an image as main image for a single file/multiple files
+	 * 
+	 * @return unknown_type
+	 */	
+	function isNotMainImageOnly()
+	{
+		$model = $this->getModel('file');
+		$model->setMainImageOnly(0);
+
+		$file = & $model->getData();
+		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_DISABLE_FOR_FILE' );
+
+		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+	}	
 	
 	/**
 	 * function to publish a file. This is uses for links in emails

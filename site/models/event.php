@@ -67,6 +67,7 @@ class EventgalleryModelEvent extends JModelLegacy
                   where file.folder='.$this->_db->Quote($folder).'
                     and file.published=1
                     and (comment.published=1 or isNull(comment.published))
+                    and file.ismainimageonly=0
                   group by file.folder, file.file
                   order by ordering desc, file.file';
 
@@ -121,7 +122,7 @@ class EventgalleryModelEvent extends JModelLegacy
 			$album = picasaweb_ListAlbum($values[0], $values[1], $picasakey);
 			return count($album->photos);
 		} else {
-			$query = 'select * from #__eventgallery_file where published=1 and folder='.$this->_db->Quote($folder);
+			$query = 'select * from #__eventgallery_file where published=1 and ismainimageonly=0 and folder='.$this->_db->Quote($folder);
 			return $this->_getListCount($query);
 		}
 	}

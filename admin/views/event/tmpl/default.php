@@ -183,15 +183,27 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<td>
 				<div class="btn-group">	
-					<a onClick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&task=".($row->published==0?"Filepublish":"Fileunpublish")."&folderid=".$this->event->id."&cid[]=".$row->id."&limitstart=".JRequest::getVar('limitstart', '0', '', 'int')."#".$row->id) ?>'"
+					<a title="<?php echo JText::_( 'COM_EVENTGALLERY_EVENT_IMAGE_ACTION_PUBLISH' ); ?>" onClick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&task=".($row->published==0?"Filepublish":"Fileunpublish")."&folderid=".$this->event->id."&cid[]=".$row->id."&limitstart=".JRequest::getVar('limitstart', '0', '', 'int')."#".$row->id) ?>'"
 				        class="<?php echo $row->published==1? "btn btn-micro active" : "btn btn-micro";?>">
 				        <i class="icon-checkmark"></i>
 				    </a>
 
-					<a onClick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&task=".($row->allowcomments==0?"allowComments":"disallowComments")."&folderid=".$this->event->id."&cid[]=".$row->id."&limitstart=".JRequest::getVar('limitstart', '0', '', 'int')."#".$row->id) ?>'"
+					<a title="<?php echo JText::_( 'COM_EVENTGALLERY_EVENT_IMAGE_ACTION_ALLOWCOMMENTS' ); ?>" onClick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&task=".($row->allowcomments==0?"allowComments":"disallowComments")."&folderid=".$this->event->id."&cid[]=".$row->id."&limitstart=".JRequest::getVar('limitstart', '0', '', 'int')."#".$row->id) ?>'"
 				        class="<?php echo $row->allowcomments==1? "btn btn-micro active" : "btn btn-micro";?>">
 				        <i class="icon-comments-2"></i>
 				    </a>
+
+				    <a title="<?php echo JText::_( 'COM_EVENTGALLERY_EVENT_IMAGE_ACTION_MAINIMAGE' ); ?>" onClick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&task=".($row->ismainimage==0?"isMainImage":"isNotMainImage")."&folderid=".$this->event->id."&cid[]=".$row->id."&limitstart=".JRequest::getVar('limitstart', '0', '', 'int')."#".$row->id) ?>'"
+				        class="<?php echo $row->ismainimage==1? "btn btn-micro active" : "btn btn-micro";?>">
+				        <i class="icon-star<?php echo $row->ismainimage==1? "" : "-empty";?>"></i>
+				    </a>
+
+				    <a title="<?php echo JText::_( 'COM_EVENTGALLERY_EVENT_IMAGE_ACTION_MAINIMAGEONLY' ); ?>" onClick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&task=".($row->ismainimageonly==0?"isMainImageOnly":"isNotMainImageOnly")."&folderid=".$this->event->id."&cid[]=".$row->id."&limitstart=".JRequest::getVar('limitstart', '0', '', 'int')."#".$row->id) ?>'"
+				        class="<?php echo $row->ismainimageonly==1? "btn btn-micro active" : "btn btn-micro";?>">
+				        <i class="icon-star-2"></i>
+				    </a>
+
+
 			    </div>	
 			</td>
 			<td>

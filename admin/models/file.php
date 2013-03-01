@@ -75,7 +75,7 @@ class EventgalleryModelFile extends JModelLegacy
 	 */
 	function store()
 	{
-		$row = &$this->getTable('file');
+		$row = $this->getTable('file');
 		$data = JRequest::get( 'post' );
 
 
@@ -111,7 +111,7 @@ class EventgalleryModelFile extends JModelLegacy
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
-		$row = &$this->getTable('folder');
+		$row = $this->getTable('folder');
 
 
 		if (count( $cids ))
@@ -133,7 +133,7 @@ class EventgalleryModelFile extends JModelLegacy
 		{
 			foreach($cids as $cid) {
 				
-				$row = &$this->getTable('file');
+				$row = $this->getTable('file');
 
 		        $query = ' SELECT * FROM #__eventgallery_file '.
 							'  WHERE id = \''.$cid.'\'';
@@ -158,7 +158,7 @@ class EventgalleryModelFile extends JModelLegacy
 		{
 			foreach($cids as $cid) {
 				
-				$row = &$this->getTable('file');
+				$row = $this->getTable('file');
 
 		        $query = ' SELECT * FROM #__eventgallery_file '.
 							'  WHERE id = \''.$cid.'\'';
@@ -174,7 +174,57 @@ class EventgalleryModelFile extends JModelLegacy
 			}
 		}
 		return true;
-	}			
+	}		
+
+	function setMainImageOnly($isMainImageOnly)
+	{
+		$cids = JRequest::getVar( 'cid', array(0), '', 'array' );
+		if (count( $cids ))
+		{
+			foreach($cids as $cid) {
+				
+				$row = $this->getTable('file');
+
+		        $query = ' SELECT * FROM #__eventgallery_file '.
+							'  WHERE id = \''.$cid.'\'';
+				
+				$this->_db->setQuery( $query );
+				$data = $this->_db->loadObject();
+				$row->bind($data);
+				$row->ismainimageonly = $isMainImageOnly;
+				$row->id=$cid;
+				if (!$row->store()) {
+					$this->setError( $row->getErrorMsg() );			
+				}
+			}
+		}
+		return true;
+	}	
+
+	function setMainImage($isMainImage)
+	{
+		$cids = JRequest::getVar( 'cid', array(0), '', 'array' );
+		if (count( $cids ))
+		{
+			foreach($cids as $cid) {
+				
+				$row = $this->getTable('file');
+
+		        $query = ' SELECT * FROM #__eventgallery_file '.
+							'  WHERE id = \''.$cid.'\'';
+				
+				$this->_db->setQuery( $query );
+				$data = $this->_db->loadObject();
+				$row->bind($data);
+				$row->ismainimage = $isMainImage;
+				$row->id=$cid;
+				if (!$row->store()) {
+					$this->setError( $row->getErrorMsg() );			
+				}
+			}
+		}
+		return true;
+	}	
 
 	function storeOrder($direction=0)
 	{
@@ -213,7 +263,7 @@ class EventgalleryModelFile extends JModelLegacy
 		
 		if (isset( $cid[0] ))
 		{
-			$row = & $this->getTable('file');
+			$row = $this->getTable('file');
 			$row->load( (int) $cid[0] );
 			$row->move($direction);
 		}

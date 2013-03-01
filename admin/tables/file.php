@@ -21,6 +21,8 @@ class TableFile extends JTable
 	var $userid = null;
 	var $lastmodified = null;
 	var $ordering = null;
+	var $ismainimage = null;
+	var $ismainimageonly = null;
 
 	/**
 	 * Constructor

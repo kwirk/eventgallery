@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_file` (
   `height` int(10),
   `caption` text,
   `ordering` int(10),
+  `ismainimage` tinyint(4) NOT NULL default '0',
+  `ismainimageonly` tinyint(4) NOT NULL default '0',
   `hits` int(11) NOT NULL default '0',
   `published` tinyint(4) NOT NULL default '1',
   `allowcomments` tinyint(4) NOT NULL default '1',
@@ -34,6 +36,8 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_file` (
   KEY `index_file` (`file`),
   KEY `index_folder` (`folder`)
 );
+
+
 
 
 CREATE TABLE IF NOT EXISTS `#__eventgallery_folder` (
