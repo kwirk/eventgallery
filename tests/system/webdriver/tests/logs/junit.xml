@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="tests" tests="2" assertions="8" failures="0" errors="0" time="13.920560">
+    <testsuite name="EventCreateTest" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\EventCreateTest.php" tests="2" assertions="8" failures="0" errors="0" time="13.920560">
+      <testcase name="event_CreateEvent" class="EventCreateTest" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\EventCreateTest.php" line="31" assertions="8" time="11.100773"/>
+      <testcase name="dummy" class="EventCreateTest" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\EventCreateTest.php" line="21" assertions="0" time="2.819787"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
