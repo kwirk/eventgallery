@@ -17,7 +17,7 @@ class CheckoutController extends JControllerLegacy
 
 	public function sendOrder() {
 
-
+		$session = JFactory::getSession();
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -27,7 +27,7 @@ class CheckoutController extends JControllerLegacy
 		// function syntax is setUserState( $key, $value );
 		$option = $app->input->get('option');
 
-		$cartJson = $app->getUserState("$option.cart","");
+		$cartJson = $session->get("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {
@@ -104,7 +104,7 @@ class CheckoutController extends JControllerLegacy
 		    $this->setRedirect(JRoute::_("index.php?view=checkout"),$msg);
 		}  else {
 			$msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_STORED');
-			$app->setUserState( "$option.cart", "" );
+			$session->set( "$option.cart", "" );
 			$this->setRedirect(JRoute::_("index.php?"),$msg,'info');
 		}
 

@@ -42,7 +42,8 @@ class CheckoutViewCheckout extends JViewLegacy
 		// function syntax is setUserState( $key, $value );
 		$option = $mainframe->input->get('option');
 
-		$cartJson = $mainframe->getUserState("$option.cart","");
+		$session = JFactory::getSession();
+		$cartJson = $session->get("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {

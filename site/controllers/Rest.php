@@ -30,7 +30,8 @@ class RestController extends JControllerLegacy
 		// function syntax is setUserState( $key, $value );
 		$option = $app->input->get('option');
 
-		$cartJson = $app->getUserState("$option.cart","");
+		$session = JFactory::getSession();
+		$cartJson = $session->get("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {
@@ -53,19 +54,21 @@ class RestController extends JControllerLegacy
 			array_push($cart, $item);
 		}
 		
-		$app->setUserState( "$option.cart", json_encode($cart) );
+		$session->set( "$option.cart", json_encode($cart) );
 
 		echo "done";
 		
 	}
 
 	public function getCart() {
+
+		$session = JFactory::getSession();
 		$app =& JFactory::getApplication();		 
 		// store the variable that we would like to keep for next time
 		// function syntax is setUserState( $key, $value );
 		$option = $app->input->get('option');
 
-		$cartJson = $app->getUserState("$option.cart","");
+		$cartJson = $session->get("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {
@@ -77,6 +80,7 @@ class RestController extends JControllerLegacy
 
 	public function removeFromCart() {
 
+		$session = JFactory::getSession();
 		$file = JRequest::getString( 'file' , null );
 		$folder = JRequest::getString( 'folder' , null );
 		if ($file==null || $folder==null) {
@@ -88,7 +92,7 @@ class RestController extends JControllerLegacy
 		// function syntax is setUserState( $key, $value );
 		$option = $app->input->get('option');
 
-		$cartJson = $app->getUserState("$option.cart","");
+		$cartJson = $session->get("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {
@@ -107,6 +111,6 @@ class RestController extends JControllerLegacy
 		}		
 		
 
-		$app->setUserState( "$option.cart", json_encode($newCart) );
+		$session->set( "$option.cart", json_encode($newCart) );
 	}
 }
