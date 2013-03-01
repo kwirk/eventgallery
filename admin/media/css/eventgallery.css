@@ -1,0 +1,44 @@
+i.eg-icon-published,
+i.eg-icon-comments,
+i.eg-icon-mainimage,
+i.eg-icon-mainimageonly {
+	width: 20px;
+	height: 16px;
+	display: block;
+	float: left;
+	background: url(../img/icons.png) no-repeat;
+	margin-right: 5px;
+}
+
+i.eg-icon-published {
+	background-position: -43px -16px;
+}
+
+i.eg-icon-comments {
+	background-position: -22px -16px;
+}
+
+i.eg-icon-mainimage {
+	background-position: 0px -16px;
+}
+
+i.eg-icon-mainimageonly{
+	background-position: -62px -16px;
+	margin-right: 0px;
+}
+
+.active i.eg-icon-published {
+	background-position: -43px 0px;
+}
+
+.active i.eg-icon-comments {
+	background-position: -22px 0px;
+}
+
+.active i.eg-icon-mainimage {
+	background-position: 0px 0px;
+}
+
+.active i.eg-icon-mainimageonly{
+	background-position: -62px 0px;
+}

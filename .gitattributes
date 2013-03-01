@@ -13,6 +13,10 @@ admin/language/en-GB/en-GB.com_eventgallery.ini -text
 admin/language/en-GB/en-GB.com_eventgallery.sys.ini -text
 admin/language/en-GB/index.html -text
 admin/language/index.html -text
+admin/media/css/eventgallery.css svneol=native#text/css
+admin/media/css/index.html svneol=native#text/html
+admin/media/img/icons.png -text svneol=unset#image/png
+admin/media/img/index.html svneol=native#text/html
 admin/media/index.html -text
 admin/models/comment.php -text
 admin/models/comments.php -text

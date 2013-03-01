@@ -19,6 +19,15 @@ class EventgalleryViewEvent extends JViewLegacy
 {
 	function display($tpl = null)
 	{		
+
+
+		$app	 = &JFactory::getApplication();
+		$document =& JFactory::getDocument();	
+		
+		
+	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
+		$document->addStyleSheet($css);		
+
 		$event		= $this->get('Data');
 		$items      = $this->get('Files');
 		$pageNav    = $this->get('Pagination');
