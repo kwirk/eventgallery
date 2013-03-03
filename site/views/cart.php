@@ -28,7 +28,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				cartCountSelector: '.itemscount',
 				buttonDownSelector: '.toggle-down',
 				buttonUpSelector: '.toggle-up',
-				'removeUrl' :  "<?php echo JRoute::_("index.php?view=rest&task=removefromcart&format=raw", true, true, true); ?>".replace(/&amp;/g, '&'),
+				'removeUrl' :  "<?php echo JRoute::_("index.php?view=rest&task=removefromcart&format=raw", true); ?>".replace(/&amp;/g, '&'),
 				'add2cartUrl' : "<?php echo JRoute::_("index.php?view=rest&task=add2cart&format=raw", true); ?>".replace(/&amp;/g, '&'),
 				'removeLinkTitle' : "<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_REMOVE')?>",
 				'getCartUrl' : "<?php echo JRoute::_("index.php?view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&'),
