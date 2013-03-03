@@ -68,18 +68,21 @@ class EventgalleryViewResizeimage extends JViewLegacy
 
 		if (!is_dir($cachebasedir))
 		{
-			mkdir($cachebasedir, 0777);
+			//mkdir($cachebasedir, 0777);
+			mkdir($cachebasedir);
 			
 		}
 
 		if (!is_dir($cachedir))
 		{
-			mkdir($cachedir, 0777);
+			//mkdir($cachedir, 0777);
+			mkdir($cachedir);
 		}
 
 		if (!is_dir($cachedir_thumbs))
 		{
-			mkdir($cachedir_thumbs, 0777);
+			//mkdir($cachedir_thumbs, 0777);
+			mkdir($cachedir_thumbs);
 
 		}
 
