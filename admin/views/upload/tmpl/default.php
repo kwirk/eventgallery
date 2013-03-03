@@ -17,16 +17,15 @@ defined('_JEXEC') or die('Restricted access');
 
 <form id="upload" action="<?php echo JRoute::_("index.php?option=com_eventgallery&task=uploadFileByAjax&folder=".$this->event->folder."&format=raw&",false); ?>" method="POST" enctype="multipart/form-data">  
 <fieldset>  
-
-<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="30000000" />  
-<div>  
-    <label for="fileselect"><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_FILES_TO_UPLOAD' ); ?>:</label>  
-    <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />  
-    
-</div>  
-<div id="submitbutton">  
-    <button type="submit"><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_UPLOAD_FILES' ); ?></button>  
-</div>  
+	<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="30000000" />  
+	<div>  
+	    <label for="fileselect"><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_FILES_TO_UPLOAD' ); ?>:</label>  
+	    <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />  
+	    
+	</div>  
+	<div id="submitbutton">  
+	    <button type="submit"><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_UPLOAD_FILES' ); ?></button>  
+	</div>  
 </fieldset>  
 </form>  
 
@@ -42,29 +41,27 @@ defined('_JEXEC') or die('Restricted access');
 </form>
 
 <style>
+	#progress p
+	{
+		display: block;
+		width: 240px;
+		padding: 2px 5px;
+		margin: 2px 0;
+		border: 1px inset #446;
+		border-radius: 5px;
+		background: #eee;
+	}
 
+	#progress p.success
+	{
+		background: #0c0 none 0 0 no-repeat;
+	}
 
-#progress p
-{
-	display: block;
-	width: 240px;
-	padding: 2px 5px;
-	margin: 2px 0;
-	border: 1px inset #446;
-	border-radius: 5px;
-	background: #eee;
+	#progress p.failed
+	{
+		background: #c00 none 0 0 no-repeat;
 }
-
-#progress p.success
-{
-	background: #0c0 none 0 0 no-repeat;
-}
-
-#progress p.failed
-{
-	background: #c00 none 0 0 no-repeat;
-}
-	</style>
+</style>
 
 <script>
 
@@ -84,7 +81,6 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 
 		// fetch FileList object
 		var files = e.target.files || e.dataTransfer.files;
-
 		// process all File objects
 		for (var i = 0, f; f = files[i]; i++) {
 			UploadFile(f);
@@ -114,9 +110,10 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 			};
 
 			// start upload
-			xhr.open("POST", document.getElementById("upload").action, true);
-			xhr.setRequestHeader("X_FILENAME", file.name);
+			xhr.open("POST", document.getElementById("upload").action+"?ajax=true&file="+file.name, true);
+			//xhr.setRequestHeader("X_FILENAME", file.name);
 			xhr.send(file);
+			console.log('file send.')
 
 		} else {
 			console.log("invalid file, will not try to upload it");
@@ -132,15 +129,18 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 			submitbutton = document.getElementById("submitbutton");
 
 		// file select
+		
 		fileselect.addEventListener("change", FileSelectHandler, false);
 
 		// is XHR2 available?
 		var xhr = new XMLHttpRequest();
+
 		if (xhr.upload) {
 
 			// remove submit button
 			submitbutton.style.display = "none";
 		}
+		console.log('Init fileupload done.');
 
 	}
 

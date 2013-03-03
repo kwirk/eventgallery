@@ -9,6 +9,7 @@
 defined('_JEXEC') or die;
 
 jimport('joomla.application.component.controller');
+jimport('joomla.filesystem.file');
 
 
 class EventgalleryController extends JControllerLegacy
@@ -574,18 +575,7 @@ class EventgalleryController extends JControllerLegacy
 	
 	}
 	
-	/**
-	 * funtion to generate a token for uploading files via nonadmin-site
-	 * @return unknown_type
-	 */
-	function getUploadToken()
-	{
-
-		$model = $this->getModel('token');	
-		$view = $this->getView('getUploadToken','raw');
-		$view->setModel($model, true);
-		$view->display();
-	}
+	
 	
 
 
@@ -594,33 +584,36 @@ class EventgalleryController extends JControllerLegacy
 		$user =& JFactory::getUser();
 
 		$path = JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery';
-		@mkdir($path, 0777);
+		//@mkdir($path, 0777);
+		@mkdir($path);
 		
 		
-		$folder = JRequest::getVar('folder');
-		$folder=str_replace('..','',$folder);
+		$folder = JRequest::getString('folder');
+		$folder=JFile::makeSafe($folder);
+		
 
 		$path=$path.DIRECTORY_SEPARATOR.$folder.DIRECTORY_SEPARATOR ;
-		@mkdir($path, 0777);
+		//@mkdir($path, 0777);
+		@mkdir($path);
 
 
-		$fn = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SERVER['HTTP_X_FILENAME'] : false);
-		$fn = str_replace('..','',$fn);
+		$fn = JRequest::getString('file', false);
+		$fn=JFile::makeSafe($fn);
 
 		$uploadedFiles = Array();
 
-		$ajaxMode = false;
+		$ajaxMode = JRequest::getString('ajax',false);
+		echo $fn." done";
 
 		if ($fn) {
 
 			// AJAX call
-			$ajaxMode = true;
 			file_put_contents(
 				$path. $fn,
 				file_get_contents('php://input')
 			);
 			#echo "$fn uploaded in folder $folder";
-			echo '<img class="thumbnail" src="'.JURI::base().("../components/com_eventgallery/helpers/image.php?view=resizeimage&folder=".$folder."&file=".$fn."&option=com_eventgallery&width=100&height=50").'" />';
+			echo '<img alt="Done '.$fn.'" class="thumbnail" src="'.JURI::base().("../components/com_eventgallery/helpers/image.php?view=resizeimage&folder=".$folder."&file=".$fn."&option=com_eventgallery&width=100&height=50").'" />';
 			array_push($uploadedFiles, $fn);
 
 		}
@@ -664,8 +657,8 @@ class EventgalleryController extends JControllerLegacy
 
 		if (!$ajaxMode) {
 			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_COMPLETE' );
-			$this->setRedirect( 'index.php?option=com_eventgallery&task=upload', $msg );
-		}
+			//$this->setRedirect( 'index.php?option=com_eventgallery&task=upload', $msg );
+		} 
 
 	}
 	/**
