@@ -120,7 +120,7 @@ defined('_JEXEC') or die('Restricted access');
 	<a class="btn" href="<?php echo JRoute::_("index.php?view=event&folder=".$this->model->folder->folder."&limitstart=".$this->model->currentLimitStart); ?>" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_OVERVIEW') ?>"><i class="icon-list"></i></a> 
 	
 	<?php IF ($this->model->firstFile): ?>
-		<a class="btn" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->firstFile->folder."&file=".$this->model->firstFile->file) ?>#image" title="title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_START') ?>""><i class="icon-fast-backward"></i></a> 
+		<a class="btn" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->firstFile->folder."&file=".$this->model->firstFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_START') ?>"><i class="icon-fast-backward"></i></a> 
 	<?php ENDIF ?>
 	
 	<?php IF ($this->model->prevFile): ?>

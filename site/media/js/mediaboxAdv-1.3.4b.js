@@ -171,7 +171,7 @@ var Mediabox;
 				imgPadding: 100,			// Clearance necessary for images larger than the window size (only used when imgBackground is false)
 											// Change this number only if the CSS style is significantly divergent from the original, and requires different sizes
 //			Inline options
-//				overflow: 'auto',			// If set, overides CSS settings for inline content only
+				overflow: 'auto',			// If set, overides CSS settings for inline content only
 //			Global media options
 				html5: 'true',				// HTML5 settings for YouTube and Vimeo, false = off, true = on
 				scriptaccess: 'true',		// Allow script access to flash files
@@ -990,7 +990,7 @@ var Mediabox;
 			image.setStyles({backgroundImage: "none", display: ""});
 			preload;
 		} else if (mediaType == "inline") {
-//			if (options.overflow) image.setStyles({overflow: options.overflow});
+			if (options.overflow) image.setStyles({overflow: options.overflow});
 			image.setStyles({backgroundImage: "none", display: ""});
 			image.set('html', preload);
 		} else if (mediaType == "url") {

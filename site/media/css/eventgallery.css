@@ -402,6 +402,25 @@ div.commentform input.captcha{ width:60px; margin-left: 10px;}
 
 /* Cart buttons */
 
+a.button-add2cart i.loading,
+a.button-removeFromCart i.loading
+ {
+	background-image: url(../images/cart/loading.gif);
+	background-color: #fff;
+	background-position: 0 0;
+	height: 32px;
+	width: 32px;
+	opacity: 1;
+	border: 2px solid #666;
+	-webkit-border-radius: 5px;    
+    border-radius: 5px;
+    -webkit-box-shadow:  1px 1px 3px 1px #000000;        
+    box-shadow:  1px 1px 3px 1px #000000;
+
+
+
+}
+
 .button-add2cart i.big,
 .button-cart i.big,
 .button-alreadyInCart i.big,

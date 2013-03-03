@@ -467,8 +467,8 @@
 				onComplete: function(response){
 					if (response !== undefined) {
 						this.cart = response;
-					}
-					this.populateCart();
+						this.populateCart();
+					}					
 				}.bind(this)
 			}).send();
 
@@ -476,45 +476,44 @@
 
 		/* Send a request to the server to remove an item from the cart */
 		removeFromCart: function(e) {
-			var data;
-			if (e.target.tagName=='A') {
-				data = $(e.target).get('data-id');
-			} else {
-				data = $(e.target).getParent('A').get('data-id');
-			}
-			var myRequest = new Request(
-				{
-	        		url: this.options.removeUrl,
-	        		method: "POST",
-	        		data: data,
-		        	onSuccess: function(msg){
-	                    this.updateCart();
-	               	}.bind(this)
-	        }).send();
-	        e.stopPropagation();
-	        e.preventDefault();
+ 			return this.doRequest(e, this.options.removeUrl);
 		},
 
 		/* Send a request to the server to add an item to the cart */
 		add2cart: function(e)  {
-			var data;
-			if (e.target.tagName=='A') {
-				data = $(e.target).get('data-id');
-			} else {
-				data = $(e.target).getParent('A').get('data-id');
-			}
-			var myRequest = new Request(
+	        return this.doRequest(e, this.options.add2cartUrl);
+		},
+		
+		/* do the request and care about the clicked buttons. */	
+		doRequest: function(event, url) {
+			var linkElement;
+			
+			if (event.target.tagName=='A') {
+				linkElement = $(event.target);				
+			} else {				
+				linkElement = $(event.target).getParent('A');				
+			}		
+			
+			var iconElement = linkElement.getChildren('i').getLast();			
+			var data = linkElement.get('data-id');
+			
+			iconElement.addClass('loading');
+			var myRequest = new Request.JSON(
 				{
-	        		url: this.options.add2cartUrl,
+	        		url: url,
 	        		method: "POST",
 	        		data: data,
-		        	onSuccess: function(msg){
-	                    this.updateCart();
+		        	onComplete: function(response){
+	                    if (response !== undefined) {
+							this.cart = response;
+							this.populateCart();
+						}
+						iconElement.removeClass('loading');						
 	               	}.bind(this)
-	        }).send();
-	        e.stopPropagation();
-	        e.preventDefault();
+	        	}
+	        ).send();
+	        event.stopPropagation();
+	        event.preventDefault();
 	        return true;
 		}
-
 	});
