@@ -17,6 +17,7 @@
 			$document =& JFactory::getDocument();	
 		
 			JHtml::_('behavior.framework', true);
+			JHtml::_('behavior.formvalidation');
 
 			
 			$componentId = JComponentHelper::getComponent('com_eventgallery')->id;
