@@ -28,11 +28,11 @@
 
 	<files folder="site">
 		<folder>controllers</folder>
+		<folder>language</folder>
 		<folder>helpers</folder>
 		<folder>media</folder>
 		<folder>models</folder>
-		<folder>views</folder>		
-		<folder>language</folder>		
+		<folder>views</folder>
 		<filename>controller.php</filename>
 		<filename>eventgallery.php</filename>
 		<filename>router.php</filename>
@@ -62,6 +62,10 @@
 			<filename>controller.php</filename>
 			<filename>index.html</filename>
 		</files>
+		<languages folder="site">
+			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
+			<language tag="de-DE">language/de-DE/de-DE.com_eventgallery.ini</language>
+		</languages>
 		<languages folder="admin">
 			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
 			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.sys.ini</language>
