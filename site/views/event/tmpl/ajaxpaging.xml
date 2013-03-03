@@ -20,7 +20,8 @@
 	<fields name="params">
 	
 		<fieldset name="params" label="COM_EVENTGALLERY_LAYOUT_EVENT_FIELDSET_LABEL">
-		
+			<field name="event_ajax_list_number_of_thumbnail_on_first_page" id="event_ajax_list_number_of_thumbnail_on_first_page" type="integer" first="1" last="100" step="1" default="11" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_PAGE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_PAGE_DESC"/>
+			<field name="event_ajax_list_number_of_thumbnail_per_page" id="event_ajax_list_number_of_thumbnail_per_page" type="integer" first="1" last="100" step="1" default="22" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_FIRSTPAGE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_FIRSTPAGE_DESC" />
 		</fieldset>
 	</fields>
 </metadata>

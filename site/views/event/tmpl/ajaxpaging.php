@@ -54,8 +54,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		$pageCount = 0;
 		$imageCount = 0;
 		$imagesOnPage = 0;
-		$imagesFirstPage = 11;
-		$imagesPerPage = 22;
+		$imagesFirstPage = $this->params->get('event_ajax_list_number_of_thumbnail_on_first_page',11);
+		$imagesPerPage = $this->params->get('event_ajax_list_number_of_thumbnail_per_page',22);
 		
 		$pagesCount = ceil( (count($this->entries) - $imagesFirstPage) / $imagesPerPage) + 1;
 	?>
