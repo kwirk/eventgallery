@@ -265,6 +265,6 @@ tests/system/webdriver/SeleniumClient/WebElement.php -text
 tests/system/webdriver/bootstrap.php -text
 tests/system/webdriver/tests/JoomlaWebdriverTestCase.php -text
 tests/system/webdriver/tests/TestSuite.php -text
-tests/system/webdriver/tests/eventgallery/EventCreateTest.php -text
+tests/system/webdriver/tests/eventgallery/EventTest.php -text
 tests/system/webdriver/tests/phpunit.php -text
 tests/system/webdriver/tests/phpunit.xml.dist -text

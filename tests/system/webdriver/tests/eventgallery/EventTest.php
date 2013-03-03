@@ -8,30 +8,30 @@ use SeleniumClient\WebDriver;
 use SeleniumClient\WebDriverWait;
 use SeleniumClient\DesiredCapabilities;
 
-class EventCreateTest extends JoomlaWebdriverTestCase
+class EventTest extends JoomlaWebdriverTestCase
 {
 
 
 
 	public function setUp()
 	{
+		//
 		parent::setUp();
 	
 	}
 
 	public function tearDown()
 	{
-
-		//$this->doAdminLogout();
-		//parent::tearDown();
+		//
+		parent::tearDown();
 	}
 	/**
 	 * @test
 	 */
 	public function event_CreateEvent()
 	{		
-		$cpPage = $this->doAdminLogin();		
-		
+			
+		$this->doAdminLogin();
 		$d = $this->driver;
 		//get url
 		
@@ -40,10 +40,11 @@ class EventCreateTest extends JoomlaWebdriverTestCase
 		
 
 		$salt = "test".md5(rand());
-		$esp->createEvent($salt);
-		
+		$esp->createEvent($salt);	
+		$esp->publishEvent($salt);
+		$esp->deleteEvent($salt);
 
-			
+		//$this->doAdminLogout();
 	}
 
 	
