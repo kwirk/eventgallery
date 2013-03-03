@@ -11,6 +11,12 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+//load classes
+JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT);
+
+// Load necessary media files 
+EventgalleryHelpersMedialoader::load();
+
 // Require the base controller
 require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controller.php');
 

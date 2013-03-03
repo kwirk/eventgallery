@@ -17,29 +17,13 @@ class EventgalleryViewCart extends JViewLegacy
 	function display($tpl = null)
 	{		
 		
-	    $app	 = &JFactory::getApplication();
-	    $document =& JFactory::getDocument();
-	   	    
-	    JHtml::_('behavior.framework');
-		
-	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
-		$document->addStyleSheet($css);		
-		$css=JURI::base().'components/com_eventgallery/media/css/mediaboxAdvBlack21.css';
-		$document->addStyleSheet($css);		
-	    $js=JURI::base().'components/com_eventgallery/media/js/eventgallery.js';
-		$document->addScript($js);
-		$js=JURI::base().'components/com_eventgallery/media/js/mediaboxAdv-1.3.4b.js';
-		$document->addScript($js);
-		$js=JURI::base().'components/com_eventgallery/media/js/LazyLoad.js';
-		$document->addScript($js);	
-	    
-	    $mainframe =& JFactory::getApplication();
+	    $app	 = &JFactory::getApplication();		   
 		 
 		// store the variable that we would like to keep for next time
 		// function syntax is setUserState( $key, $value );
-		$option = $mainframe->input->get('option');
-		$session = JFactory::getSession();
-		$cartJson = $session->get("$option.cart","");
+		$option = $app->input->get('option');
+
+		$cartJson = $app->getUserState("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {

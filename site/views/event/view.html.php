@@ -23,17 +23,7 @@ class EventgalleryViewEvent extends JViewLegacy
 		$document = JFactory::getDocument();
 		$params	 = $app->getParams();
 		
-		JHtml::_('behavior.framework', true);
 		
-	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
-		$document->addStyleSheet($css);		
-		$css=JURI::base().'components/com_eventgallery/media/css/mediaboxAdvBlack21.css';
-		$document->addStyleSheet($css);		
-	    $js=JURI::base().'components/com_eventgallery/media/js/eventgallery.js';
-		$document->addScript($js);
-		$js=JURI::base().'components/com_eventgallery/media/js/mediaboxAdv-1.3.4b.js';
-		$document->addScript($js);
-	
 			
 		if ($layout = $params->get('event_layout'))
 		{
@@ -72,18 +62,7 @@ class EventgalleryViewEvent extends JViewLegacy
 		
 		$this->assign('params', $params);
         $this->assign('use_comments', $params->get('use_comments'));
-		
-		if ($this->getLayout() =='ajaxpaging') {
-			$js=JURI::base().'components/com_eventgallery/media/js/JSGallery2.js';
-			$document->addScript($js);
-		}
-		elseif ($this->getLayout() =='imagelist') {
-			$js=JURI::base().'components/com_eventgallery/media/js/LazyLoad.js';
-			$document->addScript($js);
-		} else {
-			$js=JURI::base().'components/com_eventgallery/media/js/LazyLoad.js';
-			$document->addScript($js);
-		}
+				
 		
 		$this->_prepareDocument();
 		
