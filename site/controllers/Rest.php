@@ -56,7 +56,7 @@ class RestController extends JControllerLegacy
 		
 		$session->set( "$option.cart", json_encode($cart) );
 
-		echo "done";
+		$this->getCart();
 		
 	}
 
@@ -112,5 +112,7 @@ class RestController extends JControllerLegacy
 		
 
 		$session->set( "$option.cart", json_encode($newCart) );
+
+		$this->getCart();
 	}
 }

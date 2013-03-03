@@ -17,6 +17,7 @@
 			$document =& JFactory::getDocument();	
 		
 			JHtml::_('behavior.framework', true);
+
 			
 			$componentId = JComponentHelper::getComponent('com_eventgallery')->id;
 			$extension = JTable::getInstance('extension');
