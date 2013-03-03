@@ -23,7 +23,8 @@ class EventgalleryViewCart extends JViewLegacy
 		// function syntax is setUserState( $key, $value );
 		$option = $app->input->get('option');
 
-		$cartJson = $app->getUserState("$option.cart","");
+		$session = JFactory::getSession();
+		$cartJson = $session->get("$option.cart","");
 
 		$cart = array();
 		if (strlen($cartJson)>0) {
