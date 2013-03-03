@@ -31,7 +31,8 @@
 		$cachebasedir=JPATH_CACHE.DIRECTORY_SEPARATOR.'com_eventgallery';
 		if (!is_dir($cachebasedir))
 		{
-		    mkdir($cachebasedir, 0777);
+		    //mkdir($cachebasedir, 0777);
+		    mkdir($cachebasedir);
 		    #echo "created $cachebasedir <br>";
 		    JLog::add('have to create dir '.$cachebasedir, JLog::INFO, 'com_eventgallery');
 		    
@@ -42,7 +43,8 @@
 		
 		if (!is_dir($cachebasedir))
 		{
-		    mkdir($cachebasedir, 0777);
+		    //mkdir($cachebasedir, 0777);
+		    mkdir($cachebasedir);
 		    #echo "created $cachebasedir <br>";
 		    JLog::add('have to create dir '.$cachebasedir, JLog::INFO, 'com_eventgallery');
 		    
