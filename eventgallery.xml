@@ -38,6 +38,11 @@
 		<filename>router.php</filename>
 		<filename>index.html</filename>
 	</files>
+		
+	<languages folder="site">
+			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
+			<language tag="de-DE">language/de-DE/de-DE.com_eventgallery.ini</language>
+		</languages>
 	
 	<administration>
 		<menu img="class:media">COM_EVENTGALLERY_MENU</menu>
@@ -51,6 +56,7 @@
 		<files folder="admin">
 			<folder>controllers</folder>
 			<folder>helpers</folder>
+			<folder>language</folder>
 			<folder>media</folder>
 			<folder>models</folder>
 			<folder>tables</folder>
@@ -62,10 +68,7 @@
 			<filename>controller.php</filename>
 			<filename>index.html</filename>
 		</files>
-		<languages folder="site">
-			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
-			<language tag="de-DE">language/de-DE/de-DE.com_eventgallery.ini</language>
-		</languages>
+		
 		<languages folder="admin">
 			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
 			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.sys.ini</language>
