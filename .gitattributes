@@ -223,7 +223,72 @@ site/views/singleimage/tmpl/default_comments.php -text
 site/views/singleimage/tmpl/default_thumb.php -text
 site/views/singleimage/tmpl/index.html -text
 site/views/singleimage/view.html.php -text
+tests/data/images/20111008_155119_IMG_0559.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111009_163636_IMG_0612.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111010_172737_IMG_0680.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111011_110409_IMG_0698.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111011_110419_IMG_0699.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111012_102520_IMG_0773.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111012_174749_IMG_0064.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_101933_IMG_0800.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120306_IMG_0814.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120308_IMG_0815.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120357_IMG_0818.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120409_IMG_0819.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120659_IMG_0822.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120705_IMG_0823.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120742_IMG_0825.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120751_IMG_0826.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120847_IMG_0828.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120913_IMG_0830.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120925_IMG_0831.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_120959_IMG_0832.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_121015_IMG_0833.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_121202_IMG_0841.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_121252_IMG_0842.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_121300_IMG_0843.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_121424_IMG_0844.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_123521_IMG_0846.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_124420_IMG_0851.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_180718_IMG_0859.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111013_180745_IMG_0861.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_102627_IMG_0878.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_102820_IMG_0880.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_104810_IMG_0883.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_104820_IMG_0884.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_104940_IMG_0887.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_104948_IMG_0888.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_105131_IMG_0892.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_105534_IMG_0904.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_110135_IMG_0915.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_110214_IMG_0916.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_114541_IMG_0928.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_165524_IMG_0963.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_170132_IMG_0976.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_170159_IMG_0977.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_170240_IMG_0978.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_170939_IMG_0994.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111014_175833_IMG_1160.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_102020_IMG_1291-Bearbeitet.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_105505_IMG_1305.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_105507_IMG_0085.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_105742_IMG_1309-Bearbeitet.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_110757_IMG_1323.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_114530_IMG_1352-Bearbeitet.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_120451_IMG_1365.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_120532_IMG_1367.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_123134_IMG_1377.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111016_123409_IMG_1378.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111017_105822_IMG_1465.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111017_175057_IMG_1540.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111017_180855_IMG_1576.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111018_105842_IMG_1639-Bearbeitet.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111018_110553_IMG_1650.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111019_114427_IMG_1705.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111019_120402_IMG_1719.jpg -text svneol=unset#image/jpeg
+tests/data/images/20111020_120830_IMG_1884.jpg -text svneol=unset#image/jpeg
 tests/system/servers/configdef.php.dist -text
+tests/system/webdriver/Pages/Eventgallery/EventUploadPage.php -text
 tests/system/webdriver/Pages/Eventgallery/EventsPage.php -text
 tests/system/webdriver/Pages/Extensions/ModuleEditPage.php -text
 tests/system/webdriver/Pages/Extensions/ModuleManagerPage.php -text

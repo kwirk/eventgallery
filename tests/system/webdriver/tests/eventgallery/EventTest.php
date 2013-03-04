@@ -8,21 +8,28 @@ use SeleniumClient\WebDriver;
 use SeleniumClient\WebDriverWait;
 use SeleniumClient\DesiredCapabilities;
 
-class EventTest extends JoomlaWebdriverTestCase
+// creates, publishes and deletes an event
+
+class EventTest001 extends JoomlaWebdriverTestCase
 {
 
+	// Events page 
+	protected $esp = null;
 
 
 	public function setUp()
 	{
-		//
 		parent::setUp();
-	
+		$cpPage = $this->doAdminLogin();
+		$cpPage->clickMenuByUrl('com_eventgallery','EventsPage');
+		$this->esp = $this->getPageObject('EventsPage');
+		
+		
 	}
 
 	public function tearDown()
 	{
-		//
+		$this->doAdminLogout();		
 		parent::tearDown();
 	}
 	/**
@@ -30,21 +37,19 @@ class EventTest extends JoomlaWebdriverTestCase
 	 */
 	public function event_CreateEvent()
 	{		
-			
-		$this->doAdminLogin();
-		$d = $this->driver;
-		//get url
-		
-		$d->get($this->testUrl.'administrator/index.php?option=com_eventgallery');
-		$esp = $this->getPageObject('EventsPage');
-		
-
 		$salt = "test".md5(rand());
-		$esp->createEvent($salt);	
-		$esp->publishEvent($salt);
-		$esp->deleteEvent($salt);
 
-		//$this->doAdminLogout();
+		$this->esp->createEvent($salt);	
+
+		$this->esp->publishEvent($salt);
+
+		$uploadPage = $this->esp->gotoUploadPage($salt);
+		$uploadPage->uploadFiles($salt);
+		$this->esp->clickMenuByUrl('com_eventgallery','EventsPage');
+
+		$this->esp->deleteEvent($salt);
+ 
+
 	}
 
 	
