@@ -99,6 +99,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 			var o = document.getElementById("progress");
 			var progress = o.appendChild(document.createElement("li"));
 			progress.appendChild(document.createTextNode("upload " + file.name));
+			progress.addClass("uploading");
 
 
 			// file received/failed
@@ -106,6 +107,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 				if (xhr.readyState == 4) {
 					progress.className = (xhr.status == 200 ? "success" : "failure");
 					progress.innerHTML = xhr.responseText;
+					progress.removeClass('uploading');
 				}
 			};
 
