@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests" tests="2" assertions="10" failures="0" errors="0" time="30.445802">
-    <testsuite name="EventTest" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\EventTest.php" tests="2" assertions="10" failures="0" errors="0" time="30.445802">
-      <testcase name="event_CreateEvent" class="EventTest" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\EventTest.php" line="31" assertions="10" time="27.467979"/>
-      <testcase name="dummy" class="EventTest" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\EventTest.php" line="21" assertions="0" time="2.977823"/>
+  <testsuite name="tests" tests="1" assertions="9" failures="0" errors="0" time="52.524876">
+    <testsuite name="JoomlaWebdriverTestCase" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\JoomlaWebdriverTestCase.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
+    <testsuite name="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" tests="1" assertions="9" failures="0" errors="0" time="52.524876">
+      <testcase name="doCarting" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="96" assertions="9" time="52.524876"/>
     </testsuite>
   </testsuite>
 </testsuites>

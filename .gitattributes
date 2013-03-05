@@ -290,6 +290,12 @@ tests/data/images/20111020_120830_IMG_1884.jpg -text svneol=unset#image/jpeg
 tests/system/servers/configdef.php.dist -text
 tests/system/webdriver/Pages/Eventgallery/EventUploadPage.php -text
 tests/system/webdriver/Pages/Eventgallery/EventsPage.php -text
+tests/system/webdriver/Pages/Eventgallery/FrontEndAjaxListEventPage.php -text
+tests/system/webdriver/Pages/Eventgallery/FrontEndBaseEventPage.php -text
+tests/system/webdriver/Pages/Eventgallery/FrontEndBasePage.php -text
+tests/system/webdriver/Pages/Eventgallery/FrontEndEventsPage.php -text
+tests/system/webdriver/Pages/Eventgallery/FrontEndImageListEventPage.php -text
+tests/system/webdriver/Pages/Eventgallery/FrontEndPageableListEventPage.php -text
 tests/system/webdriver/Pages/Extensions/ModuleEditPage.php -text
 tests/system/webdriver/Pages/Extensions/ModuleManagerPage.php -text
 tests/system/webdriver/Pages/Menus/MenuEditPage.php -text
@@ -332,6 +338,7 @@ tests/system/webdriver/SeleniumClient/WebElement.php -text
 tests/system/webdriver/bootstrap.php -text
 tests/system/webdriver/tests/JoomlaWebdriverTestCase.php -text
 tests/system/webdriver/tests/TestSuite.php -text
-tests/system/webdriver/tests/eventgallery/EventTest.php -text
+tests/system/webdriver/tests/eventgallery/backend/EventTest.php -text
+tests/system/webdriver/tests/eventgallery/frontend/ImageListTest.php -text
 tests/system/webdriver/tests/phpunit.php -text
 tests/system/webdriver/tests/phpunit.xml.dist -text

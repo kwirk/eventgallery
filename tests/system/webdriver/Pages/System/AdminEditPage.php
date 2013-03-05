@@ -239,6 +239,7 @@ abstract class AdminEditPage extends AdminPage
 			$fieldArray = $this->inputFields[$i];
 			$fieldArray['value'] = $value;
 			$fieldType = $fieldArray['type'];
+
 			switch ($fieldType)
 			{
 				case 'select' :

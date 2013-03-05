@@ -2,9 +2,10 @@
 <phpunit bootstrap="../bootstrap.php" colors="false">
 	<testsuites>
 		<testsuite name="tests">			
-			<directory>eventgallery</directory>
+			<directory>eventgallery/frontend</directory>
+			<exclude>JoomlaWebdriverTestCase.php</exclude>
 		</testsuite>
-	</testsuites>
+	</testsuites>		
 	<logging>
 		<log type="junit" target="logs/junit.xml"
 			logIncompleteSkipped="false" />

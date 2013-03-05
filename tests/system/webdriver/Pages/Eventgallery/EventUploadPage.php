@@ -18,7 +18,7 @@ class EventUploadPage extends EventsPage
 	protected $url = 'index.php?option=com_eventgallery&task=upload&cid[]=';	
 	
 
-	public function uploadFiles($event) {		
+	public function uploadFiles($event, $noOfFiles=5) {		
 
 		$uploader =  $this->driver->findElement(By::id("fileselect"));
 
@@ -30,13 +30,20 @@ class EventUploadPage extends EventsPage
 		$basefolders = explode(DIRECTORY_SEPARATOR,__DIR__);
 		$basefolders = array_splice($basefolders, 0, count($basefolders)-4);
 		$path = implode(DIRECTORY_SEPARATOR, $basefolders).DIRECTORY_SEPARATOR."data".DIRECTORY_SEPARATOR."images";
+
+		$count = 0;
 		if ($handle = opendir($path)) {
 
 		    /* Das ist der korrekte Weg, ein Verzeichnis zu durchlaufen. */
 		    while (false !== ($file = readdir($handle))) {
 		    	if (strpos($file,'jpg')>0) {
 		    		$uploader->sendKeys($path.DIRECTORY_SEPARATOR.$file);
+		    		$count++;
 		    	}
+		    	if ($count>$noOfFiles) {
+		    		break;
+		    	}
+
 		    }
 
 		    closedir($handle);
@@ -44,9 +51,6 @@ class EventUploadPage extends EventsPage
 
 		$this->driver->waitForElementUntilIsPresent(By::xPath("//li[@class=\"success\"]"),10);
 		$this->driver->waitForElementUntilIsNotPresent(By::xPath("//li[@class=\"uploading\"]"),300);
-
-		$this->driver->findElement(By::xPath("//div[@id=\"toolbar-cancel\"]/button"))->click();
-
-	}
+	}	
 
 }

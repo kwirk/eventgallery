@@ -65,12 +65,20 @@ class EventsPage extends AdminPage
 		$this->test->assertTrue(strpos($message, 'Event(s) Deleted') >= 0, 'Event deletion should return success');		
 	}
 
-	public function gotoUploadPage($event) {
+	public function uploadFiles($event) {
 		$value = $this->getEventId($event);		
 		$this->driver->findElement(By::id("upload_$value"))->click();
-		return $this->test->getPageObject('EventUploadPage');
+		$uploadPage = $this->test->getPageObject('EventUploadPage');
+		$uploadPage->uploadFiles($event);
+		$this->clickMenuByUrl('com_eventgallery','EventsPage');
+		$this->test->getPageObject('EventsPage');
 	}
 
+/*
+	#############################
+	# Helper Methodes           #
+	#############################	
+*/
 
 	protected function getEventId($event) {
 		$element = $this->driver->findElement(By::xPath('//a[text()="'.$event.'"]'));
@@ -85,12 +93,6 @@ class EventsPage extends AdminPage
 		$value = $this->getEventId($event);
 		$id = $this->driver->findElement(By::xPath("//input[@value=$value]"))->getAttribute('id');
 		return $id;
-
-	}
-
-	public function uploadFiles($event) {
-
-
 
 	}
 

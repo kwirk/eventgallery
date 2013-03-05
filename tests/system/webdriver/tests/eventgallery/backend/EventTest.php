@@ -15,42 +15,40 @@ class EventTest001 extends JoomlaWebdriverTestCase
 
 	// Events page 
 	protected $esp = null;
-
+	protected $cpPage = null;
+ 	
 
 	public function setUp()
 	{
 		parent::setUp();
-		$cpPage = $this->doAdminLogin();
-		$cpPage->clickMenuByUrl('com_eventgallery','EventsPage');
+		$this->cpPage = $this->doAdminLogin();
+		$this->cpPage->clickMenuByUrl('com_eventgallery','EventsPage');
 		$this->esp = $this->getPageObject('EventsPage');
-		
-		
 	}
 
 	public function tearDown()
 	{
 		$this->doAdminLogout();		
 		parent::tearDown();
+
+
 	}
 	/**
 	 * @test
 	 */
 	public function event_CreateEvent()
 	{		
-		$salt = "test".md5(rand());
+		$salt = "test".rand();
 
 		$this->esp->createEvent($salt);	
 
 		$this->esp->publishEvent($salt);
 
-		$uploadPage = $this->esp->gotoUploadPage($salt);
-		$uploadPage->uploadFiles($salt);
-		$this->esp->clickMenuByUrl('com_eventgallery','EventsPage');
+		$this->esp->uploadFiles($salt);
 
 		$this->esp->deleteEvent($salt);
  
 
 	}
-
 	
 }

@@ -47,6 +47,7 @@ class MenuItemEditPage extends AdminEditPage
 		array('label' => 'Robots', 'id' => 'jform_params_robots', 'type' => 'select', 'tab' => 'options'),
 		array('label' => 'Secure', 'id' => 'jform_params_secure', 'type' => 'select', 'tab' => 'options'),
 		array('label' => 'Hide Unassigned Modules', 'id' => 'showmods', 'type' => 'input', 'tab' => 'modules'),
+		array('label' => 'Layout', 'id' => 'jform_params_event_layout', 'type' => 'select', 'tab' => 'options'),		
 			);
 
 	public $menuItemTypes = array(
@@ -80,6 +81,7 @@ class MenuItemEditPage extends AdminEditPage
 		array('group' => 'System Links', 'type' => 'Menu Item Alias '),
 		array('group' => 'System Links', 'type' => 'Text Separator '),
 		array('group' => 'System Links', 'type' => 'Menu Heading ' ),
+		array('group' => 'Eventgallery', 'type' => 'Events - List'),
 		);
 
 
@@ -178,8 +180,11 @@ class MenuItemEditPage extends AdminEditPage
 		$group = $this->getGroupName($value);
 		$d = $this->driver;
 		$d->findElement(By::xPath("//a[contains(@onclick, 'option=com_menus&view=menutypes')]"))->click();
-		$el = $d->waitForElementUntilIsPresent(By::xPath("//iframe[contains(@src, 'option=com_menus&view=menutypes')]"));
+		$el = $d->waitForElementUntilIsPresent(By::xPath("//iframe[contains(@src, 'option=com_menus&view=menutypes')]"),20);
 		$el = $d->switchTo()->getFrameByWebElement($el);
+		// wait for the content of the iframe...
+		$d->waitForElementUntilIsPresent(By::xPath("//a[contains(@class, 'accordion-toggle')][contains(., '" . $group . "')]"),20);
+
 		$el->findElement(By::xPath("//a[contains(@class, 'accordion-toggle')][contains(., '" . $group . "')]"))->click();
 		$d->waitForElementUntilIsPresent(By::xPath("//div[contains(@class, 'accordion-body in')]/div/ul/li/a"));
 		$el->findElement(By::xPath("//div[contains(@class, 'accordion-body in')]//a[contains(text(), '" . $value . "')]"))->click();

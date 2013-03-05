@@ -16,13 +16,6 @@ use Pages\ControlPanelPage;
 class JoomlaWebdriverTestCase extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @test
-	 */
-	public function dummy()
-	{		
-		
-	}
-	/**
 	 * @var SeleniumConfig
 	 */
 	public $cfg; // configuration so tests can get at the fields

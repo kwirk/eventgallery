@@ -24,7 +24,7 @@ class TestSuite
 	public static function suite()
 	{
 		$suite = new PHPUnit_Framework_TestSuite('PHPUnit Framework');
-		$suite->addTestSuite('EventgalleryTest');
+		
 		return $suite;
 	}
 }
