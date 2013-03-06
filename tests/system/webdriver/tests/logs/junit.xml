@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests" tests="1" assertions="9" failures="0" errors="0" time="52.524876">
-    <testsuite name="JoomlaWebdriverTestCase" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\JoomlaWebdriverTestCase.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
-    <testsuite name="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" tests="1" assertions="9" failures="0" errors="0" time="52.524876">
-      <testcase name="doCarting" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="96" assertions="9" time="52.524876"/>
+  <testsuite name="tests" tests="4" assertions="45" failures="0" errors="0" time="271.765996">
+    <testsuite name="JoomlaWebdriverTestCase" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\JoomlaWebdriverTestCase.php" tests="1" assertions="0" failures="0" errors="0" time="3.406055">
+      <testcase name="dummy" class="JoomlaWebdriverTestCase" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\JoomlaWebdriverTestCase.php" line="22" assertions="0" time="3.406055"/>
+    </testsuite>
+    <testsuite name="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" tests="3" assertions="45" failures="0" errors="0" time="268.359941">
+      <testcase name="doZooming" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="94" assertions="18" time="116.026787"/>
+      <testcase name="doCarting" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="106" assertions="18" time="96.743521"/>
+      <testcase name="dummy" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="22" assertions="9" time="55.589633"/>
     </testsuite>
   </testsuite>
 </testsuites>

@@ -82,6 +82,11 @@ class MenuItemEditPage extends AdminEditPage
 		array('group' => 'System Links', 'type' => 'Text Separator '),
 		array('group' => 'System Links', 'type' => 'Menu Heading ' ),
 		array('group' => 'Eventgallery', 'type' => 'Events - List'),
+		array('group' => 'Eventgallery', 'type' => 'Cart'),
+		array('group' => 'Eventgallery', 'type' => 'Checkout'),
+		array('group' => 'Eventgallery', 'type' => 'Event - Image List'),
+		array('group' => 'Eventgallery', 'type' => 'Event - Pageable List'),
+		array('group' => 'Eventgallery', 'type' => 'Event - Ajax List'),
 		);
 
 

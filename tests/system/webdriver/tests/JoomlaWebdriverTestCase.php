@@ -15,6 +15,14 @@ use Pages\ControlPanelPage;
 
 class JoomlaWebdriverTestCase extends PHPUnit_Framework_TestCase
 {
+
+	/**
+	* @test
+	*/
+	public function dummy() {
+
+	}
+
 	/**
 	 * @var SeleniumConfig
 	 */

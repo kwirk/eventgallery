@@ -22,7 +22,7 @@ class FrontEndTest001 extends JoomlaWebdriverTestCase
 
 		);
 
-	private $doInit = false;
+	private $doInit = true;
 	private $doCleanup = false;
 
 	// Events page 
@@ -33,21 +33,28 @@ class FrontEndTest001 extends JoomlaWebdriverTestCase
 	{		
 		parent::setUp();
 		$this->salt = rand();
-		$this->salt = 1111;
+		$this->salt = 4446;
 		if ($this->doInit) {
-			$this->cpPage = $this->doAdminLogin();
-			$this->cpPage->clickMenuByUrl('com_eventgallery','EventsPage');
-			$this->esp = $this->getPageObject('EventsPage');
+			try {
+				$this->cpPage = $this->doAdminLogin();
+				$this->cpPage->clickMenuByUrl('com_eventgallery','EventsPage');
+				$this->esp = $this->getPageObject('EventsPage');
 
-			$this->esp->createEvent('event'.$this->salt);	
-			$this->esp->publishEvent('event'.$this->salt);
-			$this->esp->uploadFiles('event'.$this->salt);
+				$this->esp->createEvent('event'.$this->salt);	
+				$this->esp->publishEvent('event'.$this->salt);
+				$this->esp->uploadFiles('event'.$this->salt);
 
-			$this->createMenuItem($this->eventPageTypes['imagelist']['menuName'].$this->salt, 		'Events - List', 'Event - Image List');
-			$this->createMenuItem($this->eventPageTypes['pageablelist']['menuName'].$this->salt, 	'Events - List', 'Event - Pageable List');
-			$this->createMenuItem($this->eventPageTypes['ajaxlist']['menuName'].$this->salt, 		'Events - List', 'Event - Ajax List');
+				$this->createMenuItem($this->eventPageTypes['imagelist']['menuName'].$this->salt, 		'Events - List', 'Event - Image List');
+				$this->createMenuItem($this->eventPageTypes['pageablelist']['menuName'].$this->salt, 	'Events - List', 'Event - Pageable List');
+				$this->createMenuItem($this->eventPageTypes['ajaxlist']['menuName'].$this->salt, 		'Events - List', 'Event - Ajax List');
 
-			$this->doAdminLogout();
+				$this->createMenuItem("Checkout ".$this->salt, 		'Checkout');
+				$this->createMenuItem("Cart ".$this->salt, 		    'Cart');
+
+				$this->doAdminLogout();
+			} catch (Exception $e) {
+					
+			}
 		}
 
 		//open site
@@ -59,6 +66,7 @@ class FrontEndTest001 extends JoomlaWebdriverTestCase
 	public function tearDown()
 	{
 		if ($this->doCleanup) {
+
 			$this->cpPage = $this->doAdminLogin();
 			$this->cpPage->clickMenuByUrl('com_eventgallery','EventsPage');
 			$this->esp = $this->getPageObject('EventsPage');
@@ -66,6 +74,8 @@ class FrontEndTest001 extends JoomlaWebdriverTestCase
 			$this->deleteMenuItem($this->eventPageTypes['imagelist']['menuName'].$this->salt); 	
 			$this->deleteMenuItem($this->eventPageTypes['pageablelist']['menuName'].$this->salt);
 			$this->deleteMenuItem($this->eventPageTypes['ajaxlist']['menuName'].$this->salt);
+			$this->deleteMenuItem("Checkout ".$this->salt);
+			$this->deleteMenuItem("Cart ".$this->salt);
 
 			$this->cpPage->clickMenuByUrl('com_eventgallery','EventsPage');
 			$this->esp = $this->getPageObject('EventsPage');
@@ -79,7 +89,7 @@ class FrontEndTest001 extends JoomlaWebdriverTestCase
 	}
 
 	/**
-	 * @est
+	 * @test
 	 */
 	public function doZooming() {
 		foreach($this->eventPageTypes as $type=>$config) {
@@ -108,16 +118,19 @@ class FrontEndTest001 extends JoomlaWebdriverTestCase
 	* - added new entry to menuItemTypes array: array('group' => 'Eventgallery', 'type' => 'Events - List'),
 	* - changed setMenuItemType to wait for the content of the iFrame to appear before clicking it.
 	*/
-	protected function createMenuItem($title="Eventgallery", $menuType="Events - List", $layout="Event - Image List", $menuLocation = 'Top') {
+	protected function createMenuItem($title="Eventgallery", $menuType="Events - List", $layout=null, $menuLocation = 'Top') {
+
 
 		$this->menuItemsManagerPage = $this->cpPage->clickMenu('Main Menu', 'MenuItemsManagerPage');
 
 		$this->menuItemsManagerPage->setFilter('menutype', $menuLocation);
 		$this->assertFalse($this->menuItemsManagerPage->getRowNumber($title), 'Test menu should not be present');
 
-		$this->menuItemsManagerPage->addMenuItem($title, $menuType, 
-			$menuLocation, array('Layout' => $layout));
-		
+		if (null != $layout) {
+			$this->menuItemsManagerPage->addMenuItem($title, $menuType, $menuLocation, array('Layout' => $layout));	
+		} else {
+			$this->menuItemsManagerPage->addMenuItem($title, $menuType, $menuLocation);	
+		}		
 
 		$message = $this->menuItemsManagerPage->getAlertMessage();
 		$this->assertContains('Menu item successfully saved', $message, 'Menu save should return success', true);
