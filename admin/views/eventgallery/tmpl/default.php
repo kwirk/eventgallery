@@ -79,7 +79,7 @@ defined('_JEXEC') or die('Restricted access');
 						<span class="state icon-16-newcategory "><i class="icon-upload"></i>	<span class="text"></span></span>					
 					</a>
 					<a href="<?php echo $filesLink; ?>" id="files_<?php echo $row->id?>" class="btn btn-micro jgrid">
-						<span class="state icon-16-inbox "><i class="icon-folder-2"></i>	<span class="text"></span></span>					
+						<span class="state icon-16-module "><i class="icon-folder-2"></i>	<span class="text"></span></span>					
 					</a>
 				</div>				
 			</td>
