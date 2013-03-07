@@ -6,8 +6,14 @@ admin/build/index.html svneol=native#text/html
 admin/config.xml -text
 admin/controller.php -text
 admin/controllers/index.html -text
+admin/doc/img/backend/configuration.jpg -text svneol=unset#image/jpeg
 admin/doc/img/backend/create_menu_item.jpg -text svneol=unset#image/jpeg
+admin/doc/img/backend/create_menu_item_advanced_options.jpg -text svneol=unset#image/jpeg
 admin/doc/img/backend/index.html svneol=native#text/html
+admin/doc/img/backend/page_event_edit.jpg -text svneol=unset#image/jpeg
+admin/doc/img/backend/page_event_files.jpg -text svneol=unset#image/jpeg
+admin/doc/img/backend/page_events.jpg -text svneol=unset#image/jpeg
+admin/doc/img/frontend/event_ajax_list_css_custom.jpg -text svneol=unset#image/jpeg
 admin/doc/img/index.html svneol=native#text/html
 admin/doc/index.html svneol=native#text/html
 admin/doc/readme.md -text
