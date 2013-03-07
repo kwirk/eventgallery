@@ -26,6 +26,15 @@ class EventgalleryViewEventgallery extends JViewLegacy
 		JToolBarHelper::unpublishList('unpublish');
 		JToolBarHelper::deleteList('Remove all selected Events?','removeEvent','Remove');
 		JToolBarHelper::preferences('com_eventgallery', '550');
+
+		JToolBarHelper::spacer(100);
+
+		$bar = JToolbar::getInstance('toolbar');
+
+		// Add a trash button.
+				
+		$bar->appendButton('Confirm', 'COM_EVENTGALLERY_CLEAR_CACHE_ALERT', 'trash', 'COM_EVENTGALLERY_SUBMENU_CLEAR_CACHE',  'cleanCache', false);
+		$bar->appendButton('Confirm', 'COM_EVENTGALLERY_SYNC_DATABASE_SYNC_ALERT', 'checkin', 'COM_EVENTGALLERY_SUBMENU_SYNC_DATABASE',  'refreshDatabase', false);
 		
 		// Get data from the model
 		

@@ -6,8 +6,10 @@ admin/build/index.html svneol=native#text/html
 admin/config.xml -text
 admin/controller.php -text
 admin/controllers/index.html -text
+admin/doc/readme.md -text
 admin/eventgallery.php -text
 admin/helpers/index.html -text
+admin/helpers/php_markdown_extra/markdown.php -text
 admin/index.html -text
 admin/language/en-GB/en-GB.com_eventgallery.ini -text
 admin/language/en-GB/en-GB.com_eventgallery.sys.ini -text
@@ -53,6 +55,10 @@ admin/views/comments/index.html -text
 admin/views/comments/tmpl/default.php -text
 admin/views/comments/tmpl/index.html -text
 admin/views/comments/view.html.php -text
+admin/views/documentation/index.html svneol=native#text/html
+admin/views/documentation/tmpl/default.php -text
+admin/views/documentation/tmpl/index.html svneol=native#text/html
+admin/views/documentation/view.html.php -text
 admin/views/event/index.html -text
 admin/views/event/tmpl/default.php -text
 admin/views/event/tmpl/index.html -text

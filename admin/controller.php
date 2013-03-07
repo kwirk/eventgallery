@@ -20,7 +20,7 @@ class EventgalleryController extends JControllerLegacy
 		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTS'),
 			'index.php?option=com_eventgallery',
-			$vName == 'events'
+			$vName == 'eventgallery' || $vName==''
 		);
 		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_COMMENTS'),
@@ -32,6 +32,7 @@ class EventgalleryController extends JControllerLegacy
 			'index.php?option=com_eventgallery&view=orders',
 			$vName == 'orders');
 		
+		/*
 		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_CLEAR_CACHE'),
 			'index.php?option=com_eventgallery&task=clearCache',
@@ -42,6 +43,12 @@ class EventgalleryController extends JControllerLegacy
 			JText::_('COM_EVENTGALLERY_SUBMENU_SYNC_DATABASE'),
 			'index.php?option=com_eventgallery&task=refreshDatabase',
 			$vName == 'refreshDatabase'
+		);*/
+
+		JSubMenuHelper::addEntry(
+			JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION'),
+			'index.php?option=com_eventgallery&view=documentation',
+			$vName == 'documentation'
 		);
 	}
 	
@@ -75,7 +82,7 @@ class EventgalleryController extends JControllerLegacy
 			$view->setModel( $this->getModel('event'), true);	
 		}
 
-		EventgalleryController::addSubmenu(JRequest::getCmd('view', 'events'));
+		EventgalleryController::addSubmenu(JRequest::getCmd('view', 'eventgallery'));
 		parent::display($cachable, $urlparams);
 	}
 
