@@ -50,12 +50,11 @@
 			<menu img="class:media"  link="option=com_eventgallery&amp;view=eventgallery">COM_EVENTGALLERY_MENU_EVENTS</menu>
 			<menu img="class:article"  link="option=com_eventgallery&amp;view=comments">COM_EVENTGALLERY_MENU_COMMENTS</menu>
 			<menu img="class:article"  link="option=com_eventgallery&amp;view=orders">COM_EVENTGALLERY_MENU_ORDERS</menu>
-			<menu img="class:purge"  link="option=com_eventgallery&amp;task=clearCache">COM_EVENTGALLERY_MENU_CLEAR_CACHE</menu>
-			<menu img="class:clear"  link="option=com_eventgallery&amp;task=refreshDatabase">COM_EVENTGALLERY_MENU_SYNC_DATABASE</menu>
 		</submenu>		
 		<files folder="admin">
 			<folder>controllers</folder>
 			<folder>helpers</folder>
+			<folder>doc</folder>
 			<folder>language</folder>
 			<folder>media</folder>
 			<folder>models</folder>
@@ -74,11 +73,5 @@
 			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.sys.ini</language>
 		</languages>
 	</administration>
-	
-	<!-- UPDATESERVER DEFINITION -->
-	<updateservers>
-		<!-- Note: No spaces or linebreaks allowed between the server tags -->
-		<!-- <server type="extension" priority="1" name="Eventgallery Update Site">http://127.0.0.1:92/eventgallery-update.xml</server> -->
-	</updateservers>
 	
 </extension >

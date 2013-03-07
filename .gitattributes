@@ -6,9 +6,14 @@ admin/build/index.html svneol=native#text/html
 admin/config.xml -text
 admin/controller.php -text
 admin/controllers/index.html -text
+admin/doc/img/backend/create_menu_item.jpg -text svneol=unset#image/jpeg
+admin/doc/img/backend/index.html svneol=native#text/html
+admin/doc/img/index.html svneol=native#text/html
+admin/doc/index.html svneol=native#text/html
 admin/doc/readme.md -text
 admin/eventgallery.php -text
 admin/helpers/index.html -text
+admin/helpers/php_markdown_extra/index.html svneol=native#text/html
 admin/helpers/php_markdown_extra/markdown.php -text
 admin/index.html -text
 admin/language/en-GB/en-GB.com_eventgallery.ini -text
