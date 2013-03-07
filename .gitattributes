@@ -17,6 +17,7 @@ admin/media/css/eventgallery.css svneol=native#text/css
 admin/media/css/index.html svneol=native#text/html
 admin/media/img/icons.png -text svneol=unset#image/png
 admin/media/img/index.html svneol=native#text/html
+admin/media/img/source/buttons.psd -text
 admin/media/index.html -text
 admin/models/comment.php -text
 admin/models/comments.php -text
@@ -60,6 +61,10 @@ admin/views/eventgallery/index.html -text
 admin/views/eventgallery/tmpl/default.php -text
 admin/views/eventgallery/tmpl/index.html -text
 admin/views/eventgallery/view.html.php -text
+admin/views/files/index.html svneol=native#text/html
+admin/views/files/tmpl/default.php -text
+admin/views/files/tmpl/index.html svneol=native#text/html
+admin/views/files/view.html.php -text
 admin/views/index.html -text
 admin/views/orders/index.html svneol=native#text/html
 admin/views/orders/tmpl/default.php -text

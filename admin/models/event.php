@@ -180,7 +180,8 @@ class EventgalleryModelEvent extends JModelLegacy
 			$db->query();
 
 			
-			$foldername=str_replace('..','',$folder->folder);
+			$foldername=JFile::makeSafe($folder->folder);
+			
 			if (strlen($foldername)>0)
 			{
 				$path=JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR.$foldername.DIRECTORY_SEPARATOR ;

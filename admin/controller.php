@@ -66,7 +66,15 @@ class EventgalleryController extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		
+
 		
+		$viewname=$this->input->getSring('view');
+		$viewLayout = $this->input->get('layout', 'default');
+		if ($viewname == 'files') {			
+			$view = $this->getView($viewname, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
+			$view->setModel( $this->getModel('event'), true);	
+		}
+
 		EventgalleryController::addSubmenu(JRequest::getCmd('view', 'events'));
 		parent::display($cachable, $urlparams);
 	}
@@ -341,6 +349,10 @@ class EventgalleryController extends JControllerLegacy
 
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=eventgallery', $msg );
 	}
+
+	function cancelEvent() {
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=eventgallery');	
+	}
 	
 	/**
 	 * function to save an event after editing
@@ -386,6 +398,22 @@ class EventgalleryController extends JControllerLegacy
 		}
 	}
     
+
+	/**
+	* function which can delete a file
+	*/
+    function removeFile() {
+
+    	$model = $this->getModel('file');
+		if(!$model->delete()) {
+			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_REMOVED_ERROR' );
+		} else {
+			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_REMOVED_SUCCESS' );
+		}
+
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		
+    }
 	/**
 	 * function to publish a single file/multiple files
 	 * 
@@ -399,7 +427,7 @@ class EventgalleryController extends JControllerLegacy
 
 		$file = & $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_UNPUBLISHED' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
 	
 	/**
@@ -413,7 +441,7 @@ class EventgalleryController extends JControllerLegacy
 		$model->publish(0);
 		$file = & $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_PUBLISHED' );	
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
 	
 	/**
@@ -430,7 +458,7 @@ class EventgalleryController extends JControllerLegacy
 		$msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_ENABLE_FOR_FILE' );
 
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
 	
 	/**
@@ -446,7 +474,7 @@ class EventgalleryController extends JControllerLegacy
 		$file = & $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_DISABLE_FOR_FILE' );
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}	
 
 	/**
@@ -463,7 +491,7 @@ class EventgalleryController extends JControllerLegacy
 		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_ENABLE_FOR_FILE' );
 
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
 	
 	/**
@@ -479,7 +507,7 @@ class EventgalleryController extends JControllerLegacy
 		$file = & $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_DISABLE_FOR_FILE' );
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}	
 
 	/**
@@ -496,7 +524,7 @@ class EventgalleryController extends JControllerLegacy
 		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_ENABLE_FOR_FILE' );
 
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
 	
 	/**
@@ -512,7 +540,7 @@ class EventgalleryController extends JControllerLegacy
 		$file = & $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_DISABLE_FOR_FILE' );
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}	
 	
 	/**
@@ -713,8 +741,8 @@ class EventgalleryController extends JControllerLegacy
 	{		
 		$model = $this->getModel('file');
 		$model->storeOrder();
-		$msg = JText::_( 'COM_EVENTGALLERY_FILE_ORDER_STORED' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid='.JRequest::getVar('folderid'), $msg );		
+		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_ORDER_STORED_SUCCESS' );
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&cid='.JRequest::getVar('folderid'), $msg );		
 	}
 	
 	function orderFileUp()
@@ -724,7 +752,7 @@ class EventgalleryController extends JControllerLegacy
 		
 		$file = & $model->getData();
 		
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid='.JRequest::getVar('folderid'), $msg );	
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&cid='.JRequest::getVar('folderid'), $msg );	
 	}
 	
 	function orderFileDown()
@@ -737,7 +765,7 @@ class EventgalleryController extends JControllerLegacy
 		
 		#print_r($file);
 		
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid='.JRequest::getVar('folderid'), $msg );		
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&cid='.JRequest::getVar('folderid'), $msg );		
 	}
 }
 

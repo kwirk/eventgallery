@@ -11,7 +11,7 @@ defined('_JEXEC') or die();
 
 
 jimport('joomla.application.component.model');
-
+jimport('joomla.filesystem.file');
 
 
 class EventgalleryModelFile extends JModelLegacy
@@ -111,16 +111,36 @@ class EventgalleryModelFile extends JModelLegacy
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
-		$row = $this->getTable('folder');
-
+		$row = $this->getTable('file');
 
 		if (count( $cids ))
 		{
 			foreach($cids as $cid) {
+
+				$query = ' SELECT * FROM #__eventgallery_file '.
+							'  WHERE id = \''.$cid.'\'';
+				
+				$this->_db->setQuery( $query );
+				$data = $this->_db->loadObject();
+				
+				$path=JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR.JFile::makeSafe($data->folder).DIRECTORY_SEPARATOR ;
+				$filename=JFile::makeSafe($data->file);
+				$file = $path.$filename;
+				
+				if (file_exists($file) && !is_dir($file)) {				
+					if (!unlink($file)) {
+						echo $file;
+						return false;
+					}		
+				}
+
 				if (!$row->delete( $cid )) {
-					$this->setError( $row->getErrorMsg() );
+					$this->setError( $row->getErrorMsg() );					
 					return false;
 				}
+
+				
+
 			}						
 		}
 		return true;

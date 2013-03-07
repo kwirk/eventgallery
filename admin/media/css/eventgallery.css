@@ -1,7 +1,15 @@
 i.eg-icon-published,
 i.eg-icon-comments,
 i.eg-icon-mainimage,
-i.eg-icon-mainimageonly {
+i.eg-icon-mainimageonly,
+i.icon-eg-published,
+i.icon-eg-comments,
+i.icon-eg-mainimage,
+i.icon-eg-mainimageonly,
+i.icon-eg-published-inactive,
+i.icon-eg-comments-inactive,
+i.icon-eg-mainimage-inactive,
+i.icon-eg-mainimageonly-inactive {
 	width: 20px;
 	height: 16px;
 	display: block;
@@ -10,35 +18,43 @@ i.eg-icon-mainimageonly {
 	margin-right: 5px;
 }
 
-i.eg-icon-published {
+i.eg-icon-published,
+i.icon-eg-published-inactive {
 	background-position: -43px -16px;
 }
 
-i.eg-icon-comments {
+i.eg-icon-comments,
+i.icon-eg-comments-inactive {
 	background-position: -22px -16px;
 }
 
-i.eg-icon-mainimage {
+i.eg-icon-mainimage,
+i.icon-eg-mainimage-inactive {
 	background-position: 0px -16px;
 }
 
-i.eg-icon-mainimageonly{
+i.eg-icon-mainimageonly,
+i.icon-eg-mainimageonly-inactive {
 	background-position: -62px -16px;
 	margin-right: 0px;
 }
 
-.active i.eg-icon-published {
+.active i.eg-icon-published,
+i.icon-eg-published {
 	background-position: -43px 0px;
 }
 
-.active i.eg-icon-comments {
+.active i.eg-icon-comments,
+i.icon-eg-comments {
 	background-position: -22px 0px;
 }
 
-.active i.eg-icon-mainimage {
+.active i.eg-icon-mainimage,
+i.icon-eg-mainimage {
 	background-position: 0px 0px;
 }
 
-.active i.eg-icon-mainimageonly{
+.active i.eg-icon-mainimageonly,
+i.icon-eg-mainimageonly{
 	background-position: -62px 0px;
 }

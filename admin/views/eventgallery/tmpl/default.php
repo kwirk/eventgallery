@@ -64,6 +64,7 @@ defined('_JEXEC') or die('Restricted access');
 		#$published = JHtml::_('jgrid.published', $row->published, $i, 'articles.', true, 'cb', $row->publish_up, $row->publish_down);
 		$link 		= JRoute::_( 'index.php?option=com_eventgallery&task=edit&cid[]='. $row->id );
 		$uploadlink = JRoute::_( 'index.php?option=com_eventgallery&task=upload&cid[]='. $row->id );
+		$filesLink  = JRoute::_( 'index.php?option=com_eventgallery&view=files&cid[]='. $row->id);
 
 		?>
 		<tr class="<?php echo "row$k"; ?>">
@@ -76,6 +77,9 @@ defined('_JEXEC') or die('Restricted access');
 					<?php /*the following mix of jgrid and btn is for being compatible with joomla 2.5 and 3.0*/ ?>
 					<a href="<?php echo $uploadlink; ?>" id="upload_<?php echo $row->id?>" class="btn btn-micro jgrid">
 						<span class="state icon-16-newcategory "><i class="icon-upload"></i>	<span class="text"></span></span>					
+					</a>
+					<a href="<?php echo $filesLink; ?>" id="files_<?php echo $row->id?>" class="btn btn-micro jgrid">
+						<span class="state icon-16-inbox "><i class="icon-folder-2"></i>	<span class="text"></span></span>					
 					</a>
 				</div>				
 			</td>
