@@ -47,15 +47,30 @@ class FrontEndBaseEventPage extends FrontEndBasePage
 
 	public function add2cart() {
 		// click on add2cart
-		$this->driver->findElement(By::xPath('//a[contains(@class,"eventgallery-add2cart")]'))->click();
-		$this->driver->waitForElementUntilIsPresent(By::xPath('//div[@class="eventgallery-cart"]'));
+		$add2cartButton = $this->driver->findElement(By::xPath('//a[contains(@class,"button-add2cart")]'));
+		$data = $add2cartButton->getAttribute("data-id");
+		$add2cartButton->click();
+
+		//check for changed button
+		$this->driver->waitForElementUntilIsPresent(By::xPath('//a[@data-id="'.$data.'" and contains(@class,"alreadyInCart")]'));
+
+		// check for items removeFromCart-button in cart
+		$this->driver->waitForElementUntilIsPresent(By::xPath('//a[@data-id="'.$data.'" and contains(@class,"eventgallery-removeFromCart")]'));
+		
 		$this->driver->findElement(By::xPath('//div[@class="eventgallery-cart"]'))->waitForElementUntilIsDisplayed();
 
-		// remove it again
-		$this->driver->findElement(By::xPath('//a[contains(@class,"eventgallery-removeFromCart")]'))->click();
+		
+	}
 
+	public function removeFromCart() {
+		$removeButton = $this->driver->findElement(By::xPath('//a[contains(@class,"eventgallery-removeFromCart")]'));
+		
+		$data = $removeButton->getAttribute("data-id");
+
+		$removeButton->click();
+		
 		// wait until there is no item in cart since we added only one
-		$this->driver->waitForElementUntilIsNotPresent(By::xPath('//a[contains(@class,"eventgallery-removeFromCart")]'));
+		$this->driver->waitForElementUntilIsNotPresent(By::xPath('//a[@data-id="'.$data.'" and contains(@class,"eventgallery-removeFromCart")]'));
 	}
 
 

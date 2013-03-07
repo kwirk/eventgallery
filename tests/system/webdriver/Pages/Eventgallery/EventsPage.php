@@ -34,7 +34,7 @@ class EventsPage extends AdminPage
 
 		$this->driver->findElement(By::cssSelector("button.btn.btn-small"))->click();
 
-		$folder = $this->driver->waitForElementUntilIsPresent(By::xPath($this->waitForXpath), 20);
+		$folder = $this->driver->waitForElementUntilIsPresent(By::xPath($this->waitForXpath));
 
 		$message = $this->getAlertMessage();
 		$this->test->assertTrue(strpos($message, 'Event saved!') >= 0, 'Event save return success');
@@ -45,7 +45,7 @@ class EventsPage extends AdminPage
 		
 		$this->driver->findElement(By::xPath("//a[@onclick=\"return listItemTask('$id','publish')\"]"))->click();
 
-		$folder = $this->driver->waitForElementUntilIsPresent(By::xPath($this->waitForXpath), 20);
+		$folder = $this->driver->waitForElementUntilIsPresent(By::xPath($this->waitForXpath));
 		
 		$element = $this->driver->findElement(By::xPath("//a[@onclick=\"return listItemTask('$id','unpublish')\"]"));
 		$this->test->assertTrue(strpos($element->getAttribute('title'), 'published!') >= 0, 'Event should be published');

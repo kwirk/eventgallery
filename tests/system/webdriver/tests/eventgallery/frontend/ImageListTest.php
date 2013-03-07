@@ -33,7 +33,7 @@ class FrontEndTest001 extends JoomlaWebdriverTestCase
 	{		
 		parent::setUp();
 		$this->salt = rand();
-		$this->salt = 4446;
+		$this->salt = 4447;
 		if ($this->doInit) {
 			try {
 				$this->cpPage = $this->doAdminLogin();
@@ -109,7 +109,33 @@ class FrontEndTest001 extends JoomlaWebdriverTestCase
 			$eventsPage = $this->getPageObject('FrontEndEventsPage',30);
 			$eventPage = $eventsPage->openEvent();
 			$eventPage->add2cart();
+			$eventPage->removeFromCart();
 		}
+	}
+
+	/**
+	* @test
+	*/
+	public function doTestCart() {
+
+		
+		$this->driver->findElement(By::xPath("//a[text()=\"".$this->eventPageTypes['imagelist']['menuName'].$this->salt."\"]"))->click();
+		$eventsPage = $this->getPageObject('FrontEndEventsPage',30);
+		$eventPage = $eventsPage->openEvent();
+		$eventPage->add2cart();
+		$eventPage->add2cart();
+		$eventPage->add2cart();
+
+		$eventPage->removeFromCart();
+		$eventPage->removeFromCart();
+
+	}
+
+	/**
+	* @tes
+	*/
+	public function doTestCheckout() {
+		
 	}
 
  

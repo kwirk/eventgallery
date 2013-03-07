@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="tests" tests="4" assertions="45" failures="0" errors="0" time="271.765996">
-    <testsuite name="JoomlaWebdriverTestCase" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\JoomlaWebdriverTestCase.php" tests="1" assertions="0" failures="0" errors="0" time="3.406055">
-      <testcase name="dummy" class="JoomlaWebdriverTestCase" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\JoomlaWebdriverTestCase.php" line="22" assertions="0" time="3.406055"/>
+  <testsuite name="tests" tests="7" assertions="90" failures="0" errors="0" time="309.955221">
+    <testsuite name="JoomlaWebdriverTestCase" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\JoomlaWebdriverTestCase.php" tests="1" assertions="0" failures="0" errors="0" time="3.886410">
+      <testcase name="dummy" class="JoomlaWebdriverTestCase" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\JoomlaWebdriverTestCase.php" line="22" assertions="0" time="3.886410"/>
     </testsuite>
-    <testsuite name="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" tests="3" assertions="45" failures="0" errors="0" time="268.359941">
-      <testcase name="doZooming" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="94" assertions="18" time="116.026787"/>
-      <testcase name="doCarting" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="106" assertions="18" time="96.743521"/>
-      <testcase name="dummy" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="22" assertions="9" time="55.589633"/>
+    <testsuite name="EventTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\backend\EventTest.php" tests="2" assertions="33" failures="0" errors="0" time="62.555867">
+      <testcase name="event_CreateEvent" class="EventTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\backend\EventTest.php" line="39" assertions="21" time="46.975087"/>
+      <testcase name="dummy" class="EventTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\backend\EventTest.php" line="22" assertions="12" time="15.580780"/>
+    </testsuite>
+    <testsuite name="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" tests="4" assertions="57" failures="0" errors="0" time="243.512944">
+      <testcase name="doZooming" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="94" assertions="18" time="88.088897"/>
+      <testcase name="doCarting" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="106" assertions="18" time="75.931395"/>
+      <testcase name="doTestCart" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="119" assertions="12" time="50.005796"/>
+      <testcase name="dummy" class="FrontEndTest001" file="E:\joomla\eventgallery\trunk\tests\system\webdriver\tests\eventgallery\frontend\ImageListTest.php" line="22" assertions="9" time="29.486856"/>
     </testsuite>
   </testsuite>
 </testsuites>

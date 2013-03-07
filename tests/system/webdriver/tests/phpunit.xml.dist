@@ -2,6 +2,7 @@
 <phpunit bootstrap="../bootstrap.php" colors="false">
 	<testsuites>
 		<testsuite name="tests">			
+			<directory>eventgallery/backend</directory>
 			<directory>eventgallery/frontend</directory>
 			<exclude>JoomlaWebdriverTestCase.php</exclude>
 		</testsuite>
