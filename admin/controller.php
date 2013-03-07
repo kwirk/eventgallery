@@ -68,8 +68,8 @@ class EventgalleryController extends JControllerLegacy
 		
 
 		
-		$viewname=$this->input->getSring('view');
-		$viewLayout = $this->input->get('layout', 'default');
+		$viewname = JRequest::getString('view', 'eventgallery');
+		$viewLayout = JRequest::getString('layout', 'default');
 		if ($viewname == 'files') {			
 			$view = $this->getView($viewname, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 			$view->setModel( $this->getModel('event'), true);	

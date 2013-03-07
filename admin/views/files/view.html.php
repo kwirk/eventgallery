@@ -42,8 +42,8 @@ class EventgalleryViewFiles extends JViewLegacy
 		JToolBarHelper::cancel('cancelEvent', 'Close');
 
 
-		JToolBarHelper::custom('publish', 'eg-published');
-		JToolBarHelper::custom('unpublish', 'eg-published-inactive');
+		JToolBarHelper::custom('Filepublish', 'eg-published');
+		JToolBarHelper::custom('Fileunpublish', 'eg-published-inactive');
 
 		JToolBarHelper::custom('allowComments', 'eg-comments');
 		JToolBarHelper::custom('disallowComments', 'eg-comments-inactive');
@@ -52,8 +52,8 @@ class EventgalleryViewFiles extends JViewLegacy
 		JToolBarHelper::custom('isMainImage', 'eg-mainimage');
 		JToolBarHelper::custom('isNotMainImage', 'eg-mainimage-inactive');
 
-		JToolBarHelper::custom('isMainImageOnly', 'eg-mainimageonly');
-		JToolBarHelper::custom('isNotMainImageOnly', 'eg-mainimageonly-inactive');
+		JToolBarHelper::custom('isNotMainImageOnly', 'eg-mainimageonly');
+		JToolBarHelper::custom('isMainImageOnly', 'eg-mainimageonly-inactive');
 
 		JToolBarHelper::spacer(50);
 
