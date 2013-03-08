@@ -303,9 +303,9 @@ var Mediabox;
 		*/
 		mediabox: function(_options, linkMapper, linksFilter) {
 			linkMapper = linkMapper || function(el) {
-				elrel = el.rel.split(/[\[\]]/);
+				elrel = el.getAttribute('rel').split(/[\[\]]/);
 				elrel = elrel[1];
-				return [el.href, el.title, elrel];
+				return [el.getAttribute('href'), el.title, elrel];
 			};
 
 			linksFilter = linksFilter || function() {
@@ -445,12 +445,19 @@ var Mediabox;
 				if (mediaType == 's') mediaType = 'flash';
 				if (mediaType.match(/f|z/i)) mediaType = 'video';
 				URL = URL+":iphone";
-			}
+			
 
 	/*	Specific Media Types	*/
-
+// INLINE (moved there to override image findings)
+			} else if (URL.match(/\#mb_/i)) {
+				mediaType = 'inline';
+				mediaWidth = mediaWidth || options.defaultWidth;
+				mediaHeight = mediaHeight || options.defaultHeight;
+				URLsplit = URL.split('#');
+				preload = document.id(URLsplit[1]).get('html');
+				startEffect();
 // GIF, JPG, PNG
-			if (URL.match(/\.gif|\.jpg|\.jpeg|\.png|twitpic\.com/i) || mediaType == 'image') {
+			} else if (URL.match(/\.gif|\.jpg|\.jpeg|\.png|twitpic\.com/i) || mediaType == 'image') {
 				mediaType = 'img';
 				URL = URL.replace(/twitpic\.com/i, "twitpic.com/show/full");
 				preload = new Image();
@@ -928,14 +935,6 @@ var Mediabox;
 
 	/*	Specific Content Types	*/
 
-// INLINE
-			} else if (URL.match(/\#mb_/i)) {
-				mediaType = 'inline';
-				mediaWidth = mediaWidth || options.defaultWidth;
-				mediaHeight = mediaHeight || options.defaultHeight;
-				URLsplit = URL.split('#');
-				preload = document.id(URLsplit[1]).get('html');
-				startEffect();
 // HTML
 			} else {
 				mediaType = 'url';
@@ -1055,13 +1054,24 @@ var Mediabox;
 
 Mediabox.scanPage = function() {
 //	$$('#mb_').each(function(hide) { hide.set('display', 'none'); });
-	var links = $$("a").filter(function(el) {
-		return el.rel && el.rel.test(/^lightbo2/i);
+	var buttonElements = $$("button");
+	var linkElements = $$("a");
+	
+	linkElements.combine(buttonElements);
+	var links = linkElements.filter(function(el) {
+		if (el.tagName == 'BUTTON') {
+			el.setAttribute('rel',el.getAttribute('data-rel'));
+			el.setAttribute('href',el.getAttribute('data-href'));
+		}
+		return el.getAttribute('rel') && el.getAttribute('rel').test(/^lightbo2/i);		
 	});
+	
+	console.log(links);
+	
 	$$(links).mediabox({/* Put custom options here */}, null, function(el) {
-		var rel0 = this.rel.replace(/[[]|]/gi," ");
+		var rel0 = this.getAttribute('rel').replace(/[[]|]/gi," ");
 		var relsize = rel0.split(" ");
-		return (this == el) || ((this.rel.length > 8) && el.rel.match(relsize[1]));
+		return (this == el) || ((this.getAttribute('rel').length > 8) && el.getAttribute('rel').match(relsize[1]));
 	});
 };
 window.addEvent("domready", Mediabox.scanPage);
