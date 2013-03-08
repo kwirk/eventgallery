@@ -1059,7 +1059,7 @@ Mediabox.scanPage = function() {
 	
 	linkElements.combine(buttonElements);
 	var links = linkElements.filter(function(el) {
-		if (el.tagName == 'BUTTON') {
+		if (el.tagName == 'BUTTON' && el.getAttribute('data-rel') && el.getAttribute('data-href')) {
 			el.setAttribute('rel',el.getAttribute('data-rel'));
 			el.setAttribute('href',el.getAttribute('data-href'));
 		}
