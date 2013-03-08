@@ -53,7 +53,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<button class="btn toggle-down" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN')?></button>
 			<button class="btn toggle-up" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP')?></button>	
 			<button onclick="document.location.href='<?php echo JRoute::_("index.php?view=checkout");?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_ORDER')?></button>
-			<a class="btn" rel="lightbo2" href="#mb_cart-help">?</a>
+			<button class="btn" data-rel="lightbo2" data-href="#mb_cart-help">?</button>
 		</div>
 		<div  style="display:none">
 			<div id="mb_cart-help">
