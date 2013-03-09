@@ -23,7 +23,7 @@
 			// native Joomla help. Doing this will
 			// enable this comonent to run in a subdirectory
 			// like http://foo.bar/foobar
-			$basefolders = explode(DIRECTORY_SEPARATOR,__DIR__);
+			$basefolders = explode(DIRECTORY_SEPARATOR,dirname(__FILE__));			
 			$basefolders = array_splice($basefolders, 0, count($basefolders)-3);
 			define('JPATH_BASE', implode(DIRECTORY_SEPARATOR, $basefolders));
 			require_once JPATH_BASE.'/includes/defines.php';
