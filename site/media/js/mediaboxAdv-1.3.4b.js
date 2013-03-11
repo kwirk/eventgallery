@@ -1065,9 +1065,7 @@ Mediabox.scanPage = function() {
 		}
 		return el.getAttribute('rel') && el.getAttribute('rel').test(/^lightbo2/i);		
 	});
-	
-	console.log(links);
-	
+		
 	$$(links).mediabox({/* Put custom options here */}, null, function(el) {
 		var rel0 = this.getAttribute('rel').replace(/[[]|]/gi," ");
 		var relsize = rel0.split(" ");
