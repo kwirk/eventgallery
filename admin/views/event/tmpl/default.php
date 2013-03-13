@@ -38,6 +38,17 @@ defined('_JEXEC') or die('Restricted access');
 					<input class="text_area" type="text" name="picasakey" id="picasakey" size="150" maxlength="250" value="<?php echo  $this->event->picasakey; ?>" />
 			</td>	
 		</tr>
+    	<tr>
+			<td width="100" align="right" class="key">
+				
+					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PASSWORD' ); ?>:
+				
+			</td>
+			<td>				
+					<input class="text_area" type="text" name="password" id="password" size="150" maxlength="250" value="<?php echo  $this->event->password; ?>" />
+			</td>	
+		</tr>
+
 		<tr>
 			<td width="100" align="right" class="key">
 				
@@ -69,15 +80,28 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 		</tr>
 		<tr>
-			<td width="100" align="right" class="key">
-				
-					Published:
-				
+			<td width="100" align="right" class="key">		
+				<label for="published">		
+					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PUBLISHED' ); ?>:				
+				</label>
 			</td>
 			<td>				
 				<select name="published" id="published">
-						<option value="0">unpublished</option>
-						<option value="1" <?php if ($this->event->published==1) echo "selected=\"selected\"" ; ?>>published</option>						
+						<option value="0"><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_UNPUBLISHED' ); ?></option>
+						<option value="1" <?php if ($this->event->published==1) echo "selected=\"selected\"" ; ?>><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_PUBLISHED' ); ?></option>						
+				</select>
+			</td>	
+		</tr>
+		<tr>
+			<td width="100" align="right" class="key">		
+				<label for="cartable">		
+					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_CARTABLE' ); ?>:				
+				</label>
+			</td>
+			<td>				
+				<select name="cartable" id="cartable">
+						<option value="1"><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_CARTABLE' ); ?></option>
+						<option value="0" <?php if ($this->event->cartable==0) echo "selected=\"selected\"" ; ?>><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_NOT_CARTABLE' ); ?></option>						
 				</select>
 			</td>	
 		</tr>	

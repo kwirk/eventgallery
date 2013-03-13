@@ -23,6 +23,8 @@ class TableFolder extends JTable
 	var $userid = null;
 	var $lastmodified = null;
 	var $ordering = null;
+	var $password = null;
+	var $cartable = null;
 
 	/**
 	 * Constructor

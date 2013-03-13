@@ -42,6 +42,12 @@ defined('_JEXEC') or die('Restricted access');
 			<th>
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PICASA_KEY' ); ?>
 			</th>
+			<th>
+				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PASSWORD' ); ?>
+			</th>
+			<th>
+				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_CARTABLE' ); ?>
+			</th>
 			<th class="nowrap">
 				<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_EVENT_DATE' ); ?>
 			</th>
@@ -107,6 +113,12 @@ defined('_JEXEC') or die('Restricted access');
 			<td>
 				<a href="<?php echo $link; ?>"><?php echo $row->picasakey; ?></a>
 			</td>
+			<td>
+				<a href="<?php echo $link; ?>"><?php echo $row->password; ?></a>
+			</td>
+			<td>
+				<a href="<?php echo $link; ?>"><?php echo $row->cartable==1?JText::_( 'COM_EVENTGALLERY_EVENT_CARTABLE' ):JText::_( 'COM_EVENTGALLERY_EVENT_NOT_CARTABLE' ); ?></a>
+			</td>			
 			<td class="nowrap">
 				<?php echo JHTML::Date($row->date, JText::_('DATE_FORMAT_LC3')); ?><br>		
 			</td>			
