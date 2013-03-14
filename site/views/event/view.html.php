@@ -46,7 +46,7 @@ class EventgalleryViewEvent extends JViewLegacy
 	    $folder = $cache->call( array( $model, 'getFolder' ), JRequest::getVar('folder',''));
 	    
 	    if (!is_object($folder)) {
-	    	$app->redirect(JRoute::_("index.php?"));
+	    	$app->redirect(JRoute::_("index.php?", false));
 	    }
 	    
 	    $this->assignRef('pageNav', $pageNav);

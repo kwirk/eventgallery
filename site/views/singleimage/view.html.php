@@ -33,12 +33,12 @@ class EventgalleryViewSingleImage extends JViewLegacy
 		$folder = $model->folder;
 		
 		if (!is_object($folder)) {
-			$app->redirect(JRoute::_("index.php?"));
+			$app->redirect(JRoute::_("index.php?", false));
 		}
 		
 		
 		if (!isset($model->file) || strlen($model->file->file)==0) {
-			$app->redirect(JRoute::_("index.php?view=event&folder=".$folder->folder));
+			$app->redirect(JRoute::_("index.php?view=event&folder=".$folder->folder, false));
 		}
 		
 		$pathway =& JSite::getPathWay();
