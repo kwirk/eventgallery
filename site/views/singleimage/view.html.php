@@ -38,11 +38,11 @@ class EventgalleryViewSingleImage extends JViewLegacy
 		
 		
 		if (!isset($model->file) || strlen($model->file->file)==0) {
-			$app->redirect(JRoute::_("index.php?view=event&folder=".$folder->folder, false));
+			$app->redirect(JRoute::_("index.php?view=event&folder=".$folder->folder, false), JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NO_PUBLISHED_MESSAGE'), 'info');
 		}
 		
 		$pathway =& JSite::getPathWay();
-		$pathway->addItem($folder->description,JRoute::_('index.php?view=event&folder='.$folder->folder,false));
+		$pathway->addItem($folder->description,JRoute::_('index.php?view=event&folder='.$folder->folder));
 		$pathway->addItem($model->position.' / '.$model->overallcount);
 		
 		$this->_prepareDocument();

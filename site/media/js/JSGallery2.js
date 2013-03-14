@@ -21,7 +21,8 @@ var JSGallery2 = new Class({
 		'initialIndex': -1,			//which thumb to select after init. you could create deep links with it.
 		'maxOpacity': 0.8,			//maximum opacity before cursor reaches prev/next control, then it will be set to 1 instantly.
 		'next_image': 'next_image.png',
-		'prev_image': 'prev_image.png'
+		'prev_image': 'prev_image.png',
+		'showCartButton' : true,
 	},
 	/**
 	 *	Constructor. Starts up the whole thing :-)
@@ -154,27 +155,27 @@ var JSGallery2 = new Class({
 		    this.focusControl(e, this.nextLink);
 		}.bind(this));
 	
-		this.add2cartLink = new Element('a', {
-		    href: '#',
-		    'class': 'eventgallery-add2cart',
-		    html: '<i class="big"></i>',
-		    id: 'ajax-add2cartbuttoncount',
-		    styles: {
-		    	'font-size': '59px',
-		    	'right': '0px', 
-		    	'z-index': 999,
-		    	'position' : 'absolute',
-		    	'display' : 'block',
-		    	'right': '10px', 
-		    	'top': '10px'
-		    }
-		});
+		if (this.options.showCartButton) {
 
-		this.add2cartLink.addEvent('click',function(e) {
+			this.add2cartLink = new Element('a', {
+			    href: '#',
+			    'class': 'eventgallery-add2cart button-add2cart',
+			    html: '<i class="big"></i>',
+			    id: 'ajax-add2cartbuttoncount',
+			    styles: {
+			    	'font-size': '59px',
+			    	'right': '0px', 
+			    	'z-index': 999,
+			    	'position' : 'absolute',
+			    	'display' : 'block',
+			    	'right': '10px', 
+			    	'top': '10px'
+			    }
+			});		
 			
-		}.bind(this));
-		
-		this.bigImage.getParent().grab(this.add2cartLink);
+			this.bigImage.getParent().grab(this.add2cartLink);
+			$(document.body).fireEvent('updatecartlinks');
+		}
 
 		this.bigImage.addEvents({
 			'mousemove': this.mouseOverHandler.bind(this),
@@ -357,7 +358,9 @@ var JSGallery2 = new Class({
 		var source = container.getFirst();
 	
 		// prepare the add2cart button
-		this.add2cartLink.set('data-id', source.get('data-id'));
+		if (this.options.showCartButton) {
+			this.add2cartLink.set('data-id', source.get('data-id'));
+		}
 		
 		$(document.body).fireEvent('updatecartlinks');
 		

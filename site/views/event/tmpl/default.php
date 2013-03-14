@@ -103,7 +103,9 @@ defined('_JEXEC') or die('Restricted access');
 				<div class="thumbnail" data-url="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->entry->folder."&file=".$this->entry->file) ?>">				
 					<div class="img">
 						<?php echo $entry->getLazyThumbImgTag(250,250,"",true); ?>
-						<a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" class="button-add2cart eventgallery-add2cart" data-id="folder=<?php echo $this->entry->folder."&file=".$this->entry->file ?>"><i class="big"></i></a>
+						<?php IF ($this->folder->cartable==1):?>
+							<a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" class="button-add2cart eventgallery-add2cart" data-id="folder=<?php echo $this->entry->folder."&file=".$this->entry->file ?>"><i class="big"></i></a>
+						<?php ENDIF ?>
 					</div>
 					<div class="details">
 					

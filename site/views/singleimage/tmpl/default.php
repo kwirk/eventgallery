@@ -140,8 +140,11 @@ defined('_JEXEC') or die('Restricted access');
 	<?php ENDIF ?>
 		
 	<a class="btn" href="<?php echo $this->model->file->getImageUrl(null, null, true) ?>" rel="lightbo2" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_ZOOM') ?>"><i class="icon-zoom-in"></i></a>
+	
 
-	<a href="#" class="btn button-add2cart eventgallery-add2cart" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" data-id="folder=<?php echo $this->model->file->folder."&file=".$this->model->file->file ?>"><i class="icon-cart-small"></i></a>
+	<?php IF ($this->model->folder->cartable==1):?>
+		<a href="#" class="btn button-add2cart eventgallery-add2cart" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" data-id="folder=<?php echo $this->model->file->folder."&file=".$this->model->file->file ?>"><i class="icon-cart-small"></i></a>
+	<?php ENDIF ?>
 
 	<?php IF (isset($this->model->file->hits)): ?>		
 		<div  class="btn"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_HITS') ?> <?php echo $this->model->file->hits?></div>

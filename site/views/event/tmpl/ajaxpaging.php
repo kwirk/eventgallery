@@ -23,7 +23,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				'prev_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/prev_button.png'?>',
 				'next_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>',
 				'zoom_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
-				'titleTarget': 'bigImageDescription'
+				'titleTarget': 'bigImageDescription',
+				'showCartButton' : <?php echo $this->folder->cartable==1?'true':'false'; ?>,
 			});
 		
 	});
@@ -119,7 +120,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<div id="bigimageContainer">
 				<img src="<?php echo JURI::base().'components/com_eventgallery/media/images/loading_s.gif'?>" alt="" id="bigImage"/>
 				<span id="bigImageDescription" class="img_overlay img_overlay_fotos overlay_3"><?php echo JText::_('COM_EVENTGALLERY_EVENT_AJAX_LOADING') ?></span>
-
 			</div>
 		
 		</div>	

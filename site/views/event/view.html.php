@@ -46,7 +46,7 @@ class EventgalleryViewEvent extends JViewLegacy
 	    $folder = $cache->call( array( $model, 'getFolder' ), JRequest::getVar('folder',''));
 	    
 	    if (!is_object($folder)) {
-	    	$app->redirect(JRoute::_("index.php?", false));
+	    	$app->redirect(JRoute::_("index.php?", false), JText::_('COM_EVENTGALLERY_EVENT_NO_PUBLISHED_MESSAGE'), 'info');
 	    }
 	    
 	    $this->assignRef('pageNav', $pageNav);
