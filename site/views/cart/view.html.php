@@ -19,17 +19,8 @@ class EventgalleryViewCart extends JViewLegacy
 		
 	    $app	 = &JFactory::getApplication();		   
 		 
-		// store the variable that we would like to keep for next time
-		// function syntax is setUserState( $key, $value );
-		$option = $app->input->get('option');
 
-		$session = JFactory::getSession();
-		$cartJson = $session->get("$option.cart","");
-
-		$cart = array();
-		if (strlen($cartJson)>0) {
-			$cart = json_decode($cartJson, true);
-		}
+		$cart = JModelLegacy::getInstance('Cart', 'EventgalleryModel')->getCart();	
 		
 
 		$params	 = &$app->getParams();

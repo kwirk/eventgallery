@@ -1,5 +1,4 @@
 <?php 
-
 /**
  * @package     Sven.Bluege
  * @subpackage  com_eventgallery
@@ -10,34 +9,38 @@
 
 defined('_JEXEC') or die;
 
-
 jimport( 'joomla.application.component.view');
+jimport( 'joomla.application.pathway');
+jimport( 'joomla.html.pagination');
 
 
-class CheckoutViewCheckout extends JViewLegacy
+class EventgalleryViewPassword extends JViewLegacy
 {
 	function display($tpl = null)
 	{		
+	  
+		$app	 = JFactory::getApplication();
+		$document = JFactory::getDocument();
+		$params	 = $app->getParams();	
+		
+		$file = JRequest::getString('file','');
+		$folder = JRequest::getString('folder','');
 
-	    $app	 = &JFactory::getApplication();	    
+		$model = JModelLegacy::getInstance('Event', 'EventgalleryModel');
+		
+		$folder = $model->getFolder($folder);
 
+		$formAction = JRoute::_("index.php?view=event&folder=".$folder->folder);
 
-		$cart = JModelLegacy::getInstance('Cart', 'EventgalleryModel')->getCart();	
-
-
-		$params	 = &$app->getParams();
-		$this->assign('cart', $cart);
+		$this->assign('folder', $folder);
+		$this->assign('file', $file);
 		$this->assign('params', $params);
-		
-		$pathway =& JSite::getPathWay();		
-		$pathway->addItem(JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH'));
-		
+		$this->assignRef('formaction', $formAction);
 		$this->_prepareDocument();
 		
 		parent::display($tpl);
 	}
 	
-		
 	/**
 	 * Prepares the document
 	 */
@@ -45,6 +48,7 @@ class CheckoutViewCheckout extends JViewLegacy
 	{
 		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
+		$pathway = $app->getPathway();
 		$title = null;
 
 		// Because the application sets a default page title,
@@ -58,7 +62,9 @@ class CheckoutViewCheckout extends JViewLegacy
 
 		$title = $this->params->get('page_title', '');
 
-		$title .= " - ".JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH');
+		if ($this->folder->description) {
+			$title = $this->folder->description;
+		}
 
 
 		// Check for empty title and add site name if param is set
@@ -71,14 +77,20 @@ class CheckoutViewCheckout extends JViewLegacy
 		elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
 			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
 		}
-		
-		
-		if ($this->document) {
-				
-			$this->document->setTitle($title);
-			
+		if (empty($title)) {
+			$title = $this->folder->description;
+		}
+		$this->document->setTitle($title);
+
+		if ($this->folder->text)
+		{
+			$this->document->setDescription($this->folder->text);
+		}
+		elseif (!$this->folder->text && $this->params->get('menu-meta_description'))
+		{
+			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
 	}
-
 }
+
 ?>

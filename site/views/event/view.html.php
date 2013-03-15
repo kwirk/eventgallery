@@ -30,7 +30,9 @@ class EventgalleryViewEvent extends JViewLegacy
 			$this->setLayout($layout);
 		}
 
-		$model =  $this->getModel('event');
+		$model =  $this->getModel('event');		
+
+
 		$pageNav = $model->getPagination(JRequest::getVar('folder',''));	
 		
 		$entries = "";
@@ -48,6 +50,20 @@ class EventgalleryViewEvent extends JViewLegacy
 	    if (!is_object($folder)) {
 	    	$app->redirect(JRoute::_("index.php?", false), JText::_('COM_EVENTGALLERY_EVENT_NO_PUBLISHED_MESSAGE'), 'info');
 	    }
+
+	    if ($folder!=null && strlen($folder->password)>0) {
+	    	$session = JFactory::getSession();
+			$unlockedFoldersJson = $session->get("eventgallery_unlockedFolders","");
+
+			$unlockedFolders = array();
+			if (strlen($unlockedFoldersJson)>0) {
+				$unlockedFolders = json_decode($unlockedFoldersJson, true);
+			}
+
+			if (!in_array($folder->folder, $unlockedFolders)) {
+				$app->redirect(JRoute::_("index.php?view=password&folder=".$folder->folder, false));	
+			}			
+		}
 	    
 	    $this->assignRef('pageNav', $pageNav);
 	    $this->assignRef('entries',	$entries );

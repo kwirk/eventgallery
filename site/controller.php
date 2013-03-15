@@ -39,6 +39,32 @@ class EventgalleryController extends JControllerLegacy
 			$view->setModel( $this->getModel('events'),true);
 			$view->setModel( $this->getModel('event'),false);	
 		}
+
+		if ($viewname == 'event') {
+			$password = JRequest::getString('password','');
+			$folder = JRequest::getString('folder','');
+			$folder = $this->getModel('event')->getFolder($folder);
+
+			if (null!=$folder && strlen($folder->password)>0 && strcmp($folder->password, $password)==0)
+			{
+
+				$session = JFactory::getSession();
+				$unlockedFoldersJson = $session->get("eventgallery_unlockedFolders","");
+
+				$unlockedFolders = array();
+				if (strlen($unlockedFoldersJson)>0) {
+					$unlockedFolders = json_decode($unlockedFoldersJson, true);
+				}
+
+				if (!in_array($folder->folder, $unlockedFolders)) {
+					array_push($unlockedFolders, $folder->folder);
+				}
+				
+		    	$session->set( "eventgallery_unlockedFolders", json_encode($unlockedFolders) );
+    
+			}
+
+		}
 				
 		parent::display($cachable, $urlparams);
 

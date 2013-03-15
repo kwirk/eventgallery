@@ -194,6 +194,7 @@ site/media/js/LazyLoad.js -text
 site/media/js/eventgallery.js -text
 site/media/js/index.html svneol=native#text/html
 site/media/js/mediaboxAdv-1.3.4b.js -text
+site/models/cart.php -text
 site/models/comment.php -text
 site/models/event.php -text
 site/models/events.php -text
@@ -232,6 +233,10 @@ site/views/events/tmpl/list.php -text
 site/views/events/tmpl/list.xml -text
 site/views/events/view.html.php -text
 site/views/index.html svneol=native#text/html
+site/views/password/index.html svneol=native#text/html
+site/views/password/tmpl/default.php -text
+site/views/password/tmpl/index.html svneol=native#text/html
+site/views/password/view.html.php -text
 site/views/resizeimage/index.html -text
 site/views/resizeimage/view.html.php -text
 site/views/rest/index.html svneol=native#text/html
