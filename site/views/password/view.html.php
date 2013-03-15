@@ -30,6 +30,10 @@ class EventgalleryViewPassword extends JViewLegacy
 		
 		$folder = $model->getFolder($folder);
 
+		if (!is_object($folder)) {
+			$app->redirect(JRoute::_("index.php?", false));
+		}
+
 		$formAction = JRoute::_("index.php?view=event&folder=".$folder->folder);
 
 		$this->assign('folder', $folder);

@@ -41,29 +41,50 @@ class EventgalleryController extends JControllerLegacy
 		}
 
 		if ($viewname == 'event') {
+			$session = JFactory::getSession();
 			$password = JRequest::getString('password','');
 			$folder = JRequest::getString('folder','');
 			$folder = $this->getModel('event')->getFolder($folder);
 
-			if (null!=$folder && strlen($folder->password)>0 && strcmp($folder->password, $password)==0)
+			// if the event need a password
+			if (is_object($folder) && strlen($folder->password)>0)
 			{
+				// does the entered password matches?
+				if (strcmp($folder->password, $password)==0) {
+					
+					$unlockedFoldersJson = $session->get("eventgallery_unlockedFolders","");
 
-				$session = JFactory::getSession();
-				$unlockedFoldersJson = $session->get("eventgallery_unlockedFolders","");
+					$unlockedFolders = array();
+					if (strlen($unlockedFoldersJson)>0) {
+						$unlockedFolders = json_decode($unlockedFoldersJson, true);
+					}
 
-				$unlockedFolders = array();
-				if (strlen($unlockedFoldersJson)>0) {
-					$unlockedFolders = json_decode($unlockedFoldersJson, true);
-				}
+					if (!in_array($folder->folder, $unlockedFolders)) {
+						array_push($unlockedFolders, $folder->folder);
+					}
+					
+			    	$session->set( "eventgallery_unlockedFolders", json_encode($unlockedFolders) );
+		    	} else {
+		    		// the entered password does not match and can be empty
+		    		if (strlen($password)>0) {
+		    			
+		    			// slow down the process if somebody tries to guess a password. After 10 tries we 
+		    			// sleep 5s for every other try even if he entered the password correctly. 
+		    			// this is no protection agains session less robots, but will help agains
+		    			// the normal snoopy people.
+		    			$passwordFailCounter = $session->get("eventgallery_passwordFailCounter",0);
+		    			$passwordFailCounter++;		    			
+		    			if ($passwordFailCounter>10) {
+		    				sleep(5);
+		    			}
+		    			$session->set("eventgallery_passwordFailCounter", $passwordFailCounter);
 
-				if (!in_array($folder->folder, $unlockedFolders)) {
-					array_push($unlockedFolders, $folder->folder);
-				}
-				
-		    	$session->set( "eventgallery_unlockedFolders", json_encode($unlockedFolders) );
-    
+			    		$msg = JText::_('COM_EVENTGALLERY_PASSWORD_FORM_ERROR');
+			    		$this->setRedirect(JRoute::_("index.php?view=password&folder=".$folder->folder, false), $msg);
+			    		$this->redirect();
+			    	}
+		    	}
 			}
-
 		}
 				
 		parent::display($cachable, $urlparams);

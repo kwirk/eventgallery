@@ -12,18 +12,25 @@
 defined('_JEXEC') or die('Restricted access'); 
 ?>
 
-<?php echo JText::_('COM_EVENTGALLERY_PASSWORD_ENTER_PASSWORD')?>
+<div class="event-password">
 
+	<form action="<?php echo $this->formaction;?>" method="POST" class="form-horizontal">
+		<fieldset>
+			<div class="control-group">
+				<?php echo JText::sprintf('COM_EVENTGALLERY_PASSWORD_ENTER_PASSWORD', $this->folder->description)?>
+			</div>		
+			<div class="control-group">
+			    <label class="control-label" for="password"><?php echo JText::_('COM_EVENTGALLERY_PASSWORD_FORM_PASSWORD_LABEL') ?></label>
+			    <div class="controls">
+			    	<input type="password" id="password" name="password" placeholder="<?php echo JText::_('COM_EVENTGALLERY_PASSWORD_FORM_PASSWORD_LABEL') ?>">
+			    </div>
+			</div>
 
-
-<div>
-<?php echo JText::_('COM_EVENTGALLERY_PASSWORD_FORM_ERROR') ?>
-<?php echo JText::_('COM_EVENTGALLERY_PASSWORD_FORM_PASSWORD_LABEL') ?>
-<?php echo JText::_('COM_EVENTGALLERY_PASSWORD_FORM_PASSWORD_DESC') ?>
-
-
-<form action="<?php echo $this->formaction;?>" method="POST">
-	<input type="password" name="password">
-	<input type="submit" name="submit" value="<?php echo JText::_('COM_EVENTGALLERY_PASSWORD_FORM_SUBMIT') ?>">
-</form>
+			<div class="form-actions">
+			    
+				<input class="btn btn-primary" type="submit" name="submit" value="<?php echo JText::_('COM_EVENTGALLERY_PASSWORD_FORM_SUBMIT') ?>">
+				
+			</div>
+		</fieldset>
+	</form>
 </div>
