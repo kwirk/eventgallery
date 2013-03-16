@@ -108,6 +108,7 @@ site/controllers/index.html -text
 site/eventgallery.php -text
 site/helpers/buzzwords.php -text
 site/helpers/captcha.php -text
+site/helpers/folderprotection.php -text
 site/helpers/image.php -text
 site/helpers/imagehelpers.php -text
 site/helpers/index.html -text

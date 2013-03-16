@@ -46,45 +46,15 @@ class EventgalleryController extends JControllerLegacy
 			$folder = JRequest::getString('folder','');
 			$folder = $this->getModel('event')->getFolder($folder);
 
-			// if the event need a password
-			if (is_object($folder) && strlen($folder->password)>0)
-			{
-				// does the entered password matches?
-				if (strcmp($folder->password, $password)==0) {
-					
-					$unlockedFoldersJson = $session->get("eventgallery_unlockedFolders","");
-
-					$unlockedFolders = array();
-					if (strlen($unlockedFoldersJson)>0) {
-						$unlockedFolders = json_decode($unlockedFoldersJson, true);
-					}
-
-					if (!in_array($folder->folder, $unlockedFolders)) {
-						array_push($unlockedFolders, $folder->folder);
-					}
-					
-			    	$session->set( "eventgallery_unlockedFolders", json_encode($unlockedFolders) );
-		    	} else {
-		    		// the entered password does not match and can be empty
-		    		if (strlen($password)>0) {
-		    			
-		    			// slow down the process if somebody tries to guess a password. After 10 tries we 
-		    			// sleep 5s for every other try even if he entered the password correctly. 
-		    			// this is no protection agains session less robots, but will help agains
-		    			// the normal snoopy people.
-		    			$passwordFailCounter = $session->get("eventgallery_passwordFailCounter",0);
-		    			$passwordFailCounter++;		    			
-		    			if ($passwordFailCounter>10) {
-		    				sleep(5);
-		    			}
-		    			$session->set("eventgallery_passwordFailCounter", $passwordFailCounter);
-
-			    		$msg = JText::_('COM_EVENTGALLERY_PASSWORD_FORM_ERROR');
-			    		$this->setRedirect(JRoute::_("index.php?view=password&folder=".$folder->folder, false), $msg);
-			    		$this->redirect();
-			    	}
-		    	}
-			}
+			// we need to do this only if someone entered a password.
+			// the views will protect themselfs
+			$accessAllowed = EventgalleryHelpersFolderprotection::isAccessAllowed($folder, $password);
+			if (strlen($password)>0 && !$accessAllowed) {
+		    		$msg = JText::_('COM_EVENTGALLERY_PASSWORD_FORM_ERROR');
+		    		$this->setRedirect(JRoute::_("index.php?view=password&folder=".$folder->folder, false), $msg);
+		    		$this->redirect();
+	    	}
+			
 		}
 				
 		parent::display($cachable, $urlparams);
