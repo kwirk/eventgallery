@@ -1,4 +1,5 @@
-# Eventgallery Intro
+# Event Gallery Intro
+
 It's time to introduce a new gallery component for Joomla. I guess you're already waiting for something like this since there is a real lack of such kind of components ;-)
 Initially I build this component to show photos of different events to the audience. To where other components have folders this component calls them events. Because of this this component is called Event Gallery. 
 
@@ -103,6 +104,28 @@ There are several views available:
 	
 	- see _Events - List_ for configuration options.
 
+This gallery component supports just a flat list of folders. If you need a navigation tree you're out of luck. But you can achieve a tree structure using tags and Joomla menu items. Create a menu structure which represents the structure you would like to have. Each menu item might link to the view of the event gallery you need. This is simple if you link directly to an event. If you want to have different list you can use tags to separate the lists. 
+
+Example for such a structure: 
+
+- Event1 -> Tags = nature
+- Event2 -> Tags = nature
+- Event3 -> Tags = architecture
+- Event4 -> Tags = people, men
+- Event4 -> Tags = people, men
+- Event4 -> Tags = people, women
+- Event4 -> Tags = people, children
+
+You can arrange the events within the following menu structure:
+
+- Menu Item 1 -> Event List with tag "nature"
+- Menu Item 2 -> Event List with tag "architecture"
+- Menu Item 3 -> Event List with tag "people"
+	- Menu Item 4 -> Event List with tag "men"
+	- Menu Item 5 -> Event List with tag "women"
+	- Menu Item 6 -> Event List with tag "children"
+
+
 
 # Manage Events
 
@@ -131,6 +154,10 @@ The view let's you edit the details of an event.
 
 	If you want to include a picasa album which is not public but accessible using a special picasa key, then add this key here.
 
+- Password
+
+	Set a password for each folder if you want to protect it somehow. If a user tries to access such a folder he need to enter a password. If you want to send out links to a password protected folder you can add this password directly to the link and nobody needs to be bothered by a password page. 
+
 - Tags
 
 	A comma separated list of tags you want the event to have.
@@ -141,11 +168,15 @@ The view let's you edit the details of an event.
 
 - Description
 
-	This description is shown in the front end as the events name
+	This description is shown in the front end as the events name.
 
 - Published
 
 	Is this event visible in the front end?
+
+- Cartable
+	
+	Defines if users can add images from this folder to the cart. Useful if you want to display image where it makes no sense for getting requests for.
 
 - Text
 
