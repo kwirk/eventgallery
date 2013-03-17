@@ -41,11 +41,11 @@ class EventgalleryModelEvents extends JModelLegacy
 	        	
 	        	if (strpos($entry->folder,'@')>-1) {
 		    		$values = explode("@",$entry->folder,2);
-		    		$album = picasaweb_ListAlbum($values[0], $values[1], $entry->picasakey);
+		    		$album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $entry->picasakey);
 		    		if (count($album)>0) {
 			    		$entries[$rownum]->overallCount = $album->overallCount;
 			    		$entries[$rownum]->thumbs = $album->thumbs;
-			    		$entries[$rownum]->titleImage = new PicasaImage($album);
+			    		$entries[$rownum]->titleImage = new EventgalleryHelpersImagePicasa($album);
 			    		
 		    		} else {
 		    			array_push($unsetList, $rownum);

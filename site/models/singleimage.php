@@ -59,7 +59,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
 	    	if (strpos($folder,'@')>-1) {
 				$values = explode("@",$folder,2);
 				$picasakey = $this->folder->picasakey;
-				$album = picasaweb_ListAlbum($values[0], $values[1], $picasakey);
+				$album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $picasakey);
 				$files = $album->photos;
                 $countHits = false;
 			} else {
@@ -74,7 +74,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
 	            $filesObjects = Array();
 	            
 	            foreach($files as $file) {
-	            	$filesObjects[] = new EventGalleryImage($file);
+	            	$filesObjects[] = new EventgalleryHelpersImageLocal($file);
 	            }
 	            
 	            $files = $filesObjects;

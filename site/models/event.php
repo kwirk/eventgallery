@@ -51,7 +51,7 @@ class EventgalleryModelEvent extends JModelLegacy
     		}
     		$picasakey = $obj_folder->picasakey;
     		
-    		$album = picasaweb_ListAlbum($values[0], $values[1], $picasakey);
+    		$album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $picasakey);
     		
     		if (count($album)>0) {
     			return $limit>0?array_slice($album->photos,$limitstart,$limit):$album->photos;
@@ -91,7 +91,7 @@ class EventgalleryModelEvent extends JModelLegacy
 
         $result = Array();
         foreach($entries as $entry) {
-        	$result[] = new EventGalleryImage($entry);
+        	$result[] = new EventgalleryHelpersImageLocal($entry);
         }
 
         
@@ -130,7 +130,7 @@ class EventgalleryModelEvent extends JModelLegacy
 				return 0;
 			}
 			$picasakey = $obj_folder->picasakey;
-			$album = picasaweb_ListAlbum($values[0], $values[1], $picasakey);
+			$album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $picasakey);
 			return count($album->photos);
 		} else {
 			$query = 'select * from #__eventgallery_file where published=1 and ismainimageonly=0 and folder='.$this->_db->Quote($folder);
