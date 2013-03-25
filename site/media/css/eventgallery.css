@@ -342,6 +342,12 @@
 	background-position: 30% 50%;
 }
 
+#singleimage .thumbnail > img {
+	display: inline;
+	max-width: none;
+	margin-left: 0px;
+	margin-right: 0px;
+}
 
 
 #singleimage .hits{
