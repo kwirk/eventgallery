@@ -10,7 +10,21 @@
 
 defined('_JEXEC') or die('Restricted access'); 
 
+$editor = JFactory::getEditor();
+			
+
 ?>
+
+
+<script type="text/javascript">
+	Joomla.submitbutton = function(task) {	
+
+			<?php 
+				echo $editor->save("text");
+			?>		
+			Joomla.submitform(task, document.getElementById('adminForm'));
+	}
+</script>
 
 <form method="POST" name="adminForm" id="adminForm">
 <div class="col100">
@@ -113,8 +127,8 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-			<?php $editor = JFactory::getEditor(); 
-			echo $editor->display( 'text',  $this->event->text , '100%', '250', '75', '20' ) ;
+			
+			<?php echo $editor->display( 'text',  $this->event->text , '100%', '250', '75', '20' ) ;
 			?>
 				
 			</td>
