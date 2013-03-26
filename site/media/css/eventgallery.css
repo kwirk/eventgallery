@@ -224,6 +224,8 @@
 
 .ajaxpaging .thumbnail a {
 	outline: none;
+	line-height: 0px;
+	font-size: 0px;
 }
 
 .ajaxpaging .thumbnail {
