@@ -21,6 +21,7 @@
 
 #events .item_first {
 	padding: 3px;
+
 }
 
 #events .item .content{		
@@ -125,11 +126,12 @@
 	float:left;
 	/*width: 180px;
 	min-height: 50px;*/
-	cursor: hand;
+	cursor: pointer;
     background-image: url(../images/loading.gif);
 	background-repeat: no-repeat;
 	background-position: center;
 	z-index:-1;
+
 }
 
 #event .thumbnail .img {
