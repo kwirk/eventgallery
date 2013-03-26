@@ -128,7 +128,7 @@ $editor = JFactory::getEditor();
 			</td>
 			<td>
 			
-			<?php echo $editor->display( 'text',  $this->event->text , '100%', '250', '75', '20' ) ;
+			<?php echo $editor->display( 'text',  htmlentities($this->event->text) , '100%', '250', '75', '20' ) ;
 			?>
 				
 			</td>
