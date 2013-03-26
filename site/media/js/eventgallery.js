@@ -244,13 +244,24 @@
 			this.processList();
 			this.options.initComplete();
 		},
-		
+		/*calculated the with of an element*/
+		getRowWidth: function() {
+			var rowWidth = $$(this.options.eventgallerySelector).getLast().getSize().x;
+
+			/* fix for the internet explorer if width if 45.666% == 699.87px*/
+			if (window.getComputedStyle) {
+				rowWidth = Math.floor(window.getComputedStyle($$(this.options.eventgallerySelector).getLast()).width.toFloat());
+			}
+
+			return rowWidth;
+		},
+
 		/* processes the image list*/
 		processList: function() {
 			
 			/* find out how much space we have*/
-			var rowWidth = $$(this.options.eventgallerySelector).getLast().getSize().x;
-			//console.log("will adjust for width "+rowWidth);
+			var rowWidth = this.getRowWidth();
+			
 			
 			/* get a copy of the image list because we will pop the image during iteration*/
 			var imagesToProcess = Array.clone(this.images);
@@ -261,7 +272,7 @@
 				
 				/*if we have a large image, we have to hide it to get the real available space*/
 				image.tag.setStyle('display', 'none');
-				rowWidth = $$(this.options.eventgallerySelector).getLast().getSize().x;
+				rowWidth = this.getRowWidth();
 				image.tag.setStyle('display', 'block');
 				
 				var imageHeight  = this.options.firstImageRowHeight * this.options.rowHeight;
