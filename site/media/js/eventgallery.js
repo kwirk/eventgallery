@@ -34,7 +34,7 @@
    	        
    	        if (this.height == null) {
 	        	this.height = this.tag.getSize().y - this.glueTop  - this.glueBottom;	        	
-	        }
+	        }	        
 	    },
 	    setSize: function(width, height) {
 	    	
@@ -101,11 +101,16 @@
 	    	image.set('longdesc',longdesc);
 	    	image.setStyle('background-position', '50% 50%');
 	    	
-	    	
-	    	image.setStyle('width', newWidth);
-	    	image.setStyle('height', newHeight);	    	
-	    	
-	    	
+	    	if (newHeight>800) {
+	    		image.setStyle('width', newWidth);
+		    	image.setStyle('height', '800px');	    	
+		    	image.setStyle('background-size', 'auto 100%');
+		    	image.setStyle('background-repeat', 'no-repeat');
+	    	} 
+	    	else {
+		    	image.setStyle('width', newWidth);
+		    	image.setStyle('height', newHeight);	    	
+	    	}
 	    }
 	    
 	});

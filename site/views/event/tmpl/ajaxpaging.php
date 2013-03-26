@@ -17,9 +17,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			{	'prevHandle': $('prev'), 
 				'nextHandle': $('next'), 
 				'countHandle': $('count'),
-				'loadingImage': '<?php echo JURI::base().'components/com_eventgallery/media/images/loading_s.gif'?>',
-				'borderColor': '#333',
-				'loadingMask': 'black',
 				'prev_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/prev_button.png'?>',
 				'next_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>',
 				'zoom_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
@@ -88,10 +85,11 @@ defined('_JEXEC') or die('Restricted access'); ?>
 							<div class="thumbnail" id="image<?php echo $imageCount++;?>">				
 								 <a longdesc="<?php echo $entry->getImageUrl(null, null, true);?>" 
 									 href="<?php echo $entry->getImageUrl(null, null, true);?>"
-								     rel="<?php echo $entry->getImageUrl(800, 800, false, false); ?>"
-								     data-id="folder=<?php echo $entry->folder ?>&file=<?php echo $entry->file ?>"
+								     rel="<?php echo $entry->getImageUrl(1100, 1100, false, false); ?>"
+								     data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
+								     data-description="<?php echo JHTML::Date($this->folder->date).' - '.$this->folder->description."&lt;br /&gt; Bild $imageCount von $this->entriesCount" ?>"
 									 >
-								    <?php echo JHTML::image($entry->getThumbUrl(50, 50),'',array('title'=>JHTML::Date($this->folder->date).' - '.$this->folder->description."&lt;br /&gt; Bild $imageCount von $this->entriesCount"));?>
+								    <?php echo $entry->getThumbImgTag(75, 75);?>
 								 </a>
 							</div>		    
 				
@@ -111,7 +109,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		
 		<!--<a style="" href="#" onclick="myGallery.prevPage(); return false;" id="prev"><img src="<?php echo JURI::base().'components/com_eventgallery/media/images/prev_button.png'?>" alt="back" style="border: 0px;"/></a>
 		<a style="" href="#" onclick="myGallery.nextPage(); return false;" id="next"><img src="<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>" alt="next" style="border: 0px;"/></a>-->
-		<div id="count"></div>
+		<div class="pagination"><ul id="count"></ul></div>
 		
 	</div>
 

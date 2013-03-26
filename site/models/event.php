@@ -35,12 +35,18 @@ class EventgalleryModelEvent extends JModelLegacy
 
     function getEntries($folder='',$limitstart=0,$limit=0,$imagesForEvents=0)
     {
-		if($limit==0)  $limit = $this->getState('limit');
+		if($limit==0)  {
+            $limit = $this->getState('limit');
+        }
         
         if($limitstart==0) {
 			$limitstart = $this->getState('com_eventgallery.event.limitstart');
 		}
-    	
+
+        // fix issue with events list where paging was working
+        if($limitstart <0 ) {
+            $limitstart = 0;
+        }
     	// do the picasa web handling here
     	
     	if (strpos($folder,'@')>-1) {

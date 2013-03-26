@@ -26,13 +26,14 @@ class EventgalleryModelEvents extends JModelLegacy
         		  FROM #__eventgallery_folder folder left join #__eventgallery_file file on 
         		  		folder.folder = file.folder AND folder.published=1 AND file.published=1                         
         		  WHERE folder.published=1 
-                    and file.ismainimageonly=0
+                    and (isnull(file.ismainimageonly) OR file.ismainimageonly=0)
         		  GROUP by folder.folder
         		  ORDER by ordering desc';
         
         #$entries = $this->_getList($query, (($page-1)*$entriesPerPage), $entriesPerPage);
         $entries = $this->_getList($query);
-        
+
+
         $unsetList = Array();
         if (count($entries)>0)
         {

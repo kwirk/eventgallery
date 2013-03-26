@@ -3,6 +3,13 @@
 	border:5px solid red;	
 }
 
+#events .thumbnail > img {
+	display: inline;
+	max-width: none;
+	margin-left: 0px;
+	margin-right: 0px;	
+}
+
 #events .item {		
 	width: 320px;
 	float:left;
@@ -14,7 +21,6 @@
 
 #events .item_first {
 	padding: 3px;
-
 }
 
 #events .item .content{		
@@ -44,6 +50,7 @@
 
 #events .item .content .images img{	
 	opacity: 0.8;
+	width: 100%;
 }
 
 #events .item .content:hover .images img{	
@@ -147,8 +154,7 @@
   	background-repeat: no-repeat;*/
 }
 
-#event .thumbnail .add2cart{
-	
+#event .thumbnail .add2cart{	
 	float: right;
 }
 
@@ -203,10 +209,8 @@
 }
 
 .ajaxpaging #pagerContainer {
-	
 	width: 100%;
-	margin-right: 0px;
-	
+	margin-right: 0px;		
 }
 
 .ajaxpaging .page {
@@ -216,14 +220,38 @@
 	min-height: 130px;
 }
 
+.ajaxpaging .thumbnail a {
+	outline: none;
+}
+
 .ajaxpaging .thumbnail {
 	float: left;
-	margin: 0px 15px 15px 0;
-	width: 48px;
-	height: 48px;
-	padding: 0px;
-	border-width: 0px;
+	margin-right: 5px;	
+	margin-bottom: 5px;	
+	padding:2px;
 }
+
+.ajaxpaging .thumbnail:hover {
+	border-color: gray;
+}
+
+.ajaxpaging .thumbnail img{	
+	width: 75px;
+	border: 2px solid white;
+	transition: border-color 2s;
+	-moz-transition: border-color 2s; /* Firefox 4 */
+	-webkit-transition: border-color 2s; /* Safari and Chrome */
+}
+
+.ajaxpaging .thumbnail-active img{
+	border: 2px solid gray;
+	padding: 0px;
+}
+
+.ajaxpaging .thumbnail-loading img{
+	opacity: 0.25;
+}
+
 
 .ajaxpaging pre {
 	border: 1px solid #fff;
@@ -237,8 +265,7 @@
 }
 
 .ajaxpaging .thumbnail a img {
-	width: 100%;
-	height: 100%;
+	
 }
 
 .ajaxpaging .image {
@@ -269,25 +296,11 @@
 
 .ajaxpaging #count {
 	width: 100%;
-	text-align: center;
+	margin: auto;
 }
 
 .ajaxpaging #count .count{
 }
-
-.ajaxpaging_inactive{
-	padding-right: 0px;
-	padding-left: 5px;
-	font-weight: normal;	
-}
-	
-
-.ajaxpaging_active{
-	padding-right: 10px;
-	padding-left: 15px;
-	font-weight: bold;
-}
-
 
 .ajaxpaging a img {
 	
@@ -517,10 +530,9 @@ div.img:hover .button-alreadyInCart i.big
 }		
 
 .eventgallery-cart .cart-items img,
-.eventgallery-checkout .cart-items img,
-.eventgallery-checkout .cart-items input
+.eventgallery-checkout .cart-items img
 {
-
+	width: 100px;
 }
 
 .eventgallery-cart .cart-items .cart-item {
@@ -732,9 +744,7 @@ div.img:hover .button-alreadyInCart i.big
   margin-top: 1px;
   font-style: normal;
 }
-
-
- 	
+	
 .icon-list {
   background-position: -360px -48px;
   font-size:0px;
@@ -767,4 +777,3 @@ div.img:hover .button-alreadyInCart i.big
   background-position: -336px 0;
   font-size:0px;
 }
-

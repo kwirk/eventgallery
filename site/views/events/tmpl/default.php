@@ -15,6 +15,7 @@ $cache = & JFactory::getCache();
 
 <?php include 'components/com_eventgallery/views/cart.php'; ?>
 
+
 <div id="events">
 	<p class="greetings"><?php echo $this->params->get('greetings'); ?></p>	
 
@@ -23,7 +24,7 @@ $cache = & JFactory::getCache();
 				<?php $this->assign('entry',$entry)?>
 				<?php if (0!=$this->params->get('max_events',9999) && $count>=$this->params->get('max_events',9999)) break; ?>
 				<?php IF ($count < $this->params->get('max_big_events',9999)): ?>
-				
+				<div class="item-container">
 					<a class="item item_first" href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>">
 						<div class="content">				
 							<div class="data">
@@ -38,7 +39,7 @@ $cache = & JFactory::getCache();
 
 								<?php IF ($this->params->get('show_thumbnails',true)):?>
 									<?php 
-										$files = $cache->call( array($this->eventModel, 'getEntries'), $entry->folder,0,$this->params->get('max_big_events_thumbnails',1),1 );
+										$files = $cache->call( array($this->eventModel, 'getEntries'), $entry->folder, -1, $this->params->get('max_big_events_thumbnails', 1), 1);
 										if (isset($this->entry->titleImage)) {
 											array_pop($files);
 											array_unshift($files,$this->entry->titleImage);
@@ -64,6 +65,7 @@ $cache = & JFactory::getCache();
 							</div>
 						</div>						
 					</a>
+				</div>
 						
 					
 				<?php ELSE:?>
@@ -75,7 +77,7 @@ $cache = & JFactory::getCache();
 							
 							<?php IF ($this->params->get('show_thumbnails',true) && $count>=$this->params->get('max_big_events',9999) && $count <$this->params->get('max_big_events',9999)+$this->params->get('max_middle_events',0)): ?>
 								<div class="thumbnails">
-									<?php $files = $this->eventModel->getEntries($entry->folder,1,$this->params->get('max_middle_events_thumbnails',0));
+									<?php $files = $this->eventModel->getEntries($entry->folder,-1,$this->params->get('max_middle_events_thumbnails',0));
 										if (isset($this->entry->titleImage)) {
 											array_pop($files);
 											array_unshift($files,$this->entry->titleImage);

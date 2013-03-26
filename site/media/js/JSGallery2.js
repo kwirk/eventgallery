@@ -5,12 +5,6 @@ var $defined = function(obj){
 var JSGallery2 = new Class({
 	Implements: Options,
 	options: {
-		'borderWidthDeselected': 1,	//the width of the border of an deselected image (should be the same as in css)
-		'borderWidthSelected': 3,	//border width of the selected image
-		'borderColor': '#fff',		//the color of the borders
-		'loadingMask': '#000',		//color of the mask overlay during loading of the big images
-		'loadingOpacity': 0.6,		//opacity of the border div during loading (including the mask)
-		'loadingImage': 'loading.gif',		//you may specify a loading image which is displayed while the big images are being loaded
 		'selectSpeed': 200,			//the duration of the select effect in ms (high values will make it look ugly)
 		'fadeSpeed': 250,			//the duration of the image fading effect in ms
 		'pageSpeed': 1000,			//the duration of the change page effect in ms
@@ -23,6 +17,8 @@ var JSGallery2 = new Class({
 		'next_image': 'next_image.png',
 		'prev_image': 'prev_image.png',
 		'showCartButton' : true,
+		'activeClass': 'thumbnail-active', // the css class for the active thumbnail
+		'loadingClass': 'thumbnail-loading', // the css class for the loading thumbnail
 	},
 	/**
 	 *	Constructor. Starts up the whole thing :-)
@@ -86,9 +82,7 @@ var JSGallery2 = new Class({
 			this.selectByIndex(this.initialIndex);
 		}
 				
-		if($defined(this.options.loadingImage)) {
-			new Asset.image(this.options.loadingImage);
-		}
+		
 		this.loadNextImage();
 		
 	
@@ -278,32 +272,14 @@ var JSGallery2 = new Class({
 		if(!$defined(thumbContainer)) {
 			return;
 		}
-		if (window.opera) {
-			loadingMask='transparent';
-		} else {
-			loadingMask = this.options.loadingMask;
-		}
 		
 		thumbContainer.addEvent('click', this.select.bind(this, thumbContainer)).setStyle('position', 'relative').set('counter', count);
+
 		var bigImage = thumbContainer.getFirst().set('href', 'javascript: void(0);').get('rel');
 		var fullSizeImage = thumbContainer.getFirst().get('longdesc');
 		var id = thumbContainer.getFirst().get('data-id');
-		var border = new Element('div', {
-			styles: {
-				'border': this.options.borderWidthDeselected + 'px solid ' + this.options.borderColor,
-				'width': thumbContainer.getSize().x-this.options.borderWidthDeselected,
-				'height': thumbContainer.getSize().y-this.options.borderWidthDeselected,
-				'position': 'absolute',
-				'background-color': loadingMask,
-				'top': 0,
-				'left': 0
-			},
-			'rel': bigImage,
-			'data-id': id,
-			'longdesc': fullSizeImage,
-			'description': decodeURI(thumbContainer.getElements('img')[0].get('title'))
-		}).inject(thumbContainer, 'top').setStyle('opacity', this.options.loadingOpacity);
-		thumbContainer.getElements('img')[0].set('title', '');
+		thumbContainer.addClass(this.options.loadingClass);
+	
 	},
 	/**
 	 * 	Removes key blocking.
@@ -343,19 +319,12 @@ var JSGallery2 = new Class({
 			this.gotoPage(targetPage, container);
 		}
 		this.selectedContainer = container;
-		//make calculations a bit more handy
-		var s = container.getSize();
-		var des = this.options.borderWidthDeselected;
-		var sel = this.options.borderWidthSelected;
-		new Fx.Morph(container.getFirst(), {
-			duration: this.options.selectSpeed, 
-			transition: Fx.Transitions.Quad.easeOut
-		}).start({
-			'border-width': [des, sel + 'px'],
-			'width': [s.x, s.x - 2 * (sel - des) ],
-			'height': [s.y, s.y - 2 * (sel - des)]
-		});
+
+		container.addClass(this.options.activeClass);
+
+		//first link in the container
 		var source = container.getFirst();
+
 	
 		// prepare the add2cart button
 		if (this.options.showCartButton) {
@@ -364,9 +333,9 @@ var JSGallery2 = new Class({
 		
 		$(document.body).fireEvent('updatecartlinks');
 		
-		
 		// now lets set the image
-		this.setImage(source.get('rel'), source.get('longdesc'), source.get('description'));
+		this.setImage(source.get('rel'), source.get('longdesc'), source.get('data-description'));
+
 		
 	},
 	/**
@@ -375,9 +344,7 @@ var JSGallery2 = new Class({
 	loadNextImage: function() {
 		if (!window.opera) {
 			var thumbContainer = this.thumbs[this.loadedImages].getFirst();
-			if($defined(this.options.loadingImage)) {
-				new Element('img', {'src': this.options.loadingImage}).inject(thumbContainer, 'top');
-			}
+			
 			var imageToLoad = thumbContainer.get('rel');			
 			
 			new Asset.image(imageToLoad, {
@@ -392,12 +359,9 @@ var JSGallery2 = new Class({
 	 */
 	imageLoaded: function(thumbContainer) {
 		this.loadedImages++;
-		if($defined(this.options.loadingImage)) {
-			//remove loading gif
-			thumbContainer.getFirst().getFirst().destroy();
-		}
+		
 		//remove loading styles
-		thumbContainer.getFirst().setStyle('background-color', 'transparent').setStyle('opacity',1);
+		thumbContainer.removeClass(this.options.loadingClass);
 		if(this.loadedImages < this.thumbs.length) {
 			this.loadNextImage();
 		}
@@ -418,11 +382,7 @@ var JSGallery2 = new Class({
 	 *	@param {HTMLelement} container
 	 */
 	deselect: function(container) {
-		new Fx.Morph(container.getFirst(), {duration: this.options.selectSpeed, transition: Fx.Transitions.Quad.easeOut}).start({
-			'border-width': this.options.borderWidthDeselected + 'px',
-			'width': container.getSize().x-this.options.borderWidthDeselected,
-			'height': container.getSize().y-this.options.borderWidthDeselected
-		});
+		container.removeClass(this.options.activeClass);
 	},
 	/**
 	 *	Changes the full size image to given one.
@@ -452,7 +412,6 @@ var JSGallery2 = new Class({
 			}
 			catch (e) {}
 
-		
 			if($defined($(this.options.titleTarget))) {
 				$(this.options.titleTarget).set('html', newText);
 			}
@@ -561,6 +520,7 @@ var JSGallery2 = new Class({
 		
 	updatePagingBar: function(countHandle, currentPage, pageCount) {
 				
+		//init the pagingbar
 		if (countHandle.innerHTML=="") {
 		
 			for(var i=0;i<pageCount;i++) {
@@ -609,41 +569,32 @@ var JSGallery2 = new Class({
 			
 			
 		}
-		
-		$$('.count', countHandle).each(function(el){
-			if (el.getProperty('id')!='count'+currentPage)
-			new Fx.Morph(el, {
-				chain: true,
-			    duration: pageSpeed,
-			    transition: Fx.Transitions.Quint.easeInOut
-			}).start('.ajaxpaging_inactive');
-		});
-		
-		new Fx.Morph($('count'+currentPage, countHandle), {
-		    duration: pageSpeed,
-		    	chain: true,
-		    transition: Fx.Transitions.Quint.easeInOut
-		}).start('.ajaxpaging_active');	
+		console.log(countHandle);
+		countHandle.getChildren('.active').removeClass('active');
+		$('count'+currentPage).addClass('active');
 		
 	},
 		
 
 	createCountLink: function(gallery, countHandle, currentPageNumber) {
+
 		var myAnchor = new Element('a', {
-		    href: '#',
-		    'class': 'count inactive',
-		    html: currentPageNumber+1,
-		    id: 'count'+currentPageNumber,
-		    styles: {
-		    }
+		    href: '#',		    
+		    html: currentPageNumber+1,		    
 		});
+
 
 		myAnchor.addEvent('click', function(e){						
 		            this.gotoPage(currentPageNumber);
 		            return false;
 		        }.bind(gallery));
+
+		var myListItem = new Element('li', {
+			'class': 'count',
+			id: 'count'+currentPageNumber,
+		});
 		        
-		countHandle.grab(myAnchor);
+		countHandle.grab(myListItem.grab(myAnchor));
 	
 	}
 	
