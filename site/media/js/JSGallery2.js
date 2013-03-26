@@ -569,7 +569,7 @@ var JSGallery2 = new Class({
 			
 			
 		}
-		console.log(countHandle);
+
 		countHandle.getChildren('.active').removeClass('active');
 		$('count'+currentPage).addClass('active');
 		
