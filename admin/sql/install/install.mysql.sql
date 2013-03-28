@@ -38,11 +38,11 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_file` (
 );
 
 
-
-
 CREATE TABLE IF NOT EXISTS `#__eventgallery_folder` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `picasakey` varchar(125) DEFAULT NULL,
+  `password` VARCHAR( 250 ) NOT NULL,
+  `cartable` TINYINT( 1 ) NOT NULL DEFAULT  '1',
   `tags` text,
   `description` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
