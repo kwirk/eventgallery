@@ -32,6 +32,6 @@ class EventgalleryModelComment extends JModelLegacy
 		$query = ' SELECT * FROM #__eventgallery_file '.
 			     ' WHERE file='.$this->_db->Quote($comment->file).' and folder='.$this->_db->Quote($comment->folder);
 		$this->_db->setQuery( $query );
-		return new EventGalleryImage($this->_db->loadObject());
+		return new EventgalleryHelpersImageLocal($this->_db->loadObject());
 	}
 }
