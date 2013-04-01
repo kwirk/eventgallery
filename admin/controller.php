@@ -450,7 +450,16 @@ class EventgalleryController extends JControllerLegacy
 		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_PUBLISHED' );	
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
-	
+
+	/**
+	* saves the caption for a file
+	*/
+	function saveFileCaption() {
+		$caption = JRequest::getString('caption');
+		$model = $this->getModel('file');
+		$model->setCaption($caption);
+		echo "Done";	
+	}	
 	/**
 	 * function to allow Comments of a single file/multiple files
 	 * 

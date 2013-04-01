@@ -55,7 +55,7 @@ class EventgalleryModelFile extends JModelLegacy
 		// Load the data
 		if (empty( $this->_data )) {
 			$query = ' SELECT * FROM #__eventgallery_file '.
-					'  WHERE id = \''.$this->_id.'\'';
+					'  WHERE id = '.$this->_db->quote($this->_id);
 
 			$this->_db->setQuery( $query );
 			$this->_data = $this->_db->loadObject();
@@ -118,7 +118,7 @@ class EventgalleryModelFile extends JModelLegacy
 			foreach($cids as $cid) {
 
 				$query = ' SELECT * FROM #__eventgallery_file '.
-							'  WHERE id = \''.$cid.'\'';
+							'  WHERE id = '.$this->_db->quote($cid);
 				
 				$this->_db->setQuery( $query );
 				$data = $this->_db->loadObject();
@@ -156,7 +156,7 @@ class EventgalleryModelFile extends JModelLegacy
 				$row = $this->getTable('file');
 
 		        $query = ' SELECT * FROM #__eventgallery_file '.
-							'  WHERE id = \''.$cid.'\'';
+							'  WHERE id = '.$this->_db->quote($cid);
 				
 				$this->_db->setQuery( $query );
 				$data = $this->_db->loadObject();
@@ -171,6 +171,28 @@ class EventgalleryModelFile extends JModelLegacy
 		return true;
 	}			
 
+	function setCaption($caption) {
+		$cid = JRequest::getString('cid');
+
+				
+		$row = $this->getTable('file');
+
+        $query = ' SELECT * FROM #__eventgallery_file '.        
+					'  WHERE id = '.$this->_db->quote($cid);
+		
+		$this->_db->setQuery( $query );
+		$data = $this->_db->loadObject();
+		$row->bind($data);
+		$row->caption = $caption;
+		$row->id=$cid;
+		if (!$row->store()) {
+			$this->setError( $row->getErrorMsg() );			
+		}
+		
+		return true;
+
+	}
+
 	function allowComments($allowComments)
 	{
 		$cids = JRequest::getVar( 'cid', array(0), '', 'array' );
@@ -181,7 +203,7 @@ class EventgalleryModelFile extends JModelLegacy
 				$row = $this->getTable('file');
 
 		        $query = ' SELECT * FROM #__eventgallery_file '.
-							'  WHERE id = \''.$cid.'\'';
+							'  WHERE id = '.$this->_db->quote($cid);
 				
 				$this->_db->setQuery( $query );
 				$data = $this->_db->loadObject();
@@ -206,7 +228,7 @@ class EventgalleryModelFile extends JModelLegacy
 				$row = $this->getTable('file');
 
 		        $query = ' SELECT * FROM #__eventgallery_file '.
-							'  WHERE id = \''.$cid.'\'';
+							'  WHERE id = '.$this->_db->quote($cid);
 				
 				$this->_db->setQuery( $query );
 				$data = $this->_db->loadObject();
@@ -231,7 +253,7 @@ class EventgalleryModelFile extends JModelLegacy
 				$row = $this->getTable('file');
 
 		        $query = ' SELECT * FROM #__eventgallery_file '.
-							'  WHERE id = \''.$cid.'\'';
+							'  WHERE id = '.$this->_db->quote($cid);
 				
 				$this->_db->setQuery( $query );
 				$data = $this->_db->loadObject();

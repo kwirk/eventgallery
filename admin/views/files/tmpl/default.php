@@ -71,7 +71,7 @@ defined('_JEXEC') or die('Restricted access');
 		?>
 		<tr class="<?php echo "row$k"; ?>">
 			<td>				
-				<a name="<?php echo $row->id; ?>"></a>		
+				<!-- <a name="<?php echo $row->id; ?>"></a> -->
 				<?php echo $row->id; ?>
 			</td>
 			<td>
@@ -113,7 +113,11 @@ defined('_JEXEC') or die('Restricted access');
 			    </div>	
 			</td>
 			<td>
-				<?php echo $row->caption; ?>
+				<span class="caption" data-value="<?php echo htmlentities($row->caption); ?>" data-id="<?php echo $row->id ?>">
+					<span class="caption-content">
+					<?php echo strlen($row->caption)>0?$row->caption:'----'; ?>
+					<span>
+				</span>
 			</td>
 			<td class="center">
 				<a href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=folder='.$row->folder) ?>">
@@ -133,3 +137,66 @@ defined('_JEXEC') or die('Restricted access');
 	
 </form>
 
+<script type="text/javascript">
+
+
+window.addEvent("domready", function(){
+
+	$$('.caption-content').addEvent('click', function(e){
+
+		var content = e.target;
+		var span = content.getParent('span');
+		var id = span.getAttribute('data-id');
+		var form = new Element('div', {
+			class: 'input-append',
+		});
+		var input = new Element('textarea', {
+			name: 'caption',
+			value: span.getAttribute('data-value'),
+		});
+		var buttonCancel = new Element('button',{
+			text: '<?php echo JText::_('COM_EVENTGALLERY_COMMON_CANCEL')?>',
+			class: 'btn btn-small',
+			events: {
+				click: function(e) {
+					content.setStyle('display','inline');
+					form.dispose();
+					e.preventDefault();
+
+				}
+			}
+		});
+
+		var buttonSave = new Element('button', {
+			text: '<?php echo JText::_('COM_EVENTGALLERY_COMMON_SAVE')?>',
+			class: 'btn btn-small',
+			events: {
+				click: function(e) {
+					console.log(input.value);
+
+
+					var myRequest = new Request({
+					    url: '<?php echo JRoute::_('index.php?task=saveFileCaption&option=com_eventgallery&format=raw&cid=', false); ?>'+id,
+					    data: 'caption='+input.value,
+
+					}).post();
+
+					span.setAttribute('data-value',input.value);
+					content.innerHTML = input.value.length>0?input.value:'----';
+					content.setStyle('display','inline');
+					form.dispose();
+					e.preventDefault();
+				}
+			}
+		})
+		form.grab(input);;
+		form.grab(buttonCancel);
+		form.grab(buttonSave);
+		span.grab(form);
+		content.setStyle('display','none');
+
+	});
+
+});
+
+</script>
