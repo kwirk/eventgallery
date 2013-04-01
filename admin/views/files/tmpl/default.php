@@ -172,8 +172,6 @@ window.addEvent("domready", function(){
 			class: 'btn btn-small',
 			events: {
 				click: function(e) {
-					console.log(input.value);
-
 
 					var myRequest = new Request({
 					    url: '<?php echo JRoute::_('index.php?task=saveFileCaption&option=com_eventgallery&format=raw&cid=', false); ?>'+id,
