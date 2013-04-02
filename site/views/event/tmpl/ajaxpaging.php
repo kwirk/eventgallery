@@ -90,6 +90,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 								     data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
 								     data-description="<?php echo JHTML::Date($this->folder->date).' - '.$this->folder->description."&lt;br /&gt; ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE')." $imageCount ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')." $this->entriesCount" ?>
 										<br /><?php echo rawurlencode($entry->getTitle()); ?>"				  
+									 data-title="<?php echo rawurlencode($entry->getLightBoxTitle()); ?>"
 									 >
 								    <?php echo $entry->getThumbImgTag(75, 75);?>
 								 </a>

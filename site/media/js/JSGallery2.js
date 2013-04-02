@@ -334,7 +334,7 @@ var JSGallery2 = new Class({
 		$(document.body).fireEvent('updatecartlinks');
 		
 		// now lets set the image
-		this.setImage(source.get('rel'), source.get('longdesc'), source.get('data-description'));
+		this.setImage(source.get('rel'), source.get('longdesc'), source.get('data-description'), source.get('data-title'));
 
 		
 	},
@@ -389,7 +389,7 @@ var JSGallery2 = new Class({
 	 *	@param {String} newSrc, new target of the full size image
 	 *	@param {String} newText, new text for the info element
 	 */
-	setImage: function(newSrc, newFullSizeImage, newText) {		
+	setImage: function(newSrc, newFullSizeImage, newText, newTitle) {		
 
 		if (this.effect === undefined) {
 			this.effect = new Fx.Tween(this.bigImage, {duration: this.options.fadeSpeed, transition: Fx.Transitions.Quad.easeOut});
@@ -401,7 +401,7 @@ var JSGallery2 = new Class({
 		this.effect.start('opacity', 0).chain(function(){
 
 			this.bigImage.set('src', newSrc);
-			//this.zoomLink.set('data-title', newText);
+			this.zoomLink.set('data-title', decodeURIComponent(newTitle));
 
 			this.zoomLink.set('href', newFullSizeImage);
 		
@@ -409,6 +409,7 @@ var JSGallery2 = new Class({
 			try {
 				if (mediaBoxImages && mediaBoxChangeImage ) {
 					mediaBoxImages[0][0]=this.zoomLink.get('href');
+					mediaBoxImages[0][1]=this.zoomLink.get('data-title');
 					mediaBoxChangeImage(0);
 				}
 			}

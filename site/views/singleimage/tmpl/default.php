@@ -157,8 +157,8 @@ defined('_JEXEC') or die('Restricted access');
 	
 	<div class="singleimage">
 		<a 	class="thumbnail" 
-			id="bigimagelink" 
-			title="<?php echo $this->model->file->getPlainTextTitle() ?>"
+			id="bigimagelink" 			
+			data-title="<?php echo rawurlencode($this->model->file->getLightBoxTitle()) ?>"
 			href="<?php echo  $this->model->file->getImageUrl(null, null, true) ?>" 
 			rel="lightbo2">
 			<?php echo $this->model->file->getLazyThumbImgTag(100,100); ?>

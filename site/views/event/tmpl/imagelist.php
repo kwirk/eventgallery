@@ -91,7 +91,7 @@ include 'components/com_eventgallery/views/cart.php';
 		    <div class="thumbnail-container">
 	    	<a class="thumbnail" href="<?php echo $this->entry->getImageUrl(null, null, true); ?>"
 	            title="<?php echo $entry->getPlainTextTitle() ?>"
-	            data-title="<?php echo rawurlencode($entry->getTitle()) ?>"
+	            data-title="<?php echo rawurlencode($entry->getLightBoxTitle()) ?>"
 	            rel="lightbo2[gallery]"><?php echo $this->entry->getLazyThumbImgTag(50,50);?>
 			    </a><?php IF ($this->folder->cartable==1):?><a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" class="button-add2cart eventgallery-add2cart" data-id="folder=<?php echo $this->entry->folder."&file=".$this->entry->file ?>"><i class="big"></i></a><?php ENDIF ?></div>
 		<?php endforeach?>
