@@ -158,13 +158,13 @@ defined('_JEXEC') or die('Restricted access');
 	<div class="singleimage">
 		<a 	class="thumbnail" 
 			id="bigimagelink" 
-			title="<?php echo $this->model->file->caption?><?PHP IF(isset($this->model->file->exif)):?><br /><?php echo $this->model->file->exif->model?>, <?php echo $this->model->file->exif->focallength?> mm, f/<?php echo $this->model->file->exif->fstop?>, ISO <?php echo $this->model->file->exif->iso?><?php ENDIF ?>"
+			title="<?php echo $this->model->file->getPlainTextTitle() ?>"
 			href="<?php echo  $this->model->file->getImageUrl(null, null, true) ?>" 
 			rel="lightbo2">
 			<?php echo $this->model->file->getLazyThumbImgTag(100,100); ?>
 		</a>
-		<?php IF (strlen($this->model->file->caption)>0): ?>
-		<div class="well caption"><?php echo $this->model->file->caption?><?PHP IF(isset($this->model->file->exif)):?><br /><?php echo $this->model->file->exif->model?>, <?php echo $this->model->file->exif->focallength?> mm, f/<?php echo $this->model->file->exif->fstop?>, ISO <?php echo $this->model->file->exif->iso?><?php ENDIF ?></div>	
+		<?php IF ($this->model->file->hasTitle()): ?>
+		<div class="well description"><?php echo $this->model->file->getTitle(); ?></div>	
 		<?php ENDIF ?>
 	</div>	
 				

@@ -11,7 +11,7 @@
 defined('_JEXEC') or die;	
 
 
-class EventgalleryHelpersImageLocal implements EventgalleryHelpersImageInterface{
+class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 
 		// constructor
 	    public function __construct($photo) {		    

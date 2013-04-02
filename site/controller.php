@@ -74,6 +74,7 @@ class EventgalleryController extends JControllerLegacy
 		$buzzwordsClean=BuzzwordsHelper::validateBuzzwords($buzzwords,JRequest::getVar('text'));
 		$captchaHelper = new CaptchaHelper();
 
+
         if ($captchaHelper->validateCaptcha(JRequest::getVar('password'))== false)
         {
             $store = false;

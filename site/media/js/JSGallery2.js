@@ -401,6 +401,8 @@ var JSGallery2 = new Class({
 		this.effect.start('opacity', 0).chain(function(){
 
 			this.bigImage.set('src', newSrc);
+			//this.zoomLink.set('data-title', newText);
+
 			this.zoomLink.set('href', newFullSizeImage);
 		
 			Mediabox.scanPage();
@@ -413,7 +415,7 @@ var JSGallery2 = new Class({
 			catch (e) {}
 
 			if($defined($(this.options.titleTarget))) {
-				$(this.options.titleTarget).set('html', newText);
+				$(this.options.titleTarget).set('html', decodeURIComponent(newText));
 			}
 			//this.mouseLeaveHandler();
 			this.effect.start('opacity', 1).chain(this.unBlockKeys.bind(this));

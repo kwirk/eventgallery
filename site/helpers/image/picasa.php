@@ -8,7 +8,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-class EventgalleryHelpersImagePicasa implements EventgalleryHelpersImageInterface{
+class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 	
 	// constructor
     public function __construct($photo) {

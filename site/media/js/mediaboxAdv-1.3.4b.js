@@ -305,7 +305,14 @@ var Mediabox;
 			linkMapper = linkMapper || function(el) {
 				elrel = el.getAttribute('rel').split(/[\[\]]/);
 				elrel = elrel[1];
-				return [el.getAttribute('href'), el.title, elrel];
+
+				var title = $(el).getAttribute('data-title');
+				if (!title) {
+					title = el.title;
+				} else {
+					title = decodeURIComponent(title);
+				}
+				return [el.getAttribute('href'), title, elrel];
 			};
 
 			linksFilter = linksFilter || function() {
