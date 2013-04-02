@@ -10,11 +10,10 @@ defined('_JEXEC') or die;
 
 class CaptchaHelper
 {
-	var $_key = "29jfkd921";
 	
 	function validateCaptcha($password)
     {
-    	
+
     	$sicherheits_eingabe = $this->encrypt($password, "1");
 		$sicherheits_eingabe = str_replace("=", "", $sicherheits_eingabe);
 		if(isset($_SESSION['rechen_captcha_spam']) AND $sicherheits_eingabe == $_SESSION['rechen_captcha_spam']){
@@ -25,14 +24,15 @@ class CaptchaHelper
     }
    
    	function encrypt($string, $key) {
-			$result = '';
+			/*$result = '';
 			for($i=0; $i<strlen($string); $i++) {
 			   $char = substr($string, $i, 1);
 			   $keychar = substr($key, ($i % strlen($key))-1, 1);
 			   $char = chr(ord($char)+ord($keychar));
 			   $result.=$char;
 			}
-			return base64_encode($result);
+			return base64_encode($result);*/
+			return $string;
 	}
 	
 	
@@ -51,8 +51,6 @@ class CaptchaHelper
 		   $operatorzeichen = " - ";
 		   $ergebnis = $zahl1 - $zahl2;
 		}
-
-
 
 		$_SESSION['rechen_captcha_spam'] = $this->encrypt($ergebnis, "1"); //Key
 		$_SESSION['rechen_captcha_spam'] = str_replace("=", "", $_SESSION['rechen_captcha_spam']);
