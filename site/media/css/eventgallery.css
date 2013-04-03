@@ -304,7 +304,10 @@
 	position: relative;
 	display: inline;
 	width: 100%;
+}
 
+.ajaxpaging #bigimageContainer a:hover{
+	background-color: transparent;
 }
 
 .ajaxpaging #bigImage {
