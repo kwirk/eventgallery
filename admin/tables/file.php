@@ -16,6 +16,8 @@ class TableFile extends JTable
 	var $file = null;
     var $folder = null;
 	var $hits = null;
+	var $caption = null;
+	var $title = null;
 	var $published = null;
 	var $allowcomments = null;
 	var $userid = null;

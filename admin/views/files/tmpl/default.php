@@ -113,10 +113,13 @@ defined('_JEXEC') or die('Restricted access');
 			    </div>	
 			</td>
 			<td>
-				<span class="caption" data-value="<?php echo htmlentities($row->caption); ?>" data-id="<?php echo $row->id ?>">
-					<span class="caption-content">
-					<?php echo strlen($row->caption)>0?$row->caption:'----'; ?>
-					<span>
+				<span class="description" data-title="<?php echo htmlentities($row->title); ?>" data-caption="<?php echo htmlentities($row->caption); ?>" data-id="<?php echo $row->id ?>">
+					<div class="title-content">
+						<?php echo strlen($row->title)>0?$row->title:JText::_('COM_EVENTGALLERY_EVENT_FILE_TITLE'); ?>
+					</div>
+					<div class="caption-content">
+						<?php echo strlen($row->caption)>0?$row->caption:JText::_('COM_EVENTGALLERY_EVENT_FILE_CAPTION'); ?>
+					</div>
 				</span>
 			</td>
 			<td class="center">
@@ -142,25 +145,51 @@ defined('_JEXEC') or die('Restricted access');
 
 window.addEvent("domready", function(){
 
-	$$('.caption-content').addEvent('click', function(e){
+	function processCaption(e) {
 
-		var content = e.target;
-		var span = content.getParent('span');
-		var id = span.getAttribute('data-id');
+
+		var dataContainer = e.target;
+
+		if (!dataContainer.hasClass('description')) {
+			dataContainer = dataContainer.getParent('span.description');
+		}
+
+		
+		var id = dataContainer.getAttribute('data-id');
+		var titleContainer = dataContainer.getChildren('.title-content').getLast();
+		var captionContainer = dataContainer.getChildren('.caption-content').getLast();
+
+		titleContainer.setStyle('display','none');
+		captionContainer.setStyle('display','none');
+
+
+		// create form
+		var formContainer = new Element('div', {
+
+		});
+
 		var form = new Element('div', {
 			class: 'input-append',
 		});
-		var input = new Element('textarea', {
+
+		var inputTitle = new Element('input', {
+			name: 'title',
+			value: dataContainer.getAttribute('data-title'),
+			placeholder: '<?php echo JText::_('COM_EVENTGALLERY_EVENT_FILE_TITLE')?>',
+		});
+		var inputCaption = new Element('textarea', {
 			name: 'caption',
-			value: span.getAttribute('data-value'),
+			value: dataContainer.getAttribute('data-caption'),
+			placeholder: '<?php echo JText::_('COM_EVENTGALLERY_EVENT_FILE_CAPTION')?>',
 		});
 		var buttonCancel = new Element('button',{
 			text: '<?php echo JText::_('COM_EVENTGALLERY_COMMON_CANCEL')?>',
 			class: 'btn btn-small',
 			events: {
 				click: function(e) {
-					content.setStyle('display','inline');
-					form.dispose();
+					titleContainer.setStyle('display','block');
+					captionContainer.setStyle('display','block');
+					formContainer.dispose();
 					e.preventDefault();
 
 				}
@@ -175,26 +204,35 @@ window.addEvent("domready", function(){
 
 					var myRequest = new Request({
 					    url: '<?php echo JRoute::_('index.php?task=saveFileCaption&option=com_eventgallery&format=raw&cid=', false); ?>'+id,
-					    data: 'caption='+input.value,
+					    data: 'caption='+encodeURIComponent(inputCaption.value)+"&title="+encodeURIComponent(inputTitle.value),
 
 					}).post();
 
-					span.setAttribute('data-value',input.value);
-					content.innerHTML = input.value.length>0?input.value:'----';
-					content.setStyle('display','inline');
-					form.dispose();
+					dataContainer.setAttribute('data-title',inputTitle.value);
+					dataContainer.setAttribute('data-caption',inputCaption.value);
+					titleContainer.innerHTML = inputTitle.value.length>0?inputTitle.value:'<?php echo JText::_('COM_EVENTGALLERY_EVENT_FILE_TITLE')?>';
+					captionContainer.innerHTML = inputCaption.value.length>0?inputCaption.value:'<?php echo JText::_('COM_EVENTGALLERY_EVENT_FILE_CAPTION')?>';
+					console.log("x"+inputTitle.value.length+"x");
+					titleContainer.setStyle('display','block');
+					captionContainer.setStyle('display','block');
+					formContainer.dispose();
 					e.preventDefault();
 				}
 			}
-		})
-		form.grab(input);;
+		});
+
+		form.grab(inputTitle);
 		form.grab(buttonCancel);
 		form.grab(buttonSave);
-		span.grab(form);
-		content.setStyle('display','none');
+		formContainer.grab(form);
+		formContainer.grab(inputCaption);
+		dataContainer.grab(formContainer);
 
-	});
+	}
 
-});
+	$$('.title-content').addEvent('click', processCaption);
+	$$('.caption-content').addEvent('click', processCaption);
+
+});	
 
 </script>

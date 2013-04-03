@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_file` (
   `width` int(10),
   `height` int(10),
   `caption` text,
+  `title` text,
   `ordering` int(10),
   `ismainimage` tinyint(4) NOT NULL default '0',
   `ismainimageonly` tinyint(4) NOT NULL default '0',

@@ -171,7 +171,7 @@ class EventgalleryModelFile extends JModelLegacy
 		return true;
 	}			
 
-	function setCaption($caption) {
+	function setCaption($caption, $title) {
 		$cid = JRequest::getString('cid');
 
 				
@@ -184,6 +184,7 @@ class EventgalleryModelFile extends JModelLegacy
 		$data = $this->_db->loadObject();
 		$row->bind($data);
 		$row->caption = $caption;
+		$row->title = $title;
 		$row->id=$cid;
 		if (!$row->store()) {
 			$this->setError( $row->getErrorMsg() );			

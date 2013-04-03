@@ -455,9 +455,10 @@ class EventgalleryController extends JControllerLegacy
 	* saves the caption for a file
 	*/
 	function saveFileCaption() {
+		$title = JRequest::getVar( 'title', '', 'post', 'string', JREQUEST_ALLOWHTML );		
 		$caption = JRequest::getVar( 'caption', '', 'post', 'string', JREQUEST_ALLOWHTML );		
 		$model = $this->getModel('file');
-		$model->setCaption($caption);
+		$model->setCaption($caption, $title);
 		echo "Done";	
 	}	
 	/**
