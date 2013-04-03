@@ -149,7 +149,7 @@ var Mediabox;
 				loop: false,					// Allows to navigate between first and last images
 				keyboard: true,					// Enables keyboard control; escape key, left arrow, and right arrow
 				alpha: true,					// Adds 'x', 'c', 'p', and 'n' when keyboard control is also set to true
-				stopKey: false,					// Stops all default keyboard actions while overlay is open (such as up/down arrows)
+				stopKey: true,					// Stops all default keyboard actions while overlay is open (such as up/down arrows)
 													// Does not apply to iFrame content, does not affect mouse scrolling
 				preventScrolling: true,
 				overlayOpacity: 0.7,			// 1 is opaque, 0 is completely transparent (change the color in the CSS file)
@@ -168,7 +168,7 @@ var Mediabox;
 											// CSS background is naturally non-clickable, preventing downloads
 											// IMG tag allows automatic scaling for smaller screens
 											// (all images have no-click code applied, albeit not Opera compatible. To remove, comment lines 212 and 822)
-				imgPadding: 100,			// Clearance necessary for images larger than the window size (only used when imgBackground is false)
+				imgPadding: 100 ,			// Clearance necessary for images larger than the window size (only used when imgBackground is false)
 											// Change this number only if the CSS style is significantly divergent from the original, and requires different sizes
 //			Inline options
 				overflow: 'auto',			// If set, overides CSS settings for inline content only
@@ -1018,12 +1018,34 @@ var Mediabox;
 		if ((prevImage >= 0) && (images[prevImage][0].match(/\.gif|\.jpg|\.jpeg|\.png|twitpic\.com/i))) preloadPrev.src = images[prevImage][0].replace(/twitpic\.com/i, "twitpic.com/show/full");
 		if ((nextImage >= 0) && (images[nextImage][0].match(/\.gif|\.jpg|\.jpeg|\.png|twitpic\.com/i))) preloadNext.src = images[nextImage][0].replace(/twitpic\.com/i, "twitpic.com/show/full");
 
+
+		/* detect bottom height even with large text*/
+		bottom.setStyle("width", mediaWidth);
+		var bottomHeight = bottom.offsetHeight;
+		bottom.setStyle("width", "auto");
+
 		mediaWidth = image.offsetWidth;
-		mediaHeight = image.offsetHeight+bottom.offsetHeight;
+		mediaHeight = image.offsetHeight+bottomHeight;		
+
+		/* readjust the size of the lightbox*/
+		if (mediaHeight > winHeight && preload) {
+			mediaHeight = winHeight-options.imgPadding;
+			image.setStyle("height", mediaHeight-bottomHeight-(2*margin));			
+			var pRatio = preload.width/preload.height;
+			preload.width= ((mediaHeight-bottomHeight)*pRatio)-(2*margin);
+			preload.setStyle("display","block");
+			preload.setStyle("margin","auto");			
+			caption.setStyle("width",image.getStyle("width")-margin);
+			title.setStyle("width", image.getStyle("width")-margin);
+		}
+		
 		if (mediaHeight >= top+top) { mTop = -top } else { mTop = -(mediaHeight/2) };
 		if (mediaWidth >= left+left) { mLeft = -left } else { mLeft = -(mediaWidth/2) };
-		if (options.resizeOpening) { fx.resize.start({width: mediaWidth, height: mediaHeight, marginTop: mTop-margin, marginLeft: mLeft-margin});
-		} else { center.setStyles({width: mediaWidth, height: mediaHeight, marginTop: mTop-margin, marginLeft: mLeft-margin}); imageAnimate(); }
+		if (options.resizeOpening) { 
+			fx.resize.start({width: mediaWidth, height: mediaHeight, marginTop: mTop-margin, marginLeft: mLeft-margin});
+		} else { 
+			center.setStyles({width: mediaWidth, height: mediaHeight, marginTop: mTop-margin, marginLeft: mLeft-margin}); imageAnimate(); 
+		}
 	}
 
 	function imageAnimate() {

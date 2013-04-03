@@ -114,6 +114,27 @@
 }
 
 
+/* Captions General */
+
+.img-caption, 
+.img-exif {
+	font-variant: normal;
+	font-weight: normal;
+}
+
+.img-caption-part1 {
+	font-weight: bold;
+	display: block;
+}
+
+#mbTitle .img-caption-part1 {
+	display: inline;
+}
+
+.img-exif {
+	padding-left: 10px;
+}
+
 
 /* Event - Default */
 
@@ -167,6 +188,7 @@
     display: none;
     background-color: black;
 }
+
 
 /* Event - Imagelist */
 
