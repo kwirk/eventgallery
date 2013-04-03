@@ -24,6 +24,39 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     	
     }
     
+
+	    /**
+    *  returns a title with the following format:
+    * 
+    *   <span class="img-caption img-caption-part1">Foo</span>[::<span class="img-caption img-caption-part1">Bar</span>][::<span class="img-exif">EXIF</span>]
+    * 
+    *  :: is the separator for the lightbox to split in title and caption.
+    */
+
+    public function getLightBoxTitle() {
+
+    	$app	 = &JFactory::getApplication();	   		
+		$params	 = &$app->getParams();
+
+		$showExif = $params->get('show_exif', true);
+
+		$caption = "";
+
+		if (isset($this->caption) && strlen($this->caption)>0) {
+			$caption .= '<span class="img-caption img-caption-part1">'.$this->caption.'</span>';			
+		}
+
+		if ($showExif && isset($this->exif)) {
+			$exif = '<span class="img-exif">'.$this->exif->model.", ".$this->exif->focallength." mm, f/".$this->exif->fstop.", ISO ".$this->exif->iso."</span>";				
+			if (!strpos($caption, "::")) {
+				$caption .= "::";
+			}
+			$caption .= $exif;
+		}			
+
+    	return $caption;
+    }
+
     
     public function getFullImgTag($width=104,  $height=104) {
     	

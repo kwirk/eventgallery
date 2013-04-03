@@ -74,7 +74,7 @@ class EventgalleryModelCart extends JModelLegacy
 		$imagetag =  $model->file->getLazyThumbImgTag(100,100, "", true);
 
 
-		$imagetag = '<a class="thumbnail" href="'.$model->file->getImageUrl(null, null, true).'" title="'.$model->file->caption.'"  rel="lightbo2[cart]"> '.$model->file->getThumbImgTag(100,100).'</a>';
+		$imagetag = '<a class="thumbnail" href="'.$model->file->getImageUrl(null, null, true).'" title="'.htmlentities($model->file->getPlainTextTitle()).'" data-title="'.rawurlencode($model->file->getLightBoxTitle()).'" rel="lightbo2[cart]"> '.$model->file->getThumbImgTag(100,100).'</a>';
 
 		$item = array('file'=>$file, 'folder'=>$folder, 'count'=>1, 'imagetag' => $imagetag);
 
