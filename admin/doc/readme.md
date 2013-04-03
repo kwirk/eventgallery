@@ -239,3 +239,10 @@ This section is intended to provide some help with customizations.
 If you want to display the thumbnails beside the big image you can simply let them float the way you need them. 
 
 ![Switch from two rows to two columns](img/frontend/event_ajax_list_css_custom.jpg)
+
+# FAQ 
+
+## Thumbs do not show up
+
+- php memory size too low. I have good experience with 128M. Depends on the size of your images
+- javascript error occured which prevents the whole site from executing javascript. Without javascript it no image will appear.
