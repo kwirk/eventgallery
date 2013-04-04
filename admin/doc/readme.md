@@ -187,7 +187,7 @@ The view let's you edit the details of an event.
 
 ## Manage Files
 
-Once you created your event and uploaded some photos you may want to manage those files. Here is the right place for it. On this page you can sort, delete and modify the status of an image. 
+Once you created your event and uploaded some photos you may want to manage those files. Here is the right place for it. On this page you can sort, delete and modify the status of an image. If you want to change the title or the description of an image just click on "Title" or "Description" and enter your data to the two fields which appear. Hit the save button to store it in the database.
 
 - published
 
@@ -244,5 +244,5 @@ If you want to display the thumbnails beside the big image you can simply let th
 
 ## Thumbs do not show up
 
-- php memory size too low. I have good experience with 128M. Depends on the size of your images
+- Error 500: php memory size too low. I have good experience with 128M. Depends on the size of your images
 - javascript error occured which prevents the whole site from executing javascript. Without javascript it no image will appear.
