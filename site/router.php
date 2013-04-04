@@ -26,7 +26,7 @@ function EventgalleryBuildRoute(&$query)
 	$app		= JFactory::getApplication();
 	$menu		= $app->getMenu();
 	$params		= JComponentHelper::getParams('com_eventgallery');
-	
+	$config 	= JFactory::getConfig();
 	$segments = array();
 	
 	if(isset($query['view']))
@@ -41,11 +41,15 @@ function EventgalleryBuildRoute(&$query)
 	};
 	if(isset($query['file']))
 	{
-	        $segments[] = $query['file']."/";
-	        unset( $query['file'] );
-	};
+		/*take care of the appended html. This will not work with file names*/
+		if ($config->get('sef_suffix')==1) {
+	        $segments[] = $query['file']."/file";
+	    } else {
+    		$segments[] = $query['file']."/";
+	    }
+	    unset( $query['file'] );
+	};	
 	
-
 	return $segments;
 }
 
@@ -83,8 +87,7 @@ function EventgalleryParseRoute($segments)
 	if ($count>2) {
 		$vars['file']	= str_replace(":","-",str_replace("/","",$segments[2]));
 	}
-	
-	
+
 	return $vars;
 
 }
