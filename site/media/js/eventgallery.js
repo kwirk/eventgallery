@@ -54,6 +54,17 @@
 	    	var newWidth =  width - this.glueLeft - this.glueRight;
 	    	var newHeight = height - this.glueTop  - this.glueBottom;
 	    	
+	    	if (this.width<newWidth) {
+	    		newWidth = this.width;	    	
+	    	}
+
+
+	    	if (this.height<newHeight) {
+	    		newHeight = this.height;
+
+	    	}
+
+
 	    	var ratio = this.width/this.height;
 	    	
 	    	//console.log("the size of the image should be: "+width+"x"+height+" so I have to set it to: "+newWidth+"x"+newHeight);
@@ -123,19 +134,11 @@
 	    	image.set('longdesc',longdesc);
 	    	image.setStyle('background-position', '50% 50%');
 	    	image.setStyle('background-repeat', 'no-repeat');
+	    	image.setStyle('background-size', '100% auto');
 	    	image.setStyle('display', 'block');
 	    	image.setStyle('margin', 'auto');
 	    	
 
-	    	if (this.width<newWidth) {
-	    		newWidth = this.width;	    	
-	    	}
-
-
-	    	if (this.height<newHeight) {
-	    		newHeight = this.height;
-
-	    	}
 
 	    	image.setStyle('width', newWidth);
 	    	image.setStyle('height', newHeight);	    	
