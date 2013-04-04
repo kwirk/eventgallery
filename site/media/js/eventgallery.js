@@ -134,7 +134,6 @@
 	    	image.set('longdesc',longdesc);
 	    	image.setStyle('background-position', '50% 50%');
 	    	image.setStyle('background-repeat', 'no-repeat');
-	    	image.setStyle('background-size', '100% auto');
 	    	image.setStyle('display', 'block');
 	    	image.setStyle('margin', 'auto');
 	    	
