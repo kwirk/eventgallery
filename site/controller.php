@@ -55,7 +55,13 @@ class EventgalleryController extends JControllerLegacy
 	    	}
 			
 		}
-				
+
+		// this fixes a strange behavior where the viewType is set to php if url rewriting is enabled.
+		if ($viewname == 'resizeimage') {
+			$document = JFactory::getDocument();
+			$document->setType('html');						
+		}
+
 		parent::display($cachable, $urlparams);
 
 		
