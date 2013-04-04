@@ -13,6 +13,7 @@ jimport('joomla.error.log');
 	
 class EventgalleryHelpersImageHelper {	
 
+
 	public static function getPicasawebResult($url) {
 		
 		JLog::addLogger(
@@ -22,7 +23,7 @@ class EventgalleryHelpersImageHelper {
 		    JLog::ALL, 
 		    'com_eventgallery'
 		);
-		JLog::add('processing url '.$url, JLog::INFO, 'com_eventgallery');
+		//JLog::add('processing url '.$url, JLog::INFO, 'com_eventgallery');
 		
 		
 		$cachebasedir=JPATH_CACHE.DIRECTORY_SEPARATOR.'com_eventgallery';
@@ -58,7 +59,7 @@ class EventgalleryHelpersImageHelper {
 			
 		} else {
 			
-			JLog::add('have write new cache file for '.$url, JLog::INFO, 'com_eventgallery');
+			//JLog::add('have write new cache file for '.$url, JLog::INFO, 'com_eventgallery');
 			
 		    $xml = @file_get_contents($url);
 		    #echo "reloading content from $url <br>";
