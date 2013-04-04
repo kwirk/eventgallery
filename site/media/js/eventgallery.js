@@ -4,7 +4,14 @@
 	*/	
 	var EventgalleryImage = new Class({
 
-		initialize: function(image, index){
+		Implements: [Options],
+		
+		options: {
+			maxImageHeight: 800,
+		},		
+
+		initialize: function(image, index, options){
+			this.setOptions(options);
 			this.tag = image;
 	        this.index = index;
 	        this.calcSize();
@@ -24,8 +31,8 @@
 	        this.glueBottom = 	this.tag.getStyle('padding-bottom').toInt() + 	this.tag.getStyle('margin-bottom').toInt() +	this.tag.getStyle('border-width').toInt() + image.getStyle('margin-bottom').toInt() + 	image.getStyle('padding-bottom').toInt()+ 	image.getStyle('border-width').toInt();
 			
 			// get image size from data- attributes
-	        this.width = image.getProperty("data-width");//  - this.glueLeft - this.glueRight;
-	        this.height = image.getProperty("data-height");// - this.glueTop  - this.glueBottom;
+	        this.width = image.getProperty("data-width").toInt();//  - this.glueLeft - this.glueRight;
+	        this.height = image.getProperty("data-height").toInt();// - this.glueTop  - this.glueBottom;
 
 			// fallback of data- attributes are not there
 	        if (this.width == null) {
@@ -38,6 +45,12 @@
 	    },
 	    setSize: function(width, height) {
 	    	
+	    	// limit the maxium height of an image
+			if (height>this.options.maxImageHeight) {
+				width = Math.round(width/height*this.options.maxImageHeight);
+	    		height = this.options.maxImageHeight;
+			}
+
 	    	var newWidth =  width - this.glueLeft - this.glueRight;
 	    	var newHeight = height - this.glueTop  - this.glueBottom;
 	    	
@@ -49,16 +62,21 @@
 	    	var googleWidth = 32;
 	    	var normalWidth = 32;
 	    	var normalHeight = 32;
+
 	    	
 	    	this.availableSizes.each(function(item, index){
 	    		if (googleWidth>32) return;
 	    		
+	    		var lastItem = index==this.availableSizes.length-1;	    		
+
 	    		if (ratio>=1) {
 	    		
 		    		var widthOkay = item > newWidth;
 		    		var heightOkay = item/ratio>newHeight
 		    			
-		    		if (widthOkay && heightOkay) {
+
+
+		    		if ((widthOkay && heightOkay) || lastItem) {
 		    			
 		    				googleWidth = item;
 		    				normalWidth = googleWidth;
@@ -66,10 +84,11 @@
 		    			
 		    		} 
 	    		} else {
+
 	    			var heightOkay = item > newHeight;
   	    		    var widthOkay = item*ratio> newWidth;
-		    			
-		    		if (widthOkay && heightOkay) {
+		    		
+		    		if ((widthOkay && heightOkay) || lastItem) {
 		    			
 		    				googleWidth = item;
 		    				normalHeight = googleWidth;
@@ -78,6 +97,8 @@
 		    		} 
 
 	    		}
+
+
 	    		
 			}.bind(this)); 
 	    	
@@ -91,6 +112,7 @@
 	    	if (!longdesc) {
 	    		longdesc = "";
 	    	}
+
 	    	backgroundImageStyle = backgroundImageStyle.replace(/width=(\d*)/,'width='+normalWidth);
 	    	backgroundImageStyle = backgroundImageStyle.replace(/height=(\d*)/,'height='+normalHeight);
 	    	backgroundImageStyle = backgroundImageStyle.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
@@ -100,17 +122,25 @@
 	    	image.setStyle('background-image', backgroundImageStyle);
 	    	image.set('longdesc',longdesc);
 	    	image.setStyle('background-position', '50% 50%');
+	    	image.setStyle('background-repeat', 'no-repeat');
+	    	image.setStyle('display', 'block');
+	    	image.setStyle('margin', 'auto');
 	    	
-	    	if (newHeight>800) {
-	    		image.setStyle('width', newWidth);
-		    	image.setStyle('height', '800px');	    	
-		    	image.setStyle('background-size', 'auto 100%');
-		    	image.setStyle('background-repeat', 'no-repeat');
-	    	} 
-	    	else {
-		    	image.setStyle('width', newWidth);
-		    	image.setStyle('height', newHeight);	    	
+
+	    	if (this.width<newWidth) {
+	    		newWidth = this.width;	    	
 	    	}
+
+
+	    	if (this.height<newHeight) {
+	    		newHeight = this.height;
+
+	    	}
+
+	    	image.setStyle('width', newWidth);
+	    	image.setStyle('height', newHeight);	    	
+
+	    	
 	    }
 	    
 	});
@@ -180,7 +210,7 @@
 			if (this.images.length==1 && !this.options.cropLastImage) {
 					var image = this.images[0];
 					var height = Math.round(image.height / image.width * this.options.maxWidth);
-					image.setSize(this.options.maxWidth, height);
+					image.setSize(this.options.maxWidth, height);					
 
 			} else {
 
