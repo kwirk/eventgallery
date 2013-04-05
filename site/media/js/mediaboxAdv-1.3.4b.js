@@ -440,7 +440,6 @@ var Mediabox;
 			}
 			URL = images[imageIndex][0];
 			URL = URL.replace("(","%28").replace(")","%29");
-			console.log(URL);
 			captionSplit = images[activeImage][1].split('::');
 
 // Quietube and yFrog support
