@@ -92,7 +92,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 										<br /><?php echo rawurlencode($entry->getTitle()); ?>"				  
 									 data-title="<?php echo rawurlencode($entry->getLightBoxTitle()); ?>"
 									 >
-								    <?php echo $entry->getThumbImgTag(75, 75);?>
+								    <?php echo $entry->getThumbImgTag($this->params->get('event_ajax_list_thumbnail_size', 75), $this->params->get('event_ajax_list_thumbnail_size', 75));?>
 								 </a>
 							</div>		    
 				

@@ -262,7 +262,6 @@
 }
 
 .ajaxpaging .thumbnail img{	
-	width: 75px;
 	border: 2px solid white;
 	transition: border-color 2s;
 	-moz-transition: border-color 2s; /* Firefox 4 */

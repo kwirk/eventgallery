@@ -33,7 +33,7 @@ abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersIma
 	    	$app	 = &JFactory::getApplication();	   		
 			$params	 = &$app->getParams();
 
-			$showExif = $params->get('show_exif', true);
+			$showExif = $params->get('show_exif','1')=='1';
 
 			$caption = "";
 
