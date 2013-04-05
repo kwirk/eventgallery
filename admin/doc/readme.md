@@ -247,6 +247,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 - Error 500: php memory size too low. I have good experience with 128M. Depends on the size of your images
 - javascript error occured which prevents the whole site from executing javascript. Without javascript it no image will appear.
 - do not use special characters in your file names like Umlaute, +, or things like this. Make your file names safe for the web.
+- Error 500: the php function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
 
 # Event Gallery Release Notes
 
