@@ -17,7 +17,6 @@ admin/doc/img/frontend/event_ajax_list_css_custom.jpg -text svneol=unset#image/j
 admin/doc/img/index.html svneol=native#text/html
 admin/doc/index.html svneol=native#text/html
 admin/doc/readme.md -text
-admin/doc/release_notes.md -text
 admin/eventgallery.php -text
 admin/helpers/index.html -text
 admin/helpers/php_markdown_extra/index.html svneol=native#text/html
