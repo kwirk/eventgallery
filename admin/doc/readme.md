@@ -255,6 +255,15 @@ If you want to display the thumbnails beside the big image you can simply let th
 	Mail: svenbluege@gmail.com
 	Web: http://www.svenbluege.de
 
+## 2.6.2
+
+	- New Features
+		- ajax list: thumbs are configurable
+		- configuration to show/hide exif
+
+	- Bug fixes
+
+
 ## 2.6.1
 
 	- New Features
