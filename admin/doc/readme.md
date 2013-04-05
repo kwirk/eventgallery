@@ -258,8 +258,8 @@ If you want to display the thumbnails beside the big image you can simply let th
 ## 2.6.2
 
 	- New Features
-		- ajax list: thumbs are configurable
-		- configuration to show/hide exif
+		- ajax list: thumb size is configurable
+		- configuration to show/hide exif information in descriptions
 
 	- Bug fixes
 
