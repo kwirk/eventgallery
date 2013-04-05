@@ -164,7 +164,7 @@ window.addEvent("domready", function(){
 
 
 		// create form
-		var formContainer = new Element('div', {
+		var formContainer = new Element('form', {
 
 		});
 
@@ -192,13 +192,13 @@ window.addEvent("domready", function(){
 					formContainer.dispose();
 					e.preventDefault();
 
-				}
+				}.bind(this)
 			}
 		});
 
 		var buttonSave = new Element('button', {
 			text: '<?php echo JText::_('COM_EVENTGALLERY_COMMON_SAVE')?>',
-			class: 'btn btn-small',
+			class: 'btn btn-small',			
 			events: {
 				click: function(e) {
 
@@ -212,12 +212,12 @@ window.addEvent("domready", function(){
 					dataContainer.setAttribute('data-caption',inputCaption.value);
 					titleContainer.innerHTML = inputTitle.value.length>0?inputTitle.value:'<?php echo JText::_('COM_EVENTGALLERY_EVENT_FILE_TITLE')?>';
 					captionContainer.innerHTML = inputCaption.value.length>0?inputCaption.value:'<?php echo JText::_('COM_EVENTGALLERY_EVENT_FILE_CAPTION')?>';
-					console.log("x"+inputTitle.value.length+"x");
+					//console.log("x"+inputTitle.value.length+"x");
 					titleContainer.setStyle('display','block');
 					captionContainer.setStyle('display','block');
 					formContainer.dispose();
 					e.preventDefault();
-				}
+				}.bind(this)
 			}
 		});
 
