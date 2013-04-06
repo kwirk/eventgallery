@@ -59,7 +59,8 @@ var LazyLoad = new Class({
 					return true;
 				} else {
 					//el.set('src',el.get('longdesc')); 
-					el.setStyle('background-image','url('+el.get('longdesc')+')'); 
+					
+					el.setStyle('background-image','url("'+el.get('longdesc')+'")'); 
 					this.fireEvent('load',[el]);
 				}			
 			}
@@ -75,7 +76,7 @@ var LazyLoad = new Class({
 					if((cpos + this.options.range + this.containerDimension) >= el.getPosition(offset)[axis]) {
 						if (el.get('longdesc')) {
 							//el.set('src',el.get('longdesc')); 
-							el.setStyle('background-image','url('+el.get('longdesc')+')'); 
+							el.setStyle('background-image','url("'+el.get('longdesc')+'")'); 
 						}
 						if(this.options.resetDimensions) {
 							el.set({ width: el.retrieve('oWidth'), height: el.retrieve('oHeight') });
