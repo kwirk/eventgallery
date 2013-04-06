@@ -21,7 +21,7 @@ class EventgalleryModelEvents extends JModelLegacy
     
     function getEntries($page = 1,$entriesPerPage=10, $tags = "")
     {
-    	
+
         $query = 'SELECT folder.*, count(1) overallCount 
         		  FROM #__eventgallery_folder folder left join #__eventgallery_file file on 
         		  		folder.folder = file.folder AND folder.published=1 AND file.published=1                         
@@ -68,8 +68,25 @@ class EventgalleryModelEvents extends JModelLegacy
 		
 		
 		// remove all non matching entries
-		$tags = explode(',',$tags);
-		array_walk($tags, 'trim');
+
+        // handle space and comma separated lists like "foo bar" or "foo, bar"
+
+        
+
+		$tempTags = explode(',',str_replace(" ", ",", $tags));        
+		array_walk($tempTags, 'trim');
+        
+        $tags = Array();
+
+        foreach($tempTags as $tag)
+        {
+            
+            if(strlen($tag)>0)
+            {
+                array_push($tags,$tag);
+                
+            }
+        }        
 		
 		$regex = "/(".implode($tags,'|').")/i";
 		
