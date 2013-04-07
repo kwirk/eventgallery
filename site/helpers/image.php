@@ -96,7 +96,7 @@
 			JDEBUG ? $_PROFILER->mark('afterInitialise') : null;
 
 			// Route the application.
-			$app->route();
+			//$app->route();
 
 			// Mark afterRoute in the profiler.
 			JDEBUG ? $_PROFILER->mark('afterRoute') : null;
