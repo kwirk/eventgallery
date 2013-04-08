@@ -1,4 +1,4 @@
-# Event Gallery Intro
+# Event Gallery Intro {#Intro}
 
 It's time to introduce a new gallery component for Joomla. I guess you're already waiting for something like this since there is a real lack of such kind of components ;-)
 Initially I build this component to show photos of different events to the audience. To where other components have folders this component calls them events. Because of this this component is called Event Gallery. 
@@ -27,7 +27,7 @@ Let's list all the features this gallery component provides:
 - **tags** - you can assign tags to an event and use them to show events with specific tags in your event list only. 
 - **responsive support** - the size of a image list changes, it'll recalculate the image layout to fit into the new page width
 
-# Link to the component
+# Link to the component {#LinkIt}
 
 Creating links to the component is simple. Open the menu manager, create a new menu item and select the right view. The name of the component you want to link to is _Eventgallery_ so choose the right section and the available targets will appear. 
 
@@ -127,7 +127,7 @@ You can arrange the events within the following menu structure:
 
 
 
-# Manage Events
+# Manage Events {#Manage}
 
 The first page you see is the events page. You can manage your events here. Aside of creating a new event you can set an event offline/online, upload files, open the file list and open the edit view. In addition there are two more buttons in the toolbar:
 
@@ -142,7 +142,7 @@ The first page you see is the events page. You can manage your events here. Asid
 ![Events page](img/backend/page_events.jpg)
 
 
-## Edit Event
+## Edit Event {#EditEvent}
 
 The view let's you edit the details of an event. 
 
@@ -185,7 +185,7 @@ The view let's you edit the details of an event.
 ![Event page](img/backend/page_event_edit.jpg)
 
 
-## Manage Files
+## Manage Files {#ManageFiles}
 
 Once you created your event and uploaded some photos you may want to manage those files. Here is the right place for it. On this page you can sort, delete and modify the status of an image. If you want to change the title or the description of an image just click on "Title" or "Description" and enter your data to the two fields which appear. Hit the save button to store it in the database.
 
@@ -208,11 +208,11 @@ The status of an photo can be changed by the button in the status column. By usi
 
 ![Event page](img/backend/page_event_files.jpg)
 
-## Manage Comments
+## Manage Comments {#ManageComments}
 
 Once somebody added a comment to an image this comment will appear here. You can filter the comments by several attributes, edit and remove them. 
 
-# Configuration options
+# Configuration options {#configuration}
 
 There are only a few things globally manageable. 
 
@@ -230,26 +230,26 @@ There are only a few things globally manageable.
 
 ![Configuration options](img/backend/configuration.jpg)
 
-# Extend
+# Extend {#Extend}
 
 This section is intended to provide some help with customizations. 
 
-### Modify Ajax List
+### Modify Ajax List {#ExtensAjaxList}
 
 If you want to display the thumbnails beside the big image you can simply let them float the way you need them. 
 
 ![Switch from two rows to two columns](img/frontend/event_ajax_list_css_custom.jpg)
 
-# FAQ 
+# FAQ {#FAQ}
 
-## Thumbs do not show up
+## Thumbs do not show up {#FAQThumbs}
 
 - Error 500: php memory size too low. I have good experience with 128M. Depends on the size of your images
 - javascript error occured which prevents the whole site from executing javascript. Without javascript it no image will appear.
 - do not use special characters in your file names like Umlaute, +, or things like this. Make your file names safe for the web.
 - Error 500: the php function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
 
-# Event Gallery Release Notes
+# Event Gallery Release Notes {#Release Notes}
 
 	Author: Sven Bluege
 	Mail: svenbluege@gmail.com
@@ -260,8 +260,11 @@ If you want to display the thumbnails beside the big image you can simply let th
 	- New Features
 		- ajax list: thumb size is configurable
 		- configuration to show/hide exif information in descriptions
+		- you can target (and therefore hide) each button of the navigation bar on the single image page using CSS
 
 	- Bug fixes
+		- tag support: menu item for the event list can define a comma or space separated list of tags
+
 
 
 ## 2.6.1
