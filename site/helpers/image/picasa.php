@@ -75,7 +75,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 		}
 		// css verschiebung berechnen
 		
-    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url('.$this->getThumbUrl($width,$height,true,false).');background-position: '.$posX.'px '.$posY.'px;" alt="" />';
+    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url(\''.$this->getThumbUrl($width,$height,true,false).'\');background-position: '.$posX.'px '.$posY.'px;" alt="" />';
     }
     
     public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
@@ -90,7 +90,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 			$posY = ceil( ($height - $thumbWinner) / 2);
 		} 
 		
-    	return '<img class="'.$cssClass.'" width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url('.$this->getThumbUrl($width,$height,true,$crop).');background-position: '.$posX.'px '.$posY.'px;" alt="" />';
+    	return '<img class="'.$cssClass.'" width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');background-position: '.$posX.'px '.$posY.'px;" alt="" />';
     }
     
     public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {

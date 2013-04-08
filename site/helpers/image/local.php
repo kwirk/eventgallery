@@ -24,12 +24,12 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    
 	    public function getFullImgTag($width=104,  $height=104) {
 	    	
-	    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-repeat:no-repeat; background-image:url('.$this->getThumbUrl($width,$height,false,true).');" alt="" />';
+	    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,false,true).'\');" alt="" />';
 	    	
 	    }
 	    
 	    public function getThumbImgTag($width=104,  $height=104, $cssClass="") {
-	    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url('.$this->getThumbUrl($width,$height).');" alt="" class="'.$cssClass.'"/>';
+	    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url(\''.$this->getThumbUrl($width,$height).'\');" alt="" class="'.$cssClass.'"/>';
 	    }
 	    
 	    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {
