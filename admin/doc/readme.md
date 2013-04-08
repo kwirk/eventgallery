@@ -27,6 +27,24 @@ Let's list all the features this gallery component provides:
 - **tags** - you can assign tags to an event and use them to show events with specific tags in your event list only. 
 - **responsive support** - the size of a image list changes, it'll recalculate the image layout to fit into the new page width
 
+# Videos {#Videos} 
+
+The following videos will give you a quick introduction of how to set up this component.
+
+Install
+
+<iframe width="420" height="315" src="http://www.youtube.com/embed/f57CA0g08BI?rel=0" frameborder="0" allowfullscreen></iframe>
+
+Create Events
+
+<iframe width="420" height="315" src="http://www.youtube.com/embed/Dcs_baW5x_0?rel=0" frameborder="0" allowfullscreen></iframe>
+
+Create Menu Items
+
+<iframe width="420" height="315" src="http://www.youtube.com/embed/LaoPdMg5pgc?rel=0" frameborder="0" allowfullscreen></iframe>
+
+
+
 # Link to the component {#LinkIt}
 
 Creating links to the component is simple. Open the menu manager, create a new menu item and select the right view. The name of the component you want to link to is _Eventgallery_ so choose the right section and the available targets will appear. 
@@ -249,7 +267,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 - do not use special characters in your file names like Umlaute, +, or things like this. Make your file names safe for the web.
 - Error 500: the php function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
 
-# Event Gallery Release Notes {#Release Notes}
+# Event Gallery Release Notes {#ReleaseNotes}
 
 	Author: Sven Bluege
 	Mail: svenbluege@gmail.com

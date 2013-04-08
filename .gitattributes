@@ -28,6 +28,7 @@ admin/language/en-GB/index.html -text
 admin/language/index.html -text
 admin/media/css/eventgallery.css svneol=native#text/css
 admin/media/css/index.html svneol=native#text/html
+admin/media/css/manual.css svneol=native#text/css
 admin/media/img/icons.png -text svneol=unset#image/png
 admin/media/img/index.html svneol=native#text/html
 admin/media/img/source/buttons.psd -text
@@ -101,6 +102,7 @@ admin/views/upload/tmpl/index.html -text
 admin/views/upload/view.html.php -text
 /eventgallery.xml -text
 /index.html svneol=native#text/html
+plugins/eventgallery_help.zip -text svneol=unset#application/x-zip-compressed
 site/controller.php -text
 site/controllers/Checkout.php -text
 site/controllers/Rest.php -text
