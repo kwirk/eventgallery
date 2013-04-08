@@ -113,7 +113,7 @@ defined('_JEXEC') or die('Restricted access');
 			    </div>	
 			</td>
 			<td>
-				<span class="description" data-title="<?php echo htmlentities($row->title); ?>" data-caption="<?php echo htmlentities($row->caption); ?>" data-id="<?php echo $row->id ?>">
+				<span class="description" data-title="<?php echo htmlspecialchars($row->title, ENT_COMPAT, 'UTF-8'); ?>" data-caption="<?php echo htmlspecialchars($row->caption, ENT_COMPAT, 'UTF-8'); ?>" data-id="<?php echo $row->id ?>">
 					<div class="title-content">
 						<?php echo strlen($row->title)>0?$row->title:JText::_('COM_EVENTGALLERY_EVENT_FILE_TITLE'); ?>
 					</div>
