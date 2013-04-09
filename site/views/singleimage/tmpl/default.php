@@ -111,8 +111,8 @@ defined('_JEXEC') or die('Restricted access');
 <div id="singleimage">
 	
 
-	<h4><?php echo JHTML::date($this->model->folder->date) ?></h4>
-	<h1><?php echo $this->model->folder->description ?></h1>
+	<h4 class="date"><?php echo JHTML::date($this->model->folder->date) ?></h4>
+	<h1 class="description"><?php echo $this->model->folder->description ?></h1>
 	
 	<a name="image"></a>
 

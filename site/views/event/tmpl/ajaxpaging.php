@@ -68,13 +68,13 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						<?php foreach($this->entries as $entry) :?>
 			
 							<?php IF ($pageCount == 1 && $imageCount == 0): ?>
-								<h4>
+								<h4 class="date">
 									<?php echo JHTML::Date($this->folder->date);?>
 								</h4>
-								<h1>
+								<h1 class="description">
 									<?php echo $this->folder->description; ?>
 								</h1>
-								<div>	
+								<div class="text">	
 									<?php echo $this->folder->text; ?>
 								</div>
 							<?php ENDIF; ?>				

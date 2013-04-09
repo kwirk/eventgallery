@@ -75,13 +75,13 @@ defined('_JEXEC') or die('Restricted access');
 <?php include 'components/com_eventgallery/views/cart.php'; ?>
 
 <div id="event">
-	<h4>
+	<h4 class="date">
 		<?php echo JHTML::Date($this->folder->date);?>
 	</h4>
-	<h1>
+	<h1 class="description">
 		<?php echo $this->folder->description; ?>
 	</h1>
-	<div>
+	<div class="text">
 		<?php echo $this->folder->text; ?>
 	</div>
 	
