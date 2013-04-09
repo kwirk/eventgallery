@@ -69,6 +69,9 @@ There are several views available:
 	- _Event_: the event you want to display
 
 	Advanced Options
+	- _show exif_ If EXIF information for an image are available this toggle switches them on or off. 
+	- _show date_ You can toggle the appearance of the date for the events show within this menu item	
+	- _Height of the thumbnails_ Defines the height of the thumbnails in the navigation bar.
 	- _Number of thumbs per page_ defines how many thumbs you want to see on a page
 	- _Number of thumbs on first page_ defines how many thumbs you want to see on the first page. Since there might be some additional text this number can be smaller than on other pages.
 
@@ -80,6 +83,9 @@ There are several views available:
 	- _Event_: the event you want to display
 
 	Advanced Options
+	- _show exif_ If EXIF information for an image are available this toggle switches them on or off. 
+	- _show date_ You can toggle the appearance of the date for the events show within this menu item
+	- _show hits_ I you use local images each visit of a single image page will be counted as a hit. This toggle switches the visibility of the current hit counter on or off.
 	- _Height of the thumbnails_ defines the initial height of each row in the grid in pixel.
 	- _Height jitter_ defines the maximum amount of pixel the row height can vary.
 	- _Height of the first thumbnails_ defines the height in rows of the first photo in the list.
@@ -92,6 +98,8 @@ There are several views available:
 	- _Event_: the event you want to display
 
 	Advanced Options
+	- _show exif_ If EXIF information for an image are available this toggle switches them on or off. 
+	- _show date_ You can toggle the appearance of the date for the events show within this menu item
 	- _Height of the thumbnails_ defines the initial height of each row in the grid in pixel.
 	- _Height jitter_ defines the maximum amount of pixel the row height can vary.
 	- _Height of the first thumbnails_ defines the height in rows of the first photo in the list.
@@ -114,6 +122,12 @@ There are several views available:
 	- _Max middle events_ how many of the events should we show medium sized?
 	- _Show Thumbnails_ guess what...
 	- _show more link_ Show a link to the simple list where show all the available events. 
+	- _show exif_ If EXIF information for an image are available this toggle switches them on or off. 
+	- _show date_ You can toggle the appearance of the date for the events show within this menu item
+	- _show hits_ I you use local images each visit of a single image page will be counted as a hit. This toggle switches the visibility of the current hit counter on or off.
+	- _show image count_ Defines to display the overall number if images for an event on the events list
+	- _show comment count_ Defines to display the overall number if comments for an image on the events list
+
 
 	![Create a new menu item](img/backend/create_menu_item_advanced_options.jpg)
 - Events - Simple List
@@ -166,11 +180,11 @@ The view let's you edit the details of an event.
 
 - Folder
 
-	Specifies the folders name. If you want to add a Google picasa album, use this syntax user@albumid. Avoid special characters in the folder name. Any name containing an @ will be interpreted as a picasa album. 
+	Specifies the folders name. If you want to add a Google Picasa album, use this syntax user@albumid. Avoid special characters in the folder name. Any name containing an @ will be interpreted as a Picasa album. 
 	
 - Picasa Key
 
-	If you want to include a picasa album which is not public but accessible using a special picasa key, then add this key here. In case you pulled the URL from Google Plus prefix it with `Gv1sRg`. Otherwise the album will not appear. 
+	If you want to include a Picasa album which is not public but accessible using a special Picasa key, then add this key here. In case you pulled the URL from Google Plus prefix it with `Gv1sRg`. Otherwise the album will not appear. 
 
 - Password
 
@@ -262,10 +276,11 @@ If you want to display the thumbnails beside the big image you can simply let th
 
 ## Thumbs do not show up {#FAQThumbs}
 
-- Error 500: php memory size too low. I have good experience with 128M. Depends on the size of your images
-- javascript error occured which prevents the whole site from executing javascript. Without javascript it no image will appear.
+- Error 500: PHP memory size too low. I have good experience with 128M. Depends on the size of your images
+- JavaScript error occurred which prevents the whole site from executing JavaScript. Without JavaScript it no image will appear.
 - do not use special characters in your file names like Umlaute, +, or things like this. Make your file names safe for the web.
-- Error 500: the php function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
+- Error 500: the PHP function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
+- MooTools JavaScript library is not available
 
 # Event Gallery Release Notes {#ReleaseNotes}
 
