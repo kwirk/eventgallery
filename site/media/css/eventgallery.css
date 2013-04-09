@@ -10,13 +10,33 @@
 	margin-right: 0px;	
 }
 
+#events .item-container {
+
+	float: left;
+	width: 50%;	
+	max-width: 450px;
+	padding: 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;	
+}
+
+#events .item-container-middle {
+	width: 33.333333%;
+	padding: 20px;
+}
+
+#events .item-container-middle:hover {
+	background-color: rgba(129 ,129,129,0.5);
+}
+
 #events .item {		
-	width: 320px;
 	float:left;
 	padding: 0px;
 	margin: 0px;
 	cursor: hand;
 	margin-bottom: 0px;
+	width:100%;
 }
 
 #events .item_first {
