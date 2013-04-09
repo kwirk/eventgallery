@@ -282,6 +282,8 @@ If you want to display the thumbnails beside the big image you can simply let th
 
 	- Bug fixes
 		- tag support: menu item for the event list can define a comma or space separated list of tags
+		- fixed issue with the loading image on very small screens on the single image page
+		- fixed encoding issues for event text, file title and file description 
 
 
 
