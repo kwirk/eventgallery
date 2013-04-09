@@ -18,7 +18,7 @@ var JSGallery2 = new Class({
 		'prev_image': 'prev_image.png',
 		'showCartButton' : true,
 		'activeClass': 'thumbnail-active', // the css class for the active thumbnail
-		'loadingClass': 'thumbnail-loading', // the css class for the loading thumbnail
+		'loadingClass': 'thumbnail-loading' // the css class for the loading thumbnail
 	},
 	/**
 	 *	Constructor. Starts up the whole thing :-)
@@ -140,7 +140,7 @@ var JSGallery2 = new Class({
 			},
 			'styles': {
 				'right': '0px', 
-				'background-image': 'url(' + this.options.next_image + ')',
+				'background-image': 'url(' + this.options.next_image + ')'
 			}
 		});
 		this.prevLink.setStyle('left', 0);
@@ -583,7 +583,7 @@ var JSGallery2 = new Class({
 
 		var myAnchor = new Element('a', {
 		    href: '#',		    
-		    html: currentPageNumber+1,		    
+		    html: currentPageNumber+1
 		});
 
 
@@ -594,7 +594,7 @@ var JSGallery2 = new Class({
 
 		var myListItem = new Element('li', {
 			'class': 'count',
-			id: 'count'+currentPageNumber,
+			id: 'count'+currentPageNumber
 		});
 		        
 		countHandle.grab(myListItem.grab(myAnchor));

@@ -158,6 +158,12 @@
 	padding-left: 10px;
 }
 
+.thumbnail img.lazyme,
+.cart-item img,
+.ajaxpaging .thumbs .thumbnail img {
+	/* IE8 fix to show images*/
+	max-width: none;
+}
 
 /* Event - Default */
 

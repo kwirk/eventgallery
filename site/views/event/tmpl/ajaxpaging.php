@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				'next_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>',
 				'zoom_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
 				'titleTarget': 'bigImageDescription',
-				'showCartButton' : <?php echo $this->folder->cartable==1?'true':'false'; ?>,
+				'showCartButton' : <?php echo $this->folder->cartable==1?'true':'false'; ?>
 			});
 		
 	});

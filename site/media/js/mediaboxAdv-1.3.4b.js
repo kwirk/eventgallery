@@ -1040,9 +1040,10 @@ var Mediabox;
 			var pRatio = preload.width/preload.height;
 			preload.width= ((mediaHeight-bottomHeight)*pRatio)-(2*margin);
 			preload.setStyle("display","block");
-			preload.setStyle("margin","auto");			
-			caption.setStyle("width",image.getStyle("width")-margin);
-			title.setStyle("width", image.getStyle("width")-margin);
+			preload.setStyle("margin","auto");	
+
+			caption.setStyle("width",image.getStyle("width").toInt()-margin);
+			title.setStyle("width", image.getStyle("width").toInt()-margin);
 		}
 		
 		if (mediaHeight >= top+top) { mTop = -top } else { mTop = -(mediaHeight/2) };

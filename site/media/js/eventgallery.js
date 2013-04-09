@@ -7,7 +7,7 @@
 		Implements: [Options],
 		
 		options: {
-			maxImageHeight: 800,
+			maxImageHeight: 800
 		},		
 
 		initialize: function(image, index, options){
@@ -382,7 +382,7 @@
 			removeUrl :  "",
 			add2cartUrl : "",
 			getCartUrl: "",
-			removeLinkTitle : "Remove",
+			removeLinkTitle : "Remove"
 	
 		},
 		

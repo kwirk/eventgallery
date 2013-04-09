@@ -31,7 +31,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				'removeUrl' :  "<?php echo JRoute::_("index.php?view=rest&task=removefromcart&format=raw", true); ?>".replace(/&amp;/g, '&'),
 				'add2cartUrl' : "<?php echo JRoute::_("index.php?view=rest&task=add2cart&format=raw", true); ?>".replace(/&amp;/g, '&'),
 				'removeLinkTitle' : "<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_REMOVE')?>",
-				'getCartUrl' : "<?php echo JRoute::_("index.php?view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&'),
+				'getCartUrl' : "<?php echo JRoute::_("index.php?view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&')
 			};
 
 			var eventgalleryCart = new EventgalleryCart(options);
