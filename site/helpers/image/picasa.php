@@ -46,7 +46,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 			$caption .= '<span class="img-caption img-caption-part1">'.$this->caption.'</span>';			
 		}
 
-		if ($showExif && isset($this->exif)) {
+		if ($showExif && isset($this->exif) && strlen($this->exif->model)>0 && strlen($this->exif->focallength)>0 && strlen($this->exif->fstop)>0) {
 			$exif = '<span class="img-exif">'.$this->exif->model.", ".$this->exif->focallength." mm, f/".$this->exif->fstop.", ISO ".$this->exif->iso."</span>";				
 			if (!strpos($caption, "::")) {
 				$caption .= "::";
@@ -75,7 +75,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 		}
 		// css verschiebung berechnen
 		
-    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url(\''.$this->getThumbUrl($width,$height,true,false).'\');background-position: '.$posX.'px '.$posY.'px;" alt="" />';
+    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,true,false).'\');background-position: 50% 50%;" alt="" />';
     }
     
     public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
@@ -90,7 +90,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 			$posY = ceil( ($height - $thumbWinner) / 2);
 		} 
 		
-    	return '<img class="'.$cssClass.'" width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');background-position: '.$posX.'px '.$posY.'px;" alt="" />';
+    	return '<img class="'.$cssClass.'" width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');background-position: 50% 50%;" alt="" />';
     }
     
     public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {
@@ -107,7 +107,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 								    	width="'.$width.'" 
 								    	longdesc="'.$this->getThumbUrl($width,$height).'"
 								    	src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif"
-								    	style="background-position:'.$posX.'px '.$posY.'px"
+								    	style="background-position: 50% 50%; background-repeat:no-repeat;"
 										alt=""
 					    			/>';
 		

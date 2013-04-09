@@ -69,7 +69,7 @@ $cache = & JFactory::getCache();
 					
 				<?php ELSE:?>
 					<div class="item-container item-container-middle">    
-						<div class="item" onClick="document.location.href='<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>'">
+						<a class="item" href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>">
 							<div class="content">				
 								<?php IF($this->params->get('show_date')==0):?><div class="date"><?php echo JHTML::Date($this->entry->date)?></div><?php ENDIF ?>
 								<div class="title"><?php echo $this->entry->description;?></div>
@@ -91,7 +91,7 @@ $cache = & JFactory::getCache();
 								<?php IF ($this->params->get('use_comments')==1 && isset($this->entry->commentCount) && $this->params->get('show_commentcount',1)==1):?><div class="comment"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_COMMENTCOUNT') ?> <?php echo $this->entry->commentCount;?></div><?php ENDIF ?>
 							</div>
 							<div class="contentfooter"></div>
-						</div>
+						</a>
 					</div>
 				<?php ENDIF?>
 					    
