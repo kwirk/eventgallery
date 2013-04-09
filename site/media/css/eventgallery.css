@@ -380,7 +380,7 @@
 	min-height: 500px;
 	background-image: url(../images/loading.gif);
 	background-repeat: no-repeat;
-	background-position: 30% 50%;
+	background-position: 30% 10px;
 }
 
 #singleimage .thumbnail > img {
