@@ -123,11 +123,19 @@ class EventgalleryViewResizeimage extends JViewLegacy
             $orig_height = imagesy($im_original);
             $orig_ratio = imagesx($im_original)/imagesy($im_original);
 
-
 			// create canvas/border image
   			if ($height<0 && $width<0) {
   				$height = 100;
   				$width = 100;
+  			}
+
+  			//adjust height to not enlarge images
+  			if ($width>$orig_width) {
+  				$width = $orig_width;
+  			}
+
+  			if ($height>$orig_height) {
+  				$height = $orig_height;
   			}
 
         	
@@ -198,4 +206,3 @@ class EventgalleryViewResizeimage extends JViewLegacy
 	}
 
 }
-?>
