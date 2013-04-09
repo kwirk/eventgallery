@@ -85,7 +85,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 							<div class="thumbnail" id="image<?php echo $imageCount++;?>">				
 								 <a longdesc="<?php echo $entry->getImageUrl(null, null, true);?>" 
 									 href="<?php echo $entry->getImageUrl(null, null, true);?>"
-									 title="<?php echo htmlentities($entry->getPlainTextTitle()); ?>"
+									 title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8'); ?>"
 								     rel="<?php echo $entry->getImageUrl(1100, 1100, false, false); ?>"
 								     data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
 								     data-description="<?php echo JHTML::Date($this->folder->date).' - '.$this->folder->description."&lt;br /&gt; ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE')." $imageCount ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')." $this->entriesCount" ?>
