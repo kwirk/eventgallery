@@ -68,9 +68,11 @@ defined('_JEXEC') or die('Restricted access'); ?>
 						<?php foreach($this->entries as $entry) :?>
 			
 							<?php IF ($pageCount == 1 && $imageCount == 0): ?>
-								<h4 class="date">
-									<?php echo JHTML::Date($this->folder->date);?>
-								</h4>
+								<?php IF($this->params->get('show_date',1)==1):?>
+									<h4 class="date">
+										<?php echo JHTML::Date($this->folder->date);?>
+									</h4>
+								<?php ENDIF ?>
 								<h1 class="description">
 									<?php echo $this->folder->description; ?>
 								</h1>
@@ -88,7 +90,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 									 title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8'); ?>"
 								     rel="<?php echo $entry->getImageUrl(1100, 1100, false, false); ?>"
 								     data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
-								     data-description="<?php echo JHTML::Date($this->folder->date).' - '.$this->folder->description."&lt;br /&gt; ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE')." $imageCount ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')." $this->entriesCount" ?>
+								     data-description="<?php if($this->params->get('show_date',1)==1) {echo JHTML::Date($this->folder->date).' - ';} echo $this->folder->description."&lt;br /&gt; ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE')." $imageCount ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')." $this->entriesCount" ?>
 										<br /><?php echo rawurlencode($entry->getTitle()); ?>"				  
 									 data-title="<?php echo rawurlencode($entry->getLightBoxTitle()); ?>"
 									 >

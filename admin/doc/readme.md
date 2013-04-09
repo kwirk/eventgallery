@@ -170,7 +170,7 @@ The view let's you edit the details of an event.
 	
 - Picasa Key
 
-	If you want to include a picasa album which is not public but accessible using a special picasa key, then add this key here.
+	If you want to include a picasa album which is not public but accessible using a special picasa key, then add this key here. In case you pulled the URL from Google Plus prefix it with `Gv1sRg`. Otherwise the album will not appear. 
 
 - Password
 
@@ -279,6 +279,8 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- ajax list: thumb size is configurable
 		- configuration to show/hide exif information in descriptions
 		- you can target (and therefore hide) each button of the navigation bar on the single image page using CSS
+		- added css classes to access date, text to style date, description and text of an event individually.
+		- added toggle for date, image hits, image count, comment count for each menu item
 
 	- Bug fixes
 		- tag support: menu item for the event list can define a comma or space separated list of tags

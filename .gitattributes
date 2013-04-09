@@ -254,7 +254,6 @@ site/views/singleimage/index.html -text
 site/views/singleimage/tmpl/default.php -text
 site/views/singleimage/tmpl/default_commentform.php -text
 site/views/singleimage/tmpl/default_comments.php -text
-site/views/singleimage/tmpl/default_thumb.php -text
 site/views/singleimage/tmpl/index.html -text
 site/views/singleimage/view.html.php -text
 tests/data/images/20111008_155119_IMG_0559.jpg -text svneol=unset#image/jpeg

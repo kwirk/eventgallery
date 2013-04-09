@@ -28,11 +28,11 @@ $cache = & JFactory::getCache();
 					<a class="item item_first" href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>">
 						<div class="content">				
 							<div class="data">
-								<div class="date"><?php echo JHTML::Date($this->entry->date);?></div>
+								<?php IF($this->params->get('show_date',1)==1):?><div class="date"><?php echo JHTML::Date($this->entry->date);?></div><?php ENDIF ?>
 								<div class="title"><?php echo $this->entry->description;?></div>
 								<div class="text"><?php echo $this->entry->text;?></div>
-								<div class="comment"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_IMAGECOUNT') ?> <?php echo $this->entry->overallCount;?></div>					
-								<?php IF ($this->params->get('use_comments')==1 && isset($this->entry->commentCount)):?><div class="comment"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_COMMENTCOUNT') ?> <?php echo $this->entry->commentCount;?></div><?php ENDIF ?>
+								<?php IF($this->params->get('show_imagecount',1)==1):?><div class="imagecount"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_IMAGECOUNT') ?> <?php echo $this->entry->overallCount;?></div><?php ENDIF ?>				
+								<?php IF ($this->params->get('use_comments')==1 && isset($this->entry->commentCount) && $this->params->get('show_commentcount',1)==1):?><div class="comment"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_COMMENTCOUNT') ?> <?php echo $this->entry->commentCount;?></div><?php ENDIF ?>
 							</div>
 							
 							<div class="images">
@@ -72,7 +72,7 @@ $cache = & JFactory::getCache();
 				    
 					<div class="item" onClick="document.location.href='<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>'">
 						<div class="content">				
-							<div class="date"><?php echo JHTML::Date($this->entry->date)?></div>
+							<?php IF($this->params->get('show_date')==0):?><div class="date"><?php echo JHTML::Date($this->entry->date)?></div><?php ENDIF ?>
 							<div class="title"><?php echo $this->entry->description;?></div>
 							
 							<?php IF ($this->params->get('show_thumbnails',true) && $count>=$this->params->get('max_big_events',9999) && $count <$this->params->get('max_big_events',9999)+$this->params->get('max_middle_events',0)): ?>

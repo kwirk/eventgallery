@@ -96,6 +96,7 @@
 	margin: 0px 10px;
 }
 
+#events .item .imagecount,
 #events .item .comment,
 #events .item .text {
 	font-weight: bold;

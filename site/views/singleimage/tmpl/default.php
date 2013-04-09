@@ -110,9 +110,14 @@ defined('_JEXEC') or die('Restricted access');
 
 <div id="singleimage">
 	
-
-	<h4 class="date"><?php echo JHTML::date($this->model->folder->date) ?></h4>
-	<h1 class="description"><?php echo $this->model->folder->description ?></h1>
+	<?php IF($this->params->get('show_date',1)==1):?>
+		<h4 class="date">
+			<?php echo JHTML::date($this->model->folder->date) ?>
+		</h4>
+	<?php ENDIF ?>
+	<h1 class="description">
+		<?php echo $this->model->folder->description ?>
+	</h1>
 	
 	<a name="image"></a>
 
@@ -146,7 +151,7 @@ defined('_JEXEC') or die('Restricted access');
 			<a href="#" class="btn button-add2cart eventgallery-add2cart" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" data-id="folder=<?php echo $this->model->file->folder."&file=".$this->model->file->file ?>"><i class="icon-cart-small"></i></a>
 		<?php ENDIF ?>
 
-		<?php IF (isset($this->model->file->hits)): ?>		
+		<?php IF (isset($this->model->file->hits) && $this->params->get('show_imagehits',1)==1): ?>		
 			<div  class="btn singleimage-hits"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_HITS') ?> <?php echo $this->model->file->hits?></div>
 		<?php ENDIF ?>
 	</div>

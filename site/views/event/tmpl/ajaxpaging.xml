@@ -24,6 +24,10 @@
 			  <option value="1">JYES</option>
 			  <option value="0">JNO</option>
 			</field>
+			<field name="show_date" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_DATE_DESC">
+			  <option value="1">JYES</option>
+			  <option value="0">JNO</option>
+			</field>
 			<field name="event_ajax_list_thumbnail_size" type="integer" first="25" last="500" step="1" default="75" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_SIZE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_SIZE_DESC"/>
 			<field name="event_ajax_list_number_of_thumbnail_on_first_page" id="event_ajax_list_number_of_thumbnail_on_first_page" type="integer" first="1" last="100" step="1" default="11" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_PAGE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_PAGE_DESC"/>
 			<field name="event_ajax_list_number_of_thumbnail_per_page" id="event_ajax_list_number_of_thumbnail_per_page" type="integer" first="1" last="100" step="1" default="22" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_FIRSTPAGE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_FIRSTPAGE_DESC" />

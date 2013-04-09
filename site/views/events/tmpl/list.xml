@@ -58,6 +58,22 @@
 			  <option value="1">JYES</option>
 			  <option value="0">JNO</option>
 			</field>
+			<field name="show_date" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_DATE_DESC">
+			  <option value="1">JYES</option>
+			  <option value="0">JNO</option>
+			</field>
+			<field name="show_imagecount" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_IMAGECOUNT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_IMAGECOUNT_DESC">
+			  <option value="1">JYES</option>
+			  <option value="0">JNO</option>
+			</field>
+			<field name="show_imagehits" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_IMAGEHITS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_IMAGEHITS_DESC">
+			  <option value="1">JYES</option>
+			  <option value="0">JNO</option>
+			</field>
+			<field name="show_commentcount" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_COMMENTCOUNT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_COMMENTCOUNT_DESC">
+			  <option value="1">JYES</option>
+			  <option value="0">JNO</option>
+			</field>
 		</fieldset>
 		<fieldset name="params2" label="COM_EVENTGALLERY_LAYOUT_EVENT_AJAX_LIST">
 			<field name="event_ajax_list_thumbnail_size" type="integer" first="25" last="500" step="1" default="75" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_SIZE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_SIZE_DESC"/>
