@@ -307,10 +307,16 @@ var Mediabox;
 				elrel = elrel[1];
 
 				var title = $(el).getAttribute('data-title');
+
 				if (!title) {
 					title = el.title;
 				} else {
-					title = decodeURIComponent(title);
+					try {
+						title = decodeURIComponent(title);
+					}
+					catch (err) {
+						//console.log(err)
+					}
 				}
 				return [el.getAttribute('href'), title, elrel];
 			};
