@@ -134,6 +134,7 @@ There are several views available:
 	- _Show Thumbnails_ guess what...
 	- _show more link_ Show a link to the simple list where show all the available events. 
 	- _show exif_ If EXIF information for an image are available this toggle switches them on or off. 
+	- _show event text_ Defines to show the text for an event on the event list. 
 	- _show date_ You can toggle the appearance of the date for the events show within this menu item
 	- _show hits_ I you use local images each visit of a single image page will be counted as a hit. This toggle switches the visibility of the current hit counter on or off.
 	- _show image count_ Defines to display the overall number if images for an event on the events list
