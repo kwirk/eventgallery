@@ -30,7 +30,7 @@ $cache = & JFactory::getCache();
 								<div class="data">
 									<?php IF($this->params->get('show_date',1)==1):?><div class="date"><?php echo JHTML::Date($this->entry->date);?></div><?php ENDIF ?>
 									<div class="title"><?php echo $this->entry->description;?></div>
-									<div class="text"><?php echo $this->entry->text;?></div>
+									<?php IF($this->params->get('show_text',1)==1):?><div class="text"><?php echo $this->entry->text;?></div><?php ENDIF ?>
 									<?php IF($this->params->get('show_imagecount',1)==1):?><div class="imagecount"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_IMAGECOUNT') ?> <?php echo $this->entry->overallCount;?></div><?php ENDIF ?>				
 									<?php IF ($this->params->get('use_comments')==1 && isset($this->entry->commentCount) && $this->params->get('show_commentcount',1)==1):?><div class="comment"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_COMMENTCOUNT') ?> <?php echo $this->entry->commentCount;?></div><?php ENDIF ?>
 								</div>
