@@ -71,8 +71,6 @@
 	    	
 	    	// adjust the width for goolge
 	    	var googleWidth = 32;
-	    	var normalWidth = 32;
-	    	var normalHeight = 32;
 
 	    	
 	    	this.availableSizes.each(function(item, index){
@@ -90,8 +88,6 @@
 		    		if ((widthOkay && heightOkay) || lastItem) {
 		    			
 		    				googleWidth = item;
-		    				normalWidth = googleWidth;
-		    				normalHeight = Math.round(item/ratio);
 		    			
 		    		} 
 	    		} else {
@@ -102,8 +98,6 @@
 		    		if ((widthOkay && heightOkay) || lastItem) {
 		    			
 		    				googleWidth = item;
-		    				normalHeight = googleWidth;
-		    				normalWidth = Math.round(item*ratio);
 		    			
 		    		} 
 
@@ -124,11 +118,9 @@
 	    		longDesc = "";
 	    	}
 
-	    	backgroundImageStyle = backgroundImageStyle.replace(/width=(\d*)/,'width='+normalWidth);
-	    	backgroundImageStyle = backgroundImageStyle.replace(/height=(\d*)/,'height='+normalHeight);
+	    	backgroundImageStyle = backgroundImageStyle.replace(/width=(\d*)/,'width='+googleWidth);
 	    	backgroundImageStyle = backgroundImageStyle.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
-	    	longDesc = longDesc.replace(/width=(\d*)/,'width='+normalWidth);
-	    	longDesc = longDesc.replace(/height=(\d*)/,'height='+normalHeight);
+	    	longDesc = longDesc.replace(/width=(\d*)/,'width='+googleWidth);
 	    	longDesc = longDesc.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
 	    	image.setStyle('background-image', backgroundImageStyle);
 	    	image.set('longDesc',longDesc);
@@ -140,8 +132,7 @@
 
 
 	    	image.setStyle('width', newWidth);
-	    	image.setStyle('height', newHeight);	    	
-
+	    	image.setStyle('height', newHeight);
 	    	
 	    }
 	    
@@ -282,7 +273,9 @@
 
 			/* fix for the internet explorer if width if 45.666% == 699.87px*/
 			if (window.getComputedStyle) {
-				rowWidth = Math.floor(window.getComputedStyle($$(this.options.eventgallerySelector).getLast()).width.toFloat());
+				rowWidth = Math.floor(window.getComputedStyle($$(this.options.eventgallerySelector).getLast()).width.toFloat())-1;				
+			} else {
+				rowWidth=rowWidth-1;				
 			}
 
 			return rowWidth;

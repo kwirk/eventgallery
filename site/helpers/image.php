@@ -31,40 +31,44 @@
 
 		require_once JPATH_BASE.'/includes/framework.php';
 
+
+
 		$file=JRequest::getString('file');
 		$folder=JRequest::getString('folder');
 		$width=JRequest::getInt('width',-1);
-		$height=JRequest::getInt('height',-1);
-		$mode=JRequest::getString('mode','crop');
+		$mode=JRequest::getString('mode','nocrop');
 
 
 		$file = STR_REPLACE("\.\.","",$file);
 		$folder = STR_REPLACE("\.\.","",$folder);
 		$width = STR_REPLACE("\.\.","",$width);
-		$height = STR_REPLACE("\.\.","",$height);
 		$mode = STR_REPLACE("\.\.","",$mode);
 		
 		$file = STR_REPLACE("/","",$file);
 		$folder = STR_REPLACE("/","",$folder);
 		$width = STR_REPLACE("/","",$width);
-		$height = STR_REPLACE("/","",$height);
 		$mode = STR_REPLACE("/","",$mode);
 
 		
 		$file = STR_REPLACE("\\","",$file);
 		$folder = STR_REPLACE("\\","",$folder);
 		$width = STR_REPLACE("\\","",$width);
-		$height = STR_REPLACE("\\","",$height);
 		$mode = STR_REPLACE("\\","",$mode);
 
 
 
 		//full means max size.
 		if (strcmp('full',$mode)==0)
-		{
-            $width=5000;
-            $height=5000;
+		{         
+			$mode = 'nocrop';
+			$width = 5000;
 		}
+
+		require_once JPATH_BASE.'/components/com_eventgallery/helpers/sizeset.php';	
+
+		$sizeSet = new EventgallerySizeset();
+		$saveAsSize = $sizeSet->getMatchingSize($width);
+
 
 		$basedir=JPATH_BASE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR ;
 		$sourcedir=$basedir.$folder;
@@ -73,10 +77,8 @@
 		$cachedir_thumbs=$cachebasedir.$folder.DIRECTORY_SEPARATOR.'thumbs';
 		
 		$image_file = $sourcedir.DIRECTORY_SEPARATOR.$file;
-		$image_thumb_file = $cachedir_thumbs.DIRECTORY_SEPARATOR.$mode.$width.'_'.$height.$file;
-		$last_modified = gmdate('D, d M Y H:i:s T', filemtime ($image_file));
-
-
+		$image_thumb_file = $cachedir_thumbs.DIRECTORY_SEPARATOR.$mode.$saveAsSize.$file;
+		$last_modified = gmdate('D, d M Y H:i:s T', filemtime ($image_file));		
 		
 
 		$debug = false;

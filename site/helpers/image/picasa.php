@@ -138,6 +138,10 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     	
     }
     
+    /**
+    * $crop means: use cropThumbs
+    */
+
     private function getThumbWinner ($width=104,  $height=104, $larger=true, $crop=false) {
     	
     	if ($width==0) $width=104;

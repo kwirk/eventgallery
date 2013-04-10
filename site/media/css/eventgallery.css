@@ -159,8 +159,8 @@
 }
 
 .thumbnail img.lazyme,
-.cart-item img,
-.ajaxpaging .thumbs .thumbnail img
+.cart-items .cart-item img,
+.ajaxpaging #thumbs .thumbnail img
 {
 	/* IE8 fix to show images*/
 	max-width: none;	
@@ -257,10 +257,6 @@
 	
 }
 
-.ajaxpaging .image {
-	width: 100%;
-	
-}
 .ajaxpaging .navigation {
 	overflow: hidden;
 	width: 100%;
@@ -335,8 +331,8 @@
 }
 
 .ajaxpaging .image {
-	width: 100%;
-
+	width: auto;
+	max-height: 800px;
 }
 
 .ajaxpaging #bigimageContainer {
@@ -344,6 +340,7 @@
 	position: relative;
 	display: inline;
 	width: 100%;
+	text-align: center;
 }
 
 .ajaxpaging #bigimageContainer a:hover{
@@ -351,7 +348,6 @@
 }
 
 .ajaxpaging #bigImage {
-	width: 100%;
 	
 }
 

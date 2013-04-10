@@ -88,7 +88,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 								 <a longdesc="<?php echo $entry->getImageUrl(null, null, true);?>" 
 									 href="<?php echo $entry->getImageUrl(null, null, true);?>"
 									 title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8'); ?>"
-								     rel="<?php echo $entry->getImageUrl(1100, 1100, false, false); ?>"
+								     rel="<?php echo $entry->getImageUrl(1100, 801, false, false); ?>"
 								     data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
 								     data-description="<?php if($this->params->get('show_date',1)==1) {echo JHTML::Date($this->folder->date).' - ';} echo $this->folder->description."&lt;br /&gt; ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE')." $imageCount ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')." $this->entriesCount" ?>
 										<br /><?php echo rawurlencode($entry->getTitle()); ?>"				  
