@@ -28,6 +28,16 @@ Let's list all the features this gallery component provides:
 - **responsive support** - the size of a image list changes, it'll recalculate the image layout to fit into the new page width
 - Browser Support: partly IE7+IE8, IE9, Chrome & Firefox latest versions
 
+# Requirements {#Requirements}
+
+- Images! Large Images. At least as wide as the space where you want to show them is. Bigger is better :)
+- Joomla 2.5 or Joomla 3
+- use PHP 5.4, PHP 5.3 might work too
+- set the PHP memory limit high enough
+- your Joomla Template should put jQuery into no conflict mode
+- standard Joomla Mootools have to be available.
+- your template should not produce any JavaScript errors before you install the component
+
 # Videos {#Videos} 
 
 The following videos will give you a quick introduction of how to set up this component.
