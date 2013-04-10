@@ -26,6 +26,7 @@ Let's list all the features this gallery component provides:
 - **deep links** - you can link from a menu directly to a specific event
 - **tags** - you can assign tags to an event and use them to show events with specific tags in your event list only. 
 - **responsive support** - the size of a image list changes, it'll recalculate the image layout to fit into the new page width
+- Browser Support: partly IE7+IE8, IE9, Chrome & Firefox latest versions
 
 # Videos {#Videos} 
 
@@ -281,6 +282,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 - do not use special characters in your file names like Umlaute, +, or things like this. Make your file names safe for the web.
 - Error 500: the PHP function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
 - MooTools JavaScript library is not available
+- you use space character in your folder name (fixed since 2.6.2)
 
 # Event Gallery Release Notes {#ReleaseNotes}
 
@@ -296,6 +298,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- you can target (and therefore hide) each button of the navigation bar on the single image page using CSS
 		- added css classes to access date, text to style date, description and text of an event individually.
 		- added toggle for date, image hits, image count, comment count for each menu item
+		- added compatibility for IE7 and IE8. You should at least see something now. Create your own browser specific css (http://www.webmonkey.com/2010/02/browser-specific_css_hacks/) to make it look nice with your Joomla Template. Keep in mind that I'll not start testing with IE7 and IE8 but I'll react on the defects you submit. No "not pixel perfect" bugs for those browsers please. 
 
 	- Bug fixes
 		- tag support: menu item for the event list can define a comma or space separated list of tags
