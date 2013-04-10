@@ -276,7 +276,7 @@ var JSGallery2 = new Class({
 		thumbContainer.addEvent('click', this.select.bind(this, thumbContainer)).setStyle('position', 'relative').set('counter', count);
 
 		var bigImage = thumbContainer.getFirst().set('href', 'javascript: void(0);').get('rel');
-		var fullSizeImage = thumbContainer.getFirst().get('longdesc');
+		var fullSizeImage = thumbContainer.getFirst().get('longDesc');
 		var id = thumbContainer.getFirst().get('data-id');
 		thumbContainer.addClass(this.options.loadingClass);
 	
@@ -333,8 +333,16 @@ var JSGallery2 = new Class({
 		
 		$(document.body).fireEvent('updatecartlinks');
 		
+		// IE8 fix
+		var longdesc = source.longdesc;
+		if (longdesc == undefined) {
+			longdesc = source.get('longDesc');
+		}
+		// END IE8 FIX
+
+
 		// now lets set the image
-		this.setImage(source.get('rel'), source.get('longdesc'), source.get('data-description'), source.get('data-title'));
+		this.setImage(source.get('rel'), longdesc, source.get('data-description'), source.get('data-title'));
 
 		
 	},
