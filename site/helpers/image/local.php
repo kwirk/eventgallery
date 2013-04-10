@@ -29,7 +29,7 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    }
 	    
 	    public function getThumbImgTag($width=104,  $height=104, $cssClass="") {
-	    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-image:url(\''.$this->getThumbUrl($width,$height).'\');" alt="" class="'.$cssClass.'"/>';
+	    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="width:'.$width.'px; background-image:url(\''.$this->getThumbUrl($width,$height).'\');" alt="" class="'.$cssClass.'"/>';
 	    }
 	    
 	    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {

@@ -49,7 +49,7 @@ var LazyLoad = new Class({
 		this.elements = this.elements.filter(function(el) {
 			var elPos = el.getPosition(offset)[axis];
 			/* reset image src IF the image is below the fold and range */
-			if (el.get('longdesc')) {
+			if (el.get('longDesc')) {
 				el.setStyle('opacity',0);
 				if(elPos > this.containerDimension + this.options.range) {
 					if(this.options.resetDimensions) {
@@ -58,9 +58,9 @@ var LazyLoad = new Class({
 
 					return true;
 				} else {
-					//el.set('src',el.get('longdesc')); 
+					//el.set('src',el.get('longDesc')); 
 					
-					el.setStyle('background-image','url("'+el.get('longdesc')+'")'); 
+					el.setStyle('background-image','url("'+el.get('longDesc')+'")'); 
 					this.fireEvent('load',[el]);
 				}			
 			}
@@ -74,9 +74,9 @@ var LazyLoad = new Class({
 			if(cpos > this.startPosition) {
 				this.elements = this.elements.filter(function(el) {
 					if((cpos + this.options.range + this.containerDimension) >= el.getPosition(offset)[axis]) {
-						if (el.get('longdesc')) {
-							//el.set('src',el.get('longdesc')); 
-							el.setStyle('background-image','url("'+el.get('longdesc')+'")'); 
+						if (el.get('longDesc')) {
+							//el.set('src',el.get('longDesc')); 
+							el.setStyle('background-image','url("'+el.get('longDesc')+'")'); 
 						}
 						if(this.options.resetDimensions) {
 							el.set({ width: el.retrieve('oWidth'), height: el.retrieve('oHeight') });

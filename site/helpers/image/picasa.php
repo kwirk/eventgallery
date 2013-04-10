@@ -90,7 +90,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 			$posY = ceil( ($height - $thumbWinner) / 2);
 		} 
 		
-    	return '<img class="'.$cssClass.'" width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');background-position: 50% 50%;" alt="" />';
+    	return '<img class="'.$cssClass.'" width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="width:'.$width.'px; background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');background-position: 50% 50%;" alt="" />';
     }
     
     public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {

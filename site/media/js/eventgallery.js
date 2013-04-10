@@ -119,19 +119,19 @@
 
 			// set a new background image
 	    	var backgroundImageStyle = image.getStyle('background-image');
-	    	var longdesc = image.get('longdesc');
-	    	if (!longdesc) {
-	    		longdesc = "";
+	    	var longDesc = image.get('longDesc');
+	    	if (!longDesc) {
+	    		longDesc = "";
 	    	}
 
 	    	backgroundImageStyle = backgroundImageStyle.replace(/width=(\d*)/,'width='+normalWidth);
 	    	backgroundImageStyle = backgroundImageStyle.replace(/height=(\d*)/,'height='+normalHeight);
 	    	backgroundImageStyle = backgroundImageStyle.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
-	    	longdesc = longdesc.replace(/width=(\d*)/,'width='+normalWidth);
-	    	longdesc = longdesc.replace(/height=(\d*)/,'height='+normalHeight);
-	    	longdesc = longdesc.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
+	    	longDesc = longDesc.replace(/width=(\d*)/,'width='+normalWidth);
+	    	longDesc = longDesc.replace(/height=(\d*)/,'height='+normalHeight);
+	    	longDesc = longDesc.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
 	    	image.setStyle('background-image', backgroundImageStyle);
-	    	image.set('longdesc',longdesc);
+	    	image.set('longDesc',longDesc);
 	    	image.setStyle('background-position', '50% 50%');
 	    	image.setStyle('background-repeat', 'no-repeat');
 	    	image.setStyle('display', 'block');

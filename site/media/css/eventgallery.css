@@ -160,9 +160,21 @@
 
 .thumbnail img.lazyme,
 .cart-item img,
-.ajaxpaging .thumbs .thumbnail img {
+.ajaxpaging .thumbs .thumbnail img
+{
 	/* IE8 fix to show images*/
-	max-width: none;
+	max-width: none;	
+}
+
+#event .thumbnails .thumbnail img,
+.event .thumbnails .thumbnail img,
+.cart-item .thumbnail img {
+	/* IE7 ONLY!!!*/
+	margin: 0!important;
+}
+
+.thumbnail-container a {
+	width: auto;
 }
 
 /* Event - Default */
