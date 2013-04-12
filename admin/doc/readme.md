@@ -295,21 +295,26 @@ If you want to display the thumbnails beside the big image you can simply let th
 - MooTools JavaScript library is not available
 - you use space character in your folder name (fixed since 2.6.2)
 
+## Lightbox does not work  {#Lightbox}
+
+- instead of opening an image in a lightbox it opens in a new windows: check for JavaScript errors on your page. Maybe you Joomla Template filters out MooTools, does not load jQuery in no conflic mode or is doing even worse stuff. 
+
 # Event Gallery Release Notes {#ReleaseNotes}
 
 	Author: Sven Bluege
-	Mail: svenbluege@gmail.com
+	Mail: svenbluege(at)gmail.com
 	Web: http://www.svenbluege.de
 
 ## 2.6.2
 
 	- New Features
-		- ajax list: thumb size is configurable
-		- configuration to show/hide exif information in descriptions
+		- Ajax list: thumb size is configurable
+		- configuration to show/hide EXIF information in descriptions
 		- you can target (and therefore hide) each button of the navigation bar on the single image page using CSS
-		- added css classes to access date, text to style date, description and text of an event individually.
+		- added CSS classes to access date, text to style date, description and text of an event individually.
 		- added toggle for date, image hits, image count, comment count for each menu item
 		- added compatibility for IE7 and IE8. You should at least see something now. Create your own browser specific css (http://www.webmonkey.com/2010/02/browser-specific_css_hacks/) to make it look nice with your Joomla Template. Keep in mind that I'll not start testing with IE7 and IE8 but I'll react on the defects you submit. No "not pixel perfect" bugs for those browsers please. 
+		- restricted possible thumb sizes to one of those entries {32, 48, 64, 72, 94, 104, 110, 128, 144, 150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 1024, 1152, 1280, 1440}. Each size is available as a square sized version and normal sized scaled down version. Doing this will prevent attackers from creating unlimited thumbs and exceed your web space.
 
 	- Bug fixes
 		- tag support: menu item for the event list can define a comma or space separated list of tags
@@ -330,12 +335,12 @@ If you want to display the thumbnails beside the big image you can simply let th
 	- Bug fixes
 		- fixed German language in Ajax list (Bild 1 von 10)
 		- fixed HTTP 500 caused by large log file containing for Picasa access requests. 
-		- fixed SEO urls when appending a suffix like .html to every url.
+		- fixed SEO URLs when appending a suffix like .html to every URL.
 		- fixed adding comments. 
 		- fixed enlargement of images because of JavaScript calculations
 		- fixed hiding of navigation buttons in single image view if the last / first image is shown.
 		- fixed blue background in Ajax view with J2.5 default template
-		- fixed issue with lightbox and some url encoding. Lightbox opened but no image appeared. 
+		- fixed issue with lightbox and some URL encoding. Lightbox opened but no image appeared. 
 
 
 ## 2.6.0
