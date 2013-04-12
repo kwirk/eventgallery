@@ -121,6 +121,7 @@ site/helpers/imagehelpers.php -text
 site/helpers/index.html -text
 site/helpers/medialoader.php -text
 site/helpers/sizeset.php -text
+site/helpers/vendors/class.jpeg_icc.php -text
 site/index.html -text
 site/language/de-DE/de-DE.com_eventgallery.ini -text
 site/language/en-GB/en-GB.com_eventgallery.ini -text

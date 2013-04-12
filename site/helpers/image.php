@@ -66,7 +66,7 @@
 
 		require_once JPATH_BASE.'/components/com_eventgallery/helpers/sizeset.php';	
 
-		$sizeSet = new EventgallerySizeset();
+		$sizeSet = new EventgalleryHelpersSizeset();
 		$saveAsSize = $sizeSet->getMatchingSize($width);
 
 

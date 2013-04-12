@@ -10,6 +10,7 @@ defined('_JEXEC') or die;
 
 
 jimport( 'joomla.application.component.view');
+require_once JPATH_BASE.'/components/com_eventgallery/helpers/vendors/class.jpeg_icc.php';	
 
 
 class EventgalleryViewResizeimage extends JViewLegacy
@@ -38,7 +39,7 @@ class EventgalleryViewResizeimage extends JViewLegacy
 			$width=$height;
 		}
 		
-		$sizeSet = new EventgallerySizeset();
+		$sizeSet = new EventgalleryHelpersSizeset();
 		$saveAsSize = $sizeSet->getMatchingSize($width);
 	
 
@@ -94,7 +95,6 @@ class EventgalleryViewResizeimage extends JViewLegacy
 		$debug = false;
 		if ($debug || !file_exists($image_thumb_file))
 		{
-
 		 	
 			$ext = substr($image_file, -3);
 
@@ -163,19 +163,25 @@ class EventgalleryViewResizeimage extends JViewLegacy
                 $new_height = $orig_height / $resize_faktor;
             }
         
-            
             imagecopyresampled($im_output, $im_original,
                                  ($width/2)-($new_width/2),
                                  ($height/2)-($new_height/2),
                                  0,0,
                                  $new_width,$new_height,$orig_width,$orig_height);
             
-            $sharpenMatrix = array(
-                                 array(-1,-1,-1),
-                                 array(-1,16,-1),
-                                 array(-1,-1,-1)
-                                 );
-            $divisor = 8;
+            // configure the sharpening
+            $stringSharpenMatrix = $params->get('image_sharpenMatrix','[[-1,-1,-1],[-1,-16,-1],[-1,-1,-1]]');
+
+        	$sharpenMatrix = json_decode($stringSharpenMatrix);
+        	if (null == $sharpenMatrix || count($sharpenMatrix)!=3) {
+	            $sharpenMatrix = array(
+	                                 array(-1,-1,-1),
+	                                 array(-1,16,-1),
+	                                 array(-1,-1,-1)
+	                                 );
+        	}
+
+            $divisor = array_sum(array_map('array_sum', $sharpenMatrix));
             $offset = 0;
             
             if (function_exists('imageconvolution'))
@@ -184,7 +190,17 @@ class EventgalleryViewResizeimage extends JViewLegacy
             
             }   
 
-            imagejpeg($im_output,$image_thumb_file,80);      
+            imagejpeg($im_output,$image_thumb_file,80);     
+
+            // add the ICC profile
+            try {
+	            $o = new JPEG_ICC();
+				$o->LoadFromJPEG($image_file);
+				$o->SaveToJPEG($image_thumb_file); 
+			} catch (Exception $e) {
+
+			}
+
 		}
 		
 		if (!$debug)
@@ -223,7 +239,7 @@ class SizeCalculator {
     }
 
 	private function adjustSize() {
-		$sizeSet = new EventgallerySizeset();
+		$sizeSet = new EventgalleryHelpersSizeset();
 
 		if ($this->isCrop) {
 			$this->width = $sizeSet->getMatchingSize($this->desired_width);

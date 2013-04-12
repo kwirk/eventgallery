@@ -4,24 +4,31 @@
 <fieldset name="Eventgallery" label="General">
 
 		<field 	name="adminmail" 
-				id="adminmail" 
 				type="text" 
 				default="" 
-				label="Admin-Mail" 
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_ADMINMAIL_LABEL" 
 				rows="3" 
 				cols="50" 
-				description="Email-Adresse mit Kommas getrennt." />
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_ADMINMAIL_DESCRIPTION" />
 		
 		
-		<field name="use_comments" type="radio" default="0" label="use comments" description="Use Comments">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="use_comments" type="radio" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_USECOMMENTS_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USECOMMENTS_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 
-		<field name="use_cart" type="radio" default="1" label="use cart" description="Use Cart">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+		<field name="use_cart" type="radio" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USECART_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USECART_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
+		
+		<field 	name="image_sharpenMatrix" 
+				type="text" 
+				default="[[-1,-1,-1],[-1,16,-1],[-1,-1,-1]]" 
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_SHARPINGMATRIX_LABEL" 
+				rows="1" 
+				cols="50" 
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_SHARPINGMATRIX_DESCRIPTION" />
 
 		
 </fieldset>

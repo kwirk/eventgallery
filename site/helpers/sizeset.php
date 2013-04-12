@@ -8,7 +8,7 @@
  */
 defined('_JEXEC') or die;
 
-class EventgallerySizeset {
+class EventgalleryHelpersSizeset {
 
 	var $availableSizes = Array(32,48,64,72,94,104,110,128,144,150,160,200,220,288,320,400,512,576,640,720,800,912,1024,1152,1280,1440);
 	public function getMatchingSize($size) {

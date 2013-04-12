@@ -2,12 +2,12 @@
 <extension type="component" version="3.0.0" method="upgrade">
 	<name>COM_EVENTGALLERY</name>
 	<author>Sven Blüge</author>
-	<creationDate>Feb 2013</creationDate>
+	<creationDate>April 2013</creationDate>
 	<copyright></copyright>
 	<license>GNU General Public License version 2 or later</license>
 	<authorEmail>svenbluege@gmail.com</authorEmail>
 	<authorUrl>www.svenbluege.de</authorUrl>
-	<version>2.6.1</version>
+	<version>2.6.2</version>
 	<description>COM_EVENTGALLERY_XML_DESCRIPTION</description>
 	
 	<install>
