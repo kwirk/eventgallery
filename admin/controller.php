@@ -270,7 +270,10 @@ class EventgalleryController extends JControllerLegacy
 			}
 			else {
 				$temp = $folder;
+				$description = $folder;
 			}
+
+			$description = trim(str_replace("_", " ", $description));
 			
 			$query = "insert IGNORE into #__eventgallery_folder 
 			            set folder=".$db->Quote($folder).", 
