@@ -115,10 +115,10 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 			xhr.open("POST", document.getElementById("upload").action+"?ajax=true&file="+file.name, true);
 			//xhr.setRequestHeader("X_FILENAME", file.name);
 			xhr.send(file);
-			console.log('file send.')
+			//console.log('file send.')
 
 		} else {
-			console.log("invalid file, will not try to upload it");
+			//console.log("invalid file, will not try to upload it");
 		}
 
 	}
@@ -142,7 +142,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 			// remove submit button
 			submitbutton.style.display = "none";
 		}
-		console.log('Init fileupload done.');
+		//console.log('Init fileupload done.');
 
 	}
 
