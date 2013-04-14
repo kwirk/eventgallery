@@ -75,7 +75,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 		}
 		// css verschiebung berechnen
 		
-    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,true,false).'\');background-position: 50% 50%;" alt="" />';
+    	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" style="background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,true,false).'\');background-position: 50% 50%;" alt="" />';
     }
     
     public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
@@ -90,7 +90,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 			$posY = ceil( ($height - $thumbWinner) / 2);
 		} 
 		
-    	return '<img class="'.$cssClass.'" width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="width:'.$width.'px; background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');background-position: 50% 50%;" alt="" />';
+    	return '<img class="'.$cssClass.'" src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" style="background-repeat:no-repeat; background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');background-position: 50% 50%;" alt="" />';
     }
     
     public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {
@@ -102,11 +102,9 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 		
 		$imgTag = '<img class="lazyme '.$cssClass.'"
 										data-width="'.$this->width.'"
-										data-height="'.$this->height.'"
-								    	height="'.$height.'" 
-								    	width="'.$width.'" 
+										data-height="'.$this->height.'"	
 								    	longdesc="'.$this->getThumbUrl($width,$height).'"
-								    	src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif"
+								    	src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'"
 								    	style="background-position: 50% 50%; background-repeat:no-repeat;"
 										alt=""
 					    			/>';

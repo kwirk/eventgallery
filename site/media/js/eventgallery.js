@@ -107,13 +107,12 @@
 	    		
 			}.bind(this)); 
 	    	
-
 	    	//adjust background images
 	    	var image = this.tag.getElement('img');
 
 			// set a new background image
 	    	var backgroundImageStyle = image.getStyle('background-image');
-	    	var longDesc = image.get('longDesc');
+	    	var longDesc = image.getAttribute('longDesc');
 	    	if (!longDesc) {
 	    		longDesc = "";
 	    	}
@@ -536,7 +535,7 @@
 			}		
 			
 			var iconElement = linkElement.getChildren('i').getLast();			
-			var data = linkElement.get('data-id');
+			var data = linkElement.getAttribute('data-id');
 			
 			iconElement.addClass('loading');
 			var myRequest = new Request.JSON(

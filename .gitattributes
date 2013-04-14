@@ -108,6 +108,7 @@ site/controllers/Checkout.php -text
 site/controllers/Rest.php -text
 site/controllers/index.html -text
 site/eventgallery.php -text
+site/helpers/blank.php -text
 site/helpers/buzzwords.php -text
 site/helpers/captcha.php -text
 site/helpers/folderprotection.php -text

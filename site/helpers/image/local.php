@@ -24,22 +24,20 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    
 	    public function getFullImgTag($width=104,  $height=104) {
 	    	
-	    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="background-repeat:no-repeat; background-position: 50% 50%; background-image:url(\''.$this->getThumbUrl($width,$height,false,true).'\');" alt="" />';
+	    	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" style="background-repeat:no-repeat; background-position: 50% 50%; background-image:url(\''.$this->getThumbUrl($width,$height,false,true).'\');" alt="" />';
 	    	
 	    }
 	    
 	    public function getThumbImgTag($width=104,  $height=104, $cssClass="") {
-	    	return '<img width="'.$width.'" height="'.$height.'" src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif" style="width:'.$width.'px; background-position: 50% 50%; background-image:url(\''.$this->getThumbUrl($width,$height, true, $height==$width).'\');" alt="" class="'.$cssClass.'"/>';
+	    	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" style="background-repeat:no-repeat; background-position: 50% 50%; background-image:url(\''.$this->getThumbUrl($width,$height, true, $height==$width).'\');" alt="" class="'.$cssClass.'"/>';
 	    }
 	    
 	    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {
     		$imgTag = '<img class="lazyme '.$cssClass.'"
     									data-width="'.$this->width.'"
 										data-height="'.$this->height.'"
-								    	height="'.$height.'" 
-								    	width="'.$width.'" 
 								    	longdesc="'.$this->getThumbUrl($width,$height).'"
-								    	src="'.JURI::base().'components/com_eventgallery/media/images/blank.gif"
+								    	src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'"
 								    	style="background-position: 50% 50%; background-repeat: no-repeat;"
 								    	alt=""
 					    			/>';

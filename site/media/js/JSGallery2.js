@@ -276,8 +276,8 @@ var JSGallery2 = new Class({
 		thumbContainer.addEvent('click', this.select.bind(this, thumbContainer)).setStyle('position', 'relative').set('counter', count);
 
 		var bigImage = thumbContainer.getFirst().set('href', 'javascript: void(0);').get('rel');
-		var fullSizeImage = thumbContainer.getFirst().get('longDesc');
-		var id = thumbContainer.getFirst().get('data-id');
+		var fullSizeImage = thumbContainer.getFirst().getAttribute('longDesc');
+		var id = thumbContainer.getFirst().getAttribute('data-id');
 		thumbContainer.addClass(this.options.loadingClass);
 	
 	},
@@ -328,7 +328,7 @@ var JSGallery2 = new Class({
 	
 		// prepare the add2cart button
 		if (this.options.showCartButton) {
-			this.add2cartLink.set('data-id', source.get('data-id'));
+			this.add2cartLink.set('data-id', source.getAttribute('data-id'));
 		}
 		
 		$(document.body).fireEvent('updatecartlinks');
@@ -336,13 +336,13 @@ var JSGallery2 = new Class({
 		// IE8 fix
 		var longdesc = source.longdesc;
 		if (longdesc == undefined) {
-			longdesc = source.get('longDesc');
+			longdesc = source.getAttribute('longDesc');
 		}
 		// END IE8 FIX
 
 
 		// now lets set the image
-		this.setImage(source.get('rel'), longdesc, source.get('data-description'), source.get('data-title'));
+		this.setImage(source.get('rel'), longdesc, source.getAttribute('data-description'), source.getAttribute('data-title'));
 
 		
 	},
@@ -417,7 +417,7 @@ var JSGallery2 = new Class({
 			try {
 				if (mediaBoxImages && mediaBoxChangeImage ) {
 					mediaBoxImages[0][0]=this.zoomLink.get('href');
-					mediaBoxImages[0][1]=this.zoomLink.get('data-title');
+					mediaBoxImages[0][1]=this.zoomLink.getAttribute('data-title');
 					mediaBoxChangeImage(0);
 				}
 			}

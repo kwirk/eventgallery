@@ -71,7 +71,7 @@
 
 #events .item .content .images img{	
 	opacity: 0.8;
-	width: 100% !important;
+	width: 100%;
 	height: auto;
 	background-size: 100% 100%;	
 }
@@ -163,7 +163,7 @@
 .ajaxpaging #thumbs .thumbnail img
 {
 	/* IE8 fix to show images*/
-	max-width: none;	
+	max-width: none;
 }
 
 #event .thumbnails .thumbnail img,
