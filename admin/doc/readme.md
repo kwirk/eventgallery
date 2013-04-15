@@ -31,8 +31,9 @@ Let's list all the features this gallery component provides:
 # Requirements {#Requirements}
 
 - Images! Large Images. At least as wide as the space where you want to show them is. Bigger is better :)
-- Joomla 2.5 or Joomla 3
+- Joomla 2.5 (>2.5.8) or Joomla 3
 - use PHP 5.4, PHP 5.3 might work too
+- GD library for PHP
 - set the PHP memory limit high enough
 - your Joomla Template should put jQuery into no conflict mode
 - standard Joomla Mootools have to be available.
@@ -298,6 +299,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 - Error 500: the PHP function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
 - MooTools JavaScript library is not available
 - you use space character in your folder name (fixed since 2.6.2)
+- install GD library for image processing
 
 ## Lightbox does not work  {#Lightbox}
 
@@ -327,6 +329,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- restricted possible thumb sizes to one of those entries {32, 48, 64, 72, 94, 104, 110, 128, 144, 150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 1024, 1152, 1280, 1440}. Each size is available as a square sized version and normal sized scaled down version. Doing this will prevent attackers from creating unlimited thumbs and exceed your web space.
 		- Configuration option for the image sharpening
 		- Embedd ICC profiles. Very usefull for all the people with wide gamut displays which don't like cartoon colors. 
+		- instead of setting the width&height for an image we use the right sized transparent gif now. This will make !important statements in css file unnecessary. 
 
 	- Bug fixes
 		- tag support: menu item for the event list can define a comma or space separated list of tags
