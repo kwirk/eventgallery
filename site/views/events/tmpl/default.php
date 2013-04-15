@@ -17,6 +17,11 @@ $cache = & JFactory::getCache();
 
 
 <div id="events">
+	<?php if ($this->params->get('show_page_heading', 1)) : ?>
+	<div class="page-header">
+		<h1> <?php echo $this->escape($this->params->get('page_heading')); ?> </h1>
+	</div>
+	<?php endif; ?>
 	<p class="greetings"><?php echo $this->params->get('greetings'); ?></p>	
 
 	<div>
