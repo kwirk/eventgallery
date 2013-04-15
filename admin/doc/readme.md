@@ -273,6 +273,10 @@ There are only a few things globally manageable.
 
 	Defines if the cart functionality is visible in the front end.
 
+- use sharpening
+
+	Enables or disables the sharping functionality. If image sharping is enabled it uses the matrix defined below.
+
 - Sharpen Matrix
 
 	You can define a matrix which is used to sharpen the generated images. By default this is [[-1,-1,-1],[-1,16,-1],[-1,-1,-1]] and it will do a good job. In case you want to have blurry or even sharper images this is the configuration parameter you'll have to touch. Please find the possible values here: http://php.net/manual/en/function.imageconvolution.php . In case you have no clue what this is about, don't touch it. After a change delete the cache otherwise you will see no result.
@@ -300,6 +304,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 - MooTools JavaScript library is not available
 - you use space character in your folder name (fixed since 2.6.2)
 - install GD library for image processing
+- issues with image sharping. Try to disable it using the components configuraion dialog.
 
 ## Lightbox does not work  {#Lightbox}
 
@@ -329,7 +334,8 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- restricted possible thumb sizes to one of those entries {32, 48, 64, 72, 94, 104, 110, 128, 144, 150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 1024, 1152, 1280, 1440}. Each size is available as a square sized version and normal sized scaled down version. Doing this will prevent attackers from creating unlimited thumbs and exceed your web space.
 		- Configuration option for the image sharpening
 		- Embedd ICC profiles. Very usefull for all the people with wide gamut displays which don't like cartoon colors. 
-		- instead of setting the width&height for an image we use the right sized transparent gif now. This will make !important statements in css file unnecessary. 
+		- instead of setting the width&height for an image we use the right sized transparent gif now. This will make !important statements in css file unnecessary. 		
+		- added support for page heading configuration at a menu item
 
 	- Bug fixes
 		- tag support: menu item for the event list can define a comma or space separated list of tags
