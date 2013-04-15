@@ -169,26 +169,30 @@ class EventgalleryViewResizeimage extends JViewLegacy
                                  0,0,
                                  $new_width,$new_height,$orig_width,$orig_height);
             
-            // configure the sharpening
-            $stringSharpenMatrix = $params->get('image_sharpenMatrix','[[-1,-1,-1],[-1,-16,-1],[-1,-1,-1]]');
+            $use_sharpening = $params->get('use_sharpening',1);
 
-        	$sharpenMatrix = json_decode($stringSharpenMatrix);
-        	if (null == $sharpenMatrix || count($sharpenMatrix)!=3) {
-	            $sharpenMatrix = array(
-	                                 array(-1,-1,-1),
-	                                 array(-1,16,-1),
-	                                 array(-1,-1,-1)
-	                                 );
+            if ($use_sharpening==1) {
+	            // configure the sharpening
+	            $stringSharpenMatrix = $params->get('image_sharpenMatrix','[[-1,-1,-1],[-1,-16,-1],[-1,-1,-1]]');
+
+	        	$sharpenMatrix = json_decode($stringSharpenMatrix);
+	        	if (null == $sharpenMatrix || count($sharpenMatrix)!=3) {
+		            $sharpenMatrix = array(
+		                                 array(-1,-1,-1),
+		                                 array(-1,16,-1),
+		                                 array(-1,-1,-1)
+		                                 );
+	        	}
+
+	            $divisor = array_sum(array_map('array_sum', $sharpenMatrix));
+	            $offset = 0;
+	            
+	            if (function_exists('imageconvolution'))
+	            {
+	                imageconvolution($im_output, $sharpenMatrix, $divisor, $offset);
+	            
+	            }   
         	}
-
-            $divisor = array_sum(array_map('array_sum', $sharpenMatrix));
-            $offset = 0;
-            
-            if (function_exists('imageconvolution'))
-            {
-                imageconvolution($im_output, $sharpenMatrix, $divisor, $offset);
-            
-            }   
 
             imagejpeg($im_output,$image_thumb_file,80);     
 
