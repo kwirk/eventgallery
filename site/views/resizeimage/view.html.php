@@ -173,7 +173,7 @@ class EventgalleryViewResizeimage extends JViewLegacy
 
             if ($use_sharpening==1) {
 	            // configure the sharpening
-	            $stringSharpenMatrix = $params->get('image_sharpenMatrix','[[-1,-1,-1],[-1,-16,-1],[-1,-1,-1]]');
+	            $stringSharpenMatrix = $params->get('image_sharpenMatrix','[[-1,-1,-1],[-1,16,-1],[-1,-1,-1]]');
 
 	        	$sharpenMatrix = json_decode($stringSharpenMatrix);
 	        	if (null == $sharpenMatrix || count($sharpenMatrix)!=3) {

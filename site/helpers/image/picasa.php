@@ -100,7 +100,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     						background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');
     						background-position: 50% 50%;
 							filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height,true,$crop).'\', sizingMethod=\'scale\'); 
-							-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height,true,$crop).'\', sizingMethod=\'scale\')";
+							-ms-filter: &qout;progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height,true,$crop).'\', sizingMethod=\'scale\')&quot;;
 							" 
     				 alt="" />';
     }

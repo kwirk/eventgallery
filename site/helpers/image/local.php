@@ -39,7 +39,7 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    						background-position: 50% 50%; 
 	    						background-image:url(\''.$this->getThumbUrl($width,$height, true, $height==$width).'\');
 								filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height, true, $height==$width).'\', sizingMethod=\'scale\'); 
-								-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height, true, $height==$width).'\', sizingMethod=\'scale\')";
+								-ms-filter: &quot;progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height, true, $height==$width).'\', sizingMethod=\'scale\')&quot;;
 
 								
 	    						" 
