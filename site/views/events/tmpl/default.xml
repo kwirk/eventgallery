@@ -64,7 +64,7 @@
 			  <option value="1">JYES</option>
 			  <option value="0">JNO</option>
 			</field>
-			<field name="show_text" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_TEXT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_TEXT_DESC">
+			<field name="show_text" type="list" default="0" label="COM_EVENTGALLERY_OPTIONS_SHOW_TEXT_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_TEXT_DESC">
 			  <option value="1">JYES</option>
 			  <option value="0">JNO</option>
 			</field>
