@@ -24,12 +24,27 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    
 	    public function getFullImgTag($width=104,  $height=104) {
 	    	
-	    	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" style="background-repeat:no-repeat; background-position: 50% 50%; background-image:url(\''.$this->getThumbUrl($width,$height,false,true).'\');" alt="" />';
+	    	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" 
+	    	             style="background-repeat:no-repeat;
+	    	    				background-position: 50% 50%; 
+	    	    				background-image:url(\''.$this->getThumbUrl($width,$height,false,true).'\');
+	    	    				" 
+	    				alt="" />';
 	    	
 	    }
 	    
 	    public function getThumbImgTag($width=104,  $height=104, $cssClass="") {
-	    	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" style="background-repeat:no-repeat; background-position: 50% 50%; background-image:url(\''.$this->getThumbUrl($width,$height, true, $height==$width).'\');" alt="" class="'.$cssClass.'"/>';
+	    	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" 
+	    				style="	background-repeat:no-repeat; 
+	    						background-position: 50% 50%; 
+	    						background-image:url(\''.$this->getThumbUrl($width,$height, true, $height==$width).'\');
+								filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height, true, $height==$width).'\', sizingMethod=\'scale\'); 
+								-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height, true, $height==$width).'\', sizingMethod=\'scale\')";
+
+								
+	    						" 
+	    				alt="" 
+	    				class="'.$cssClass.'"/>';
 	    }
 	    
 	    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {
