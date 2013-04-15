@@ -304,17 +304,21 @@ If you want to display the thumbnails beside the big image you can simply let th
 - MooTools JavaScript library is not available
 - you use space character in your folder name (fixed since 2.6.2)
 - install GD library for image processing
-- issues with image sharping. Try to disable it using the components configuraion dialog.
+- issues with image sharping. Try to disable it using the components configuration dialog.
 
-## Lightbox does not work  {#Lightbox}
+## Lightbox does not work {#moreFAQ}
 
 - instead of opening an image in a lightbox it opens in a new windows: check for JavaScript errors on your page. Maybe you Joomla Template filters out MooTools, does not load jQuery in no conflict mode or is doing even worse stuff. 
 
-## Images are not properly aligned {#ImageAlign}
+## Images are not properly aligned
 
 - the CSS of your Joomla Template might influence the images 
 - your images are too small to spread to the necessary width
 - the events page shows a dark bar which is larger than the image: your thumbs are too small. Configure the thumb size for the menu item.
+
+## Folders get lost with the sync job
+
+- make sure your files&folder do not contain a dot in the name. This is not supported. Even if I would, this would cause issue with enabled URL rewriting.
 
 # Event Gallery Release Notes {#ReleaseNotes}
 
@@ -333,7 +337,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- added compatibility for IE7 and IE8. You should at least see something now. Create your own browser specific css (http://www.webmonkey.com/2010/02/browser-specific_css_hacks/) to make it look nice with your Joomla Template. Keep in mind that I'll not start testing with IE7 and IE8 but I'll react on the defects you submit. No "not pixel perfect" bugs for those browsers please. 
 		- restricted possible thumb sizes to one of those entries {32, 48, 64, 72, 94, 104, 110, 128, 144, 150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 1024, 1152, 1280, 1440}. Each size is available as a square sized version and normal sized scaled down version. Doing this will prevent attackers from creating unlimited thumbs and exceed your web space.
 		- Configuration option for the image sharpening
-		- Embedd ICC profiles. Very usefull for all the people with wide gamut displays which don't like cartoon colors. 
+		- Embed ICC profiles. Very useful for all the people with wide gamut displays which don't like cartoon colors. 
 		- instead of setting the width&height for an image we use the right sized transparent gif now. This will make !important statements in css file unnecessary. 		
 		- added support for page heading configuration at a menu item
 
