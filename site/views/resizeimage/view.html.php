@@ -89,7 +89,8 @@ class EventgalleryViewResizeimage extends JViewLegacy
 
 		$image_file = $sourcedir.DIRECTORY_SEPARATOR.$file;
 		$image_thumb_file = $cachedir_thumbs.DIRECTORY_SEPARATOR.$mode.$saveAsSize.$file;
-		$last_modified = gmdate('D, d M Y H:i:s T', filemtime ($image_file));
+		//$last_modified = gmdate('D, d M Y H:i:s T', filemtime ($image_file));
+		$last_modified = gmdate('D, d M Y H:i:s T', mktime(0, 0, 0, 1, 1, 2100));
 		#echo "<br>".$image_thumb_file."<br>";
 
 		$debug = false;
@@ -194,7 +195,9 @@ class EventgalleryViewResizeimage extends JViewLegacy
 	            }   
         	}
 
-            imagejpeg($im_output,$image_thumb_file,80);     
+            imagejpeg($im_output,$image_thumb_file,85);     
+            $time = time() + 315360000;
+            touch($image_thumb_file, $time);
 
             // add the ICC profile
             try {

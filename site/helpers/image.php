@@ -78,7 +78,8 @@
 		
 		$image_file = $sourcedir.DIRECTORY_SEPARATOR.$file;
 		$image_thumb_file = $cachedir_thumbs.DIRECTORY_SEPARATOR.$mode.$saveAsSize.$file;
-		$last_modified = gmdate('D, d M Y H:i:s T', filemtime ($image_file));		
+		//$last_modified = gmdate('D, d M Y H:i:s T', filemtime ($image_file));		
+		$last_modified = gmdate('D, d M Y H:i:s T', mktime(0, 0, 0, 1, 1, 1998));
 		
 
 		$debug = false;
