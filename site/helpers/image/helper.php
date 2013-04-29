@@ -184,6 +184,8 @@ class EventgalleryHelpersImageHelper {
 	    $album['text']=$xpath->query('//feed/subtitle')->item(0)->textContent;
 	    $album['description']=$xpath->query('//title')->item(0)->textContent;
 	    $album['thumbs']=EventgalleryHelpersImageHelper::createCropThumbArray($xpath->query('//icon')->item(0)->textContent, $thumbsizeArray);
+	    $album['width'] = 1440;
+	    $album['height'] = 1440;
 	    $album['thumbsCrop']=$album['thumbs'];
 	    
 	    

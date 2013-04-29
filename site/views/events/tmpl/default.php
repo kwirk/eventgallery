@@ -15,6 +15,51 @@ $cache = & JFactory::getCache();
 
 <?php include 'components/com_eventgallery/views/cart.php'; ?>
 
+<script type="text/javascript">
+
+	var eventgalleryImageList;
+	var eventgalleryLazyloader;
+	
+	window.addEvent("domready", function() {
+
+		var options = {
+			rowHeightPercentage: 100,
+			eventgallerySelector: '.event-thumbnails',
+			eventgalleryImageSelector: '.event-thumbnail',
+			initComplete: function() {
+				eventgalleryLazyloader = new LazyLoadEventgallery({ 
+				    range: 100, 
+				    elements: 'img.lazyme',
+				    image: 'components/com_eventgallery/media/images/blank.gif', 
+						onScroll: function() { 
+							//console.log('scrolling'); 
+						},
+						onLoad: function(img) { 
+							//console.log('image loaded'); 	
+							setTimeout(function(){img.setStyle('opacity',0).fade(1);},500); 
+						},
+						onComplete:function() { 
+							//console.log('all images loaded'); 
+						}
+				    
+				});
+			},
+			resizeStart: function() {
+				$$('.event-thumbnails .event-thumbnail img').setStyle('opacity',0);
+			
+			
+			},
+			resizeComplete: function() {
+				eventgalleryLazyloader.initialize();
+				window.fireEvent('scroll');
+			}
+		};
+		
+		// initialize the imagelist
+ 		eventgalleryEventsList= new EventgalleryEventsList(options);
+		
+	});
+</script>
 
 <div id="events">
 	<?php if ($this->params->get('show_page_heading', 1)) : ?>
@@ -40,7 +85,7 @@ $cache = & JFactory::getCache();
 									<?php IF ($this->params->get('use_comments')==1 && isset($this->entry->commentCount) && $this->params->get('show_commentcount',1)==1):?><div class="comment"><a href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_COMMENTCOUNT') ?> <?php echo $this->entry->commentCount;?></a></div><?php ENDIF ?>
 								</div>
 								
-								<div class="images">
+								<div class="images event-thumbnails">
 									<?php IF ($this->params->get('show_thumbnails',true)):?>
 										<?php 
 											$files = $cache->call( array($this->eventModel, 'getEntries'), $entry->folder, -1, $this->params->get('max_big_events_thumbnails', 1), 1);
@@ -51,18 +96,10 @@ $cache = & JFactory::getCache();
 										
 										?>
 										
-										<?php $first = true;  foreach($files as $file):?>
-											<a  href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>">
+										<?php foreach($files as $file):?>
+											<a class="event-thumbnail" href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>">
 												<?php 
-													if ($first) {
-														echo $file->getThumbImgTag($this->params->get('max_big_events_thumbnails_width',306), $this->params->get('max_big_events_thumbnails_width',306),"large"); 
-														$first = false;
-													} else {
-														
-														$size = ceil($this->params->get('max_big_events_thumbnails_width',306)/sqrt((count($files)-1)));
-														echo $file->getThumbImgTag($size,$size,"small"); 
-														
-													}
+														echo $file->getLazyThumbImgTag(50,50, "", true); 														
 												?>	
 											</a>											
 										<?php ENDFOREACH?>

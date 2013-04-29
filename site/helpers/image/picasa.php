@@ -83,13 +83,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     }
     
     public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
-    	
-    	$thumbWinner = $this->getThumbWinner($width, $height, true, $crop);
-
-    	// css verschiebung berechnen
-		$posX = ceil( ($width - $thumbWinner) / 2);
-		$posY = ceil( ($height - $thumbWinner/$this->imageRatio) / 2);
-		
+    		
 		if ($crop) {
 			$posY = ceil( ($height - $thumbWinner) / 2);
 		} 
@@ -105,17 +99,12 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     				 alt="" />';
     }
     
-    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {
-    
-    	$thumbWinner = $this->getThumbWinner($width, $height);
-    	// css verschiebung berechnen
-		$posX = ceil( ($width - $thumbWinner) / 2);
-		$posY = ceil( ($height - $thumbWinner/$this->imageRatio) / 2);
+    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
 		
 		$imgTag = '<img class="lazyme '.$cssClass.'"
 										data-width="'.$this->width.'"
 										data-height="'.$this->height.'"	
-								    	longdesc="'.$this->getThumbUrl($width,$height).'"
+								    	longdesc="'.$this->getThumbUrl($width,$height, true, $crop).'"
 								    	src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'"
 								    	style="background-position: 50% 50%; background-repeat:no-repeat;"
 										alt=""
@@ -173,7 +162,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 		
 		$thumbs = Array();
 		
-		if ($crop) {
+		if ($crop) {			
 			$thumbs = $this->thumbsCrop;
 		} else {
 			$thumbs = $this->thumbs;
@@ -195,7 +184,6 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 				}	
 			}
 		}
-		
 		return $winner;
     }
 

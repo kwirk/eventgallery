@@ -44,7 +44,7 @@
 	        }	        
 	    },
 	    setSize: function(width, height) {
-	    	
+    	
 	    	// limit the maxium height of an image
 			if (height>this.options.maxImageHeight) {
 				width = Math.round(width/height*this.options.maxImageHeight);
@@ -54,6 +54,8 @@
 	    	var newWidth =  width - this.glueLeft - this.glueRight;
 	    	var newHeight = height - this.glueTop  - this.glueBottom;
 	    	
+
+
 	    	if (this.width<newWidth) {
 	    		newWidth = this.width;	    	
 	    	}
@@ -65,6 +67,7 @@
 	    	}
 
 
+			
 	    	var ratio = this.width/this.height;
 	    	
 	    	//console.log("the size of the image should be: "+width+"x"+height+" so I have to set it to: "+newWidth+"x"+newHeight);
@@ -106,7 +109,8 @@
 
 	    		
 			}.bind(this)); 
-	    	
+
+    	
 	    	//adjust background images
 	    	var image = this.tag.getElement('img');
 
@@ -119,8 +123,11 @@
 
 	    	backgroundImageStyle = backgroundImageStyle.replace(/width=(\d*)/,'width='+googleWidth);
 	    	backgroundImageStyle = backgroundImageStyle.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
+	    	backgroundImageStyle = backgroundImageStyle.replace(/\/s(\d*)-c\//,'/s'+googleWidth+'-c/');
 	    	longDesc = longDesc.replace(/width=(\d*)/,'width='+googleWidth);
 	    	longDesc = longDesc.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
+	    	longDesc = longDesc.replace(/\/s(\d*)-c\//,'/s'+googleWidth+'-c/');
+
 	    	image.setStyle('background-image', backgroundImageStyle);
 	    	image.set('longDesc',longDesc);
 	    	image.setStyle('background-position', '50% 50%');
@@ -226,6 +233,7 @@
 	var EventgalleryImagelist = new Class({
 		Implements: [Options],
 		options: {
+			rowHeightPercentage: 100,
 			rowHeight: 150,
 			rowHeightJitter: 0,
 			minImageWidth: 150,
@@ -354,6 +362,23 @@
 	
 	});
 
+	/* processes a list of images and tries to resize  separately*/
+	var EventgalleryEventsList = new Class({
+	    Extends: EventgalleryImagelist,
+		Implements: [Options],
+
+		/* processes the image list*/
+		processList: function() {
+			var width = $$(this.options.eventgallerySelector).getLast().getSize().x;
+			this.images.each(function(item) {
+				var height = Math.ceil(width*this.options.rowHeightPercentage/100);
+				item.setSize(width,height);
+			}.bind(this));
+
+		}
+	});
+
+	
 	/*
 		This is out cart class. 
 	*/

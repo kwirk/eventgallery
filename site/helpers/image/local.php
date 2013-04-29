@@ -47,11 +47,11 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    				class="'.$cssClass.'"/>';
 	    }
 	    
-	    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="") {
+	    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
     		$imgTag = '<img class="lazyme '.$cssClass.'"
     									data-width="'.$this->width.'"
 										data-height="'.$this->height.'"
-								    	longdesc="'.$this->getThumbUrl($width,$height).'"
+								    	longdesc="'.$this->getThumbUrl($width,$height, true, $crop).'"
 								    	src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'"
 								    	style="background-position: 50% 50%; background-repeat: no-repeat;"
 								    	alt=""

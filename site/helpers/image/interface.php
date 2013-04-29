@@ -13,15 +13,15 @@ defined('_JEXEC') or die;
 
 interface  EventgalleryHelpersImageInterface {
 	    
-    public function getFullImgTag($width=104,  $height=104);
+    public function getFullImgTag($width,  $height);
 	    
-    public function getThumbImgTag($width=104,  $height=104, $cssClass="");
+    public function getThumbImgTag($width,  $height, $cssClass);
 	    
-    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="");
+    public function getLazyThumbImgTag($width,  $height, $cssClass, $crop);
 	    
     public function getImageUrl($width, $height, $fullsize);	    
 	    
-    public function getThumbUrl ($width, $height, $larger=true, $crop=false);
+    public function getThumbUrl ($width, $height, $larger, $crop);
 	
 }
 	
