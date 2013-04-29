@@ -339,10 +339,13 @@ If you want to display the thumbnails beside the big image you can simply let th
 	- New Features
 		- improved caching. Files don't get purged if you purge the expired joomla cache.
 		- removes possible conflict with original LazyLoad version.
+		- events list uses lazyload and dynamic image resizing like the image list
 
 
 	- Big fixes
 		- the large image in ajax mode was not correct aligned. Usually it was displayed too large.
+
+
 ## 2.6.2
 
 	- New Features
