@@ -28,7 +28,7 @@ include 'components/com_eventgallery/views/cart.php';
 <script type="text/javascript">
 
 	var eventgalleryImageList;
-	var lazyloader;
+	var eventgalleryLazyloader;
 	
 	window.addEvent("domready", function() {
 		var options = {
@@ -38,7 +38,7 @@ include 'components/com_eventgallery/views/cart.php';
 			eventgallerySelector: '.thumbnails',
 			eventgalleryImageSelector: '.thumbnail',
 			initComplete: function() {
-				lazyloader = new LazyLoad({ 
+				eventgalleryLazyloader = new LazyLoadEventgallery({ 
 				    range: 100, 
 				    elements: 'img.lazyme',
 				    image: 'components/com_eventgallery/media/images/blank.gif', 
@@ -61,7 +61,7 @@ include 'components/com_eventgallery/views/cart.php';
 			
 			},
 			resizeComplete: function() {
-				lazyloader.initialize();
+				eventgalleryLazyloader.initialize();
 				window.fireEvent('scroll');
 			}
 		};

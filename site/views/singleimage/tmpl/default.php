@@ -18,7 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 
 	// for auto resize
 	var eventgalleryImageList;
-	var lazyloader;
+	var eventgalleryLazyloader;
 	
 	window.addEvent("domready", function() {
 		var options = {
@@ -29,7 +29,7 @@ defined('_JEXEC') or die('Restricted access');
 			eventgallerySelector: '.singleimage',
 			eventgalleryImageSelector: '#bigimagelink',
 			initComplete: function() {
-				lazyloader = new LazyLoad({ 
+				eventgalleryLazyloader = new LazyLoadEventgallery({ 
 				    range: 100, 
 				    elements: 'img.lazyme',
 				    image: 'components/com_eventgallery/media/images/blank.gif', 
@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access');
 			resizeStart: function() {
 			},
 			resizeComplete: function() {
-				lazyloader.initialize();
+				eventgalleryLazyloader.initialize();
 				window.fireEvent('scroll');
 
 			}

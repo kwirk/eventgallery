@@ -15,7 +15,7 @@ provides:
   - LazyLoad
 ...
 */
-var LazyLoad = new Class({
+var LazyLoadEventgallery = new Class({
 
 	Implements: [Options,Events],
 
