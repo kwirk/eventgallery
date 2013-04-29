@@ -297,14 +297,22 @@ If you want to display the thumbnails beside the big image you can simply let th
 
 ## Thumbs do not show up {#FAQThumbs}
 
+### Server
 - Error 500: PHP memory size too low. I have good experience with 128M. Depends on the size of your images
-- JavaScript error occurred which prevents the whole site from executing JavaScript. Without JavaScript it no image will appear.
 - do not use special characters in your file names like Umlaute, +, or things like this. Make your file names safe for the web.
 - Error 500: the PHP function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
-- MooTools JavaScript library is not available
 - you use space character in your folder name (fixed since 2.6.2)
 - install GD library for image processing
 - issues with image sharping. Try to disable it using the components configuration dialog.
+- PHP should have write permission to /images, /cache and /logs
+- Picase Images do not show up because the method get\_file\_content is not working. Check with your hoster to solve this issue.
+
+
+### Browser
+- JavaScript error occurred which prevents the whole site from executing JavaScript. Without JavaScript it no image will appear.
+- MooTools JavaScript library is not available
+- conflict between original LazyLoad and the custom one which is shipped with event gallery (fixed with 2.6.3)
+
 
 ## Lightbox does not work {#moreFAQ}
 
@@ -326,6 +334,15 @@ If you want to display the thumbnails beside the big image you can simply let th
 	Mail: svenbluege(at)gmail.com
 	Web: http://www.svenbluege.de
 
+## 2.6.3
+
+	- New Features
+		- improved caching. Files don't get purged if you purge the expired joomla cache.
+		- removes possible conflict with original LazyLoad version.
+
+
+	- Big fixes
+		- the large image in ajax mode was not correct aligned. Usually it was displayed too large.
 ## 2.6.2
 
 	- New Features
