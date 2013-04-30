@@ -40,8 +40,7 @@
 			
 			<field type="spacer" />
 			<field name="max_big_events" type="text" default="1000" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_MAX_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_MAX_DESC" />
-			<field name="max_big_events_thumbnails" type="text" default="1" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAILS_DESC" />
-			<field name="max_big_events_thumbnails_width" type="text" default="450" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAIL_WIDTH_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAIL_WIDTH_DESC" />
+			<field name="max_big_events_thumbnails" type="text" default="1" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAILS_DESC" />			
 			<field type="spacer" />
 			<field name="max_middle_events" type="text" default="0" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_MAX_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_MAX_DESC" />
 			<field name="max_middle_events_thumbnails" type="text" default="6" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAILS_DESC" />

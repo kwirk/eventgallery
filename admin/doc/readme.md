@@ -129,8 +129,8 @@ There are several views available:
 	- _Tags_ defines which tag a event need to get displayed on this list of events.
 	- _Max events on Page_ How many events should we show? If you have 456 and set the number to 20, it'll show only 20. 
 	- _Max big events_ Defines who many events we show as big event tiles.
-	- _Number of Thumbnails_ how many thumbnails do we want to show per event?
-	- _Thumbnail width_ defines the width of a thumbnail for each type of element
+	- _Number of Thumbnails_ how many thumbnails do we want to show per event? (since 2.6.3 unused for big events)
+	- _Thumbnail width_ defines the width of a thumbnail for each type of element (since 2.6.3 unused for big events)
 	- _Max middle events_ how many of the events should we show medium sized?
 	- _Show Thumbnails_ guess what...
 	- _show more link_ Show a link to the simple list where show all the available events. 

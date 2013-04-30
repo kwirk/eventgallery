@@ -88,19 +88,16 @@ $cache = & JFactory::getCache();
 								<div class="images event-thumbnails">
 									<?php IF ($this->params->get('show_thumbnails',true)):?>
 										<?php 
-											$files = $cache->call( array($this->eventModel, 'getEntries'), $entry->folder, -1, $this->params->get('max_big_events_thumbnails', 1), 1);
+											$files = $cache->call( array($this->eventModel, 'getEntries'), $entry->folder, -1, 1, 1);
 											if (isset($this->entry->titleImage)) {
 												array_pop($files);
 												array_unshift($files,$this->entry->titleImage);
 											}
-										
 										?>
 										
 										<?php foreach($files as $file):?>
 											<a class="event-thumbnail" href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>">
-												<?php 
-														echo $file->getLazyThumbImgTag(50,50, "", true); 														
-												?>	
+												<?php echo $file->getLazyThumbImgTag(50,50, "", true); ?>	
 											</a>											
 										<?php ENDFOREACH?>
 									<?php ENDIF ?>
