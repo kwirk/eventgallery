@@ -1,4 +1,63 @@
+	/* determines the size of an image so a image server can deliver it. */
+	var SizeCalculator = new Class({
 
+		Implements: [Options],
+
+		options: {
+			// to be able to handle internal and google picasa images, we need to restrict the availabe image sizes.
+			availableSizes: new Array(32,48,64,72,94,104,110,128,144,150,160,200,220,288,320,400,512,576,640,720,800,912,1024,1152,1280,1440)
+		},
+
+		getSize: function(width, height, ratio) {
+
+			var googleWidth = this.options.availableSizes[0];
+
+			this.options.availableSizes.each(function(item, index){
+	    		if (googleWidth>32) return;
+	    		
+	    		var lastItem = index==this.options.availableSizes.length-1;	    		
+
+	    		if (ratio>=1) {
+	    		
+		    		var widthOkay = item > width;
+		    		var heightOkay = item/ratio>height
+		    			
+
+
+		    		if ((widthOkay && heightOkay) || lastItem) {
+		    			
+		    				googleWidth = item;
+		    			
+		    		} 
+	    		} else {
+
+	    			var heightOkay = item > height;
+  	    		    var widthOkay = item*ratio> width;
+		    		
+		    		if ((widthOkay && heightOkay) || lastItem) {
+		    			
+		    				googleWidth = item;
+		    			
+		    		} 
+
+	    		}
+
+
+	    		
+			}.bind(this)); 
+
+			return googleWidth;
+		}, 
+
+		adjustImageURL: function(url, size) {
+			url = url.replace(/width=(\d*)/,'width='+size);
+	    	url = url.replace(/\/s(\d*)\//,'/s'+size+'/');
+	    	url = url.replace(/\/s(\d*)-c\//,'/s'+size+'-c/');
+
+	    	return url;
+		}
+
+	});
 	/*
 	Class to manage an image. This can be the img tag or a container. It has to manage glue itself. 
 	*/	
@@ -15,9 +74,7 @@
 			this.tag = image;
 	        this.index = index;
 	        this.calcSize();
-	        
-			// to be able to handle internal and google picasa images, we need to restrict the availabe image sizes.
-			this.availableSizes = new Array(32,48,64,72,94,104,110,128,144,150,160,200,220,288,320,400,512,576,640,720,800,912,1024,1152,1280,1440);
+
 			 
 			
 	    },
@@ -72,43 +129,11 @@
 	    	
 	    	//console.log("the size of the image should be: "+width+"x"+height+" so I have to set it to: "+newWidth+"x"+newHeight);
 	    	
-	    	// adjust the width for goolge
-	    	var googleWidth = 32;
-
 	    	
-	    	this.availableSizes.each(function(item, index){
-	    		if (googleWidth>32) return;
-	    		
-	    		var lastItem = index==this.availableSizes.length-1;	    		
-
-	    		if (ratio>=1) {
-	    		
-		    		var widthOkay = item > newWidth;
-		    		var heightOkay = item/ratio>newHeight
-		    			
-
-
-		    		if ((widthOkay && heightOkay) || lastItem) {
-		    			
-		    				googleWidth = item;
-		    			
-		    		} 
-	    		} else {
-
-	    			var heightOkay = item > newHeight;
-  	    		    var widthOkay = item*ratio> newWidth;
-		    		
-		    		if ((widthOkay && heightOkay) || lastItem) {
-		    			
-		    				googleWidth = item;
-		    			
-		    		} 
-
-	    		}
-
-
-	    		
-			}.bind(this)); 
+	    	var sizeCalculator = new SizeCalculator();
+	    	var googleWidth = sizeCalculator.getSize(newWidth, newHeight, ratio);
+	    	
+	    	
 
     	
 	    	//adjust background images
@@ -121,12 +146,9 @@
 	    		longDesc = "";
 	    	}
 
-	    	backgroundImageStyle = backgroundImageStyle.replace(/width=(\d*)/,'width='+googleWidth);
-	    	backgroundImageStyle = backgroundImageStyle.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
-	    	backgroundImageStyle = backgroundImageStyle.replace(/\/s(\d*)-c\//,'/s'+googleWidth+'-c/');
-	    	longDesc = longDesc.replace(/width=(\d*)/,'width='+googleWidth);
-	    	longDesc = longDesc.replace(/\/s(\d*)\//,'/s'+googleWidth+'/');
-	    	longDesc = longDesc.replace(/\/s(\d*)-c\//,'/s'+googleWidth+'-c/');
+	    	backgroundImageStyle = sizeCalculator.adjustImageURL(backgroundImageStyle, googleWidth);
+	    	longDesc = sizeCalculator.adjustImageURL(longDesc, googleWidth);
+	    	
 
 	    	image.setStyle('background-image', backgroundImageStyle);
 	    	image.set('longDesc',longDesc);

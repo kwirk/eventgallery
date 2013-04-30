@@ -17,7 +17,7 @@ $cache = & JFactory::getCache();
 
 <script type="text/javascript">
 
-	var eventgalleryImageList;
+	var eventgalleryEventsList;
 	var eventgalleryLazyloader;
 	
 	window.addEvent("domready", function() {

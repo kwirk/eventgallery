@@ -12,7 +12,24 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	/* <![CDATA[ */
 
 	var myGallery;
+
+	/* Method to bring the thumb rel attribute to the right size */
+	var adjustImageSize = function() {
+			var imageContainerSize = $('bigimageContainer').getSize();
+			var sizeCalculator = new SizeCalculator();
+	    	var width = imageContainerSize.x;
+	    	 
+			$$('#thumbs .ajax-thumbnail').each(function(item){
+				var ratio = item.getAttribute('data-width')/item.getAttribute('data-height');
+				var height = Math.round(width/ratio);
+				var googleWidth = sizeCalculator.getSize(width, height, ratio);
+				item.setAttribute('rel', sizeCalculator.adjustImageURL(item.getAttribute('rel'), googleWidth));
+			});
+	}
+
+	/* start the eventgallery*/
 	window.addEvent("domready", function(){
+		adjustImageSize();
 		myGallery = new JSGallery2($$('.thumbnail'), $('bigImage'), $('pageContainer'), 
 			{	'prevHandle': $('prev'), 
 				'nextHandle': $('next'), 
@@ -24,24 +41,30 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				'showCartButton' : <?php echo $this->folder->cartable==1?'true':'false'; ?>
 			});
 		
-	});
-	/* ]]> */
+	});	
 
+	/* Method which handles the case the window got resized */
 	var resizePage = function() {
-		var size = $$('.ajaxpaging .navigation').getLast().getSize();
-		$$('.navigation .page').setStyle('width',size.x+"px");
-		if (myGallery != undefined) {
-			myGallery.gotoPage(myGallery.currentPageNumber);
-		}
-		
+
+		window.clearTimeout(eventgalleryAjaxResizeTimer);
+			  
+		var eventgalleryAjaxResizeTimer = (function(){
+			var size = $$('.ajaxpaging .navigation').getLast().getSize();
+
+			$$('.navigation .page').setStyle('width',size.x+2+"px");
+			if (myGallery != undefined) {
+				adjustImageSize();
+				myGallery.resetThumbs();
+				myGallery.gotoPage(myGallery.currentPageNumber);
+			}
+		}.bind(this)).delay(500);
 	};
 
 	window.addEvent('load', resizePage);
 	window.addEvent('resize', resizePage);
-
-
-
+/* ]]> */
 </script>
+
 
 <?php include 'components/com_eventgallery/views/cart.php'; ?>
 	
@@ -86,10 +109,13 @@ defined('_JEXEC') or die('Restricted access'); ?>
 							
 							<div class="thumbnail" id="image<?php echo $imageCount++;?>">				
 								 <a longdesc="<?php echo $entry->getImageUrl(null, null, true);?>" 
+								 	 class="ajax-thumbnail"	
 									 href="<?php echo $entry->getImageUrl(null, null, true);?>"
 									 title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8'); ?>"
-								     rel="<?php echo $entry->getImageUrl(1100, 801, false, false); ?>"
+								     rel="<?php echo $entry->getImageUrl(50, 50, false, false); ?>"
 								     data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
+								     data-width="<?php echo $entry->width; ?>"
+								     data-height="<?php echo $entry->height; ?>"
 								     data-description="<?php if($this->params->get('show_date',1)==1) {echo JHTML::Date($this->folder->date).' - ';} echo $this->folder->description."&lt;br /&gt; ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE')." $imageCount ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')." $this->entriesCount" ?>
 										<br /><?php echo rawurlencode($entry->getTitle()); ?>"				  
 									 data-title="<?php echo rawurlencode($entry->getLightBoxTitle()); ?>"

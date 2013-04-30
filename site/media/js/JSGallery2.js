@@ -255,6 +255,15 @@ var JSGallery2 = new Class({
 		var yDiff = Math.abs(event.client.y - (element.getTop() + s.y / 2));
 		return Math.sqrt( Math.pow(xDiff, 2) + Math.pow(yDiff, 2) );
 	},
+	resetThumbs: function() {
+		this.loadedImages = 0;
+		this.convertThumbs();
+		this.loadNextImage();
+		//if we like to select another image on that page than the first one
+		
+		this.select(this.selectedContainer, true);
+		
+	},
 	/**
 	 * 	Adds the border to the thumbs and so on. (conversion of static thumbs)
 	 */
@@ -274,10 +283,7 @@ var JSGallery2 = new Class({
 		}
 		
 		thumbContainer.addEvent('click', this.select.bind(this, thumbContainer)).setStyle('position', 'relative').set('counter', count);
-
-		var bigImage = thumbContainer.getFirst().set('href', 'javascript: void(0);').get('rel');
-		var fullSizeImage = thumbContainer.getFirst().getAttribute('longDesc');
-		var id = thumbContainer.getFirst().getAttribute('data-id');
+		thumbContainer.getFirst().set('href', 'javascript: void(0);')
 		thumbContainer.addClass(this.options.loadingClass);
 	
 	},
@@ -291,7 +297,9 @@ var JSGallery2 = new Class({
 	 *	Selects a certain image. (You have to pass the outer container of the image)
 	 *	@param {HTMLelement} container
 	 */
-	select: function(container) {
+	select: function(container, forceReload) {
+		forceReload = typeof forceReload !== 'undefined' ? forceReload : false;
+
 		if(this.blockKeys || !$defined(container)) {
 			return false;
 		}
@@ -300,7 +308,7 @@ var JSGallery2 = new Class({
 		this.blockKeys = true;
 		if($defined(this.selectedContainer)) {
 			//this prevents an ugly effect if you click on the currently selected item
-			if(container == this.selectedContainer) {
+			if(container == this.selectedContainer && !forceReload) {
 				this.unBlockKeys();
 				return false;
 			}
@@ -343,8 +351,6 @@ var JSGallery2 = new Class({
 
 		// now lets set the image
 		this.setImage(source.get('rel'), longdesc, source.getAttribute('data-description'), source.getAttribute('data-title'));
-
-		
 	},
 	/**
 	 * Preloads one big image
