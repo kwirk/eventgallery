@@ -378,3 +378,4 @@ tests/system/webdriver/tests/eventgallery/backend/EventTest.php -text
 tests/system/webdriver/tests/eventgallery/frontend/ImageListTest.php -text
 tests/system/webdriver/tests/phpunit.php -text
 tests/system/webdriver/tests/phpunit.xml.dist -text
+/zip.exe -text
