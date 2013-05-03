@@ -305,7 +305,11 @@ If you want to display the thumbnails beside the big image you can simply let th
 - install GD library for image processing
 - issues with image sharping. Try to disable it using the components configuration dialog.
 - PHP should have write permission to /images, /cache and /logs
-- Picase Images do not show up because the method get\_file\_content is not working. Check with your hoster to solve this issue.
+- Picasa Images do not show up because the method get\_file\_content is not working. Check with your hoster to solve this issue.
+- PHP should be able to execute the script /components/com_eventgallery/helpers/image.php in order to display thumbs.
+
+### Joomla Configuration
+- Picasa albums do not work because your seo-component strips out the @-sign from the urls
 
 
 ### Browser
@@ -344,8 +348,9 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- react on missing write permission on cache folder while writing a thumbnail
 
 
-	- Big fixes
+	- Bug fixes
 		- the large image in ajax mode was not correct aligned. Usually it was displayed too large.
+		- better support for SEO components like aceSEF.
 
 
 ## 2.6.2
