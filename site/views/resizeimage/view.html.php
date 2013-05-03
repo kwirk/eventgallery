@@ -197,7 +197,7 @@ class EventgalleryViewResizeimage extends JViewLegacy
 
             $writeSuccess = imagejpeg($im_output,$image_thumb_file,85);     
             if (!$writeSuccess) {
-            	die("Unable to write to file $image_thumb_file. Check write permissions.");
+            	die("Unable to write to file $image_thumb_file");
             }
             $time = time() + 315360000;
             touch($image_thumb_file, $time);

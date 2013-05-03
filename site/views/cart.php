@@ -28,10 +28,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				cartCountSelector: '.itemscount',
 				buttonDownSelector: '.toggle-down',
 				buttonUpSelector: '.toggle-up',
-				'removeUrl' :  "<?php echo JRoute::_("index.php?view=rest&task=removefromcart&format=raw", true); ?>".replace(/&amp;/g, '&'),
-				'add2cartUrl' : "<?php echo JRoute::_("index.php?view=rest&task=add2cart&format=raw", true); ?>".replace(/&amp;/g, '&'),
+				'removeUrl' :  "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=removefromcart&format=raw", true); ?>".replace(/&amp;/g, '&'),
+				'add2cartUrl' : "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=add2cart&format=raw", true); ?>".replace(/&amp;/g, '&'),
 				'removeLinkTitle' : "<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_REMOVE')?>",
-				'getCartUrl' : "<?php echo JRoute::_("index.php?view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&')
+				'getCartUrl' : "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&')
 			};
 
 			var eventgalleryCart = new EventgalleryCart(options);
@@ -52,7 +52,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<button class="btn"><span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS')?></button>
 			<button class="btn toggle-down" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN')?></button>
 			<button class="btn toggle-up" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP')?></button>	
-			<button onclick="document.location.href='<?php echo JRoute::_("index.php?view=checkout");?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_ORDER')?></button>
+			<button onclick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout");?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_ORDER')?></button>
 			<button class="btn" data-rel="lightbo2" data-href="#mb_cart-help">?</button>
 		</div>
 		<div  style="display:none">

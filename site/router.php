@@ -20,6 +20,7 @@ jimport('joomla.application.categories');
  */
 function EventgalleryBuildRoute(&$query)
 {
+	
 	$segments	= array();
 
 	// get a menu item based on Itemid or currently active
@@ -44,10 +45,14 @@ function EventgalleryBuildRoute(&$query)
 		/*take care of the appended html. This will not work with file names*/
 		if ($config->get('sef_suffix')==1) {
 	        $segments[] = $query['file']."/file";
+	     
 	    } else {
-    		$segments[] = $query['file']."/";
+	    	$result = preg_replace("/\.(.{3,4}$)/i", "-\\1", $query['file']);
+    		$segments[] = $result."/";
+    	
 	    }
 	    unset( $query['file'] );
+	    
 	};	
 	
 	return $segments;
@@ -85,7 +90,10 @@ function EventgalleryParseRoute($segments)
 		$vars['folder']	= str_replace(":","-",str_replace("/","",$segments[1]));
 	}
 	if ($count>2) {
-		$vars['file']	= str_replace(":","-",str_replace("/","",$segments[2]));
+
+		$result = str_replace(":","-",str_replace("/","",$segments[2]));
+		$result = preg_replace("/-(.{3,4}$)/i", ".\\1", $result);
+		$vars['file']	= $result;
 	}
 
 	return $vars;

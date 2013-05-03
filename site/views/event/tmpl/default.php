@@ -102,7 +102,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php foreach($this->entries as $entry) :?>
 			    <?php $this->assign('entry',$entry)?>
 			    
-				<div class="thumbnail" data-url="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->entry->folder."&file=".$this->entry->file) ?>">				
+				<div class="thumbnail" data-url="<?php echo JRoute::_("index.php?option=com_eventgallery&view=singleimage&folder=".$this->entry->folder."&file=".$this->entry->file) ?>">				
 					<div class="img" title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8')?>">
 			            <?php echo $this->entry->getLazyThumbImgTag(50,50);?>
 						<?php IF ($this->folder->cartable==1):?>

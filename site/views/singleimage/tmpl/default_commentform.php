@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 			</div>
 		
 		
-			<form method="post" action="<?php echo JRoute::_("index.php?task=save_comment&view=singleimage")?>">
+			<form method="post" action="<?php echo JRoute::_("index.php?option=com_eventgallery&task=save_comment&view=singleimage")?>">
 				<div><label for="name"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_FORM_NAME') ?></label><input type="text" name="name" value="<?php echo JRequest::getVar('name') ?>"></div>
 				<div><label for="email"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_FORM_EMAIL') ?></label><input type="text" name="email" value="<?php echo JRequest::getVar('email') ?>"></div>
 				<div><label for="link"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_FORM_LINK') ?></label><input type="text" name="link" value="<?php echo JRequest::getVar('link') ?>"></div>
@@ -32,7 +32,7 @@ defined('_JEXEC') or die('Restricted access');
 				
 				<div class="captcha">
 					<label class="captcha" for="password"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_FORM_CAPTCHA') ?></label>
-					<img class="captcha" alt="captcha" src="<?php echo JRoute::_("index.php?task=displayCaptcha&format=raw&random=".microtime())?>">
+					<img class="captcha" alt="captcha" src="<?php echo JRoute::_("index.php?option=com_eventgallery&task=displayCaptcha&format=raw&random=".microtime())?>">
 					<input class="captcha" type="text" maxlength="3" name="password" value="<?php echo JRequest::getVar('password') ?>">
 				</div>
 				

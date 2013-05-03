@@ -48,14 +48,14 @@ class EventgalleryViewEvent extends JViewLegacy
 	    $folder = $cache->call( array( $model, 'getFolder' ), JRequest::getVar('folder',''));
 	    
 	    if (!is_object($folder)) {
-	    	$app->redirect(JRoute::_("index.php?", false), JText::_('COM_EVENTGALLERY_EVENT_NO_PUBLISHED_MESSAGE'), 'info');
+	    	$app->redirect(JRoute::_("index.php?option=com_eventgallery", false), JText::_('COM_EVENTGALLERY_EVENT_NO_PUBLISHED_MESSAGE'), 'info');
 	    }
 
 	   	$password = JRequest::getString('password','');
 		$accessAllowed = EventgalleryHelpersFolderprotection::isAccessAllowed($folder, $password);
 		
 		if (!$accessAllowed) {
-			$app->redirect(JRoute::_("index.php?view=password&folder=".$folder->folder, false));	
+			$app->redirect(JRoute::_("index.php?option=com_eventgallery&view=password&folder=".$folder->folder, false));	
 		}				
 	    
 	    $this->assignRef('pageNav', $pageNav);

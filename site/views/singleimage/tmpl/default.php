@@ -122,22 +122,22 @@ defined('_JEXEC') or die('Restricted access');
 	<a name="image"></a>
 
 	<div class="btn-group">
-		<a class="btn singleimage-overview" href="<?php echo JRoute::_("index.php?view=event&folder=".$this->model->folder->folder."&limitstart=".$this->model->currentLimitStart); ?>" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_OVERVIEW') ?>"><i class="icon-list"></i></a> 
+		<a class="btn singleimage-overview" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->model->folder->folder."&limitstart=".$this->model->currentLimitStart); ?>" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_OVERVIEW') ?>"><i class="icon-list"></i></a> 
 		
 		<?php IF ($this->model->firstFile && $this->model->firstFile!=$this->model->file): ?>
-			<a class="btn singleimage-first" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->firstFile->folder."&file=".$this->model->firstFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_START') ?>"><i class="icon-fast-backward"></i></a> 
+			<a class="btn singleimage-first" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=singleimage&folder=".$this->model->firstFile->folder."&file=".$this->model->firstFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_START') ?>"><i class="icon-fast-backward"></i></a> 
 		<?php ENDIF ?>
 		
 		<?php IF ($this->model->prevFile && $this->model->prevFile!=$this->model->file): ?>
-			<a class="btn singleimage-prev" id="prev_image" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->prevFile->folder."&file=".$this->model->prevFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_PREV') ?>"><i class="icon-backward"></i></a> 
+			<a class="btn singleimage-prev" id="prev_image" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=singleimage&folder=".$this->model->prevFile->folder."&file=".$this->model->prevFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_PREV') ?>"><i class="icon-backward"></i></a> 
 		<?php ENDIF ?>
 		
 		<?php IF ($this->model->nextFile && $this->model->nextFile!=$this->model->file): ?>
-			<a class="btn singleimage-next" id="next_image" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->nextFile->folder."&file=".$this->model->nextFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_NEXT') ?>"><i class="icon-forward"></i></a> 
+			<a class="btn singleimage-next" id="next_image" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=singleimage&folder=".$this->model->nextFile->folder."&file=".$this->model->nextFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_NEXT') ?>"><i class="icon-forward"></i></a> 
 		<?php ENDIF ?>
 		
 		<?php IF ($this->model->lastFile && $this->model->lastFile!=$this->model->file): ?>
-			<a class="btn singleimage-last" href="<?php echo JRoute::_("index.php?view=singleimage&folder=".$this->model->lastFile->folder."&file=".$this->model->lastFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_END') ?>"><i class="icon-fast-forward"></i></a>
+			<a class="btn singleimage-last" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=singleimage&folder=".$this->model->lastFile->folder."&file=".$this->model->lastFile->file) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_END') ?>"><i class="icon-fast-forward"></i></a>
 		<?php ENDIF ?>
 		
 		<?php IF ($this->model->file->allowcomments==1 && $this->use_comments==1): ?>	

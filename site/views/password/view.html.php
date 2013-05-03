@@ -34,7 +34,7 @@ class EventgalleryViewPassword extends JViewLegacy
 			$app->redirect(JRoute::_("index.php?", false));
 		}
 
-		$formAction = JRoute::_("index.php?view=event&folder=".$folder->folder);
+		$formAction = JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$folder->folder);
 
 		$this->assign('folder', $folder);
 		$this->assign('file', $file);
