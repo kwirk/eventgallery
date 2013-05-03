@@ -273,6 +273,10 @@ There are only a few things globally manageable.
 
 	Defines if the cart functionality is visible in the front end.
 
+- image quality
+
+	Defines the output quality of every generated image. Default is 85% which is pretty good. Lower values will result in lower quality.
+
 - use sharpening
 
 	Enables or disables the sharping functionality. If image sharping is enabled it uses the matrix defined below.
@@ -346,6 +350,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- events list uses lazyload and dynamic image resizing like on the image list.
 		- ajax list loads images based one the available page size.
 		- react on missing write permission on cache folder while writing a thumbnail
+		- configuration option for image quality added.
 
 
 	- Bug fixes

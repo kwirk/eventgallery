@@ -194,11 +194,14 @@ class EventgalleryViewResizeimage extends JViewLegacy
 	            
 	            }   
         	}
-
-            $writeSuccess = imagejpeg($im_output,$image_thumb_file,85);     
+			
+			$image_quality = $params->get('image_quality',85);
+            $writeSuccess = imagejpeg($im_output,$image_thumb_file, $image_quality);     
+            
             if (!$writeSuccess) {
             	die("Unable to write to file $image_thumb_file");
             }
+            
             $time = time() + 315360000;
             touch($image_thumb_file, $time);
 
