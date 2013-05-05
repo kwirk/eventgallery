@@ -82,6 +82,10 @@
 	    	// glue includes everything but the image width/heigt: margin, padding, border
 	    	var image = this.tag.getElement('img');
 	    	
+	    	if ( isNaN(this.tag.getStyle('border-width').toInt()) ) {
+	    		this.tag.setStyle('border-width', '0px');
+	    	}
+	    	
 	    	this.glueLeft = 	this.tag.getStyle('padding-left').toInt() + 	this.tag.getStyle('margin-left').toInt() + 		this.tag.getStyle('border-width').toInt() + image.getStyle('margin-left').toInt() + 	image.getStyle('padding-left').toInt() + 	image.getStyle('border-width').toInt();
 	        this.glueRight = 	this.tag.getStyle('padding-right').toInt() + 	this.tag.getStyle('margin-right').toInt() + 	this.tag.getStyle('border-width').toInt() + image.getStyle('margin-right').toInt() +	image.getStyle('padding-right').toInt()+ 	image.getStyle('border-width').toInt();
 	        this.glueTop = 		this.tag.getStyle('padding-top').toInt() + 		this.tag.getStyle('margin-top').toInt() + 		this.tag.getStyle('border-width').toInt() + image.getStyle('margin-top').toInt() + 		image.getStyle('padding-top').toInt()+ 		image.getStyle('border-width').toInt();
@@ -107,7 +111,8 @@
 				width = Math.round(width/height*this.options.maxImageHeight);
 	    		height = this.options.maxImageHeight;
 			}
-
+			
+			
 	    	var newWidth =  width - this.glueLeft - this.glueRight;
 	    	var newHeight = height - this.glueTop  - this.glueBottom;
 	    	
@@ -132,7 +137,7 @@
 	    	
 	    	var sizeCalculator = new SizeCalculator();
 	    	var googleWidth = sizeCalculator.getSize(newWidth, newHeight, ratio);
-	    	
+	    		
 	    	
 
     	
@@ -158,7 +163,7 @@
 	    	image.setStyle('margin', 'auto');
 	    	
 
-
+		
 	    	image.setStyle('width', newWidth);
 	    	image.setStyle('height', newHeight);
 	    	
