@@ -14,6 +14,9 @@ jimport('joomla.error.log');
 class EventgalleryHelpersImageHelper {	
 
 
+	/**
+	* returns the name of the file for this url.
+	*/
 	public static function getPicasawebResult($url) {
 		
 		JLog::addLogger(
@@ -55,13 +58,14 @@ class EventgalleryHelpersImageHelper {
 		$xml = "";
 		
 		if (file_exists($cachefilename) && (time() - filemtime($cachefilename) <= $cache_life) ) {
-			$xml = file_get_contents($cachefilename);
+			
 			
 		} else {
 			
 			//JLog::add('have write new cache file for '.$url, JLog::INFO, 'com_eventgallery');
 			
 		    $xml = @file_get_contents($url);
+		    $xml = str_replace("xmlns='http://www.w3.org/2005/Atom'", '', $xml);
 		    #echo "reloading content from $url <br>";
 		    if (strlen($xml)>0) {
 				$fh = fopen($cachefilename, 'w') or die("can't open file $cachefilename");		
@@ -71,8 +75,10 @@ class EventgalleryHelpersImageHelper {
 			JLog::add('have wrote xml to file '.$cachefilename, JLog::INFO, 'com_eventgallery');
 			
 		}
+
+		$xml = null;
 		
-		return $xml;
+		return $cachefilename;
 	
 	}
 
@@ -93,6 +99,9 @@ class EventgalleryHelpersImageHelper {
     */
     public static function picasaweb_ListAlbum($userName, $albumNameOrId, $picasaKey = null, $imagesize = 1280) {
 
+
+    	#echo "Initial:". memory_get_usage() . "<br>";
+
 		$thumbsizeArray = array(32,48,64,72,104,144,150,160,'32u','48u','64u','72u','104u','144u','150u','160u',94,110,128,200,220,288,320,400,512,576,640,720,800,912,1024,1152,1280,1440);
 		$thumbsize = implode(',',$thumbsizeArray);
 		
@@ -106,16 +115,12 @@ class EventgalleryHelpersImageHelper {
 		}
 		
 
-		$xml = EventgalleryHelpersImageHelper::getPicasawebResult($url);
-		
-	    $xml = str_replace("xmlns='http://www.w3.org/2005/Atom'", '', $xml);
+		$xmlFile = EventgalleryHelpersImageHelper::getPicasawebResult($url);
 
-		if (strlen($xml)==0) {
-			return Array();
-		}
-		
-	    $dom = new domdocument;
-	    $dom->loadXml($xml);
+	    $dom = new DOMDocument;
+	    $dom->load($xmlFile);
+
+	    #echo "After DOM loaded:". memory_get_usage() . "<br>";
 
 	    $xpath = new domxpath($dom);
 	    $nodes = $xpath->query('//entry');
@@ -151,7 +156,7 @@ class EventgalleryHelpersImageHelper {
 	        
 	        //$photo['thumbsCrop'] = $thumbnails;
 	        // this works because picasa can deliver every image as a crop
-	         $photo['thumbsCrop'] = EventgalleryHelpersImageHelper::createCropThumbArray($photo['image'],$thumbsizeArray,"s".$photo['width']);
+	        $photo['thumbsCrop'] = EventgalleryHelpersImageHelper::createCropThumbArray($photo['image'],$thumbsizeArray,"s".$photo['width']);
 			
 			//print_r($photo['thumbs']);
 	        
@@ -188,6 +193,11 @@ class EventgalleryHelpersImageHelper {
 	    $album['height'] = 1440;
 	    $album['thumbsCrop']=$album['thumbs'];
 	    
+	    $dom=null;
+	    $xpath=null;
+
+	    #echo "Finally:". memory_get_usage() . "<br>";
+	    #echo memory_get_peak_usage() . "<br>";
 	    
 		#echo "<pre>"; 		print_r($album);		echo "</pre>";
 	    return (object)$album;
@@ -252,5 +262,3 @@ class EventgalleryHelpersImageHelper {
 	    return $albums;
 	}
 }
-
-?>
