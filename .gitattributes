@@ -126,6 +126,7 @@ site/helpers/vendors/class.jpeg_icc.php -text
 site/index.html -text
 site/language/de-DE/de-DE.com_eventgallery.ini -text
 site/language/en-GB/en-GB.com_eventgallery.ini -text
+site/language/nb-NO/nb-NO.com_eventgallery.ini -text
 site/media/css/eventgallery.css -text
 site/media/css/index.html svneol=native#text/html
 site/media/css/mediaboxAdvBlack21.css -text
