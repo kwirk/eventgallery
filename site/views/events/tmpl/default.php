@@ -10,7 +10,7 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
-$cache = & JFactory::getCache();
+$cache = & JFactory::getCache('com_eventgallery');
 ?>
 
 <?php include 'components/com_eventgallery/views/cart.php'; ?>

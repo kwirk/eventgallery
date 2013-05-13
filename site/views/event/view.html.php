@@ -18,7 +18,7 @@ class EventgalleryViewEvent extends JViewLegacy
 {
 	function display($tpl = null)
 	{		
-	    $cache =  JFactory::getCache();
+	    $cache =  JFactory::getCache('com_eventgallery');
 		$app	 = JFactory::getApplication();
 		$document = JFactory::getDocument();
 		$params	 = $app->getParams();

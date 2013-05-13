@@ -17,7 +17,7 @@ class EventgalleryViewEvents extends JViewLegacy
 
 	function display($tpl = null)
 	{	
-		$cache = & JFactory::getCache();
+		$cache = & JFactory::getCache('com_eventgallery');
 		
 		$app	 = &JFactory::getApplication();		
 		
@@ -29,8 +29,8 @@ class EventgalleryViewEvents extends JViewLegacy
 		$eventModel = & $this->getModel('event');
 
 	    //$entries = $model->getEntries(JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
-		$entries = $cache->call( array( $model, 'getEntries' ), JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
-		
+		$entries = $cache->call( array( $model, 'getEntries' ), JRequest::getVar('page',1), $entriesPerPage, $params->get('tags'));
+
 	    $this->assignRef('entries',	$entries );	    
 	    $this->assignRef('fileCount',$model->getFileCount());
 	    $this->assignRef('folderCount',$model->getFolderCount());
