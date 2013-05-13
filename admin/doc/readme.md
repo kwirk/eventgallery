@@ -351,11 +351,14 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- ajax list loads images based one the available page size.
 		- react on missing write permission on cache folder while writing a thumbnail
 		- configuration option for image quality added.
+		- reduced memory consumption and increased performance for processing Google Picasa XML files.
 
 
 	- Bug fixes
 		- the large image in ajax mode was not correct aligned. Usually it was displayed too large.
 		- better support for SEO components like aceSEF.
+		- Fix for showing tiny thumbs in Opera using a template which does not define the border-width 
+		  for the css class .thumbnail
 
 
 ## 2.6.2
@@ -370,7 +373,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- restricted possible thumb sizes to one of those entries {32, 48, 64, 72, 94, 104, 110, 128, 144, 150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 1024, 1152, 1280, 1440}. Each size is available as a square sized version and normal sized scaled down version. Doing this will prevent attackers from creating unlimited thumbs and exceed your web space.
 		- Configuration option for the image sharpening
 		- Embed ICC profiles. Very useful for all the people with wide gamut displays which don't like cartoon colors. 
-		- instead of setting the width&height for an image we use the right sized transparent gif now. This will make !important statements in css file unnecessary. 		
+		- instead of setting the width & height for an image we use the right sized transparent gif now. This will make !important statements in css file unnecessary. 		
 		- added support for page heading configuration at a menu item
 
 	- Bug fixes
