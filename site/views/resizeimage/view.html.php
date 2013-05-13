@@ -66,6 +66,12 @@ class EventgalleryViewResizeimage extends JViewLegacy
 		$cachedir=$cachebasedir.$folder;
 		$cachedir_thumbs=$cachebasedir.$folder.DIRECTORY_SEPARATOR.'thumbs';
 		
+		if (!is_dir(JPATH_CACHE))
+		{
+			//mkdir($cachebasedir, 0777);
+			mkdir(JPATH_CACHE);
+			
+		}		
 
 		if (!is_dir($cachebasedir))
 		{
@@ -120,7 +126,7 @@ class EventgalleryViewResizeimage extends JViewLegacy
             $orig_height = imagesy($im_original);
             $orig_ratio = imagesx($im_original)/imagesy($im_original);
 
-            $sizeCalc = new SizeCalculator($orig_width, $orig_height, $width, strcmp('crop',$mode)==0);			
+            $sizeCalc = new EventgalleryHelpersSizecalculator($orig_width, $orig_height, $width, strcmp('crop',$mode)==0);			
 			$height = $sizeCalc->getHeight();
 			$width = $sizeCalc->getWidth();
 			//print_r($sizeCalc);
@@ -194,7 +200,7 @@ class EventgalleryViewResizeimage extends JViewLegacy
 	            
 	            }   
         	}
-			
+
 			$image_quality = $params->get('image_quality',85);
             $writeSuccess = imagejpeg($im_output,$image_thumb_file, $image_quality);     
             
@@ -226,56 +232,4 @@ class EventgalleryViewResizeimage extends JViewLegacy
 		echo readfile($image_thumb_file);		
 		$app->close();
 	}
-}
-
-/*
-* there is a set of sizes. based on the longest site of the image it'll use one of
-* the entries in the set. If the image has width== height it's a square, we'll return a square sized image
-*/
-class SizeCalculator {
-	
-	var $img_width = null;
-	var $img_height = null;
-	var $desired_width = null;	
-	var $width = null;
-	var $height = null;
-	var $isCrop = false;
-
-	// constructor
-    public function __construct($img_width, $img_height, $desired_width, $isCrop=false) {		    
-    	$this->img_width = $img_width;
-    	$this->img_height = $img_height;
-    	$this->desired_width = $desired_width;
-    	$this->isCrop = $isCrop;
-    	$this->adjustSize();
-
-    }
-
-	private function adjustSize() {
-		$sizeSet = new EventgalleryHelpersSizeset();
-
-		if ($this->isCrop) {
-			$this->width = $sizeSet->getMatchingSize($this->desired_width);
-			$this->height = $this->width;
-			return;
-		}
-
-		if ($this->img_width>$this->img_height)	{
-			$this->width = $sizeSet->getMatchingSize($this->desired_width);
-			$this->height = ceil($this->img_height/$this->img_width*$this->width);
-		} else {
-			$this->height = $sizeSet->getMatchingSize($this->desired_width);
-			$this->width = ceil($this->img_width/$this->img_height*$this->height);
-		}
-
-	}
-
-    public function getWidth() {
-    	return $this->width;
-    }
-
-    public function getHeight() {
-    	return $this->height;
-    }
-
 }

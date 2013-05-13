@@ -63,15 +63,9 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     
 		
 		if ($this->imageRatio>=1) {
-			$height = round($width/$this->imageRatio);
-			$thumbWinner = $this->getThumbWinner($width, $height);
-			$posX = ceil( ($width - $thumbWinner) / 2);
-			$posY = ceil( ($height - $thumbWinner/$this->imageRatio) / 2);
+			$height = round($width/$this->imageRatio);			
 		} else {
 			$width = round($height*$this->imageRatio);
-			$thumbWinner = $this->getThumbWinner($width, $height);
-			$posX = ceil( ($width - $thumbWinner) / 2);
-			$posY = 0;
 		}
 		// css verschiebung berechnen
 		
@@ -83,11 +77,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     }
     
     public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
-    		
-		if ($crop) {
-			$posY = ceil( ($height - $thumbWinner) / 2);
-		} 
-		
+
     	return '<img class="'.$cssClass.'" 
     				 src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" 
     				 style="background-repeat:no-repeat; 
@@ -119,74 +109,43 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     		return $this->image;
     	}else {
     		if ($this->imageRatio<1) {
-    			return $this->getThumbUrl($height*$this->imageRatio, 1, $larger);
+    			return $this->getThumbUrl($height*$this->imageRatio, $height, $larger);
     		} else {
-    			return $this->getThumbUrl($width,1, $larger);
+    			return $this->getThumbUrl($width,$width/$this->imageRatio, $larger);
     		}
     	}
     }
     
-    public function getThumbUrl ($width, $height, $larger=true, $crop=false) {
-    	if ($crop) {
-    		$thumbWinner = $this->getThumbWinner($width, $height, $larger, true);
-    		return $this->thumbsCrop[$thumbWinner];
-    	} else {
-    		$thumbWinner = $this->getThumbWinner($width, $height, $larger, false);
-    		return $this->thumbs[$thumbWinner];
-    	}
-    	
-    }
-    
-    /**
-    * $crop means: use cropThumbs
-    */
-
-    private function getThumbWinner ($width=104,  $height=104, $larger=true, $crop=false) {
+    public function getThumbUrl ($width=104, $height=104, $larger=true, $crop=false) {
     	
     	if ($width==0) $width=104;
     	if ($height==0) $height=104;
-    	
-		$thumbRatio = $width / $height;
+    	$googlewidth = 104;
+
+    	if ($this->width>$this->height) {
+			// querformat
+			$googlewidth = $width;
+			$resultingHeight = $googlewidth/$this->imageRatio;
+			if ($resultingHeight<$height) {
+				$googlewidth=round($height*$this->imageRatio);
+		    }
+    	} else {
+    	  	//hochformat
+    		$googlewidth = $height;
+    		$resultingWidth = $googlewidth*$this->imageRatio;
+			if ($resultingWidth<$width) {
+				$googlewidth=round($height/$this->imageRatio);
+		    }
+    	}
 		
+
+		$sizeSet = new EventgalleryHelpersSizeset();
+		$saveAsSize = $sizeSet->getMatchingSize($googlewidth);
 		
-		if ($width/$this->imageRatio<=$height) {
-			$width = ceil($height * $this->imageRatio);
-		}
-		
-		$winner = 104;
-		
-		$diff = 9999;
-		if (!$larger) {
-			$diff = -9999;
-		}
-		
-		$thumbs = Array();
-		
-		if ($crop) {			
-			$thumbs = $this->thumbsCrop;
-		} else {
-			$thumbs = $this->thumbs;
-		}
-		
-		// passende Bildgröße berechnen.
-		foreach($thumbs as $key=>$value) {
-			$newDiff = $key-$width;
-			
-			if ($larger) {
-				if ($newDiff>=0 && $diff>$newDiff) {
-					$diff=$newDiff; 
-					$winner = $key;
-				}
-			} else {
-				if ($newDiff<=0 && $newDiff>$diff) {
-					$diff=$newDiff; 
-					$winner = $key;
-				}	
-			}
-		}
+		//modify google image url
+		$winner = str_replace('/s104/', "/s$saveAsSize/", array_values($this->thumbs)[0]);
+
 		return $winner;
     }
 
 }
-	
-?>

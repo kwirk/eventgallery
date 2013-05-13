@@ -27,7 +27,15 @@ class EventgalleryHelpersImageHelper {
 		    'com_eventgallery'
 		);
 		//JLog::add('processing url '.$url, JLog::INFO, 'com_eventgallery');
+
 		
+		if (!is_dir(JPATH_CACHE))
+		{
+		    //mkdir($cachebasedir, 0777);
+		    mkdir(JPATH_CACHE);
+		    #echo "created $cachebasedir <br>";
+		    JLog::add('have to create dir '.JPATH_CACHE, JLog::INFO, 'com_eventgallery');
+		}
 		
 		$cachebasedir=JPATH_CACHE.DIRECTORY_SEPARATOR.'com_eventgallery';
 		if (!is_dir($cachebasedir))
@@ -99,19 +107,21 @@ class EventgalleryHelpersImageHelper {
     */
     public static function picasaweb_ListAlbum($userName, $albumNameOrId, $picasaKey = null, $imagesize = 1280) {
 
-
+    	
     	#echo "Initial:". memory_get_usage() . "<br>";
 
-		$thumbsizeArray = array(32,48,64,72,104,144,150,160,'32u','48u','64u','72u','104u','144u','150u','160u',94,110,128,200,220,288,320,400,512,576,640,720,800,912,1024,1152,1280,1440);
+		#$thumbsizeArray = array(32,48,64,72,104,144,150,160,'32u','48u','64u','72u','104u','144u','150u','160u',94,110,128,200,220,288,320,400,512,576,640,720,800,912,1024,1152,1280,1440);
+		$thumbsizeArray = array(104,'104u');
 		$thumbsize = implode(',',$thumbsizeArray);
 		
 		
 		$authkeyParam = (strlen($picasaKey)>0)?"authkey=$picasaKey&":"";
+		$prettyprint = "false";
 		
 		if (is_numeric($albumNameOrId)) {
-			$url = 'http://picasaweb.google.com/data/feed/api/user/' .urlencode($userName) . '/albumid/' . urlencode($albumNameOrId) . "?".$authkeyParam."thumbsize=$thumbsize&imgmax=$imagesize&prettyprint=true";
+			$url = 'http://picasaweb.google.com/data/feed/api/user/' .urlencode($userName) . '/albumid/' . urlencode($albumNameOrId) . "?".$authkeyParam."thumbsize=$thumbsize&imgmax=$imagesize&prettyprint=$prettyprint";
 		} else {
-			$url = 'http://picasaweb.google.com/data/feed/api/user/' .urlencode($userName) . '/album/' . urlencode($albumNameOrId) . "?".$authkeyParam."thumbsize=$thumbsize&imgmax=$imagesize&prettyprint=true";
+			$url = 'http://picasaweb.google.com/data/feed/api/user/' .urlencode($userName) . '/album/' . urlencode($albumNameOrId) . "?".$authkeyParam."thumbsize=$thumbsize&imgmax=$imagesize&prettyprint=$prettyprint";
 		}
 		
 
