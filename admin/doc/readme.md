@@ -125,6 +125,7 @@ There are several views available:
 
 	Advanced Options
 	- _Layout_ defines which layout to use for an event. You can configure the appearance of the event page with the options described above.
+	- _Sort By_ defines the direction and the attribute which is used the sort the events.
 	- _Intro Text_ defines a text for the events page. Usually displayed on top of the page. 
 	- _Tags_ defines which tag a event need to get displayed on this list of events.
 	- _Max events on Page_ How many events should we show? If you have 456 and set the number to 20, it'll show only 20. 
@@ -352,6 +353,8 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- react on missing write permission on cache folder while writing a thumbnail
 		- configuration option for image quality added.
 		- significant reduceded memory consumption and increased performance for processing Google Picasa XML files.
+		- added limit box for events list and file list
+		- you can define the sorting of events for every menu item.
 
 
 	- Bug fixes

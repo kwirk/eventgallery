@@ -17,7 +17,8 @@
 				extension="com_eventgallery"
 				view="event"
 				useglobal="false"
-				/>		
+				/>
+				
 		</fieldset>		
 		
 		
@@ -33,7 +34,12 @@
 				description="COM_EVENTGALLERY_OPTIONS_EVENTS_GREETING_DESC" 
 			/>
 		
-		
+			<field name="sort_events_by" type="radio" default="ordering" label="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DESC">
+				<option value="ordering">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_ORDERING</option>
+				<option value="date">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_ASC</option>
+				<option value="date">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_DESC</option>
+			</field>
+			
 			<field name="tags" type="text" default="" label="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_DESC" />
 		
 			<field name="max_events" type="text" default="0" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_ON_PAGE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_ON_PAGE_DESC" />

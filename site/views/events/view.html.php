@@ -29,7 +29,7 @@ class EventgalleryViewEvents extends JViewLegacy
 		$eventModel = & $this->getModel('event');
 
 	    //$entries = $model->getEntries(JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
-		$entries = $cache->call( array( $model, 'getEntries' ), JRequest::getVar('page',1), $entriesPerPage, $params->get('tags'));
+		$entries = $cache->call( array( $model, 'getEntries' ), JRequest::getVar('page',1), $entriesPerPage, $params->get('tags'), $params->get('sort_events_by'));
 
 	    $this->assignRef('entries',	$entries );	    
 	    $this->assignRef('fileCount',$model->getFileCount());
