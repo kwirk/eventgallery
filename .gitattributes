@@ -1,8 +1,5 @@
 * text=auto !eol
 admin/access.xml -text
-admin/build/build.properties -text
-admin/build/build.xml -text
-admin/build/index.html svneol=native#text/html
 admin/config.xml -text
 admin/controller.php -text
 admin/controllers/index.html -text
