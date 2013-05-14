@@ -143,7 +143,8 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 		$saveAsSize = $sizeSet->getMatchingSize($googlewidth);
 		
 		//modify google image url
-		$winner = str_replace('/s104/', "/s$saveAsSize/", array_values($this->thumbs)[0]);
+		$values = array_values($this->thumbs);
+		$winner = str_replace('/s104/', "/s$saveAsSize/", $values[0]);
 
 		return $winner;
     }
