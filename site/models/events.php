@@ -130,7 +130,7 @@ class EventgalleryModelEvents extends JModelLegacy
 
     function getFolderCount()
     {
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = 'SELECT count(1) from #__eventgallery_folder where published=1';
         $db->setQuery( $query );
         return $db->loadResult();
@@ -138,7 +138,7 @@ class EventgalleryModelEvents extends JModelLegacy
     
     function getFileCount()
     {
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = 'SELECT count(1) from #__eventgallery_file file join #__eventgallery_folder folder 
                     on file.folder=folder.folder 
                     where file.published=1 and folder.published=1';

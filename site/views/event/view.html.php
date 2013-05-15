@@ -64,7 +64,7 @@ class EventgalleryViewEvent extends JViewLegacy
 	    $this->assignRef('entriesCount', $entryCount);
 	    $this->assignRef('folder',	$folder );
 	    
-	    $pathway = JSite::getPathWay();
+	    $pathway = $app->getPathway();
 		$pathway->addItem($folder->description);
 		
 	    

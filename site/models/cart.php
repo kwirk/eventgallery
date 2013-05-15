@@ -24,7 +24,7 @@ class EventgalleryModelCart extends JModelLegacy
 	function __construct()
 	{
 	 	
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		 
 		// store the variable that we would like to keep for next time
 		// function syntax is setUserState( $key, $value );

@@ -31,8 +31,8 @@ class EventgalleryController extends JControllerLegacy
 		if ($viewname == 'events')
 		{
 			
-			$app	 = &JFactory::getApplication();
-			$params	 = &$app->getParams();
+			$app	 = JFactory::getApplication();
+			$params	 = $app->getParams();
 			$viewLayout = JRequest::getString('layout', 'default');
 			$view = $this->getView($viewname, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
 			$view->setModel( $this->getModel('events'),true);
@@ -115,7 +115,7 @@ class EventgalleryController extends JControllerLegacy
 
 
 			$mailer = new JMail();
-			$params = &JComponentHelper::getParams('com_eventgallery');
+			$params = JComponentHelper::getParams('com_eventgallery');
 			
 		
 			$mailadresses = explode(',',$params->get('adminmail'));			

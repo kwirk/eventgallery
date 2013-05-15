@@ -12,9 +12,9 @@
 	
 	class EventgalleryHelpersMedialoader {
 
-		function load() {
+		static function load() {
 	
-			$document =& JFactory::getDocument();	
+			$document = JFactory::getDocument();	
 		
 			JHtml::_('behavior.framework', true);
 			JHtml::_('behavior.formvalidation');

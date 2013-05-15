@@ -19,17 +19,17 @@ class CheckoutViewCheckout extends JViewLegacy
 	function display($tpl = null)
 	{		
 
-	    $app	 = &JFactory::getApplication();	    
+	    $app = JFactory::getApplication();	    
 
 
 		$cart = JModelLegacy::getInstance('Cart', 'EventgalleryModel')->getCart();	
 
 
-		$params	 = &$app->getParams();
+		$params	 = $app->getParams();
 		$this->assign('cart', $cart);
 		$this->assign('params', $params);
 		
-		$pathway =& JSite::getPathWay();		
+		$pathway = $app->getPathWay();		
 		$pathway->addItem(JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH'));
 		
 		$this->_prepareDocument();

@@ -35,7 +35,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
 	{
 	    $app = JFactory::getApplication();
 	    
-	    $params = &JComponentHelper::getParams('com_eventgallery');
+	    $params = JComponentHelper::getParams('com_eventgallery');
         $this->paging_images_count = $params->get('paging_images_count');
 	    
 	    parent::__construct();	    
@@ -64,7 +64,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
                 $countHits = false;
 			} else {
 	    	
-	    	    $db =& JFactory::getDBO();
+	    	    $db = JFactory::getDBO();
 	            $query = 'SELECT * from #__eventgallery_file 
 	                      where folder='.$db->Quote($folder).' and published=1 order by file';
 	            $db->setQuery($query);
@@ -141,7 +141,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
                     }
                     
                     
-                    $this->nextFiles = &array_slice($files,$upperStart,$upperStop-$upperStart+1);
+                    $this->nextFiles = array_slice($files,$upperStart,$upperStop-$upperStart+1);
                     if ($lowerStop>=0)
                     	$this->prevFiles = array_slice($files,$lowerStart,$lowerStop-$lowerStart+1);
                   /*
@@ -210,7 +210,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
     
   	function store_comment($data,$published)
     {
-        $entry  =& $this->getTable('Comment');
+        $entry  = $this->getTable('Comment');
 
         if (!$entry->bind($data, "published")) {
             $this->setError($this->_db->getErrorMsg());

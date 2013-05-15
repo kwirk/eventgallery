@@ -16,14 +16,14 @@ class EventgalleryViewSingleImage extends JViewLegacy
 	function display($tpl = null)
 	{		
 
-	    $app	 = &JFactory::getApplication();	   
+	    $app	 = JFactory::getApplication();	   
 	    
 	    
-		$model = & $this->getModel('singleimage');		
+		$model = $this->getModel('singleimage');		
 		$model->getData(JRequest::getString('folder'),JRequest::getString('file'));
 		$this->assign('model',$model);
 		
-		$params	 = &$app->getParams();
+		$params	 = $app->getParams();
         $this->assign('use_comments', $params->get('use_comments'));
         $this->assign('paging_images_count', $params->get('paging_images_count'));
         $this->assign('singleimage_preview', $params->get('singleimage_preview'));
@@ -47,7 +47,7 @@ class EventgalleryViewSingleImage extends JViewLegacy
 			$app->redirect(JRoute::_("index.php?option=com_eventgallery&view=password&folder=".$folder->folder, false));	
 		}
 		
-		$pathway =& JSite::getPathWay();
+		$pathway = $app->getPathWay();
 		$pathway->addItem($folder->description,JRoute::_('index.php?option=com_eventgallery&view=event&folder='.$folder->folder));
 		$pathway->addItem($model->position.' / '.$model->overallcount);
 		

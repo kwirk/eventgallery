@@ -21,7 +21,7 @@ class CheckoutController extends JControllerLegacy
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$app =& JFactory::getApplication();
+		$app = JFactory::getApplication();
 		 
 		// store the variable that we would like to keep for next time
 		// function syntax is setUserState( $key, $value );
@@ -52,9 +52,9 @@ class CheckoutController extends JControllerLegacy
 		$subject_message = JRequest::getString( 'subject' , null );
 
 
-		$mailer =& JFactory::getMailer();
+		$mailer = JFactory::getMailer();
 
-		$config =& JFactory::getConfig();
+		$config = JFactory::getConfig();
 		
 		$sender = array( 
 		    $config->get( 'config.mailfrom' ),
@@ -64,7 +64,7 @@ class CheckoutController extends JControllerLegacy
  		$mailer->setSubject('Eventgallery: Image Order');
 		$mailer->setSender($sender);	
 
-		$params = &JComponentHelper::getParams('com_eventgallery');	
+		$params = JComponentHelper::getParams('com_eventgallery');	
 		$mailer->addRecipient($params->get('adminmail'));
 
 		$body   = '<h1>User</h1>';		
@@ -95,7 +95,7 @@ class CheckoutController extends JControllerLegacy
 		$mailer->Encoding = 'base64';
 		$mailer->setBody($body);
 
-		$send =& $mailer->Send();
+		$send = $mailer->Send();
 
 		
 
