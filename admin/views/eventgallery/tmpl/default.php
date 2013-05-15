@@ -156,7 +156,10 @@ defined('_JEXEC') or die('Restricted access');
 	<input type="hidden" name="option" value="com_eventgallery" />
 	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="boxchecked" value="0" />
-	<?php echo $this->pageNav->getListFooter(); ?>
+	<input type="hidden" name="limitstart" value="<?php echo $this->pageNav->limitstart; ?>" />
+	<div class="pagination pagination-toolbar">
+		<?php echo $this->pageNav->getPagesLinks(); ?>
+	</div>
 
 
 		
