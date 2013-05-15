@@ -36,8 +36,8 @@
 		
 			<field name="sort_events_by" type="radio" default="ordering" label="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DESC">
 				<option value="ordering">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_ORDERING</option>
-				<option value="date">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_ASC</option>
-				<option value="date">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_DESC</option>
+				<option value="date_asc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_ASC</option>
+				<option value="date_desc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_DESC</option>
 			</field>
 			
 			<field name="tags" type="text" default="" label="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_DESC" />
