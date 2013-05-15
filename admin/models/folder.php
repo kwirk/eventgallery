@@ -45,7 +45,7 @@ class EventgalleryModelFolder extends JModelLegacy
 	 * Method to get a hello
 	 * @return object with data
 	 */
-	function &getData()
+	function getData()
 	{
 		// Load the data
 
@@ -70,7 +70,7 @@ class EventgalleryModelFolder extends JModelLegacy
 	 */
 	function store()
 	{
-		$row =& $this->getTable('folder');
+		$row = $this->getTable('folder');
 		$data = JRequest::get( 'post' );
 
 		// Bind the form fields to the table
@@ -104,7 +104,7 @@ class EventgalleryModelFolder extends JModelLegacy
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
-		$row =& $this->getTable('folder');
+		$row = $this->getTable('folder');
 
 		if (count( $cids ))
 		{
@@ -125,7 +125,7 @@ class EventgalleryModelFolder extends JModelLegacy
 		{
 			foreach($cids as $cid) {
 				
-				$row =& $this->getTable('folder');
+				$row = $this->getTable('folder');
 
 		        $query = ' SELECT * FROM #__eventgallery_folder '.
 							'  WHERE id = '.$cid;
@@ -144,7 +144,7 @@ class EventgalleryModelFolder extends JModelLegacy
 
 	function storeOrder($direction=0)
 	{
-		$db			= & JFactory::getDBO();
+		$db			= JFactory::getDBO();
 
 		$cid		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$order		= JRequest::getVar( 'order', array (0), 'post', 'array' );
@@ -155,7 +155,7 @@ class EventgalleryModelFolder extends JModelLegacy
 		JArrayHelper::toInteger($order, array(0));
 
 		// Instantiate an article table object
-		$row =& $this->getTable('folder');
+		$row =$this->getTable('folder');
 
 		// Update the ordering for items in the cid array
 		for ($i = 0; $i < $total; $i ++)
@@ -174,12 +174,12 @@ class EventgalleryModelFolder extends JModelLegacy
 	
 	function move($direction)
 	{
-		$db		= & JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$cid	= JRequest::getVar( 'cid', array(), 'post', 'array' );
 		
 		if (isset( $cid[0] ))
 		{
-			$row = & $this->getTable('folder');
+			$row = $this->getTable('folder');
 			$row->load( (int) $cid[0] );
 			$row->move($direction);
 		}

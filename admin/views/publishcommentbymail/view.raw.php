@@ -26,7 +26,7 @@ class EventgalleryViewPublishCommentByMail extends JViewLegacy
 			foreach($cids as $cid) {
 				
 					$model->setId($cid);
-					$comment      =& $model->getData();
+					$comment      = $model->getData();
 					
 			}
 		}

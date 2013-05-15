@@ -75,7 +75,7 @@ defined('_JEXEC') or die('Restricted access');
 		$k = 0;
 		for ($i=0, $n=count( $this->files ); $i < $n; $i++)
 		{
-			$row = &$this->files[$i];		
+			$row = $this->files[$i];		
 			$checked 	= JHTML::_('grid.id',   $i, $row->id );
 			$published =  JHTML::_('jgrid.published', $row->published, $i );
 

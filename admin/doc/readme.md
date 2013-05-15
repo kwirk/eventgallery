@@ -362,6 +362,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- better support for SEO components like aceSEF.
 		- Fix for showing tiny thumbs in Opera using a template which does not define the border-width 
 		  for the css class .thumbnail
+		- removed Strict Standard messages
 
 
 ## 2.6.2
@@ -385,8 +386,6 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- fixed encoding issues for event text, file title and file description 
 		- fixed enlargement of images which are uploaded smaller than 1440px in the lightbox and image lists.
 		- cleaning the cache is working again. Wrong task was referenced so nothing happened.
-
-
 
 ## 2.6.1
 

@@ -20,7 +20,7 @@ class EventgalleryViewComment extends JViewLegacy
 	function display($tpl = null)
 	{
 		//get the hello
-		$comment		=& $this->get('Data');
+		$comment		= $this->get('Data');
 		$isNew		= ($comment->id < 1);
 
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );

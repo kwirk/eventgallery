@@ -50,7 +50,7 @@ class EventgalleryModelFile extends JModelLegacy
 	 * Method to get a hello
 	 * @return object with data
 	 */
-	function &getData()
+	function getData()
 	{
 		// Load the data
 		if (empty( $this->_data )) {
@@ -271,7 +271,7 @@ class EventgalleryModelFile extends JModelLegacy
 
 	function storeOrder($direction=0)
 	{
-		$db			= & JFactory::getDBO();
+		$db			= JFactory::getDBO();
 
 		$cid		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$order		= JRequest::getVar( 'order', array (0), 'post', 'array' );
@@ -282,7 +282,7 @@ class EventgalleryModelFile extends JModelLegacy
 		JArrayHelper::toInteger($order, array(0));
 
 		// Instantiate an article table object
-		$row =& $this->getTable('file');
+		$row =$this->getTable('file');
 
 		// Update the ordering for items in the cid array
 		for ($i = 0; $i < $total; $i ++)
@@ -301,7 +301,7 @@ class EventgalleryModelFile extends JModelLegacy
 	
 	function move($direction)
 	{
-		$db		= & JFactory::getDBO();
+		$db		= JFactory::getDBO();
 		$cid	= JRequest::getVar( 'cid', array(), 'post', 'array' );
 		
 		if (isset( $cid[0] ))

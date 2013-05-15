@@ -78,7 +78,7 @@ defined('_JEXEC') or die('Restricted access');
 		$k = 0;
 		for ($i=0, $n=count( $this->items ); $i < $n; $i++)
 		{
-			$row = &$this->items[$i];		
+			$row = $this->items[$i];		
 			$checked 	= JHTML::_('grid.id',   $i, $row->id );
 			$published =  JHTML::_('jgrid.published', $row->published, $i );
 			#$published = JHtml::_('jgrid.published', $row->published, $i, 'articles.', true, 'cb', $row->publish_up, $row->publish_down);

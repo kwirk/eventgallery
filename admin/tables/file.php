@@ -31,7 +31,7 @@ class TableFile extends JTable
 	 *
 	 * @param object Database connector object
 	 */
-	function TableFile(& $db) {
+	function TableFile($db) {
 		parent::__construct('#__eventgallery_file', 'id', $db);
 	}
 }

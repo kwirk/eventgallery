@@ -66,7 +66,7 @@ foreach($filters as $filterItem)
 	$k = 0;
 	for ($i=0, $n=count( $this->items ); $i < $n; $i++)
 	{
-	    $row = &$this->items[$i];
+	    $row = $this->items[$i];
 	    $checked 	= JHTML::_('grid.id',   $i, $row->id );
 	    $published =  JHTML::_('jgrid.published', $row->published, $i,'Comment' );
 	    $link 		= JRoute::_( 'index.php?option=com_eventgallery&task=editComment&cid[]='. $row->id );

@@ -216,8 +216,8 @@ class EventgalleryController extends JControllerLegacy
 	{
 		
 		
-	    $db =& JFactory::getDBO();
-	    $user =& JFactory::getUser();	
+	    $db = JFactory::getDBO();
+	    $user = JFactory::getUser();	
 		#$db = new JDatabase();
   		$maindir=JPATH_ROOT.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR ;
   		
@@ -435,7 +435,7 @@ class EventgalleryController extends JControllerLegacy
 		$model = $this->getModel('file');
 		$model->publish(1);
 
-		$file = & $model->getData();
+		$file = $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_UNPUBLISHED' );
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
@@ -449,7 +449,7 @@ class EventgalleryController extends JControllerLegacy
 	{
 		$model = $this->getModel('file');
 		$model->publish(0);
-		$file = & $model->getData();
+		$file = $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_PUBLISHED' );	
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
 	}
@@ -474,7 +474,7 @@ class EventgalleryController extends JControllerLegacy
 		$model = $this->getModel('file');
 		$model->allowComments(1);
 
-		$file = & $model->getData();
+		$file = $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_ENABLE_FOR_FILE' );
 
 
@@ -491,7 +491,7 @@ class EventgalleryController extends JControllerLegacy
 		$model = $this->getModel('file');
 		$model->allowComments(0);
 
-		$file = & $model->getData();
+		$file = $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_DISABLE_FOR_FILE' );
 
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
@@ -507,7 +507,7 @@ class EventgalleryController extends JControllerLegacy
 		$model = $this->getModel('file');
 		$model->setMainImage(1);
 
-		$file = & $model->getData();
+		$file = $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_ENABLE_FOR_FILE' );
 
 
@@ -524,7 +524,7 @@ class EventgalleryController extends JControllerLegacy
 		$model = $this->getModel('file');
 		$model->setMainImage(0);
 
-		$file = & $model->getData();
+		$file = $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_DISABLE_FOR_FILE' );
 
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
@@ -540,7 +540,7 @@ class EventgalleryController extends JControllerLegacy
 		$model = $this->getModel('file');
 		$model->setMainImageOnly(1);
 
-		$file = & $model->getData();
+		$file = $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_ENABLE_FOR_FILE' );
 
 
@@ -557,7 +557,7 @@ class EventgalleryController extends JControllerLegacy
 		$model = $this->getModel('file');
 		$model->setMainImageOnly(0);
 
-		$file = & $model->getData();
+		$file = $model->getData();
 		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_DISABLE_FOR_FILE' );
 
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
@@ -629,7 +629,7 @@ class EventgalleryController extends JControllerLegacy
 
 	function uploadFileByAjax() {
 
-		$user =& JFactory::getUser();
+		$user = JFactory::getUser();
 
 		$path = JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery';
 		//@mkdir($path, 0777);
@@ -684,7 +684,7 @@ class EventgalleryController extends JControllerLegacy
 
 		}
 
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		foreach($uploadedFiles as $uploadedFile) {
 			if (file_exists($path.$uploadedFile)) {
 			
@@ -781,7 +781,7 @@ class EventgalleryController extends JControllerLegacy
 		
 		$model->move(-1);
 		
-		$file = & $model->getData();
+		$file = $model->getData();
 		
 		#print_r($file);
 		

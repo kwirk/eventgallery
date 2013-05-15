@@ -31,7 +31,7 @@ class TableFolder extends JTable
 	 *
 	 * @param object Database connector object
 	 */
-	function TableFolder(& $db) {
+	function TableFolder($db) {
 		parent::__construct('#__eventgallery_folder', 'id', $db);
 	}	
 	

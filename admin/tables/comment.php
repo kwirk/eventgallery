@@ -30,7 +30,7 @@ class TableComment extends JTable
 	 *
 	 * @param object Database connector object
 	 */
-	function TableComment(& $db) {
+	function TableComment($db) {
 		parent::__construct('#__eventgallery_comment', 'id', $db);
 	}
 }

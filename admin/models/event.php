@@ -40,7 +40,7 @@ class EventgalleryModelEvent extends JModelLegacy
 		$this->_files   = null;
 	}
 
-	function &getFiles()
+	function getFiles()
     {
 
         $query = 'SELECT file.*, IF (isNull(comment.id),0,sum(1)) commentCount
@@ -67,7 +67,7 @@ class EventgalleryModelEvent extends JModelLegacy
         return $entries;
     }
 
-	function &getData()
+	function getData()
 	{
 		// Load the data
 		if (empty( $this->_data )) {
@@ -92,8 +92,8 @@ class EventgalleryModelEvent extends JModelLegacy
 	 */
 	function store()
 	{
-		$row =& $this->getTable('folder');
-		$user =& JFactory::getUser();
+		$row = $this->getTable('folder');
+		$user = JFactory::getUser();
 		
 		$data = JRequest::get( 'post' );
 		$data['text'] = JRequest::getVar( 'text', '', 'post', 'string', JREQUEST_ALLOWHTML );
@@ -128,7 +128,7 @@ class EventgalleryModelEvent extends JModelLegacy
 		{
 			foreach($cids as $cid) {
 
-				$row =& $this->getTable('comment');
+				$row = $this->getTable('comment');
 
 				$query = ' SELECT * FROM #__eventgallery_folder '.
 							'  WHERE id = '.$cid;
@@ -147,7 +147,7 @@ class EventgalleryModelEvent extends JModelLegacy
 
 	function changeFolderName($oldFolder, $newFolder)
 	{
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$query = "update #__eventgallery_file set folder='$newFolder' where folder='$oldFolder';";
 		$db->setQuery($query);
 		$db->query();
@@ -160,10 +160,10 @@ class EventgalleryModelEvent extends JModelLegacy
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
-		$row =& $this->getTable('folder');
+		$row = $this->getTable('folder');
 
 
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$query = "select * from #__eventgallery_folder where id in (".implode(',',$cids).")";
 		$db->setQuery($query);
 		$folders = $db->loadObjectList("id");
@@ -193,7 +193,7 @@ class EventgalleryModelEvent extends JModelLegacy
 		return true;
 	}
 
-	function &getPagination()
+	function getPagination()
 	{
 
 	    if (empty($this->_pagination))

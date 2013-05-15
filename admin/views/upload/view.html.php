@@ -17,8 +17,8 @@ class EventgalleryViewUpload extends JViewLegacy
 {
 	function display($tpl = null)
 	{	
-		$event		=& $this->get('Data');
-		$files      =& $this->get('Files');
+		$event		= $this->get('Data');
+		$files      = $this->get('Files');
 		
 		JToolBarHelper::title(   JText::_( 'Event' ).': <small><small>[ upload ]</small></small>' );
 

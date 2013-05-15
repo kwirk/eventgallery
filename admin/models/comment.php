@@ -40,7 +40,7 @@ class EventgalleryModelComment extends JModelLegacy
 	 * Method to get a hello
 	 * @return object with data
 	 */
-	function &getData()
+	function getData()
 	{
 		// Load the data
 		if (empty( $this->_data )) {
@@ -59,7 +59,7 @@ class EventgalleryModelComment extends JModelLegacy
 
 	function store()
 	{
-		$row =& $this->getTable('comment');
+		$row = $this->getTable('comment');
 
 		$data = JRequest::get( 'post' );
 
@@ -86,7 +86,7 @@ class EventgalleryModelComment extends JModelLegacy
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
-		$row =& $this->getTable('comment');
+		$row = $this->getTable('comment');
 
 		if (count( $cids ))
 		{
@@ -108,7 +108,7 @@ class EventgalleryModelComment extends JModelLegacy
 		{
 			foreach($cids as $cid) {
 				
-				$row =& $this->getTable('comment');
+				$row = $this->getTable('comment');
 
 		        $query = ' SELECT * FROM #__eventgallery_comment '.
 							'  WHERE id = '.$cid;

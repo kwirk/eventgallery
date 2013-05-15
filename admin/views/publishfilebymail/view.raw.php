@@ -27,7 +27,7 @@ class EventgalleryViewPublishFileByMail extends JViewLegacy
 			foreach($cids as $cid) {
 				
 					$model->setId($cid);
-					$file      =& $model->getData();
+					$file      = $model->getData();
 					
 			}
 		}

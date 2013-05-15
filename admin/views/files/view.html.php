@@ -21,8 +21,8 @@ class EventgalleryViewFiles extends JViewLegacy
 	{		
 
 
-		$app	 = &JFactory::getApplication();
-		$document =& JFactory::getDocument();	
+		$app	  = JFactory::getApplication();
+		$document = JFactory::getDocument();	
 				
 	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
 		$document->addStyleSheet($css);		
