@@ -18,6 +18,7 @@ class CheckoutController extends JControllerLegacy
 	public function sendOrder() {
 
 		$session = JFactory::getSession();
+		$config = JFactory::getConfig();
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
@@ -36,32 +37,36 @@ class CheckoutController extends JControllerLegacy
 	
 		$order = array();
 
+		$overallImageCount = 0;
+
 		foreach($cart as $lineitem){
 			$count = JRequest::getString( 'count_'.md5($lineitem['folder'].$lineitem['file']) , 0 );
 			if ($count>0) {
 				$lineitem['count'] = $count;
 				array_push($order, $lineitem);
+				$overallImageCount += $count;
 			}
 				
 		}
-
-
-		$name    = JRequest::getString( 'name' , null );
-		$email   = JRequest::getString( 'email' , null );
-		$message = JRequest::getString( 'message' , null );
-		$subject_message = JRequest::getString( 'subject' , null );
+ 
+		     
+		$sitename	= $config->get('sitename');
+		$name    = JRequest::getString( 'name' , $config->get( 'config.fromname' ) );
+		$email   = JRequest::getString( 'email' , $config->get( 'config.mailfrom' ) );
+		$message = JRequest::getString( 'message' , "null" );
+		$subject_message = JRequest::getString( 'subject' , "null" );
 
 
 		$mailer = JFactory::getMailer();
 
-		$config = JFactory::getConfig();
+		
 		
 		$sender = array( 
-		    $config->get( 'config.mailfrom' ),
-		    $config->get( 'config.fromname' ) 
+		    $email,
+		    $name 
 		);
  
- 		$mailer->setSubject('Eventgallery: Image Order');
+ 		$mailer->setSubject("$sitename - Image Order for $name with $overallImageCount copies of ".count($order)." images");
 		$mailer->setSender($sender);	
 
 		$params = JComponentHelper::getParams('com_eventgallery');	
@@ -91,13 +96,18 @@ class CheckoutController extends JControllerLegacy
 		}
 		$body  .= '</table>';
 
+		$body  .= '<br /><br /><br /><h2>Short Summary</h2><br /><pre>';
+		foreach($order as $lineitem){
+			$body  .= $lineitem['count']."\t\t";
+			$body  .= $lineitem['folder'].' / '.$lineitem['file']."\n";
+		}
+		$body  .= '</pre>';
+
 		$mailer->isHTML(true);
 		$mailer->Encoding = 'base64';
 		$mailer->setBody($body);
 
 		$send = $mailer->Send();
-
-		
 
 		if ( $send !== true ) {
 		    $msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_FAILED').' ('. $mailer->ErrorInfo.')';

@@ -355,6 +355,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- significant reduceded memory consumption and increased performance for processing Google Picasa XML files.
 		- added limit box for events list and file list
 		- you can define the sorting of events for every menu item.
+		- impoved order mail
 
 
 	- Bug fixes
