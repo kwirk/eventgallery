@@ -19,11 +19,11 @@
 	</fields>
 	<fields name="params">
 		<fieldset name="params" label="COM_EVENTGALLERY_LAYOUT_EVENT_FIELDSET_LABEL">
-			<field name="show_exif" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_EXIF_DESC">
+			<field name="show_exif" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_LABEL" description="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_DESC">
 			  <option value="1">JYES</option>
 			  <option value="0">JNO</option>
 			</field>
-			<field name="show_date" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_SHOW_DATE_DESC">
+			<field name="show_date" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_LABEL" description="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_DESC">
 			  <option value="1">JYES</option>
 			  <option value="0">JNO</option>
 			</field>
