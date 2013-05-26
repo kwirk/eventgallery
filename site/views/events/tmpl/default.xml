@@ -85,6 +85,10 @@
 			  <option value="1">JYES</option>
 			  <option value="0">JNO</option>
 			</field>
+			<field name="use_fullscreen_lightbox" type="list" default="0" label="COM_EVENTGALLERY_OPTIONS_USE_FULLSCREEN_LIGHTBOX_LABEL" description="COM_EVENTGALLERY_OPTIONS_USE_FULLSCREEN_LIGHTBOX_DESC">
+			  <option value="1">JYES</option>
+			  <option value="0">JNO</option>
+			</field>
 		</fieldset>
 		<fieldset name="params2" label="COM_EVENTGALLERY_LAYOUT_EVENT_AJAX_LIST">
 			<field name="event_ajax_list_thumbnail_size" type="integer" first="25" last="500" step="1" default="75" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_SIZE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_SIZE_DESC"/>

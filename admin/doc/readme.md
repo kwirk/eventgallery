@@ -141,6 +141,7 @@ There are several views available:
 	- _show hits_ I you use local images each visit of a single image page will be counted as a hit. This toggle switches the visibility of the current hit counter on or off.
 	- _show image count_ Defines to display the overall number if images for an event on the events list
 	- _show comment count_ Defines to display the overall number if comments for an image on the events list
+	- _use full screen lightbox_ The normal lightbox would show up depending on the size of the image with a little border around. A full screen lightbox turn the screen completely black and shows the images.
 
 
 	![Create a new menu item](img/backend/create_menu_item_advanced_options.jpg)
@@ -346,16 +347,18 @@ If you want to display the thumbnails beside the big image you can simply let th
 ## 2.6.3
 
 	- New Features
-		- improved caching. Files don't get purged if you purge the expired joomla cache.
+		- improved caching. Files don't get purged if you purge the expired Joomla cache.
 		- removes possible conflict with original LazyLoad version.
 		- events list uses lazyload and dynamic image resizing like on the image list.
-		- ajax list loads images based one the available page size.
+		- AJAX list loads images based one the available page size.
 		- react on missing write permission on cache folder while writing a thumbnail
 		- configuration option for image quality added.
-		- significant reduceded memory consumption and increased performance for processing Google Picasa XML files.
+		- significant reduced memory consumption and increased performance for processing Google Picasa XML files.
 		- added limit box for events list and file list
 		- you can define the sorting of events for every menu item.
-		- impoved order mail
+		- improved order mail
+		- added option to display the lightbox in full screen mode. This is very handy if you want to
+		  support mobile devices since this mode does not waste as much space as the current lightbox.
 
 
 	- Bug fixes

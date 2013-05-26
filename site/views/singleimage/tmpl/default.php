@@ -144,7 +144,7 @@ defined('_JEXEC') or die('Restricted access');
 			 <a class="btn singleimage-comment" href="#" id="toggle_comment" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_COMMENT') ?>"><i class="icon-comment"></i></a>
 		<?php ENDIF ?>
 			
-		<a class="btn singleimage-zoom" href="<?php echo $this->model->file->getImageUrl(null, null, true) ?>" rel="lightbo2" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_ZOOM') ?>"><i class="icon-zoom-in"></i></a>
+		<a class="btn singleimage-zoom" href="<?php echo $this->model->file->getImageUrl(null, null, true) ?>" rel="lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox',0)==1?'fullscreen':''; ?>]" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_ZOOM') ?>"><i class="icon-zoom-in"></i></a>
 		
 
 		<?php IF ($this->model->folder->cartable==1):?>

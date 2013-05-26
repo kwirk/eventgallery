@@ -25,6 +25,10 @@
 	position: absolute;
 }
 
+#mbOverlay.fullscreen {
+	background-color: #000;
+}
+
 		/*	Overlay panel styling	*/
 
 #mbCenter {
@@ -46,6 +50,7 @@
 	/* For IE 5.5 - 7 */
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=180, Color='#000000');
 }
+
 
 #mbCenter.mbLoading {
 	background: #000 url(../images/mediabox/loading.gif) no-repeat center;

@@ -86,7 +86,7 @@ var Mediabox;
 
 (function() {
 	// Global variables, accessible to Mediabox only
-	var options, images, activeImage, prevImage, nextImage, top, mTop, left, mLeft, winWidth, winHeight, fx, preload, preloadPrev = new Image(), preloadNext = new Image(), foxfix = false, iefix = false,
+	var timer, options, images, activeImage, prevImage, nextImage, top, mTop, left, mLeft, winWidth, winHeight, fx, preload, preloadPrev = new Image(), preloadNext = new Image(), foxfix = false, iefix = false,
 	// DOM elements
 	overlay, center, image, bottom, captionSplit, title, caption, prevLink, number, nextLink,
 	// Mediabox specific vars
@@ -168,8 +168,9 @@ var Mediabox;
 											// CSS background is naturally non-clickable, preventing downloads
 											// IMG tag allows automatic scaling for smaller screens
 											// (all images have no-click code applied, albeit not Opera compatible. To remove, comment lines 212 and 822)
-				imgPadding: 100 ,			// Clearance necessary for images larger than the window size (only used when imgBackground is false)
+				imgPadding: 50 ,			// Clearance necessary for images larger than the window size (only used when imgBackground is false)
 											// Change this number only if the CSS style is significantly divergent from the original, and requires different sizes
+			    showFullscreen: false,
 //			Inline options
 				overflow: 'auto',			// If set, overides CSS settings for inline content only
 //			Global media options
@@ -226,6 +227,11 @@ var Mediabox;
 				vmColor: 'ffffff'			// Custom controller colors, hex value minus the # sign, defult is 5ca0b5
 			}, _options || {});
 
+			if (_images[startImage][2].indexOf('fullscreen') != -1) {
+				options.showFullscreen=true;				
+			}
+
+
 			prevLink.set('html', options.text[0]);
 			nextLink.set('html', options.text[1]);
 			closeLink.set('html', options.text[2]);
@@ -244,6 +250,12 @@ var Mediabox;
 				overlay.className = 'mbOverlayIE';
 				overlay.setStyle("position", "absolute");
 				position();
+			}
+
+			if (options.showFullscreen) {
+				overlay.addClass("fullscreen");
+			} else {
+				overlay.removeClass("fullscreen");
 			}
 
 			if (typeof _images == "string") {	// Used for single images only, with URL and Title as first two arguments
@@ -272,13 +284,12 @@ var Mediabox;
 
 			size();
 			setup(true);
-			top = window.getScrollTop() + (window.getHeight()/2);
-			left = window.getScrollLeft() + (window.getWidth()/2);
-			fx.resize = new Fx.Morph(center, Object.append({duration: options.resizeDuration, onComplete: imageAnimate}, options.resizeTransition ? {transition: options.resizeTransition} : {}));
-			center.setStyles({top: top, left: left, width: options.initialWidth, height: options.initialHeight, marginTop: -(options.initialHeight/2)-margin, marginLeft: -(options.initialWidth/2)-margin, display: ""});
-			fx.overlay.start(options.overlayOpacity);
+			setCenterPosition();
+			fx.overlay.start(options.showFullscreen?1:options.overlayOpacity);
 			
-			
+			window.addEvent('resize', refreshCenter);
+			window.addEvent('scroll', refreshCenter);
+
 			
 			return changeImage(startImage);
 		}
@@ -351,7 +362,22 @@ var Mediabox;
 		}
 	});
 
+	function refreshCenter() {
+		window.clearTimeout(timer);
+			  
+		timer = (function(){
+		    setCenterPosition();
+	  		changeImage(activeImage);			  
+		}).delay(500);			  
+	}
+
 	/*	Internal functions	*/
+	function setCenterPosition() {
+		top = window.getScrollTop() + (window.getHeight()/2);
+		left = window.getScrollLeft() + (window.getWidth()/2);
+		fx.resize = new Fx.Morph(center, Object.append({duration: options.resizeDuration, onComplete: imageAnimate}, options.resizeTransition ? {transition: options.resizeTransition} : {}));
+		center.setStyles({top: top, left: left, width: options.initialWidth, height: options.initialHeight, marginTop: -(options.initialHeight/2)-margin, marginLeft: -(options.initialWidth/2)-margin, display: ""});
+	}
 
 	function position() {
 		overlay.setStyles({top: window.getScrollTop(), left: window.getScrollLeft()});
@@ -969,8 +995,10 @@ var Mediabox;
 
 	function startEffect() {
 		if (mediaType == "img"){
+			image.setStyles({overflow: "hidden"});			
 			mediaWidth = preload.width;
 			mediaHeight = preload.height;
+			
 			if (options.imgBackground) {
 				image.setStyles({backgroundImage: "url("+URL+")", display: ""});
 			} else {	// Thanks to Dusan Medlin for fixing large 16x9 image errors in a 4x3 browser
@@ -983,11 +1011,16 @@ var Mediabox;
 					mediaHeight = preload.height = parseInt((mediaWidth/preload.width)*mediaHeight);
 					preload.width = mediaWidth;
 				}
+				
 				if (Browser.ie) preload = document.id(preload);
+				
 				//preload.addEvent('mousedown', function(e){ e.stop(); }).addEvent('contextmenu', function(e){ e.stop(); });
 				image.setStyles({backgroundImage: "none", display: ""});
+
 				preload.inject(image);
+				
 			}
+			console.log(preload.height)
 		} else if (mediaType == "obj") {
 			if (Browser.Plugins.Flash.version<8) {
 				image.setStyles({backgroundImage: "none", display: ""});
@@ -1005,15 +1038,19 @@ var Mediabox;
 			if (options.overflow) image.setStyles({overflow: options.overflow});
 			image.setStyles({backgroundImage: "none", display: ""});
 			image.set('html', preload);
+			if (mediaWidth>winWidth) {
+				mediaWidth = winWidth.margin;
+			}
 		} else if (mediaType == "url") {
 			image.setStyles({backgroundImage: "none", display: ""});
 			preload.inject(image);
 		} else {
 			image.setStyles({backgroundImage: "none", display: ""});
 			image.set('html', '<div id="mbError"><b>Error</b><br/>A file type error has occoured, please visit <a href="iaian7.com/webcode/mediaboxAdvanced" title="mediaboxAdvanced" target="_new">iaian7.com</a> or contact the website author for more information.</div>');
-			mediaWidth = options.defaultWidth;
+			mediaWidth = options.defaultWidth;	
 			mediaHeight = options.defaultHeight;
 		}
+		
 		image.setStyles({width: mediaWidth, height: mediaHeight});
 		caption.setStyles({width: mediaWidth});
 
@@ -1030,28 +1067,80 @@ var Mediabox;
 		var bottomHeight = bottom.offsetHeight;
 		bottom.setStyle("width", "auto");
 
+		origImageWidth = mediaWidth;
+		origImageHeight = mediaHeight;
+
 		mediaWidth = image.offsetWidth;
 		mediaHeight = image.offsetHeight+bottomHeight;		
 
 		/* readjust the size of the lightbox*/
-		if (mediaHeight > winHeight && preload) {
+		if (options.showFullscreen) {
+			var bottomWidth = window.getWidth()-bottom.getStyle('padding-left').toInt()-bottom.getStyle('padding-right').toInt()
+
+			/* detect bottom height even with large text*/
+			if (bottomWidth	> 1024) bottomWidth = 1024;
+			bottom.setStyle("width", bottomWidth);
+			bottom.setStyle("margin", "auto");					
+			caption.setStyle("width",bottomWidth);
+
+			var bottomHeight = bottom.offsetHeight;
+			//bottom.setStyle("width", "auto");
+
+			mediaHeight = winHeight-options.imgPadding;
+			
+			if (typeof preload == 'object') {
+				var pRatio = origImageWidth/origImageHeight;
+				
+				if (mediaHeight > winHeight-bottomHeight) {
+					preload.width= ((mediaHeight-bottomHeight+options.imgPadding)*pRatio)-(2*margin);
+
+					//preload.setStyle("height","100%");
+					//preload.setStyle("max-height","100%");
+					//preload.setStyle("width","auto");
+					//preload.setStyle("max-width","100%");
+				}
+			
+				preload.setStyle("display","block");
+				preload.setStyle("margin","auto");	
+				var paddingTop = Math.ceil( (winHeight-bottom.offsetHeight-preload.width/pRatio)/2-margin );
+				if (paddingTop>0) {
+					preload.setStyle("padding-top", paddingTop );			
+				}
+				
+			}
+			image.setStyle("width", "auto");
+
+			image.setStyle("height", winHeight-bottomHeight-image.getStyle('padding-top').toInt()-image.getStyle('padding-top').toInt());			
+			
+			
+			mediaWidth = winWidth-1-center.getStyle("padding-left").toInt()-center.getStyle("padding-right").toInt();
+			mediaHeight = winHeight-1-center.getStyle("padding-top").toInt()-center.getStyle("padding-bottom").toInt();
+			
+		}
+		else if (mediaHeight > winHeight && preload) {
 			mediaHeight = winHeight-options.imgPadding;
 			image.setStyle("height", mediaHeight-bottomHeight-(2*margin));			
-			var pRatio = preload.width/preload.height;
-			preload.width= ((mediaHeight-bottomHeight)*pRatio)-(2*margin);
-			preload.setStyle("display","block");
-			preload.setStyle("margin","auto");	
+			if (typeof preload == 'object') {
+				var pRatio = origImageWidth/origImageHeight;
 
+				preload.width = ((mediaHeight-bottomHeight)*pRatio)-(2*margin);
+				preload.setStyle("display","block");
+				preload.setStyle("margin","auto");	
+				console.log("not FS, but resize");
+			}
 			caption.setStyle("width",image.getStyle("width").toInt()-margin);
 			title.setStyle("width", image.getStyle("width").toInt()-margin);
-		}
+		}		
 		
+				
 		if (mediaHeight >= top+top) { mTop = -top } else { mTop = -(mediaHeight/2) };
 		if (mediaWidth >= left+left) { mLeft = -left } else { mLeft = -(mediaWidth/2) };
+		
+
 		if (options.resizeOpening) { 
-			fx.resize.start({width: mediaWidth, height: mediaHeight, marginTop: mTop-margin, marginLeft: mLeft-margin});
+			fx.resize.start({width: mediaWidth, height: mediaHeight, marginTop: mTop, marginLeft: mLeft});
 		} else { 
-			center.setStyles({width: mediaWidth, height: mediaHeight, marginTop: mTop-margin, marginLeft: mLeft-margin}); imageAnimate(); 
+			center.setStyles({width: mediaWidth, height: mediaHeight, marginTop: mTop, marginLeft: mLeft}); imageAnimate(); 
 		}
 	}
 
@@ -1082,6 +1171,10 @@ var Mediabox;
 			center.setStyle("display", "none");
 			fx.overlay.chain(setup).start(0);
 		}
+
+		window.removeEvent('resize', refreshCenter);
+		window.removeEvent('scroll', refreshCenter);
+
 		return false;
 	}
 })();

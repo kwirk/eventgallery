@@ -18,7 +18,8 @@ var JSGallery2 = new Class({
 		'prev_image': 'prev_image.png',
 		'showCartButton' : true,
 		'activeClass': 'thumbnail-active', // the css class for the active thumbnail
-		'loadingClass': 'thumbnail-loading' // the css class for the loading thumbnail
+		'loadingClass': 'thumbnail-loading', // the css class for the loading thumbnail
+		'lightboxRel' : 'lightbo2' // the trigger rel for the lightbox script
 	},
 	/**
 	 *	Constructor. Starts up the whole thing :-)
@@ -125,7 +126,7 @@ var JSGallery2 = new Class({
 				'background-image': 'url(' + this.options.zoom_image + ')',
 				'background-position': '50% 50%'
 			},
-			'rel': 'lightbo2'
+			'rel': this.options.lightboxRel
 		});
 
 		this.zoomLink.addEvent('mouseover', function(e){
