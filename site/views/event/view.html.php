@@ -22,8 +22,13 @@ class EventgalleryViewEvent extends JViewLegacy
 		$app	 = JFactory::getApplication();
 		$document = JFactory::getDocument();
 		$params	 = $app->getParams();
-		
-		
+
+		/* Default Page fallback*/		
+		$active	= $app->getMenu()->getActive();
+		if (null == $active) {
+			$params = $app->getMenu()->getDefault()->params;
+		}
+	
 			
 		if ($layout = $params->get('event_layout'))
 		{

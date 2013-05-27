@@ -24,6 +24,12 @@ class EventgalleryViewEvents extends JViewLegacy
 		$params	 = $app->getParams();
         $this->assign('params', $params);
 
+		/* Default Page fallback*/		
+		$active	= $app->getMenu()->getActive();
+		if (null == $active) {
+			$params = $app->getMenu()->getDefault()->params;
+		}
+
 		$entriesPerPage = 10;
 		$model = $this->getModel('events');
 		$eventModel = $this->getModel('event');

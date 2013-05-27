@@ -312,7 +312,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 - issues with image sharping. Try to disable it using the components configuration dialog.
 - PHP should have write permission to /images, /cache and /logs
 - Picasa Images do not show up because the method get\_file\_content is not working. Check with your hosting provider to solve this issue.
-- PHP should be able to execute the script /components/com_eventgallery/helpers/image.php in order to display thumbs.
+- Error 500: PHP should be able to execute the script /components/com_eventgallery/helpers/image.php in order to display thumbs.
 
 ### Joomla Configuration
 - Picasa albums do not work because your SEO-component strips out the @-sign from the URLs
@@ -390,6 +390,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- fixed encoding issues for event text, file title and file description 
 		- fixed enlargement of images which are uploaded smaller than 1440px in the lightbox and image lists.
 		- cleaning the cache is working again. Wrong task was referenced so nothing happened.
+		- an event gallery page can now be the default page
 
 ## 2.6.1
 

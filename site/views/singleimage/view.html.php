@@ -24,6 +24,13 @@ class EventgalleryViewSingleImage extends JViewLegacy
 		$this->assign('model',$model);
 		
 		$params	 = $app->getParams();
+
+		/* Default Page fallback*/		
+		$active	= $app->getMenu()->getActive();
+		if (null == $active) {
+			$params = $app->getMenu()->getDefault()->params;
+		}
+
         $this->assign('use_comments', $params->get('use_comments'));
         $this->assign('paging_images_count', $params->get('paging_images_count'));
         $this->assign('singleimage_preview', $params->get('singleimage_preview'));
