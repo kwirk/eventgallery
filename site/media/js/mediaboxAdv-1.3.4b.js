@@ -1016,7 +1016,7 @@ var Mediabox;
 					mediaHeight = preload.height = parseInt((mediaWidth/preload.width)*mediaHeight);
 					preload.width = mediaWidth;
 				}
-				
+							
 				if (Browser.ie) preload = document.id(preload);
 				
 				//preload.addEvent('mousedown', function(e){ e.stop(); }).addEvent('contextmenu', function(e){ e.stop(); });
@@ -1094,9 +1094,21 @@ var Mediabox;
 			
 			if (typeof preload == 'object') {
 				var pRatio = origImageWidth/origImageHeight;
+				
+				/* adjust the height*/
+				var finalHeight = winHeight-bottomHeight-(2*margin);				
+				var finalWidth = Math.floor(finalHeight*pRatio);
+				
+				/* adjust the width if the image is too width */
+				if (finalWidth>winWidth-(2*margin)) {
+					finalWidth = winWidth-(2*margin);				
+					finalHeight = Math.floor(finalWidth/pRatio);
+				}
+				preload.setStyles({width: finalWidth, height:finalHeight});
+
 				preload.setStyle("display","block");
 				preload.setStyle("margin","auto");	
-				var paddingTop = Math.ceil( (winHeight-bottomHeight-(origImageWidth/pRatio))/2-margin );
+				var paddingTop = Math.ceil( (winHeight-bottomHeight-(finalWidth/pRatio))/2-margin );
 				if (paddingTop>0) {
 					preload.setStyle("padding-top", paddingTop );			
 				}				
