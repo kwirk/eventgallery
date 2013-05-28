@@ -1074,7 +1074,6 @@ var Mediabox;
 		origImageWidth = mediaWidth;
 		origImageHeight = mediaHeight;
 
-		
 		mediaWidth = image.offsetWidth;
 		mediaHeight = image.offsetHeight+bottomHeight;		
 
@@ -1097,7 +1096,7 @@ var Mediabox;
 				var pRatio = origImageWidth/origImageHeight;
 				preload.setStyle("display","block");
 				preload.setStyle("margin","auto");	
-				var paddingTop = Math.ceil( (winHeight-bottomHeight-(preload.width/pRatio))/2-margin );
+				var paddingTop = Math.ceil( (winHeight-bottomHeight-(origImageWidth/pRatio))/2-margin );
 				if (paddingTop>0) {
 					preload.setStyle("padding-top", paddingTop );			
 				}				
