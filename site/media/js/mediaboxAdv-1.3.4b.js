@@ -1095,14 +1095,19 @@ var Mediabox;
 			if (typeof preload == 'object') {
 				var pRatio = origImageWidth/origImageHeight;
 				
-				/* adjust the height*/
-				var finalHeight = winHeight-bottomHeight-(2*margin);				
-				var finalWidth = Math.floor(finalHeight*pRatio);
-				
-				/* adjust the width if the image is too width */
-				if (finalWidth>winWidth-(2*margin)) {
-					finalWidth = winWidth-(2*margin);				
-					finalHeight = Math.floor(finalWidth/pRatio);
+				var finalHeight = origImageHeight;
+				var finalWidth = origImageWidth;
+								
+				if (finalWidth>winWidth-(2*margin) || finalHeight>winHeight-bottomHeight-(2*margin) ){
+					/* adjust the height*/
+					finalHeight = winHeight-bottomHeight-(2*margin);				
+					finalWidth = Math.floor(finalHeight*pRatio);
+					
+					/* adjust the width if the image is too width */
+					if (finalWidth>winWidth-(2*margin)) {
+						finalWidth = winWidth-(2*margin);				
+						finalHeight = Math.floor(finalWidth/pRatio);
+					}
 				}
 				preload.setStyles({width: finalWidth, height:finalHeight});
 
