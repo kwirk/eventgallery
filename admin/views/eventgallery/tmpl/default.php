@@ -119,19 +119,19 @@ defined('_JEXEC') or die('Restricted access');
 				</td>
 
 				<td>
-					<a href="<?php echo $link; ?>"><?php echo $row->description; ?></a>
+					<?php echo $row->description; ?>
 				</td>
 				<td>
-					<a href="<?php echo $link; ?>"><?php echo $row->tags; ?></a>
+					<?php echo $row->tags; ?>
 				</td>
 				<td>
-					<a href="<?php echo $link; ?>"><?php echo $row->picasakey; ?></a>
+					<?php echo $row->picasakey; ?>
 				</td>
 				<td>
-					<a href="<?php echo $link; ?>"><?php echo $row->password; ?></a>
+					<?php echo $row->password; ?>
 				</td>
 				<td>
-					<a href="<?php echo $link; ?>"><?php echo $row->cartable==1?JText::_( 'COM_EVENTGALLERY_EVENT_CARTABLE' ):JText::_( 'COM_EVENTGALLERY_EVENT_NOT_CARTABLE' ); ?></a>
+					<?php echo $row->cartable==1?JText::_( 'COM_EVENTGALLERY_EVENT_CARTABLE' ):JText::_( 'COM_EVENTGALLERY_EVENT_NOT_CARTABLE' ); ?>
 				</td>			
 				<td class="nowrap">
 					<?php echo JHTML::Date($row->date, JText::_('DATE_FORMAT_LC3')); ?><br>		
