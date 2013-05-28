@@ -168,7 +168,8 @@ var Mediabox;
 											// CSS background is naturally non-clickable, preventing downloads
 											// IMG tag allows automatic scaling for smaller screens
 											// (all images have no-click code applied, albeit not Opera compatible. To remove, comment lines 212 and 822)
-				imgPadding: 50 ,			// Clearance necessary for images larger than the window size (only used when imgBackground is false)
+				imgPadding: 100 ,			// Clearance necessary for images larger than the window size (only used when imgBackground is false)
+				imgPaddingFullscreen: 10,
 											// Change this number only if the CSS style is significantly divergent from the original, and requires different sizes
 			    showFullscreen: false,
 //			Inline options
@@ -227,7 +228,7 @@ var Mediabox;
 				vmColor: 'ffffff'			// Custom controller colors, hex value minus the # sign, defult is 5ca0b5
 			}, _options || {});
 
-			if (_images[startImage][2].indexOf('fullscreen') != -1) {
+			if ( _images[startImage][2] != null && _images[startImage][2].indexOf('fullscreen') != -1) {
 				options.showFullscreen=true;				
 			}
 
@@ -289,7 +290,6 @@ var Mediabox;
 			
 			window.addEvent('resize', refreshCenter);
 			window.addEvent('scroll', refreshCenter);
-
 			
 			return changeImage(startImage);
 		}
@@ -411,6 +411,7 @@ var Mediabox;
 	function keyDown(event) {
 		if (options.alpha) {
 			switch(event.code) {
+				case 8:	    // Backspace
 				case 27:	// Esc
 				case 88:	// 'x'
 				case 67:	// 'c'
@@ -426,6 +427,7 @@ var Mediabox;
 			}
 		} else {
 			switch(event.code) {
+				case 8:     // Backspace
 				case 27:	// Esc
 					close();
 					break;
@@ -994,6 +996,9 @@ var Mediabox;
 	}
 
 	function startEffect() {
+		
+		imgPadding = options.showFullscreen?options.imgPaddingFullscreen:options.imgPadding;
+		
 		if (mediaType == "img"){
 			image.setStyles({overflow: "hidden"});			
 			mediaWidth = preload.width;
@@ -1002,12 +1007,12 @@ var Mediabox;
 			if (options.imgBackground) {
 				image.setStyles({backgroundImage: "url("+URL+")", display: ""});
 			} else {	// Thanks to Dusan Medlin for fixing large 16x9 image errors in a 4x3 browser
-				if (mediaHeight >= winHeight-options.imgPadding && (mediaHeight / winHeight) >= (mediaWidth / winWidth)) {
-					mediaHeight = winHeight-options.imgPadding;
+				if (mediaHeight >= winHeight-imgPadding && (mediaHeight / winHeight) >= (mediaWidth / winWidth)) {
+					mediaHeight = winHeight-imgPadding;
 					mediaWidth = preload.width = parseInt((mediaHeight/preload.height)*mediaWidth);
 					preload.height = mediaHeight;
-				} else if (mediaWidth >= winWidth-options.imgPadding && (mediaHeight / winHeight) < (mediaWidth / winWidth)) {
-					mediaWidth = winWidth-options.imgPadding;
+				} else if (mediaWidth >= winWidth-imgPadding && (mediaHeight / winHeight) < (mediaWidth / winWidth)) {
+					mediaWidth = winWidth-imgPadding;
 					mediaHeight = preload.height = parseInt((mediaWidth/preload.width)*mediaHeight);
 					preload.width = mediaWidth;
 				}
@@ -1020,7 +1025,6 @@ var Mediabox;
 				preload.inject(image);
 				
 			}
-			console.log(preload.height)
 		} else if (mediaType == "obj") {
 			if (Browser.Plugins.Flash.version<8) {
 				image.setStyles({backgroundImage: "none", display: ""});
@@ -1070,8 +1074,10 @@ var Mediabox;
 		origImageWidth = mediaWidth;
 		origImageHeight = mediaHeight;
 
+		
 		mediaWidth = image.offsetWidth;
 		mediaHeight = image.offsetHeight+bottomHeight;		
+
 
 		/* readjust the size of the lightbox*/
 		if (options.showFullscreen) {
@@ -1084,41 +1090,28 @@ var Mediabox;
 			caption.setStyle("width",bottomWidth);
 
 			var bottomHeight = bottom.offsetHeight;
-			//bottom.setStyle("width", "auto");
 
-			mediaHeight = winHeight-options.imgPadding;
+			mediaHeight = winHeight-imgPadding;
 			
 			if (typeof preload == 'object') {
 				var pRatio = origImageWidth/origImageHeight;
-				
-				if (mediaHeight > winHeight-bottomHeight) {
-					preload.width= ((mediaHeight-bottomHeight+options.imgPadding)*pRatio)-(2*margin);
-
-					//preload.setStyle("height","100%");
-					//preload.setStyle("max-height","100%");
-					//preload.setStyle("width","auto");
-					//preload.setStyle("max-width","100%");
-				}
-			
 				preload.setStyle("display","block");
 				preload.setStyle("margin","auto");	
-				var paddingTop = Math.ceil( (winHeight-bottom.offsetHeight-preload.width/pRatio)/2-margin );
+				var paddingTop = Math.ceil( (winHeight-bottomHeight-(preload.width/pRatio))/2-margin );
 				if (paddingTop>0) {
 					preload.setStyle("padding-top", paddingTop );			
-				}
-				
+				}				
 			}
-			image.setStyle("width", "auto");
-
-			image.setStyle("height", winHeight-bottomHeight-image.getStyle('padding-top').toInt()-image.getStyle('padding-top').toInt());			
 			
+			image.setStyle("width", "auto");
+			image.setStyle("height", winHeight-bottomHeight-image.getStyle('padding-top').toInt()-image.getStyle('padding-top').toInt());			
 			
 			mediaWidth = winWidth-1-center.getStyle("padding-left").toInt()-center.getStyle("padding-right").toInt();
 			mediaHeight = winHeight-1-center.getStyle("padding-top").toInt()-center.getStyle("padding-bottom").toInt();
 			
 		}
 		else if (mediaHeight > winHeight && preload) {
-			mediaHeight = winHeight-options.imgPadding;
+			mediaHeight = winHeight-imgPadding;
 			image.setStyle("height", mediaHeight-bottomHeight-(2*margin));			
 			if (typeof preload == 'object') {
 				var pRatio = origImageWidth/origImageHeight;
@@ -1126,7 +1119,6 @@ var Mediabox;
 				preload.width = ((mediaHeight-bottomHeight)*pRatio)-(2*margin);
 				preload.setStyle("display","block");
 				preload.setStyle("margin","auto");	
-				console.log("not FS, but resize");
 			}
 			caption.setStyle("width",image.getStyle("width").toInt()-margin);
 			title.setStyle("width", image.getStyle("width").toInt()-margin);
@@ -1136,7 +1128,6 @@ var Mediabox;
 		if (mediaHeight >= top+top) { mTop = -top } else { mTop = -(mediaHeight/2) };
 		if (mediaWidth >= left+left) { mLeft = -left } else { mLeft = -(mediaWidth/2) };
 		
-
 		if (options.resizeOpening) { 
 			fx.resize.start({width: mediaWidth, height: mediaHeight, marginTop: mTop, marginLeft: mLeft});
 		} else { 
