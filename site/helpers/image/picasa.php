@@ -104,7 +104,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     
     }
     
-    public function getImageUrl($width, $height, $fullsize, $larger=false) {
+    public function getImageUrl($width=104,  $height=104, $fullsize, $larger=false) {
     	if ($fullsize) {
     		return $this->image;
     	}else {

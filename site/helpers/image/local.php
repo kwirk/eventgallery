@@ -33,7 +33,7 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    	
 	    }
 	    
-	    public function getThumbImgTag($width=104,  $height=104, $cssClass="") {
+	    public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
 	    	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" 
 	    				style="	background-repeat:no-repeat; 
 	    						background-position: 50% 50%; 
@@ -59,7 +59,7 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 			return $imgTag;
 	    }
 	    
-	    public function getImageUrl($width, $height, $fullsize, $larger=false) {
+	    public function getImageUrl($width=104,  $height=104, $fullsize, $larger=false) {
 	    	if ($fullsize) {		    		
 	    		return JURI::base()."components/com_eventgallery/helpers/image.php?option=com_eventgallery&mode=full&view=resizeimage&folder=".$this->folder."&file=".urlencode($this->file);
 	    	} else {   		
@@ -74,7 +74,7 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    
 	    
 	    
-	    public function getThumbUrl ($width, $height, $larger=true, $crop=false) {	    
+	    public function getThumbUrl ($width=104, $height=104, $larger=true, $crop=false) {	    
 	    	
 	    	if ($crop) {
 	    		$mode = 'crop';
