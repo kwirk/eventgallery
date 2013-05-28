@@ -367,6 +367,7 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- Fix for showing tiny thumbs in Opera using a template which does not define the border-width 
 		  for the css class .thumbnail
 		- removed Strict Standard messages
+		- PHP 5.2 seems to work now.
 
 
 ## 2.6.2
