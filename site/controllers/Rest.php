@@ -22,7 +22,7 @@ class RestController extends JControllerLegacy
 		$folder = JRequest::getString( 'folder' , null );
 		
 
-		$cart = $this->getModel('Cart', 'EventgalleryModel');	
+		$cart = new EventgalleryModelsCart();	
 		$cart->addItem($folder, $file);
 		
 
@@ -32,19 +32,17 @@ class RestController extends JControllerLegacy
 
 	public function getCart() {
 
-		$cart = $this->getModel('Cart', 'EventgalleryModel');			
-
-		print_r($cart->getCartJSON());		
+		$cart = new EventgalleryModelsCart();
+		echo $cart->getCartJSON();		
 	}
 
 	public function removeFromCart() {
 
 		$session = JFactory::getSession();
-		$file = JRequest::getString( 'file' , null );
-		$folder = JRequest::getString( 'folder' , null );
+		$lineitemid = JRequest::getString( 'lineitemid' , null );
 		
-		$cart = $this->getModel('Cart', 'EventgalleryModel');	
-		$cart->removeItem($folder, $file);
+		$cart = new EventgalleryModelsCart();	
+		$cart->removeItem($lineitemid);
 		
 		$this->getCart();
 	}

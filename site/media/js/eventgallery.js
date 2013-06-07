@@ -529,7 +529,7 @@
 				var id = 'folder='+this.cart[i].folder+'&file='+this.cart[i].file;					
 				//add the item to the cart. Currently we simple refresh the whole cart.
 				if (!linksOnly) {
-					cartHTML.set('html',cartHTML.get('html')+'<div class="cart-item">'+this.cart[i].imagetag+'<a href="#" title="'+this.options.removeLinkTitle+'" class="eventgallery-removeFromCart button-removeFromCart" data-id="'+id+'"><i class="big"></i></a></div>');
+					cartHTML.set('html',cartHTML.get('html')+'<div class="cart-item">'+this.cart[i].imagetag+'<a href="#" title="'+this.options.removeLinkTitle+'" class="eventgallery-removeFromCart button-removeFromCart" data-id="lineitemid='+this.cart[i].lineitemid+'"><i class="big"></i></a></div>');
 				}
 				// mark the add2cart link to show the item is already in the cart
 				$$('a.eventgallery-add2cart[data-id="'+id+'"]').addClass('button-alreadyInCart').removeClass('button-add2cart');				

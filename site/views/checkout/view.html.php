@@ -22,7 +22,7 @@ class CheckoutViewCheckout extends JViewLegacy
 	    $app = JFactory::getApplication();	    
 
 
-		$cart = JModelLegacy::getInstance('Cart', 'EventgalleryModel')->getCart();	
+		$cart = JModelLegacy::getInstance('Cart', 'EventgalleryModels')->getCart();	
 
 
 		$params	 = $app->getParams();

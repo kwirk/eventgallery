@@ -14,13 +14,11 @@ jimport('joomla.mail.mail');
 
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'buzzwords.php');
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'captcha.php');
-require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'imagehelpers.php');
 
 
 class EventgalleryController extends JControllerLegacy
 {
-	
-	
+		
 	
 	public function display($cachable = false, $urlparams = false)
 	{

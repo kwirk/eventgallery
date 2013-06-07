@@ -11,6 +11,9 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+//load tables
+JTable::addIncludePath(JPATH_ADMINISTRATOR.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'tables');
+
 //load classes
 JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT);
 

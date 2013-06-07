@@ -16,10 +16,13 @@ jimport('joomla.html.pagination');
 
 //jimport( 'joomla.application.component.helper' );
 
-class EventgalleryModelCart extends JModelLegacy
+class EventgalleryModelsCart extends EventgalleryModelsDefault
 {
 	protected $cart = null;
 	protected $option = '';
+
+	var $_cart = null;
+	var $_user_id     = null;
 	
 	function __construct()
 	{
@@ -30,16 +33,73 @@ class EventgalleryModelCart extends JModelLegacy
 		// function syntax is setUserState( $key, $value );
 		$this->option = $app->input->get('option');
 
-		$this->load();
+		$session = JFactory::getSession();
+		$this->_user_id = $session->getId();
+
+		$this->getCart();
 	    parent::__construct();	    
 	 
 	}
 
+	/**
+	* Builds the query to be used by the book model
+	* @return   object  Query object
+	*
+	*
+	*/
+	protected function _buildQuery()
+	{
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(TRUE);
+
+		$query->select('c.*');
+		$query->from('#__eventgallery_cart as c');
+
+		return $query;
+	}
+
+	/**
+	* Builds the filter for the query
+	* @param    object  Query object
+	* @return   object  Query object
+	*
+	*/
+	protected function _buildWhere(&$query)
+	{
+		$db = JFactory::getDBO();
+		$query->where('c.statusid is null');
+		$query->where('c.userid = ' . $db->quote($this->_user_id) );
+
+		return $query;
+	}
+
+	/**
+	* get the cart from the database. 
+	*/
     function getCart() {
     	
-		return $this->cart;
+    	if ($this->_cart == null) {
+    		$this->_cart = parent::getItem();
+    		if ($this->_cart == null) {
+    			$this->_cart = $this->createCart();
+    			$this->_cart = parent::getItem();
+    		}
+
+    	}		
+
     }
 
+    /**
+    * create a new cart
+    */
+    function createCart() {
+    	$data = array('userid'=>$this->_user_id, 'table' => 'Cart');    	
+    	$this->store($data);
+    }
+
+    /**
+    * adds an image to the cart and checks if this action is actually allowed
+    */
 
     function addItem($folder, $file, $count=1) {		
 
@@ -51,11 +111,12 @@ class EventgalleryModelCart extends JModelLegacy
 		$model = JModelLegacy::getInstance('SingleImage', 'EventgalleryModel');
 		$model->getData($folder,$file);
 
-	
+		/* security check BEGIN */
 		if (!$model->folder->cartable==1) {
 			return;
 		}
  		
+
 
  		if (is_Object($model->folder) && strlen($model->folder->password)>0) {
 	    	$session = JFactory::getSession();
@@ -70,68 +131,71 @@ class EventgalleryModelCart extends JModelLegacy
 				return;
 			}			
 		}
+
+		/* security check END */
 		
-		$imagetag =  $model->file->getLazyThumbImgTag(100,100, "", true);
-
-
-		$imagetag = '<a class="thumbnail" href="'.$model->file->getImageUrl(null, null, true).'" title="'.htmlentities($model->file->getPlainTextTitle()).'" data-title="'.rawurlencode($model->file->getLightBoxTitle()).'" rel="lightbo2[cart]"> '.$model->file->getThumbImgTag(100,100).'</a>';
-
-		$item = array('file'=>$file, 'folder'=>$folder, 'count'=>1, 'imagetag' => $imagetag);
-
-		if (!in_array($item, $this->cart)) {
-			array_push($this->cart, $item);
-		}
+		$item = array('lineitemcontainerid'  => $this->_cart->id ,
+									'folder' => $model->file->folder, 
+									  'file' => $model->file->file, 
+								  'quantity' => $count, 
+								    'table'  => 'Imagelineitem');		
 		
-		$this->store();
+		
+		$this->store($item);
 
     }
 
-    function removeItem($folder, $file) {
+    function removeItem($lineitemid) {
 
-    	if ($file==null || $folder==null) {
+    	if ($lineitemid==null) {
 			return;
 		}
 
-		// do this to avoid getting an array like {1=>value, 2=>value} since the javascript
-		// expects an array like {value, value}
-		$newCart = array();
-		foreach ($this->cart as $item) {
-			if (strcmp($item['folder'],$folder)==0 && strcmp($item['file'],$file)==0) {
-				
-			} else {
-				array_push($newCart, $item);
-			}
-		}	
+		$model = JModelLegacy::getInstance('Lineitem', 'EventgalleryModels', $this->_cart->id);
+		$model->removeItem($lineitemid);
 
-		$this->cart = $newCart;
-		$this->store();
+		
 
     }
 
+    function getLineItems() {
+		$model = JModelLegacy::getInstance('Lineitem', 'EventgalleryModels', $this->_cart->id);
+		return $model->getItems($this->_cart->id);    	
+
+    }
+
+	/**
+	* returns the cart as a json object
+	*/
     function getCartJSON() {
-    	
-    	return json_encode($this->cart);
+
+    	$jsonCart = array();
+
+    	$model = JModelLegacy::getInstance('SingleImage', 'EventgalleryModel');
+
+    	foreach($this->getLineItems() as $lineitem) {
+    		$file = $this->getFile($lineitem->folder, $lineitem->file);
+    		$imagetag = '<a class="thumbnail" 
+    						href="'.$file->getImageUrl(null, null, true).'" 
+    						title="'.htmlentities($file->getPlainTextTitle()).'" 
+    						data-title="'.rawurlencode($file->getLightBoxTitle()).'" 
+    						data-lineitem-id="'.$lineitem->id.'"
+    						rel="lightbo2[cart]"> '.$file->getThumbImgTag(100,100).'</a>';
+
+    		$item = array(	'file'=>$lineitem->file, 
+    						'folder'=>$lineitem->folder, 
+    						'count'=>$lineitem->quantity, 
+    						'lineitemid'=>$lineitem->id,
+    						'typeid'=>$lineitem->typeid,
+    						'imagetag' => $imagetag);
+
+    		array_push($jsonCart, $item);
+    	}
+
+    	return json_encode($jsonCart);
     }
-
-	// loads the cart
-    function load() {
-    	$session = JFactory::getSession();
-		$cartJson = $session->get($this->option.".cart","");
-
-		$this->cart = array();
-		if (strlen($cartJson)>0) {
-			$this->cart = json_decode($cartJson, true);
-		}
-
-    }
-
-    // saves te cart
-    function store() {
-    	$session = JFactory::getSession();
-    	$session->set( $this->option.".cart", json_encode($this->cart) );
-    }
+	
 
 
-        	
  
 }
