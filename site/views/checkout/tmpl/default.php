@@ -23,10 +23,15 @@ defined('_JEXEC') or die('Restricted access');
 			<div class="control-group">
 				<label class="control-label" for="images"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_ITEMS')?></label>
 				<div class="controls">
-					<?php foreach($this->cart as $lineitem) :?>
+					<?php foreach($this->cart->getLineItems() as $lineitem) :?>
 						<div class="cart-item">
-							<?php echo $lineitem['imagetag'] ?><br />
-							<input class="validate-numeric required input-small" type="number" name="count_<?php echo md5($lineitem['folder'].$lineitem['file']) ?>" value="<?php echo $lineitem['count'] ?>"/>			
+							<?php 
+
+							$file = $this->cart->getFile($lineitem->folder, $lineitem->file) ;
+							$imagetag = $file->getCartThumb($lineitem->id);
+	    					echo $imagetag; ?>
+							<br />
+							<input class="validate-numeric required input-small" type="number" name="quantity_<?php echo $lineitem->id ?>" value="<?php echo $lineitem->quantity ?>"/>			
 						</div>
 					<?php endforeach?>
 					<div style="clear:both"></div>

@@ -26,29 +26,35 @@ class CheckoutController extends JControllerLegacy
 		 
 		// store the variable that we would like to keep for next time
 		// function syntax is setUserState( $key, $value );
-		$option = $app->input->get('option');
+		$cart = JModelLegacy::getInstance('Cart', 'EventgalleryModels');
 
-		$cartJson = $session->get("$option.cart","");
-
-		$cart = array();
-		if (strlen($cartJson)>0) {
-			$cart = json_decode($cartJson, true);
-		}
+		
 	
 		$order = array();
 
 		$overallImageCount = 0;
 
-		foreach($cart as $lineitem){
-			$count = JRequest::getString( 'count_'.md5($lineitem['folder'].$lineitem['file']) , 0 );
+
+		/* update cart */
+		foreach($cart->getLineItems() as $lineitem){
+			$count = JRequest::getString( 'quantity_'.$lineitem->id , 0 );
 			if ($count>0) {
-				$lineitem['count'] = $count;
-				array_push($order, $lineitem);
+				$lineitem->quantity = $count;			
+				$cart->setLineItemQuantity($lineitem->id, $count);
 				$overallImageCount += $count;
+			} else {
+				$cart->removeItem($lineitem->id);
 			}
 				
 		}
- 
+ 		
+ 		$lineitems = $cart->getLineItems();
+ 		/* create order*/
+
+ 		$cart->createOrder();
+
+
+ 		/* send mail */
 		     
 		$sitename	= $config->get('sitename');
 		$name    = JRequest::getString( 'name' , $config->get( 'config.fromname' ) );
@@ -57,16 +63,14 @@ class CheckoutController extends JControllerLegacy
 		$subject_message = JRequest::getString( 'subject' , "null" );
 
 
-		$mailer = JFactory::getMailer();
-
-		
+		$mailer = JFactory::getMailer();		
 		
 		$sender = array( 
 		    $email,
 		    $name 
 		);
  
- 		$mailer->setSubject("$sitename - Image Order for $name with $overallImageCount copies of ".count($order)." images");
+ 		$mailer->setSubject("$sitename - Image Order for $name with $overallImageCount copies of ".count($lineitems)." images");
 		$mailer->setSender($sender);	
 
 		$params = JComponentHelper::getParams('com_eventgallery');	
@@ -85,21 +89,29 @@ class CheckoutController extends JControllerLegacy
 		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_FILE').'</th>';
 		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_THUMBNAIL').'</th>';
 
-		foreach($order as $lineitem){
+		foreach($lineitems as $lineitem){
 			$body  .= '<tr><td>';
-			$body  .= $lineitem['count'];
+			$body  .= $lineitem->quantity;
 			$body  .= '</td><td>';
-			$body  .= '<pre>'.$lineitem['folder'].' / '.$lineitem['file'].'</pre>';
+			$body  .= '<pre>'.$lineitem->folder.' / '.$lineitem->file.'</pre>';
 			$body  .= '</td><td>';
-			$body  .= $lineitem['imagetag'];
+
+
+		    $file = $cart->getFile($lineitem->folder, $lineitem->file);
+    		$imagetag = '<a class="thumbnail" 
+    						href="'.$file->getImageUrl(null, null, true).'" 
+    						> '.$file->getThumbImgTag(100,100).'</a>';
+
+			$body  .= $imagetag;
 			$body  .= '</td></tr>';				
+		
 		}
 		$body  .= '</table>';
 
 		$body  .= '<br /><br /><br /><h2>Short Summary</h2><br /><pre>';
-		foreach($order as $lineitem){
-			$body  .= $lineitem['count']."\t\t";
-			$body  .= $lineitem['folder'].' / '.$lineitem['file']."\n";
+		foreach($lineitems as $lineitem){
+			$body  .= $lineitem->quantity."\t\t";
+			$body  .= $lineitem->folder.' / '.$lineitem->file."\n";
 		}
 		$body  .= '</pre>';
 

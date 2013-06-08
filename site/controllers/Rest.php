@@ -20,10 +20,12 @@ class RestController extends JControllerLegacy
 
 		$file = JRequest::getString( 'file' , null );
 		$folder = JRequest::getString( 'folder' , null );
+		$quantity = JRequest::getString( 'quantity' , 1 );
+		$typeid = JRequest::getString( 'typeid' , null );
 		
 
 		$cart = new EventgalleryModelsCart();	
-		$cart->addItem($folder, $file);
+		$cart->addItem($folder, $file, $quantity, $typeid);
 		
 
 		$this->getCart();

@@ -198,10 +198,10 @@ class EventgalleryModelsDefault extends JModelLegacy
 		return $this->_pagination;
 	}
 
-	protected function getFile($folder, $file) {	
+	function getFile($folder, $file) {	
 
 		if (isset($this->_files[$folder.'/'.$file])) {
-			return $this->_files[$folder.'/'.$file];
+			
 		}
 		
 		$fileObject = null;
@@ -237,23 +237,23 @@ class EventgalleryModelsDefault extends JModelLegacy
 		
 		$this->_files[$folder.'/'.$file] = $fileObject;
 
-		return $fileObject;
+		return $this->_files[$folder.'/'.$file];
 	}
 
-	protected function getFolder($folder)
+    function getFolder($folder)
     {              	
-    	if (isset($this->_folders[$folder])) {
-    		return $this->_folders[$folder];
+    	if (!isset($this->_folders[$folder])) {
+	 		$db = JFactory::getDBO();
+	    	$query = 'SELECT * from #__eventgallery_folder 
+	    	          where published=1 and folder='.$this->_db->Quote($folder);
+	    	$db->setQuery($query);
+	    	$folderObject = $db->loadObject();
+	    	$model = JModelLegacy::getInstance('Imagetypeset', 'EventgalleryModels', null);//$folderObject->typeset);
+	    	$folderObject->imagetypeset=$model;
+
+	    	$this->_folders[$folder] = $folderObject;
     	}
-
- 		$db = JFactory::getDBO();
-    	$query = 'SELECT * from #__eventgallery_folder 
-    	          where published=1 and folder='.$this->_db->Quote($folder);
-    	$db->setQuery($query);
-    	$folderObject = $db->loadObject();
-
-    	$this->_folders[$folder] = $folderObject;
-    	return $folderObject;
+    	return $this->_folders[$folder];
     }
 
 

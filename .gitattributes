@@ -219,6 +219,7 @@ site/models/comment.php -text
 site/models/default.php -text
 site/models/event.php -text
 site/models/events.php -text
+site/models/imagetypeset.php -text
 site/models/index.html -text
 site/models/lineitem.php -text
 site/models/singleimage.php -text

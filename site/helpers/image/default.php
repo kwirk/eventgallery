@@ -80,6 +80,15 @@ abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersIma
 
 	    	return "";
 	    }
+
+	    public function getCartThumb($lineitemid) {
+	    	return '<a class="thumbnail" 
+    						href="'.$this->getImageUrl(null, null, true).'" 
+    						title="'.htmlentities($this->getPlainTextTitle()).'" 
+    						data-title="'.rawurlencode($this->getLightBoxTitle()).'" 
+    						data-lineitem-id="'.$lineitemid.'"
+    						rel="lightbo2[cart]"> '.$this->getThumbImgTag(100,100).'</a>';
+	    }
 	    
 	
 }

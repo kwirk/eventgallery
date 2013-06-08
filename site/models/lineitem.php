@@ -22,12 +22,9 @@ class EventgalleryModelsLineitem extends EventgalleryModelsDefault
 	var $_lineitemcontainer_id     = null;
 	
 	function __construct($lineitemcontainer_id)
-	{
-	 
-				 
+	{				 
 		$this->_lineitemcontainer_id = $lineitemcontainer_id;
-	    parent::__construct();	    
-	 
+	    parent::__construct();	 
 	}
 
 	/**
@@ -57,7 +54,22 @@ class EventgalleryModelsLineitem extends EventgalleryModelsDefault
 	{
 		$db = JFactory::getDBO();
 		$query->where('ili.lineitemcontainerid = ' . $db->quote($this->_lineitemcontainer_id) );
+		$query->where('ili.status = 0');
 		return $query;
+	}
+
+	/* find a specific line item*/
+	function getItemByFileAndType($lineitemcontainerid, $folder, $file, $typeid) {
+		$db = JFactory::getDBO();
+		$query = $this->_buildQuery();    
+		$this->_buildWhere($query);
+		$query->where('lineitemcontainerid='. $db->quote($lineitemcontainerid));
+		$query->where('folder='. $db->quote($folder));
+		$query->where('file='. $db->quote($file));
+		$query->where('typeid='. $db->quote($typeid));
+		$db->setQuery($query);
+		return $db->loadObject();
+		
 	}
 
 	function getItems() {
