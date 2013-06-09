@@ -12,10 +12,11 @@
 defined('_JEXEC') or die();
 
 jimport( 'joomla.application.component.model' );
-jimport('joomla.html.pagination');
 
-//jimport( 'joomla.application.component.helper' );
 
+/**
+* Represents a type set
+*/
 class EventgalleryModelsImagetypeset extends EventgalleryModelsDefault
 {
 
@@ -27,6 +28,12 @@ class EventgalleryModelsImagetypeset extends EventgalleryModelsDefault
 		$this->_typeset_id = $typeset_id;
 		$this->loadTypeSet();
 	    parent::__construct();	 
+	}
+
+	function __get($name) {
+		if (array_key_exists($name, $this->getTypeSet())) {
+            return $this->getTypeSet()[$name];
+        }
 	}
 	
 
@@ -53,7 +60,7 @@ class EventgalleryModelsImagetypeset extends EventgalleryModelsDefault
 	    $this->_typeset->types = $types;
 	}
 
-	function getTypeSet() {
+	protected function getTypeSet() {
 		return $this->_typeset;		
 	}
 

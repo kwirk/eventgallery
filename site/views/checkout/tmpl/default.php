@@ -32,6 +32,14 @@ defined('_JEXEC') or die('Restricted access');
 	    					echo $imagetag; ?>
 							<br />
 							<input class="validate-numeric required input-small" type="number" name="quantity_<?php echo $lineitem->id ?>" value="<?php echo $lineitem->quantity ?>"/>			
+							<select class="required input-small" name="type_<?php echo $lineitem->id ?>">
+								<?php 
+									foreach($lineitem->imagetypeset->getTypes() as $type) {
+										$selected = $lineitem->typeid == $type->id?'selected="selected"':'';
+										echo '<option '.$selected.' value="'.$type->id.'">'.$type->name.'</option>';
+									}
+								?>
+							</select>
 						</div>
 					<?php endforeach?>
 					<div style="clear:both"></div>

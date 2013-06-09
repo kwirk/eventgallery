@@ -223,9 +223,8 @@ class EventgalleryModelsCart extends EventgalleryModelsDefault
 
     	$jsonCart = array();
 
-    	foreach($this->getLineItems() as $lineitem) {
-    		$file = $this->getFile($lineitem->folder, $lineitem->file);
-    		$imagetag = $file->getCartThumb($lineitem->id);
+    	foreach($this->getLineItems() as $lineitem) {    		
+    		$imagetag = $lineitem->fileObject->getCartThumb($lineitem->id);
 
     		$item = array(	'file'=>$lineitem->file, 
     						'folder'=>$lineitem->folder, 
@@ -254,15 +253,13 @@ class EventgalleryModelsCart extends EventgalleryModelsDefault
     function setLineItemType($lineitemid, $typeid) {
     	$item = $this->getLineItem($lineitemid);
 
-    	$folderObject = $this->getFolder($item->folder);
-
 		/* check of the folder allows the type id. take the first type if not specific type was given. */
 
 		if ($typeid == null ) {
 			return;	
 		}
 
-		$type = $folderObject->imagetypeset->getType($typeid);		
+		$type = $item->folderObject->imagetypeset->getType($typeid);		
 
 		if ($type == null) {
 			return;

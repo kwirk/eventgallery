@@ -68,8 +68,7 @@ class EventgalleryModelsLineitem extends EventgalleryModelsDefault
 		$query->where('file='. $db->quote($file));
 		$query->where('typeid='. $db->quote($typeid));
 		$db->setQuery($query);
-		return $db->loadObject();
-		
+		return $db->loadObject();		
 	}
 
 	function getItems() {
@@ -77,13 +76,17 @@ class EventgalleryModelsLineitem extends EventgalleryModelsDefault
 		$query = $this->_buildQuery();    
 		$this->_buildWhere($query);
 		$list = $this->_getList($query);
+		foreach($list as $lineitem) {
+			$lineitem->folderObject = $this->getFolder($lineitem->folder);
+			$lineitem->fileObject = $this->getFile($lineitem->folder, $lineitem->file);
+			$lineitem->imagetypeset = $lineitem->folderObject->imagetypeset;
+		}
 		return $list;
 	}
 
 	function removeItem($lineitemid) {
 		$db = JFactory::getDBO();
-		$query = "delete from #__eventgallery_imagelineitem where id=".$db->quote($lineitemid)." and lineitemcontainerid=".$db->quote($this->_lineitemcontainer_id)."";
-		
+		$query = "delete from #__eventgallery_imagelineitem where id=".$db->quote($lineitemid)." and lineitemcontainerid=".$db->quote($this->_lineitemcontainer_id)."";		
 		$db->setQuery($query);
 		$db->execute();
 	}

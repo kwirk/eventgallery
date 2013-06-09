@@ -37,15 +37,24 @@ class CheckoutController extends JControllerLegacy
 
 		/* update cart */
 		foreach($cart->getLineItems() as $lineitem){
-			$count = JRequest::getString( 'quantity_'.$lineitem->id , 0 );
-			if ($count>0) {
-				$lineitem->quantity = $count;			
-				$cart->setLineItemQuantity($lineitem->id, $count);
-				$overallImageCount += $count;
+
+			/* Quantity Update*/
+			$quantity = JRequest::getString( 'quantity_'.$lineitem->id , 0 );
+			if ($quantity>0) {
+				$lineitem->quantity = $quantity;			
+				$cart->setLineItemQuantity($lineitem->id, $quantity);
+				$overallImageCount += $quantity;
 			} else {
 				$cart->removeItem($lineitem->id);
 			}
 				
+			/* type update */
+
+			$typeid = JRequest::getString( 'type_'.$lineitem->id , null );
+			if (null != $typeid) {
+				$cart->setLineItemType($lineitem->id, $typeid);
+			}
+
 		}
  		
  		$lineitems = $cart->getLineItems();
