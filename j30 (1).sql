@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_imagetypeset_imagetype_assignment
   `typesetid` int(11) NOT NULL,
   `typeid` int(11) NOT NULL,
   `default` int(1) NOT NULL DEFAULT 0,
+  `ordering` int(11) NOT NULL DEFAULT 0,
   `modified` timestamp NULL DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`typesetid`,`typeid`)

@@ -136,6 +136,7 @@ site/language/en-GB/en-GB.com_eventgallery.ini -text
 site/language/it-IT/it-IT.com_eventgallery.ini -text
 site/language/nb-NO/nb-NO.com_eventgallery.ini -text
 site/language/nl-NL/nl-NL.com_eventgallery.ini -text
+site/library/index.html svneol=native#text/html
 site/media/css/eventgallery.css -text
 site/media/css/index.html svneol=native#text/html
 site/media/css/mediaboxAdvBlack21.css -text
