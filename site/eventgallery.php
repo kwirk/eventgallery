@@ -31,7 +31,7 @@ if($controller = JRequest::getVar('controller')) {
 
 
 $view = JRequest::getVar( 'view' , 'null' );
-if (strcmp('rest',$view)==0 || strcmp('checkout',$view)==0) {
+if (strcmp('rest',$view)==0 || strcmp('cart',$view)==0 || strcmp('checkout',$view)==0) {
 	require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.ucfirst($view).'.php');	
 	$classname = ucfirst($view).'Controller'.$controller;
 }else {

@@ -578,31 +578,32 @@ div.img:hover .button-alreadyInCart i.big
 
 /* cart */
 
-.eventgallery-cart {	
+.eventgallery-ajaxcart {	
 	margin-bottom: 20px;
 	display: none;
 	padding: 10px;
 }
 
-.eventgallery-cart .cart-items-container{		
+.eventgallery-ajaxcart .cart-items-container{		
 	min-height: 140px; 
 	height: 140px;
 	overflow: hidden;
 }
 
-.eventgallery-cart .toggle-down,
-.eventgallery-cart .toggle-up{
+.eventgallery-ajaxcart .toggle-down,
+.eventgallery-ajaxcart .toggle-up{
 	display: none;
 	text-align: right;
 }		
 
-.eventgallery-cart .cart-items img,
-.eventgallery-checkout .cart-items img
+.eventgallery-ajaxcart .cart-items img,
+.eventgallery-checkout .cart-items img,
+.eventgallery-cart .cart-items img
 {
 	width: 100px;
 }
 
-.eventgallery-cart .cart-items .cart-item {
+.eventgallery-ajaxcart .cart-items .cart-item {
 	position: relative;
 	float: left;
 	font-size: 0px;
@@ -613,31 +614,172 @@ div.img:hover .button-alreadyInCart i.big
 }
 
 
-.eventgallery-cart .cart-items .cart-item .button-removeFromCart {
+.eventgallery-ajaxcart .cart-items .cart-item .button-removeFromCart {
 	position: absolute; 
 	right: -2px;
 	bottom: 5px;
 }
 
-.eventgallery-cart .cart-items .cart-summary {
+.eventgallery-ajaxcart .cart-items .cart-summary {
 	float: left;
 	width: 100%;
 }
 
-.eventgallery-checkout .checkout-form {
+.eventgallery-checkout .checkout-form,
+.eventgallery-cart .cart-form {
 	margin-top: 20px;
 }
 
-.eventgallery-checkout .cart-item {
-	padding-right: 20px;
-	padding-bottom: 20px;
-	float:left;
-}
-
-.eventgallery-checkout fieldset  {	
+.eventgallery-checkout fieldset,
+.eventgallery-cart fieldset  {	
 	padding: 0px 0px;
 	margin-bottom: 20px;
 }
+
+.eventgallery-cart .cart-items table,
+.eventgallery-checkout .cart-items table {
+	width: 100%;
+}
+
+.eventgallery-cart .cart-items table th,
+.eventgallery-checkout .cart-items table th{
+	font-weight: bold;
+	line-height: 3em;
+	text-align: left;
+	
+}
+
+.eventgallery-cart .cart-items td,
+.eventgallery-checkout .cart-items td{
+	vertical-align: top;
+}
+
+
+.eventgallery-checkout .cart-items .quantity,
+.eventgallery-checkout .cart-items .imagetype{
+	text-align: right;
+}
+
+.eventgallery-cart .cart-items .price,
+.eventgallery-checkout .cart-items .price {
+	text-align: right;
+	white-space: nowrap;
+	padding-left: 10px;
+}
+
+.eventgallery-cart .cart-item .image,
+.eventgallery-checkout .cart-item .image {
+	width: 120px;
+}
+
+.eventgallery-cart .cart-item .image a,
+.eventgallery-checkout .cart-item .image a  {
+	margin-right: 20px;
+}
+
+.eventgallery-cart .cart-items a.delete,
+.eventgallery-cart .cart-items a.clone {
+	font-size: 0.7em;
+	display: block;
+	padding-top: 10px;
+}
+
+.eventgallery-cart .cart-summary div.subtotal,
+.eventgallery-checkout .cart-summary div.subtotal{
+	border-top: 1px solid silver;
+	width: 100%;
+	text-align: right;
+	position: relative;
+}
+
+.eventgallery-cart .cart-summary div.total,
+.eventgallery-checkout .cart-summary div.total {
+	border-top: 3px double silver;
+	width: 100%;
+	text-align: right;
+	margin-top: 10px;
+	position: relative;
+}
+
+.eventgallery-cart .cart-summary div.surcharge,
+.eventgallery-checkout .cart-summary div.surcharge {
+	width: 100%;
+	text-align: right;
+	margin-top: 10px;
+	position: relative;
+}
+
+.eventgallery-cart .cart-summary .subtotal-headline,
+.eventgallery-checkout .cart-summary .subtotal-headline {
+	font-size: 1.2em;	
+	font-weight: bold;
+	top: 0px;
+	right: 150px;
+	position: absolute;
+	display:block;
+	margin-top: 1em;
+	margin-bottom: 0;
+	line-height: 1.2em;
+}
+
+.eventgallery-cart .cart-summary .total-headline,
+.eventgallery-checkout .cart-summary .total-headline {
+	font-weight: bold;
+	font-size: 1.4em;	
+	top: 0px;
+	right: 150px;
+	position: absolute;
+	display:block;
+	margin-top: 1em;
+	margin-bottom: 0;
+	line-height: 1.4em;
+}
+
+.eventgallery-cart .cart-summary .surcharge-headline,
+.eventgallery-checkout .cart-summary .surcharge-headline {
+	font-size: 1.0em;	
+	top: 0px;
+	right: 150px;
+	position: absolute;
+	display:block;
+	margin-top: 0em;
+	margin-bottom: 0;
+	line-height: 1.0em;
+	font-weight: normal;
+}
+
+.eventgallery-cart .cart-summary span.subtotal,
+.eventgallery-checkout .cart-summary span.subtotal {
+	font-weight: bold;
+	font-size: 1.2em;	
+	display:block;
+	margin-top: 1em;
+	line-height: 1.2em;
+}
+
+.eventgallery-cart .cart-summary span.total,
+.eventgallery-checkout .cart-summary span.total {
+	font-weight: bold;
+	font-size: 1.4em;
+	display:block;
+	margin-top: 1em;
+	line-height: 1.4em;
+}
+
+.eventgallery-cart .cart-summary span.surcharge,
+.eventgallery-checkout .cart-summary span.surcharge {
+	font-size: 1.0em;
+	display:block;
+	margin-top: 1em;
+	line-height: 1.0em;
+}
+
+.eventgallery-cart .cart-summary .vat,
+.eventgallery-checkout .cart-summary .vat {
+	font-size: 0.7em;
+	display:block;		
+}
+
 
 /* bootstrap additions for joomla 2.5*/
 

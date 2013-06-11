@@ -12,21 +12,24 @@ defined('_JEXEC') or die;
 jimport( 'joomla.application.component.view');
 
 
-class EventgalleryViewCart extends JViewLegacy
+class CartViewCart extends JViewLegacy
 {
 	function display($tpl = null)
 	{		
-		
 	    $app = JFactory::getApplication();		   
 		 
 
-		$cart = JModelLegacy::getInstance('Cart', 'EventgalleryModels')->getCart();	
+		$cart = EventgalleryLibraryManagerCart::getCart();
 		
 
 		$params	 = $app->getParams();
 		$this->assign('cart', $cart);
 		$this->assign('params', $params);
 		
+		if ($cart->getLineItemsCount()==0) {
+			$this->setLayout("empty");
+		}
+
 		$pathway = $app->getPathWay();		
 		$pathway->addItem(JText::_('COM_EVENTGALLERY_CART_PATH'));
 		

@@ -14,53 +14,28 @@ class CheckoutController extends JControllerLegacy
 	{			
 		parent::display($cachable, $urlparams);		
 	}
+ 
 
 	public function sendOrder() {
 
-		$session = JFactory::getSession();
+
 		$config = JFactory::getConfig();
 		// Check for request forgeries.
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$app = JFactory::getApplication();
-		 
-		// store the variable that we would like to keep for next time
-		// function syntax is setUserState( $key, $value );
-		$cart = JModelLegacy::getInstance('Cart', 'EventgalleryModels');
+        EventgalleryLibraryManagerCart::updateCart();
 
-		
-	
-		$order = array();
-
-		$overallImageCount = 0;
+		/* @var EventgalleryLibraryCart $cart */
+        $cart = EventgalleryLibraryManagerCart::getCart();
 
 
-		/* update cart */
-		foreach($cart->getLineItems() as $lineitem){
+		$overallImageCount = $cart->getLineItemsTotalCount();
 
-			/* Quantity Update*/
-			$quantity = JRequest::getString( 'quantity_'.$lineitem->id , 0 );
-			if ($quantity>0) {
-				$lineitem->quantity = $quantity;			
-				$cart->setLineItemQuantity($lineitem->id, $quantity);
-				$overallImageCount += $quantity;
-			} else {
-				$cart->removeItem($lineitem->id);
-			}
-				
-			/* type update */
 
-			$typeid = JRequest::getString( 'type_'.$lineitem->id , null );
-			if (null != $typeid) {
-				$cart->setLineItemType($lineitem->id, $typeid);
-			}
 
-		}
- 		
  		$lineitems = $cart->getLineItems();
  		/* create order*/
-
- 		$cart->createOrder();
+        $orderMgr = new EventgalleryLibraryManagerOrder();
+        $order = $orderMgr->createOrder($cart);
 
 
  		/* send mail */
@@ -95,21 +70,28 @@ class CheckoutController extends JControllerLegacy
 
 		$body  .= '<table>';
 		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_COUNT').'</th>';
+        $body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_PRICE').'</th>';
+        $body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_IMAGETYPE').'</th>';
 		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_FILE').'</th>';
 		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_THUMBNAIL').'</th>';
 
 		foreach($lineitems as $lineitem){
 			$body  .= '<tr><td>';
-			$body  .= $lineitem->quantity;
+			$body  .= $lineitem->getQuantity();
+            $body  .= '</td><td>';
+            $body  .= $lineitem->getCurrency().' '.$lineitem->getPrice();
+            $body  .= ' ( '.$lineitem->getCurrency().' '.$lineitem->getPrice().' )';
 			$body  .= '</td><td>';
-			$body  .= '<pre>'.$lineitem->folder.' / '.$lineitem->file.'</pre>';
+            $body  .= $lineitem->getImageType()->getDisplayName();
+            $body  .= '</td><td>';
+			$body  .= '<pre>'.$lineitem->getFolderName().' / '.$lineitem->getFileName().'</pre>';
 			$body  .= '</td><td>';
 
 
-		    $file = $cart->getFile($lineitem->folder, $lineitem->file);
+
     		$imagetag = '<a class="thumbnail" 
-    						href="'.$file->getImageUrl(null, null, true).'" 
-    						> '.$file->getThumbImgTag(100,100).'</a>';
+    						href="'.$lineitem->getFile()->getImageUrl(null, null, true).'"
+    						> '.$lineitem->getFile()->getThumbImgTag(100,100).'</a>';
 
 			$body  .= $imagetag;
 			$body  .= '</td></tr>';				
@@ -117,10 +99,18 @@ class CheckoutController extends JControllerLegacy
 		}
 		$body  .= '</table>';
 
+        $body .= '<strong>Subtotal: '.$cart->getSubTotalCurrency().' '.sprintf("%0.2f",$cart->getSubTotal()).'</strong>';
+        $body .= "<br>";
+        $body .= "<br>";
+        $body .= '<strong>Total: '.$cart->getTotalCurrency().' '.sprintf("%0.2f",$cart->getTotal()).'</strong>';
+        $body .= "<br>";
+        $body .= "<br>";
+
 		$body  .= '<br /><br /><br /><h2>Short Summary</h2><br /><pre>';
 		foreach($lineitems as $lineitem){
-			$body  .= $lineitem->quantity."\t\t";
-			$body  .= $lineitem->folder.' / '.$lineitem->file."\n";
+			$body  .= $lineitem->getQuantity()."\t\t";
+            $body  .= $lineitem->getImageType()->getDisplayName()."\t\t";
+			$body  .= $lineitem->getFolderName().' / '.$lineitem->getFileName()."\n";
 		}
 		$body  .= '</pre>';
 
@@ -132,11 +122,10 @@ class CheckoutController extends JControllerLegacy
 
 		if ( $send !== true ) {
 		    $msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_FAILED').' ('. $mailer->ErrorInfo.')';
-		    $this->setRedirect(JRoute::_("index.php?view=checkout"),$msg);
+		    $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout"),$msg);
 		}  else {
 			$msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_STORED');
-			$session->set( "$option.cart", "" );
-			$this->setRedirect(JRoute::_("index.php?"),$msg,'info');
+			$this->setRedirect(JRoute::_("index.php?option=com_eventgallery"),$msg,'info');
 		}
 
 		

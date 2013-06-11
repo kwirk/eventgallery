@@ -20,32 +20,77 @@ defined('_JEXEC') or die('Restricted access');
 <a class="" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>
 	<form action="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=sendOrder") ?>" method="post" class="form-validate form-horizontal checkout-form">
 		<div class="cart-items">
-			<div class="control-group">
-				<label class="control-label" for="images"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_ITEMS')?></label>
-				<div class="controls">
-					<?php foreach($this->cart->getLineItems() as $lineitem) :?>
-						<div class="cart-item">
-							<?php 
-
-							$file = $this->cart->getFile($lineitem->folder, $lineitem->file) ;
-							$imagetag = $file->getCartThumb($lineitem->id);
-	    					echo $imagetag; ?>
-							<br />
-							<input class="validate-numeric required input-small" type="number" name="quantity_<?php echo $lineitem->id ?>" value="<?php echo $lineitem->quantity ?>"/>			
-							<select class="required input-small" name="type_<?php echo $lineitem->id ?>">
-								<?php 
-									foreach($lineitem->imagetypeset->getTypes() as $type) {
-										$selected = $lineitem->typeid == $type->id?'selected="selected"':'';
-										echo '<option '.$selected.' value="'.$type->id.'">'.$type->name.'</option>';
-									}
-								?>
-							</select>
-						</div>
-					<?php endforeach?>
-					<div style="clear:both"></div>
-				</div>
-			</div>
+			<table>
+				<tr>
+					<th>&nbsp;</th>							
+					<th class="quantity"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_QUANTITY')?></th>
+					<th class="imagetype"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_IMAGETYPE')?></th>
+					<th class="price"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_PRICE')?></th>
+				</tr>
+				<?php foreach($this->cart->getLineItems() as $lineitem) :?>
+					<tr class="cart-item">
+						<td class="image">
+							<?php echo $lineitem->getCartThumb($lineitem->id); ?>
+						</td>
+						<td class="quantity">
+							<?php echo $lineitem->getQuantity() ?>
+						</td>
+						<td class="imagetype">							
+							<?php echo $lineitem->getImageType()->getDisplayName().
+								' ('.
+								$lineitem->getImageType()->getCurrency().
+								' '.
+								$lineitem->getImageType()->getPrice()
+								.')'; 
+							?>							
+						</td>
+						<td class="price">								
+							<?php echo $lineitem->getCurrency(); ?>
+							<?php echo $lineitem->getPrice(); ?>
+						</td>
+					</tr>
+				<?php endforeach?>
+			</table>
 		</div>		
+		
+		<div class="cart-summary">
+			<div class="subtotal">
+				<div class="subtotal-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_SUBTOTAL')?></div>
+				<span class="subtotal">
+					<?php echo $this->cart->getSubTotalCurrency(); ?>
+					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+				</span>													
+			</div>
+
+			<div class="surcharge">
+				<div class="surcharge-headline">Shipping</div>
+				<span class="surcharge">
+					<?php echo $this->cart->getSubTotalCurrency(); ?>
+					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+				</span>													
+			</div>
+
+			<div class="surcharge">
+				<div class="surcharge-headline">Payment</div>
+				<span class="surcharge">
+					<?php echo $this->cart->getSubTotalCurrency(); ?>
+					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+				</span>													
+			</div>
+			
+			<div class="total">
+				<div class="total-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL')?></div>
+				<span class="total">
+					<?php echo $this->cart->getTotalCurrency(); ?>
+					<?php printf("%.2f", $this->cart->getTotal()); ?>
+				</span>
+				<span class="vat">
+					<?php echo JText::_('COM_EVENTGALLERY_CART_VAT_HINT')?>
+				</span>
+			</div>
+		</div>
+
+
 	    <fieldset>	    		
 
 	        <div class="control-group">
@@ -83,3 +128,6 @@ defined('_JEXEC') or die('Restricted access');
 	    <?php echo JHtml::_('form.token'); ?>
 	</form>
 </div>
+
+
+

@@ -187,6 +187,8 @@ class EventgalleryHelpersImageHelper {
 			
 			$photo['exif'] = (object)$exif;
 			$photo['allowcomments'] = 0;
+            $photo['published'] = 1;
+
 			
 			
 	        $photos[] = new EventgalleryHelpersImagePicasa($photo);;

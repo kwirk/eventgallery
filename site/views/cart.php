@@ -22,9 +22,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			var options = {
 				buttonShowType: 'inline',
 				emptyCartSelector: '.eventgallery-cart-empty',
-				cartSelector: '.eventgallery-cart',
+				cartSelector: '.eventgallery-ajaxcart',
 				cartItemContainerSelector: '.cart-items-container',
-				cartItemsSelector: '.eventgallery-cart .cart-items',
+				cartItemsSelector: '.eventgallery-ajaxcart .cart-items',
 				cartCountSelector: '.itemscount',
 				buttonDownSelector: '.toggle-down',
 				buttonUpSelector: '.toggle-up',
@@ -40,7 +40,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		/* ]]> */
 	</script>
 
-	<div class="eventgallery-cart">
+	<div class="eventgallery-ajaxcart">
 
 		<h2><?php echo JText::_('COM_EVENTGALLERY_CART')?></h2>
 
@@ -52,7 +52,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<button class="btn"><span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS')?></button>
 			<button class="btn toggle-down" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN')?></button>
 			<button class="btn toggle-up" href="#"><?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP')?></button>	
-			<button onclick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout");?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_ORDER')?></button>
+			<button onclick="document.location.href='<?php echo JRoute::_("index.php?option=com_eventgallery&view=cart");?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART')?></button>
 			<button class="btn" data-rel="lightbo2" data-href="#mb_cart-help">?</button>
 		</div>
 		<div  style="display:none">

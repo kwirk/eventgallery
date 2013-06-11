@@ -110,6 +110,7 @@ admin/views/upload/view.html.php -text
 /index.html svneol=native#text/html
 plugins/eventgallery_help.zip -text svneol=unset#application/x-zip-compressed
 site/controller.php -text
+site/controllers/Cart.php -text
 site/controllers/Checkout.php -text
 site/controllers/Rest.php -text
 site/controllers/index.html -text
@@ -124,7 +125,6 @@ site/helpers/image/helper.php -text
 site/helpers/image/interface.php -text
 site/helpers/image/local.php -text
 site/helpers/image/picasa.php -text
-site/helpers/imagehelpers.php -text
 site/helpers/index.html -text
 site/helpers/medialoader.php -text
 site/helpers/sizecalculator.php -text
@@ -136,7 +136,18 @@ site/language/en-GB/en-GB.com_eventgallery.ini -text
 site/language/it-IT/it-IT.com_eventgallery.ini -text
 site/language/nb-NO/nb-NO.com_eventgallery.ini -text
 site/language/nl-NL/nl-NL.com_eventgallery.ini -text
+site/library/cart.php -text
+site/library/database/index.html svneol=native#text/html
+site/library/database/object.php -text
+site/library/file.php -text
+site/library/folder.php -text
+site/library/imagetype.php -text
+site/library/imagetypeset.php -text
 site/library/index.html svneol=native#text/html
+site/library/lineitem.php -text
+site/library/manager/cart.php -text
+site/library/manager/index.html svneol=native#text/html
+site/library/manager/order.php -text
 site/media/css/eventgallery.css -text
 site/media/css/index.html svneol=native#text/html
 site/media/css/mediaboxAdvBlack21.css -text
@@ -215,19 +226,17 @@ site/media/js/LazyLoad.js -text
 site/media/js/eventgallery.js -text
 site/media/js/index.html svneol=native#text/html
 site/media/js/mediaboxAdv-1.3.4b.js -text
-site/models/cart.php -text
 site/models/comment.php -text
 site/models/default.php -text
 site/models/event.php -text
 site/models/events.php -text
-site/models/imagetypeset.php -text
 site/models/index.html -text
-site/models/lineitem.php -text
 site/models/singleimage.php -text
 site/router.php -text
 site/views/cart.php -text
 site/views/cart/index.html svneol=native#text/html
 site/views/cart/tmpl/default.php -text
+site/views/cart/tmpl/empty.php -text
 site/views/cart/tmpl/index.html svneol=native#text/html
 site/views/cart/view.html.php -text
 site/views/checkout/index.html svneol=native#text/html

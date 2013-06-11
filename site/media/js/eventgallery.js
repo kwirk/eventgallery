@@ -415,10 +415,10 @@
 		options: {
 			buttonShowType: 'block',
 			emptyCartSelector: '.eventgallery-cart-empty',
-			cartSelector: '.eventgallery-cart',
+			cartSelector: '.eventgallery-ajaxcart',
 			cartItemContainerSelector: '.cart-items-container',
-			cartItemsSelector: '.eventgallery-cart .cart-items',
-			cartItemSelector: '.eventgallery-cart .cart-items .cart-item',
+			cartItemsSelector: '.eventgallery-ajaxcart .cart-items',
+			cartItemSelector: '.eventgallery-ajaxcart .cart-items .cart-item',
 			cartCountSelector: '.itemscount',
 			buttonDownSelector: '.toggle-down',
 			buttonUpSelector: '.toggle-up',
