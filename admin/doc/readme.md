@@ -275,6 +275,14 @@ There are only a few things globally manageable.
 
 	Defines if the cart functionality is visible in the front end.
 
+- show external cart link
+
+	Defines if we show a link for each image which can direct the user to a product detail page
+
+- external cart link
+
+	Defines a pattern for an external link. You can use the following placeholder: ${folder},${file} and ${fileBase} like this: http://www.foo.bar?category=${folder}&amp;sku=${fileBase}
+
 - image quality
 
 	Defines the output quality of every generated image. Default is 85% which is pretty good. Lower values will result in lower quality.

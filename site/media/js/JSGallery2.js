@@ -17,6 +17,7 @@ var JSGallery2 = new Class({
 		'next_image': 'next_image.png',
 		'prev_image': 'prev_image.png',
 		'showCartButton' : true,
+		'showCartConnector' : false,
 		'activeClass': 'thumbnail-active', // the css class for the active thumbnail
 		'loadingClass': 'thumbnail-loading', // the css class for the loading thumbnail
 		'lightboxRel' : 'lightbo2' // the trigger rel for the lightbox script
@@ -170,6 +171,27 @@ var JSGallery2 = new Class({
 			
 			this.bigImage.getParent().grab(this.add2cartLink);
 			$(document.body).fireEvent('updatecartlinks');
+		}
+
+		if (this.options.showCartConnector) {
+
+			this.cartConnectorLink = new Element('a', {
+			    href: '#',
+			    'class': 'button-cart-connector',
+			    html: '<i class="big"></i>',
+			    id: 'ajax-cartconnector',
+			    styles: {
+			    	'font-size': '59px',
+			    	'right': '0px', 
+			    	'z-index': 999,
+			    	'position' : 'absolute',
+			    	'display' : 'block',
+			    	'right': '10px', 
+			    	'top': '10px'
+			    }
+			});		
+			
+			this.bigImage.getParent().grab(this.cartConnectorLink);
 		}
 
 		this.bigImage.addEvents({
@@ -338,6 +360,12 @@ var JSGallery2 = new Class({
 		// prepare the add2cart button
 		if (this.options.showCartButton) {
 			this.add2cartLink.set('data-id', source.getAttribute('data-id'));
+		}
+
+		if (this.options.showCartConnector) {
+			this.cartConnectorLink.set('data-folder', source.getAttribute('data-folder'));
+			this.cartConnectorLink.set('data-file', source.getAttribute('data-file'));
+			this.cartConnectorLink.set('href', decodeURIComponent(source.getAttribute('data-cart-connector-link')) );
 		}
 		
 		$(document.body).fireEvent('updatecartlinks');

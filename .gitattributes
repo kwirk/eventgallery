@@ -108,6 +108,7 @@ site/eventgallery.php -text
 site/helpers/blank.php -text
 site/helpers/buzzwords.php -text
 site/helpers/captcha.php -text
+site/helpers/cartconnector.php -text
 site/helpers/folderprotection.php -text
 site/helpers/image.php -text
 site/helpers/image/default.php -text
