@@ -108,7 +108,7 @@ defined('_JEXEC') or die('Restricted access');
 						<?php IF ($this->folder->cartable==1):?>
 							<a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" class="button-add2cart eventgallery-add2cart" data-id="folder=<?php echo $this->entry->folder."&file=".$this->entry->file ?>"><i class="big"></i></a>
 						<?php ENDIF ?>
-						<?php IF ($this->params->get('show_cart_connector', 0)==1):?>
+						<?php IF ($this->folder->cartable==1 && $this->params->get('show_cart_connector', 0)==1):?>
 							<a href="<?php echo EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file); ?>" class="button-cart-connector" title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR')?>" data-folder="<?php echo $this->entry->folder ?>" data-file="<?php echo $this->entry->file; ?>"><i class="big"></i></a>
 						<?php ENDIF ?>
 					</div>

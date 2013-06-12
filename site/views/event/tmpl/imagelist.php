@@ -96,7 +96,7 @@ include 'components/com_eventgallery/views/cart.php';
 	            data-title="<?php echo rawurlencode($entry->getLightBoxTitle()) ?>"
 	            rel="lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox',0)==1?'fullscreen':''; ?>]"><?php echo $this->entry->getLazyThumbImgTag(50,50);?>
 			    </a><?php IF ($this->folder->cartable==1):?><a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" class="button-add2cart eventgallery-add2cart" data-id="folder=<?php echo $this->entry->folder."&file=".$this->entry->file ?>"><i class="big"></i></a><?php ENDIF 
-			    ?><?php IF ($this->params->get('show_cart_connector', 0)==1):?><a href="<?php echo EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file); ?>" class="button-cart-connector" title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR')?>" data-folder="<?php echo $this->entry->folder ?>" data-file="<?php echo $this->entry->file; ?>"><i class="big"></i></a><?php ENDIF ?></div>
+			    ?><?php IF ($this->folder->cartable==1&&$this->params->get('show_cart_connector', 0)==1):?><a href="<?php echo EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file); ?>" class="button-cart-connector" title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR')?>" data-folder="<?php echo $this->entry->folder ?>" data-file="<?php echo $this->entry->file; ?>"><i class="big"></i></a><?php ENDIF ?></div>
 		<?php endforeach?>
 		<div style="clear: both"></div>
 	</div>
