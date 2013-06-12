@@ -277,7 +277,7 @@ There are only a few things globally manageable.
 
 - show external cart link
 
-	Defines if we show a link for each image which can direct the user to a product detail page
+	Defines if we show a link for each image which can direct the user to a product detail page. This will cause conflicts with the internal cart buttons so you should disable to internal cart feature or do some css magic to align both buttons in the right way.
 
 - external cart link
 
