@@ -545,7 +545,7 @@
 			}
 
 			$$('.itemscount').set('html',this.cart.length);
-			Mediabox.scanPage();
+			EventGalleryMediabox.scanPage();
 		},
 
 		/* Get the current version of the cart from the server */

@@ -251,9 +251,9 @@ var JSGallery2 = new Class({
 	 * @param {Event} event
 	 */
 	keyboardHandler: function(event){
-		if (Mediabox && Mediabox.isActive() 
-	        		 && mediaBoxImages 
-	        		 && mediaBoxImages[0][2]=='cart') {
+		if (EventGalleryMediabox && EventGalleryMediabox.isActive() 
+	        		 && eventGalleryMediaBoxImages 
+	        		 && eventGalleryMediaBoxImages[0][2]=='cart') {
 	     		return;
 	    }
 		if(!this.blockKeys) {
@@ -448,12 +448,12 @@ var JSGallery2 = new Class({
 
 			this.zoomLink.set('href', newFullSizeImage);
 		
-			Mediabox.scanPage();
+			EventGalleryMediabox.scanPage();
 			try {
-				if (mediaBoxImages && mediaBoxChangeImage ) {
-					mediaBoxImages[0][0]=this.zoomLink.get('href');
-					mediaBoxImages[0][1]=this.zoomLink.getAttribute('data-title');
-					mediaBoxChangeImage(0);
+				if (eventGalleryMediaBoxImages && eventGalleryMediaBoxChangeImage ) {
+					eventGalleryMediaBoxImages[0][0]=this.zoomLink.get('href');
+					eventGalleryMediaBoxImages[0][1]=this.zoomLink.getAttribute('data-title');
+					eventGalleryMediaBoxChangeImage(0);
 				}
 			}
 			catch (e) {}

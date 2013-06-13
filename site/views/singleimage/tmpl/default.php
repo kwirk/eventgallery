@@ -81,8 +81,8 @@ defined('_JEXEC') or die('Restricted access');
 	    eventType: 'keydown', 
 	    events: { 
 	        'left': function(e) {
-	        	if (Mediabox && Mediabox.isActive() 
-	        			&& mediaBoxImages && mediaBoxImages[0][2]=='cart') {
+	        	if (EventGalleryMediabox && EventGalleryMediabox.isActive() 
+	        			&& eventGalleryMediaBoxImages && eventGalleryMediaBoxImages[0][2]=='cart') {
 	        		return;
 	        	}
 	        	if ($('prev_image')) {
@@ -90,8 +90,8 @@ defined('_JEXEC') or die('Restricted access');
 	        	}
 	        },
 	        'right': function(e) {
-	        	if (Mediabox && Mediabox.isActive() 
-	        			&& mediaBoxImages && mediaBoxImages[0][2]=='cart') {
+	        	if (EventGalleryMediabox && EventGalleryMediabox.isActive() 
+	        			&& eventGalleryMediaBoxImages && eventGalleryMediaBoxImages[0][2]=='cart') {
 	        		return;
 	        	}
 	        	if ($('next_image')) {
