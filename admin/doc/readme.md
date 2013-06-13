@@ -286,6 +286,10 @@ There are only a few things globally manageable.
 
 	Defines a pattern for an external link. You can use the following placeholder: ${folder},${file} and ${fileBase} like this: http://www.foo.bar?category=${folder}&amp;sku=${fileBase}
 
+- external cart link rel
+	
+	Defines the rel attribute of this link. By default this is nofollow so the search engine crawlers will not follow your external cart links.
+
 - image quality
 
 	Defines the output quality of every generated image. Default is 85% which is pretty good. Lower values will result in lower quality.

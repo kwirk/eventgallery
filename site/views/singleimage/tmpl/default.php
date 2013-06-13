@@ -152,7 +152,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php ENDIF ?>
 
 		<?php IF ($this->model->folder->cartable==1 && $this->params->get('show_cart_connector', 0)==1):?>
-			<a href="<?php echo EventgalleryHelpersCartconnector::getLink($this->model->file->folder, $this->model->file->file); ?>" class="btn button-cart-connector" title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR')?>" data-folder="<?php echo $this->model->file->folder ?>" data-file="<?php echo $this->model->file->file; ?>"><i class="icon-cart-connector-small"></i></a>
+			<a rel="<?php echo $this->params->get('cart_connector_link_rel', 'nofollow')?>" href="<?php echo EventgalleryHelpersCartconnector::getLink($this->model->file->folder, $this->model->file->file); ?>" class="btn button-cart-connector" title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR')?>" data-folder="<?php echo $this->model->file->folder ?>" data-file="<?php echo $this->model->file->file; ?>"><i class="icon-cart-connector-small"></i></a>
 		<?php ENDIF ?>
 
 		<?php IF (isset($this->model->file->hits) && $this->params->get('show_imagehits',1)==1): ?>		
