@@ -17,6 +17,9 @@ class EventgalleryLibraryCart extends EventgalleryLibraryDatabaseObject
 	protected $_user_id = null;
 	protected $_cart = null;
 	protected $_lineitems = null;
+    protected $_surcharge = null;
+    protected $_shipping = null;
+    protected $_payment = null;
 
  	public function __construct($user_id = null)
 	{		
@@ -91,7 +94,24 @@ class EventgalleryLibraryCart extends EventgalleryLibraryDatabaseObject
 
 
 	protected function _updateCart() {		
-		$this->_loadCart();		
+		$this->_loadCart();
+
+        //calculate the cart
+
+
+        // set surcharge
+        $this->_cart->surchargeid = 1;
+        $data = array('id'=>$this->_cart->id, 'table' => 'Cart');
+        $data['surchargeid'] = $this->_cart->surchargeid;
+        $this->store($data);
+
+        // reset some objects since we change some things.
+        $this->_surcharge = null;
+        $this->_shipping = null;
+        $this->_payment = null;
+
+
+
 	}
 
 	 /**
@@ -151,11 +171,34 @@ class EventgalleryLibraryCart extends EventgalleryLibraryDatabaseObject
     }
 
     public function getTotal() {
-        return $this->getSubTotal();
+        $total = $this->getSubTotal();
+        if ($this->getSurcharge()!=null)  $total += $this->getSurcharge()->getPrice();
+        if ($this->getShipping()!=null)  $total += $this->getShipping()->getPrice();
+        if ($this->getPayment()!=null)  $total += $this->getPayment()->getPrice();
+        return $total;
     }
 
     public function getTotalCurrency() {
         return $this->_getCurrency();
+    }
+
+    public function getSurcharge() {
+        if ($this->_cart->surchargeid == null) {
+            return null;
+        }
+
+        if (!isset($this->_surcharge)) {
+            $this->_surcharge = new EventgalleryLibrarySurcharge($this->_cart->surchargeid);
+        }
+        return $this->_surcharge;
+    }
+
+    public function getPayment() {
+        return null;
+    }
+
+    public function getShipping() {
+        return null;
     }
 
     private function _getCurrency() {
@@ -275,6 +318,10 @@ class EventgalleryLibraryCart extends EventgalleryLibraryDatabaseObject
 
 		$this->_updateCart();
 
+    }
+
+    public function doCalculation() {
+        $this->_updateCart();
     }
 
 

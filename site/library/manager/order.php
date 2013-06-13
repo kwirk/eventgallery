@@ -31,6 +31,7 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
     	foreach($cart->getLineItems() as $lineitem) {
     		$data = array();
     		$data['table'] = 'Imagelineitem';
+            $data['id'] = $lineitem->getId();
     		$data['status'] = 1;
     		$data['lineitemcontainerid'] = $order->id;    		
     		$this->store($data);

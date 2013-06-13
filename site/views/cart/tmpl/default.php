@@ -8,7 +8,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
+
 
 ?>
 
@@ -62,23 +63,34 @@ defined('_JEXEC') or die('Restricted access');
 					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
 				</span>													
 			</div>
+            <?php IF ($this->cart->getSurcharge() != null): ?>
 
-			<div class="surcharge">
-				<div class="surcharge-headline">Shipping</div>
+            <div class="surcharge">
+                <div class="surcharge-headline"><?php echo $this->cart->getSurcharge()->getDisplayName(); ?></div>
 				<span class="surcharge">
-					<?php echo $this->cart->getSubTotalCurrency(); ?>
-					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+					<?php echo $this->cart->getSurcharge()->getCurrency(); ?>
+                    <?php echo $this->cart->getSurcharge()->getPrice(); ?>
+				</span>
+            </div>
+            <?php ENDIF ?>
+            <?php IF ($this->cart->getShipping() != null): ?>
+			<div class="surcharge">
+                <div class="surcharge-headline"><?php echo $this->cart->getShipping()->getDisplayName(); ?></div>
+				<span class="surcharge">
+					<?php echo $this->cart->getShipping()->getCurrency(); ?>
+                    <?php echo $this->cart->getShipping()->getPrice(); ?>
 				</span>													
 			</div>
-
+            <?php ENDIF ?>
+            <?php IF ($this->cart->getPayment() != null): ?>
 			<div class="surcharge">
-				<div class="surcharge-headline">Payment</div>
+                <div class="surcharge-headline"><?php echo $this->cart->getPayment()->getDisplayName(); ?></div>
 				<span class="surcharge">
-					<?php echo $this->cart->getSubTotalCurrency(); ?>
-					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
-				</span>													
+					<?php echo $this->cart->getPayment()->getCurrency(); ?>
+                    <?php echo $this->cart->getPayment()->getPrice(); ?>
+				</span>
 			</div>
-			
+            <?php ENDIF ?>
 			<div class="total">
 				<div class="total-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL')?></div>
 				<span class="total">
@@ -107,6 +119,7 @@ defined('_JEXEC') or die('Restricted access');
 			var setUpdateMode = function() {
 				$$(".cart-item td.price").fade('out');
 				$$(".cart-summary .subtotal").fade('out');
+				$$(".cart-summary .total").fade('out');
 			}
 
 			var removeItem = function(e) {				
@@ -144,7 +157,8 @@ defined('_JEXEC') or die('Restricted access');
 								}).slideOut(); // Slide it!
 							});				
 
-							$$(".cart-summary .subtotal").fade('out');							
+							$$(".cart-summary .subtotal").fade('out');	
+							$$(".cart-summary .total").fade('out');						
 							
 						}
 						

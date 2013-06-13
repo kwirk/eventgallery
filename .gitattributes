@@ -140,6 +140,7 @@ site/language/it-IT/it-IT.com_eventgallery.ini -text
 site/language/nb-NO/nb-NO.com_eventgallery.ini -text
 site/language/nl-NL/nl-NL.com_eventgallery.ini -text
 site/library/cart.php -text
+site/library/database/Localizablestring.php -text
 site/library/database/index.html svneol=native#text/html
 site/library/database/object.php -text
 site/library/file.php -text
@@ -151,6 +152,8 @@ site/library/lineitem.php -text
 site/library/manager/cart.php -text
 site/library/manager/index.html svneol=native#text/html
 site/library/manager/order.php -text
+site/library/manager/surcharge.php -text
+site/library/surcharge.php -text
 site/media/css/eventgallery.css -text
 site/media/css/index.html svneol=native#text/html
 site/media/css/mediaboxAdvBlack21.css -text

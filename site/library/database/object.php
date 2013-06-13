@@ -84,6 +84,37 @@ class EventgalleryLibraryDatabaseObject extends JObject
 		return isset($this->$property) ? $this->$property : $default;
 	}
 
+	/**
+	* Build a query, where clause and return an object
+	*
+	*/
+	public function getItem()
+	{
+		$db = JFactory::getDBO();
+
+		$query = $this->_buildQuery();
+		$query = $this->_buildWhere($query);
+		$db->setQuery($query);
+		#echo $query;
+		$item = $db->loadObject();
+
+		return $item;
+	}
+
+	/**
+	* Build query and where for protected _getList function and return a list
+	*
+	* @return array An array of results.
+	*/
+	public function listItems()
+	{
+		$query = $this->_buildQuery();
+		$this->_buildWhere($query);
+
+		$list = $this->_getList($query, $this->limitstart, $this->limit);
+
+		return $list;
+	}
 
 	/**
 	* Gets an array of objects from the results of database query.
@@ -135,7 +166,7 @@ class EventgalleryLibraryDatabaseObject extends JObject
   	public function getState($property = null, $default = null)
   	{
 		if (!$this->__state_set)
-		{   
+		{
 			// Protected method to auto-populate the model state.
 			$this->populateState();
 
@@ -145,11 +176,11 @@ class EventgalleryLibraryDatabaseObject extends JObject
 
 		return $property === null ? $this->state : $this->state->get($property, $default);
   	}
-  
+
 	/**
 	* Get total number of rows for pagination
 	*/
-	function getTotal() 
+	function getTotal()
 	{
 		if ( empty ( $this->_total ) )
 		{
@@ -159,14 +190,14 @@ class EventgalleryLibraryDatabaseObject extends JObject
 
 		return $this->_total;
 	}
- 
+
 	/**
 	* Generate pagination
 	*/
-	function getPagination() 
+	function getPagination()
 	{
 		// Lets load the content if it doesn't already exist
-		if (empty($this->_pagination)) 
+		if (empty($this->_pagination))
 		{
 			$this->_pagination = new JPagination( $this->getTotal(), $this->getState($this->_view.'_limitstart'), $this->getState($this->_view.'_limit'),null,JRoute::_('index.php?view='.$this->_view.'&layout='.$this->_layout));
 		}

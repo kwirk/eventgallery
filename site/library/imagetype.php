@@ -16,6 +16,8 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
 
 	protected $_imagetype = null;
     protected $_imagetype_id = null;
+    protected $_ls_displayname = null;
+    protected $_ls_description = null;
 
  	public function __construct($dbimagetype)
 	{
@@ -26,6 +28,10 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
             $this->_imagetype_id = $dbimagetype;
             $this->_loadImageType();
         }
+
+        $this->_ls_displayname =  new EventgalleryLibraryDatabaseLocalizablestring($this->_imagetype->displayname);
+        $this->_ls_description =  new EventgalleryLibraryDatabaseLocalizablestring($this->_imagetype->description);
+
 	    parent::__construct();	    	 
 	}
 
@@ -42,35 +48,48 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
 
         $db->setQuery($query);
         $this->_imagetype = $db->loadObject();
-
     }
 
     /**
-     * @return mixed the id of the image type
+     * @return string the id of the image type
      */
     public function getId() {
 		return $this->_imagetype->id;
 	}
 
     /**
-     * @return mixed the price value of the image type
+     * @return string the price value of the image type
      */
     public function getPrice() {
 		return $this->_imagetype->price;
 	}
 
     /**
-     * @return mixed the currency of the image type
+     * @return string the currency of the image type
      */
     public function getCurrency() {
 		return $this->_imagetype->currency;
 	}
 
     /**
-     * @return mixed display name of the image type
+     * @return string display name of the image type
+     */
+    public function getName() {
+        return $this->_imagetype->name;
+    }
+
+    /**
+     * @return string display name of the image type
      */
     public function getDisplayName() {
-        return $this->_imagetype->name;
+        return $this->_ls_displayname->get();
+    }
+
+    /**
+     * @return string display name of the image type
+     */
+    public function getDescription() {
+        return $this->_ls_description->get();
     }
 
 }
