@@ -17,6 +17,7 @@ var JSGallery2 = new Class({
 		'next_image': 'next_image.png',
 		'prev_image': 'prev_image.png',
 		'showCartButton' : true,
+		'showCartConnector' : false,
 		'activeClass': 'thumbnail-active', // the css class for the active thumbnail
 		'loadingClass': 'thumbnail-loading', // the css class for the loading thumbnail
 		'lightboxRel' : 'lightbo2' // the trigger rel for the lightbox script
@@ -172,6 +173,27 @@ var JSGallery2 = new Class({
 			$(document.body).fireEvent('updatecartlinks');
 		}
 
+		if (this.options.showCartConnector) {
+
+			this.cartConnectorLink = new Element('a', {
+			    href: '#',
+			    'class': 'button-cart-connector',
+			    html: '<i class="big"></i>',
+			    id: 'ajax-cartconnector',
+			    styles: {
+			    	'font-size': '59px',
+			    	'right': '0px', 
+			    	'z-index': 999,
+			    	'position' : 'absolute',
+			    	'display' : 'block',
+			    	'right': '10px', 
+			    	'top': '10px'
+			    }
+			});		
+			
+			this.bigImage.getParent().grab(this.cartConnectorLink);
+		}
+
 		this.bigImage.addEvents({
 			'mousemove': this.mouseOverHandler.bind(this),
 			'mouseleave': this.mouseLeaveHandler.bind(this)
@@ -229,9 +251,9 @@ var JSGallery2 = new Class({
 	 * @param {Event} event
 	 */
 	keyboardHandler: function(event){
-		if (Mediabox && Mediabox.isActive() 
-	        		 && mediaBoxImages 
-	        		 && mediaBoxImages[0][2]=='cart') {
+		if (EventGalleryMediabox && EventGalleryMediabox.isActive() 
+	        		 && eventGalleryMediaBoxImages 
+	        		 && eventGalleryMediaBoxImages[0][2]=='cart') {
 	     		return;
 	    }
 		if(!this.blockKeys) {
@@ -339,6 +361,12 @@ var JSGallery2 = new Class({
 		if (this.options.showCartButton) {
 			this.add2cartLink.set('data-id', source.getAttribute('data-id'));
 		}
+
+		if (this.options.showCartConnector) {
+			this.cartConnectorLink.set('data-folder', source.getAttribute('data-folder'));
+			this.cartConnectorLink.set('data-file', source.getAttribute('data-file'));
+			this.cartConnectorLink.set('href', decodeURIComponent(source.getAttribute('data-cart-connector-link')) );
+		}
 		
 		$(document.body).fireEvent('updatecartlinks');
 		
@@ -420,12 +448,12 @@ var JSGallery2 = new Class({
 
 			this.zoomLink.set('href', newFullSizeImage);
 		
-			Mediabox.scanPage();
+			EventGalleryMediabox.scanPage();
 			try {
-				if (mediaBoxImages && mediaBoxChangeImage ) {
-					mediaBoxImages[0][0]=this.zoomLink.get('href');
-					mediaBoxImages[0][1]=this.zoomLink.getAttribute('data-title');
-					mediaBoxChangeImage(0);
+				if (eventGalleryMediaBoxImages && eventGalleryMediaBoxChangeImage ) {
+					eventGalleryMediaBoxImages[0][0]=this.zoomLink.get('href');
+					eventGalleryMediaBoxImages[0][1]=this.zoomLink.getAttribute('data-title');
+					eventGalleryMediaBoxChangeImage(0);
 				}
 			}
 			catch (e) {}

@@ -3,6 +3,9 @@
 It's time to introduce a new gallery component for Joomla. I guess you're already waiting for something like this since there is a real lack of such kind of components ;-)
 Initially I build this component to show photos of different events to the audience. To where other components have folders this component calls them events. Because of this this component is called Event Gallery. 
 
+If you want to support the development of this component you might want to have a look at this donation page: [![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=svenbluege%40gmail%2ecom&lc=GB&item_name=Event%20Gallery%20Development&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest)
+
+
 Let's list all the features this gallery component provides:
 
 - works with Joomla 3.0 and Joomla 2.5
@@ -275,6 +278,14 @@ There are only a few things globally manageable.
 
 	Defines if the cart functionality is visible in the front end.
 
+- show external cart link
+
+	Defines if we show a link for each image which can direct the user to a product detail page. This will cause conflicts with the internal cart buttons so you should disable to internal cart feature or do some css magic to align both buttons in the right way.
+
+- external cart link
+
+	Defines a pattern for an external link. You can use the following placeholder: ${folder},${file} and ${fileBase} like this: http://www.foo.bar?category=${folder}&amp;sku=${fileBase}
+
 - image quality
 
 	Defines the output quality of every generated image. Default is 85% which is pretty good. Lower values will result in lower quality.
@@ -320,8 +331,17 @@ If you want to display the thumbnails beside the big image you can simply let th
 
 ### Browser
 - JavaScript error occurred which prevents the whole site from executing JavaScript. Without JavaScript it no image will appear.
+- To verify that there are no JavaScript errors on your page do this:
+	- open the site in your browser
+	- Chrome: press F12 to open the developer tools
+	- switch to the Console tab
+	- check if there are read warnings
+	- if the console window is empty you're fine
 - MooTools JavaScript library is not available
+- your template loads old libraries like MooTools 1.2.5
+- you have a fancy plugin installed which does not care about Joomla an pulls in jQuery without calling jQuery.noConlict() afterwards [jQuery noConlict Documentation](http://api.jquery.com/jQuery.noConflict/)
 - conflict between original LazyLoad and the custom one which is shipped with event gallery (fixed with 2.6.3)
+- conflict between original adavanced MediaBox and the custom one (fixed with 2.6.4)
 
 
 ## Lightbox does not work {#moreFAQ}
@@ -338,11 +358,24 @@ If you want to display the thumbnails beside the big image you can simply let th
 
 - make sure your files&folder do not contain a dot in the name. This is not supported. Even if I would, this would cause issue with enabled URL rewriting.
 
+
 # Event Gallery Release Notes {#ReleaseNotes}
 
 	Author: Sven Bluege
 	Mail: svenbluege(at)gmail.com
 	Web: http://www.svenbluege.de
+
+## 2.6.4
+
+	- New Features
+		- added option to display links to external sites instead of using the internal add2cart 
+		  button. As of now there is a global configuration option where you can define a pattern
+		  for the external link. Make sure you use the internal or the external cart button only. 
+		  If you're fit with JavaScript you can target the new add2cart button and apply a different
+		  behavior. The link contains two attributes data-file and data-folder which might become useful.
+		- Lightbox uses it's own name space now. This will reduce the conlicts with other lightbox includes.
+
+	- Bug Fixes
 
 ## 2.6.3
 

@@ -39,6 +39,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				'zoom_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
 				'titleTarget': 'bigImageDescription',
 				'showCartButton' : <?php echo $this->folder->cartable==1?'true':'false'; ?>,
+				'showCartConnector': <?php echo $this->params->get('show_cart_connector', 0)==1&&$this->folder->cartable==1?'true':'false'; ?>,
 				'lightboxRel' : 'lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox',0)==1?'fullscreen':''; ?>]'
 			});
 		
@@ -107,13 +108,16 @@ defined('_JEXEC') or die('Restricted access'); ?>
 													
 							<?php $this->assign('entry',$entry)?>
 							<?php $imagesOnPage++ ?>
-							
+
 							<div class="thumbnail" id="image<?php echo $imageCount++;?>">				
 								 <a longdesc="<?php echo $entry->getImageUrl(null, null, true);?>" 
 								 	 class="ajax-thumbnail"	
 									 href="<?php echo $entry->getImageUrl(null, null, true);?>"
 									 title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8'); ?>"
 								     rel="<?php echo $entry->getImageUrl(50, 50, false, false); ?>"
+								     data-folder="<?php echo $entry->folder; ?>"
+								     data-file="<?php echo $entry->file; ?>"
+								     data-cart-connector-link="<?php echo rawurlencode(EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file));?>"
 								     data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
 								     data-width="<?php echo $entry->width; ?>"
 								     data-height="<?php echo $entry->height; ?>"

@@ -202,7 +202,8 @@
 	position: relative;
 }
 
-#event .thumbnail .img .eventgallery-add2cart {
+#event .thumbnail .img .eventgallery-add2cart,
+#event .thumbnail .img .button-cart-connector {
 	position: absolute;
 	bottom: 4px;
 	right: 10px;
@@ -245,7 +246,8 @@
 	line-height: 0px;
 }
 
-.thumbnails .thumbnail-container .eventgallery-add2cart {
+.thumbnails .thumbnail-container .eventgallery-add2cart,
+.thumbnails .thumbnail-container .button-cart-connector {
 	position: absolute;
 	bottom: 12px;
 	right: 12px;
@@ -508,6 +510,7 @@ a.button-removeFromCart i.loading
 }
 
 .button-add2cart i.big,
+.button-cart-connector i.big,
 .button-cart i.big,
 .button-alreadyInCart i.big,
 .button-removeFromCart i.big
@@ -523,6 +526,7 @@ a.button-removeFromCart i.loading
 }
 
 .button-add2cart:hover i.big,
+.button-cart-connector:hover i.big,
 .button-cart:hover i.big,
 .button-removeFromCart:hover i.big,
 .button-alreadyInCart:hover	 i.big
@@ -531,16 +535,19 @@ a.button-removeFromCart i.loading
 }
 
 div.thumbnail-container:hover .button-add2cart i.big,
+div.thumbnail-container:hover .button-cart-connector i.big,
 div.thumbnail-container:hover .button-alreadyInCart i.big,
 div.cart-item:hover .button-removeFromCart i.big,
 div.img:hover .button-add2cart i.big,
+div.img:hover .button-cart-connector i.big,
 div.img:hover .button-alreadyInCart i.big
 {
 	opacity: 0.75;
 }
 
 
-.button-add2cart i.big{
+.button-add2cart i.big,
+.button-cart-connector i.big,{
 	background-position: -0px 0px;
 }
 .button-cart i.big{
@@ -555,6 +562,7 @@ div.img:hover .button-alreadyInCart i.big
 
 .button-add2cart i.icon-cart-small,
 .button-cart i.icon-cart-small,
+.button-cart-connector  i.icon-cart-connector-small,
 .button-alreadyInCart i.icon-cart-small,
 .button-removeFromCart i.icon-cart-small
 {
@@ -564,7 +572,8 @@ div.img:hover .button-alreadyInCart i.big
 	
 }
 
-.button-add2cart  i.icon-cart-small{
+.button-add2cart  i.icon-cart-small,
+.button-cart-connector  i.icon-cart-connector-small{
 	background-position: -0px -30px;
 }
 .button-cart  i.icon-cart-small,

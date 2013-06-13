@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later</license>
 	<authorEmail>svenbluege@gmail.com</authorEmail>
 	<authorUrl>www.svenbluege.de</authorUrl>
-	<version>2.6.3</version>
+	<version>2.6.4</version>
 	<description>COM_EVENTGALLERY_XML_DESCRIPTION</description>
 	
 	<install>
@@ -75,6 +75,8 @@
 		<languages folder="admin">
 			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
 			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.sys.ini</language>
+			<language tag="fr-FR">language/en-GB/en-GB.com_eventgallery.ini</language>
+			<language tag="fr-FR">language/en-GB/en-GB.com_eventgallery.sys.ini</language>
 		</languages>
 	</administration>
 	

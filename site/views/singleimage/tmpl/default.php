@@ -81,8 +81,8 @@ defined('_JEXEC') or die('Restricted access');
 	    eventType: 'keydown', 
 	    events: { 
 	        'left': function(e) {
-	        	if (Mediabox && Mediabox.isActive() 
-	        			&& mediaBoxImages && mediaBoxImages[0][2]=='cart') {
+	        	if (EventGalleryMediabox && EventGalleryMediabox.isActive() 
+	        			&& eventGalleryMediaBoxImages && eventGalleryMediaBoxImages[0][2]=='cart') {
 	        		return;
 	        	}
 	        	if ($('prev_image')) {
@@ -90,8 +90,8 @@ defined('_JEXEC') or die('Restricted access');
 	        	}
 	        },
 	        'right': function(e) {
-	        	if (Mediabox && Mediabox.isActive() 
-	        			&& mediaBoxImages && mediaBoxImages[0][2]=='cart') {
+	        	if (EventGalleryMediabox && EventGalleryMediabox.isActive() 
+	        			&& eventGalleryMediaBoxImages && eventGalleryMediaBoxImages[0][2]=='cart') {
 	        		return;
 	        	}
 	        	if ($('next_image')) {
@@ -149,6 +149,10 @@ defined('_JEXEC') or die('Restricted access');
 
 		<?php IF ($this->model->folder->cartable==1):?>
 			<a href="#" class="btn button-add2cart eventgallery-add2cart" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART')?>" data-id="folder=<?php echo $this->model->file->folder."&file=".$this->model->file->file ?>"><i class="icon-cart-small"></i></a>
+		<?php ENDIF ?>
+
+		<?php IF ($this->model->folder->cartable==1 && $this->params->get('show_cart_connector', 0)==1):?>
+			<a href="<?php echo EventgalleryHelpersCartconnector::getLink($this->model->file->folder, $this->model->file->file); ?>" class="btn button-cart-connector" title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR')?>" data-folder="<?php echo $this->model->file->folder ?>" data-file="<?php echo $this->model->file->file; ?>"><i class="icon-cart-connector-small"></i></a>
 		<?php ENDIF ?>
 
 		<?php IF (isset($this->model->file->hits) && $this->params->get('show_imagehits',1)==1): ?>		

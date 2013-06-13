@@ -80,9 +80,11 @@ var MooSwipe = MooSwipe || new Class({
 	modified by me ;-)
 
 */
-var mediaBoxImages  = null;
+var eventGalleryMediaBoxImages  = null;
 
-var Mediabox;
+var eventGalleryMediaBoxChangeImage = null;
+
+var EventGalleryMediabox;
 
 (function() {
 	// Global variables, accessible to Mediabox only
@@ -127,7 +129,7 @@ var Mediabox;
 
 	/*	API		*/
 
-	Mediabox = {
+	EventGalleryMediabox = {
 		getRelation: function()  {
 
 		},
@@ -279,8 +281,8 @@ var Mediabox;
 			}
 
 			images = _images;
-			mediaBoxImages = images;
-			mediaBoxChangeImage = changeImage;
+			eventGalleryMediaBoxImages = images;
+			eventGalleryMediaBoxChangeImage = changeImage;
 			options.loop = options.loop && (images.length > 1);
 
 			size();
@@ -296,8 +298,8 @@ var Mediabox;
 	};
 
 	Element.implement({
-		mediabox: function(_options, linkMapper) {
-			$$(this).mediabox(_options, linkMapper);	// The processing of a single element is similar to the processing of a collection with a single element
+		eventGalleryMediabox: function(_options, linkMapper) {
+			$$(this).eventGalleryMediabox(_options, linkMapper);	// The processing of a single element is similar to the processing of a collection with a single element
 
 			return this;
 		}
@@ -305,14 +307,14 @@ var Mediabox;
 
 	Elements.implement({
 		/*
-			options:	Optional options object, see Mediabox.open()
+			options:	Optional options object, see EventGalleryMediabox.open()
 			linkMapper:	Optional function taking a link DOM element and an index as arguments and returning an array containing 3 elements:
 						the image URL and the image caption (may contain HTML)
 			linksFilter:Optional function taking a link DOM element and an index as arguments and returning true if the element is part of
 						the image collection that will be shown on click, false if not. "this" refers to the element that was clicked.
 						This function must always return true when the DOM element argument is "this".
 		*/
-		mediabox: function(_options, linkMapper, linksFilter) {
+		eventGalleryMediabox: function(_options, linkMapper, linksFilter) {
 			linkMapper = linkMapper || function(el) {
 				elrel = el.getAttribute('rel').split(/[\[\]]/);
 				elrel = elrel[1];
@@ -355,7 +357,7 @@ var Mediabox;
 					};
 				});
 
-				return Mediabox.open(filteredLinks.map(linkMapper), filteredHrefs.indexOf(this.toString()), _options);
+				return EventGalleryMediabox.open(filteredLinks.map(linkMapper), filteredHrefs.indexOf(this.toString()), _options);
 			});
 
 			return links;
@@ -1188,7 +1190,7 @@ var Mediabox;
 
 	/*	Autoload code block	*/
 
-Mediabox.scanPage = function() {
+EventGalleryMediabox.scanPage = function() {
 //	$$('#mb_').each(function(hide) { hide.set('display', 'none'); });
 	var buttonElements = $$("button");
 	var linkElements = $$("a");
@@ -1202,11 +1204,11 @@ Mediabox.scanPage = function() {
 		return el.getAttribute('rel') && el.getAttribute('rel').test(/^lightbo2/i);		
 	});
 		
-	$$(links).mediabox({/* Put custom options here */}, null, function(el) {
+	$$(links).eventGalleryMediabox({/* Put custom options here */}, null, function(el) {
 		var rel0 = this.getAttribute('rel').replace(/[[]|]/gi," ");
 		var relsize = rel0.split(" ");
 		return (this == el) || ((this.getAttribute('rel').length > 8) && el.getAttribute('rel').match(relsize[1]));
 	});
 };
-window.addEvent("domready", Mediabox.scanPage);
+window.addEvent("domready", EventGalleryMediabox.scanPage);
 
