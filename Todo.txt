@@ -1,0 +1,23 @@
+Front End
+
+- Payment Selection
+- Shipping Selection
+- Surcharge Selection
+- Image Type Details
+- Address Handling
+- User-Management
+- Order Tracking
+- eMail-Handling
+- Cart Module
+
+Back End
+
+- Management Options
+	- Payment
+	- Shipping
+	- Surcharge
+	- Image Type / TypeSet
+	- Image Type Set assignment to Folder
+	- Orders
+	- Lineitems
+	- Dashboard
