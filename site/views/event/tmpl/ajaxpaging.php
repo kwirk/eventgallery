@@ -90,7 +90,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 					<div id="page<?php echo $pageCount++; ?>" class="page">
 
-						<?php foreach($this->entries as $entry) :?>
+						<?php foreach($this->entries as $entry) :/** @var EventgalleryHelpersImageDefault $entry */?>
 			
 							<?php IF ($pageCount == 1 && $imageCount == 0): ?>
 								<?php IF($this->params->get('show_date',1)==1):?>

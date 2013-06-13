@@ -9,7 +9,10 @@
  */
 
 // no direct access
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
+/**
+ * @var JCacheControllerCallback $cache
+ */
 $cache = JFactory::getCache('com_eventgallery');
 ?>
 
@@ -96,7 +99,7 @@ $cache = JFactory::getCache('com_eventgallery');
 											}
 										?>
 										
-										<?php foreach($files as $file):?>
+										<?php foreach($files as $file): /** @var EventgalleryHelpersImageDefault $file */?>
 											<a class="event-thumbnail" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>">
 												<?php echo $file->getLazyThumbImgTag(50,50, "", true); ?>	
 											</a>											
@@ -124,7 +127,7 @@ $cache = JFactory::getCache('com_eventgallery');
 												array_unshift($files,$this->entry->titleImage);
 											}
 										?>
-										<?php foreach($files as $file):?>
+										<?php foreach($files as $file): /** @var EventgalleryHelpersImageDefault $file */?>
 											<a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>">
 												<?php	echo $file->getThumbImgTag($this->params->get('max_middle_events_thumbnails_width',150), $this->params->get('max_middle_events_thumbnails_width',150)); ?>		
 											</a>

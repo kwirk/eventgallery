@@ -62,9 +62,7 @@ class EventgalleryHelpersImageHelper {
 		
 		
 		$cache_life = '360000'; //caching time, in seconds
-		
-		$xml = "";
-		
+
 		if (file_exists($cachefilename) && (time() - filemtime($cachefilename) <= $cache_life) ) {
 			
 			
@@ -103,8 +101,13 @@ class EventgalleryHelpersImageHelper {
 	* available as only uncropped(u) sizes by appending u to the size or just passing the size value without appending anything.
 	* 
 	* 94, 110, 128, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 1024, 1152, 1280, 1440, 1600
-	* 
-    */
+	*
+     * @param string$userName
+     * @param string $albumNameOrId
+     * @param string $picasaKey
+     * @param int $imagesize
+     * @return object
+     */
     public static function picasaweb_ListAlbum($userName, $albumNameOrId, $picasaKey = null, $imagesize = 1280) {
 
     	
@@ -141,20 +144,30 @@ class EventgalleryHelpersImageHelper {
 	    foreach ($nodes as $node) {
 
 	    	$photo = Array();
-	        
-	        $thumbnailNodes = $xpath->query('.//media:thumbnail',$node);
+
+            /**
+             * @var DOMNodeList $thumbnailNodes
+             */
+            $thumbnailNodes = $xpath->query('.//media:thumbnail',$node);
 	        
 	        $thumbnails = Array();
 	        $thumbnailsCrop = Array();
-	        
-	        foreach($thumbnailNodes as $thumbnailNode) {
+
+            /**
+             * @var DOMElement $thumbnailNode
+             */
+            foreach($thumbnailNodes as $thumbnailNode) {
+
 	        	if ($thumbnailNode->getAttribute('width')==$thumbnailNode->getAttribute('height')) {
 	        		$thumbnailsCrop[$thumbnailNode->getAttribute('width')] = $thumbnailNode->getAttribute('url');
 	        	} else {
 	        		$thumbnails[$thumbnailNode->getAttribute('width')] = $thumbnailNode->getAttribute('url');
 	        	}
 	        }
-	        
+
+            /**
+             * @var DOMElement $image
+             */
 	        $image = $xpath->query('.//media:content', $node)->item(0);
 			
 			

@@ -19,16 +19,22 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
 	 
 	}
 
-    /*
-    * creates a order from a cart
-    */
+    /**
+     * creates a order from a cart
+     *
+     * @param EventgalleryLibraryCart $cart
+     * @return bool|mixed
+     */
     public function createOrder($cart) {
         $order = array();
     	$order['table'] = 'Order';
         $order['userid'] = $cart->getUserId();
     	$order = $this->store($order);
 
-    	foreach($cart->getLineItems() as $lineitem) {
+        /**
+         * @var EventgalleryLibraryLineitem $lineitem
+         */
+        foreach($cart->getLineItems() as $lineitem) {
     		$data = array();
     		$data['table'] = 'Imagelineitem';
             $data['id'] = $lineitem->getId();
@@ -36,6 +42,8 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
     		$data['lineitemcontainerid'] = $order->id;    		
     		$this->store($data);
     	}
+
+        $order = new EventgalleryLibraryOrder($order->id);
 
         return $order;
     }

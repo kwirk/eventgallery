@@ -12,13 +12,22 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableImagetype extends JTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
-	function __construct( &$db ) {
-		parent::__construct('#__eventgallery_imagetype', 'id', $db);
-	}
+    public $typesetid;
+    public $typeid;
+    public $default;
+    public $ordering;
+    public $modified;
+    public $created;
+
+    /**
+     * Constructor
+     *
+     * @param object Database connector object
+     */
+    function __construct(&$db)
+    {
+        parent::__construct('#__eventgallery_imagetype', 'id', $db);
+    }
 }
+
 ?>

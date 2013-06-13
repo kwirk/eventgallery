@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryLibrarySurcharge extends EventgalleryLibraryDatabaseObject
+class EventgalleryLibraryShipping extends EventgalleryLibraryDatabaseObject
 {
 
 	protected $_object = null;
@@ -43,7 +43,7 @@ class EventgalleryLibrarySurcharge extends EventgalleryLibraryDatabaseObject
 
         $query = $db->getQuery(true);
         $query->select('s.*');
-        $query->from('#__eventgallery_surcharge s');
+        $query->from('#__eventgallery_shipping s');
         $query->where('s.id='.$db->Quote($this->_object_id));
 
         $db->setQuery($query);

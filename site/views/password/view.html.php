@@ -16,13 +16,30 @@ jimport( 'joomla.html.pagination');
 
 class EventgalleryViewPassword extends JViewLegacy
 {
-	function display($tpl = null)
-	{		
-	  
-		$app	 = JFactory::getApplication();
-		$document = JFactory::getDocument();
-		$params	 = $app->getParams();	
-		
+    /**
+     * @var JRegistry
+     */
+    protected $params;
+    protected $state;
+    protected $file;
+    protected $folder;
+    protected $formaction;
+
+    /**
+     * @var JDocument
+     */
+    public $document;
+
+
+    function display($tpl = null)
+	{
+        /**
+         * @var JSite $app
+         */
+        $app	 = JFactory::getApplication();
+        $this->state = $this->get('State');
+        $this->params	 = $app->getParams();
+
 		$file = JRequest::getString('file','');
 		$folder = JRequest::getString('folder','');
 
@@ -36,10 +53,10 @@ class EventgalleryViewPassword extends JViewLegacy
 
 		$formAction = JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$folder->folder);
 
-		$this->assign('folder', $folder);
-		$this->assign('file', $file);
-		$this->assign('params', $params);
-		$this->assignRef('formaction', $formAction);
+		$this->folder = $folder;
+		$this->file = $file;
+		$this->formaction = $formAction;
+
 		$this->_prepareDocument();
 		
 		parent::display($tpl);
@@ -52,7 +69,7 @@ class EventgalleryViewPassword extends JViewLegacy
 	{
 		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
-		$pathway = $app->getPathway();
+
 		$title = null;
 
 		// Because the application sets a default page title,
@@ -97,4 +114,4 @@ class EventgalleryViewPassword extends JViewLegacy
 	}
 }
 
-?>
+

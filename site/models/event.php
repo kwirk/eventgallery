@@ -14,11 +14,11 @@ defined('_JEXEC') or die();
 jimport( 'joomla.application.component.model' );
 jimport('joomla.html.pagination');
 
-//jimport( 'joomla.application.component.helper' );
 
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryModelEvent extends JModelLegacy
 {
-	
+	protected $_pagination;
 	
 	function __construct()
 	{
@@ -59,7 +59,7 @@ class EventgalleryModelEvent extends JModelLegacy
     		
     		$album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $picasakey);
     		
-    		if (count($album)>0) {
+    		if (count($album->photos)>0) {
     			return $limit>0?array_slice($album->photos,$limitstart,$limit):$album->photos;
     		}
     		
@@ -111,7 +111,7 @@ class EventgalleryModelEvent extends JModelLegacy
 	    {
 	        
 	        $total = $this->getTotal($folder);
-	        $limit		= $this->getState('limit');
+	        $limit		= (integer)$this->getState('limit');
 		    $limitstart = $this->getState('com_eventgallery.event.limitstart');
 		    
 
@@ -143,7 +143,11 @@ class EventgalleryModelEvent extends JModelLegacy
 			return $this->_getListCount($query);
 		}
 	}
-    
+
+    /**
+     * @param string $folder
+     * @return TableFolder
+     */
     function getFolder($folder = '')
     {
     	$query = 'SELECT * from #__eventgallery_folder where published=1 and folder='.$this->_db->Quote($folder).'';

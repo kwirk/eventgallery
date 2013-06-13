@@ -9,7 +9,12 @@
  */
 
 class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
-	
+
+
+    public $image;
+    public $thumbs;
+
+
 	// constructor
     public function __construct($photo) {
     	foreach((array)$photo as $key=>$value) {
@@ -34,8 +39,10 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     */
 
     public function getLightBoxTitle() {
-
-    	$app	 = JFactory::getApplication();	   		
+        /**
+         * @var JSite $app
+         */
+        $app	 = JFactory::getApplication();
 		$params	 = $app->getParams();
 
 		$showExif = $params->get('show_exif','1')=='1';
@@ -120,7 +127,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     	
     	if ($width==0) $width=104;
     	if ($height==0) $height=104;
-    	$googlewidth = 104;
+
 
     	if ($this->width>$this->height) {
 			// querformat

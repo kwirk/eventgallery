@@ -16,19 +16,32 @@ jimport( 'joomla.application.component.view');
 
 class CheckoutViewCheckout extends JViewLegacy
 {
+
+    /**
+     * @var JRegistry
+     */
+    protected $params;
+    protected $state;
+    protected $cart;
+
+    /**
+     * @var JDocument
+     */
+    public $document;
+
 	function display($tpl = null)
-	{		
+	{
+        /**
+         * @var JSite $app
+         */
+        $app = JFactory::getApplication();
+        $this->state = $this->get('State');
+        $this->params	= $app->getParams();
 
-	    $app = JFactory::getApplication();	    
+
+		$this->cart = EventgalleryLibraryManagerCart::getCart();
 
 
-		$cart = EventgalleryLibraryManagerCart::getCart();
-
-
-		$params	 = $app->getParams();
-		$this->assign('cart', $cart);
-		$this->assign('params', $params);
-		
 		$pathway = $app->getPathWay();		
 		$pathway->addItem(JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH'));
 		
@@ -81,4 +94,3 @@ class CheckoutViewCheckout extends JViewLegacy
 	}
 
 }
-?>

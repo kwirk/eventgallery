@@ -12,19 +12,20 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableFolder extends JTable
 {
-	var $id = null;
-	var $folder = null;
-	var $picasakey = null;
-	var $tags = null;
-	var $date = null;
-	var $description = null;
-	var $published = null;
-	var $text = null;
-	var $userid = null;
-	var $lastmodified = null;
-	var $ordering = null;
-	var $password = null;
-	var $cartable = null;
+    public $id = null;
+    public $folder = null;
+    public $picasakey = null;
+    public $tags = null;
+    public $date = null;
+    public $description = null;
+    public $published = null;
+    public $text = null;
+    public $userid = null;
+    public $lastmodified = null;
+    public $ordering = null;
+    public $password = null;
+    public $cartable = null;
+    public $typesetid;
 
 	/**
 	 * Constructor

@@ -66,7 +66,7 @@ class JPEG_ICC
 	 *
 	 * Returns true if profile successfully loaded, false otherwise.
 	 *
-	 * @param		string		file name
+	 * @param		string	$fname
 	 * @return		bool
 	 */
     public function LoadFromJPEG($fname)
@@ -176,11 +176,12 @@ class JPEG_ICC
 		}
     }
 
-	/**
-	 * Load profile from ICC file.
-	 *
-	 * @param		string		file name
-	 */
+    /**
+     * Load profile from ICC file.
+     *
+     * @param        string        $fname
+     * @throws Exception
+     */
     public function LoadFromICC($fname)
     {
 		if (!file_exists($fname)) throw new Exception("File $fname doesn't exist.\n");
@@ -189,12 +190,14 @@ class JPEG_ICC
 		$this->SetProfile(file_get_contents($fname));
     }
 
-	/**
-	 * Save profile to ICC file.
-	 *
-	 * @param		string		file name
-	 * @param		bool		[force overwrite]
-	 */
+    /**
+     * Save profile to ICC file.
+     *
+     * @param        string  $fname
+     * @param bool $force_overwrite
+     * @throws Exception
+     * @internal param $bool [force overwrite]
+     */
     public function SaveToICC($fname, $force_overwrite = false)
     {
 		if ($this->icc_profile == '') throw new Exception("No profile loaded.\n");
@@ -206,15 +209,19 @@ class JPEG_ICC
 		if ($ret === false || $ret < $this->icc_size) throw new Exception ("Write failed.\n");
 	}
 
-	/**
-	 * Remove profile from JPEG file and save it as a new file.
-	 * Overwriting destination file can be forced
-	 *
-	 * @param		string		source file
-	 * @param		string		destination file
-	 * @param		bool		[force overwrite]
-	 * @return		bool
-	 */
+    /**
+     * Remove profile from JPEG file and save it as a new file.
+     * Overwriting destination file can be forced
+     *
+     * @param $input
+     * @param $output
+     * @param bool $force_overwrite
+     * @throws Exception
+     * @internal param \source $string file
+     * @internal param \destination $string file
+     * @internal param $bool [force overwrite]
+     * @return        bool
+     */
     public function RemoveFromJPEG($input, $output, $force_overwrite = false)
     {
 		if (!file_exists($input)) throw new Exception("File $input doesn't exist.\n");
@@ -235,7 +242,7 @@ class JPEG_ICC
 	/**
 	 * Set profile directly
 	 *
-	 * @param		string		profile data
+	 * @param		string $data
 	 */
     public function SetProfile($data)
     {
@@ -262,42 +269,11 @@ class JPEG_ICC
 		$this->icc_chunks = ceil($this->icc_size / ((float) (self::MAX_BYTES_IN_MARKER - self::ICC_HEADER_LEN)));
     }
 
-	/**
-	 * Set Rendering Intent of the profile.
-	 *
-	 * Possilbe values are ICC_RI_PERCEPTUAL, ICC_RI_RELATIVE_COLORIMETRIC, ICC_RI_SATURATION or ICC_RI_ABSOLUTE_COLORIMETRIC.
-	 * 
-	 * @param		int		rendering intent
-	 */
-	private function setRenderingIntent($newRI)
-	{
-		if ($this->icc_size >= 68)
-		{
-			substr_replace($this->icc_profile, pack('N', $newRI), 64, 4);
-		}
-	}
-
-	/**
-	 * Get value of Rendering Intent field in ICC profile
-	 *
-	 * @return		int
-	 */
-	private function getRenderingIntent()
-	{
-		if ($this->icc_size >= 68)
-		{
-			$arr = unpack('Nint', substr($this->icc_profile, 64, 4));
-			return $arr['int'];
-		}
-
-		return null;
-	}
-
-	/**
+    /**
 	 * Size of JPEG segment
 	 *
-	 * @param		string		file data
-	 * @param		int			start of segment
+	 * @param		string $f
+	 * @param		int $pos
 	 * @return		int
 	 */
 	private function getJPEGSegmentSize(&$f, $pos)
@@ -309,8 +285,8 @@ class JPEG_ICC
 	/**
 	 * Type of JPEG segment
 	 *
-	 * @param		string		file data
-	 * @param		int			start of segment
+	 * @param		string $f
+	 * @param		int	$pos
 	 * @return		int
 	 */
 	private function getJPEGSegmentType(&$f, $pos)
@@ -322,12 +298,13 @@ class JPEG_ICC
 	/**
 	 * Check if segment contains ICC profile marker
 	 *
-	 * @param		string		file data
-	 * @param		int			position of segment data
-	 * @param		int			size of segment data (without 2 bytes of size field)
+	 * @param		string	$f
+	 * @param		int	$pos of segment data
+	 * @param		int	$size of segment data (without 2 bytes of size field)
 	 * @return		bool
 	 */
-	private function getJPEGSegmentContainsICC(&$f, $pos, $size)
+
+    private function getJPEGSegmentContainsICC(&$f, $pos, $size)
 	{
 		if ($size < self::ICC_HEADER_LEN) return false; // ICC_PROFILE 0x00 Marker_no Marker_cnt
 
@@ -337,8 +314,8 @@ class JPEG_ICC
 	/**
 	 * Get ICC segment chunk info
 	 *
-	 * @param		string		file data
-	 * @param		int			position of segment data
+	 * @param		string		$f file data
+	 * @param		int			$pos position of segment data
 	 * @return		array		{chunk_no, chunk_cnt}
 	 */
 	private function getJPEGSegmentICCChunkInfo(&$f, $pos)
@@ -350,8 +327,8 @@ class JPEG_ICC
 	/**
 	 * Returns chunk of ICC profile data from segment.
 	 *
-	 * @param		string		&data
-	 * @param		int			current position
+	 * @param		string		$f &data
+	 * @param		int			$pos current position
 	 * @return		string
 	 */
 	private function getJPEGSegmentICCChunk(&$f, $pos)
@@ -365,7 +342,7 @@ class JPEG_ICC
 	/**
 	 * Get data of given chunk
 	 *
-	 * @param		int			chunk number
+	 * @param		int			$chunk_no chunk number
 	 * @return		string
 	 */
 	private function getChunk($chunk_no)

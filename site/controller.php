@@ -16,11 +16,12 @@ require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'captcha.php');
 
 
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryController extends JControllerLegacy
 {
 		
 	
-	public function display($cachable = false, $urlparams = false)
+	public function display($cachable = false, $urlparams  = array())
 	{
 
 		$viewname = JRequest::getString('view','events');
@@ -28,17 +29,22 @@ class EventgalleryController extends JControllerLegacy
 		
 		if ($viewname == 'events')
 		{
-			
-			$app	 = JFactory::getApplication();
-			$params	 = $app->getParams();
 			$viewLayout = JRequest::getString('layout', 'default');
-			$view = $this->getView($viewname, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-			$view->setModel( $this->getModel('events'),true);
-			$view->setModel( $this->getModel('event'),false);	
+			$view = $this->getView($viewname, 'html', '', array('layout' => $viewLayout));
+
+            /**
+             * @var EventgalleryModelEvents $eventsModel */
+            $eventsModel = $this->getModel('events');
+             /**
+              * @var EventgalleryModelEvent $eventModel
+             */
+            $eventModel = $this->getModel('event');
+
+			$view->setModel(  $eventsModel,true);
+			$view->setModel( $eventModel,false);
 		}
 
 		if ($viewname == 'event') {
-			$session = JFactory::getSession();
 			$password = JRequest::getString('password','');
 			$folder = JRequest::getString('folder','');
 			$folder = $this->getModel('event')->getFolder($folder);
@@ -65,12 +71,15 @@ class EventgalleryController extends JControllerLegacy
 		
 	}
 
-	function save_comment($cachable = false, $urlparams = false)
+	function save_comment($cachable = false, $urlparams  = array())
 	{
 		$app = JFactory::getApplication();
 
 		$view = $this->getView('singleimage','html');
-		$model = $this->getModel('singleimage');
+        /**
+         * @var EventgalleryModelSingleimage $model
+         */
+        $model = $this->getModel('singleimage');
 		$view->setModel($model);
 		$post = JRequest::get('post');
 		$store= true;
@@ -99,6 +108,8 @@ class EventgalleryController extends JControllerLegacy
 
 		if ($store)
 		{
+
+
 			$row = $model->store_comment($post,$buzzwordsClean?1:0);
 			if ($row && $buzzwordsClean)			{
 				
@@ -126,7 +137,11 @@ class EventgalleryController extends JControllerLegacy
 
 
 			$mailview = $this->getView('commentmail','html');
-			$commentModel = $this->getModel('comment');
+            /**
+             *
+             * @var EventgalleryModelComment $commentModel
+             */
+            $commentModel = $this->getModel('comment');
 			$mailview->setModel($commentModel,true);
 
 			
@@ -170,4 +185,4 @@ class EventgalleryController extends JControllerLegacy
 
 
 }
-?>
+

@@ -38,4 +38,4 @@ class EventgalleryViewCommentMail extends JViewLegacy
 	    $this->assignRef('file',$file);
 	}
 }
-?>
+

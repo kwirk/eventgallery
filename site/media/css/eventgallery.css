@@ -669,6 +669,10 @@ div.img:hover .button-alreadyInCart i.big
 	text-align: right;
 }
 
+.eventgallery-cart .needs-calculation {
+	text-align: right;
+}
+
 .eventgallery-cart .cart-items .price,
 .eventgallery-checkout .cart-items .price {
 	text-align: right;

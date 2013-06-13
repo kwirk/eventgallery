@@ -14,20 +14,30 @@ jimport( 'joomla.application.component.view');
 
 class EventgalleryViewEvents extends JViewLegacy
 {
+    protected $params;
+    protected $entries;
+    protected $fileCount;
+    protected $folderCount;
+    protected $eventModel;
 
 	function display($tpl = null)
-	{	
-		$cache = JFactory::getCache('com_eventgallery');
+	{
+        /**
+         * @var JCacheControllerCallback $cache
+         */
+        $cache = JFactory::getCache('com_eventgallery');
+
+        /**
+         * @var JSite $app
+         */
+        $app = JFactory::getApplication();
 		
-		$app = JFactory::getApplication();		
-		
-		$params	 = $app->getParams();
-        $this->assign('params', $params);
+        $this->params = $app->getParams();
 
 		/* Default Page fallback*/		
 		$active	= $app->getMenu()->getActive();
 		if (null == $active) {
-			$params = $app->getMenu()->getDefault()->params;
+           $this->params->merge($app->getMenu()->getDefault()->params);
 		}
 
 		$entriesPerPage = 10;
@@ -35,18 +45,16 @@ class EventgalleryViewEvents extends JViewLegacy
 		$eventModel = $this->getModel('event');
 
 	    //$entries = $model->getEntries(JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
-		$entries = $cache->call( array( $model, 'getEntries' ), JRequest::getVar('page',1), $entriesPerPage, $params->get('tags'), $params->get('sort_events_by'));
+		$entries = $cache->call( array( $model, 'getEntries' ), JRequest::getVar('page',1), $entriesPerPage, $this->params->get('tags'), $this->params->get('sort_events_by'));
 
-		$fileCount = $model->getFileCount();
-		$folderCount = $model->getFolderCount();
-	    $this->assignRef('entries',	$entries );	    
-	    $this->assignRef('fileCount', $fileCount);
-	    $this->assignRef('folderCount', $folderCount);
-	    $this->assignRef('eventModel', $eventModel);
+
+	    $this->entries = $entries;
+	    $this->fileCount = $model->getFileCount();
+	    $this->folderCount = $model->getFolderCount();
+	    $this->eventModel = $eventModel;
     
         
 		parent::display($tpl);
 	}
 }
 
-?>

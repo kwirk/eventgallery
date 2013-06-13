@@ -10,7 +10,7 @@ defined('_JEXEC') or die;
 
 class CheckoutController extends JControllerLegacy
 {
-	public function display($cachable = false, $urlparams = false)
+	public function display($cachable = false, $urlparams  = array())
 	{			
 		parent::display($cachable, $urlparams);		
 	}
@@ -32,11 +32,11 @@ class CheckoutController extends JControllerLegacy
 
 
 
- 		$lineitems = $cart->getLineItems();
+
  		/* create order*/
         $orderMgr = new EventgalleryLibraryManagerOrder();
         $order = $orderMgr->createOrder($cart);
-
+        $lineitems = $order->getLineItems();
 
  		/* send mail */
 		     
@@ -75,7 +75,11 @@ class CheckoutController extends JControllerLegacy
 		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_FILE').'</th>';
 		$body  .= '<th>'.JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_THUMBNAIL').'</th>';
 
-		foreach($lineitems as $lineitem){
+        /**
+         * @var EventgalleryLibraryLineitem $lineitem
+         */
+        foreach($lineitems as $lineitem){
+
 			$body  .= '<tr><td>';
 			$body  .= $lineitem->getQuantity();
             $body  .= '</td><td>';
@@ -99,10 +103,10 @@ class CheckoutController extends JControllerLegacy
 		}
 		$body  .= '</table>';
 
-        $body .= '<strong>Subtotal: '.$cart->getSubTotalCurrency().' '.sprintf("%0.2f",$cart->getSubTotal()).'</strong>';
+        $body .= '<strong>Subtotal: '.$order->getSubTotalCurrency().' '.sprintf("%0.2f",$order->getSubTotal()).'</strong>';
         $body .= "<br>";
         $body .= "<br>";
-        $body .= '<strong>Total: '.$cart->getTotalCurrency().' '.sprintf("%0.2f",$cart->getTotal()).'</strong>';
+        $body .= '<strong>Total: '.$order->getTotalCurrency().' '.sprintf("%0.2f",$order->getTotal()).'</strong>';
         $body .= "<br>";
         $body .= "<br>";
 

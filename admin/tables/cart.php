@@ -12,6 +12,21 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableCart extends JTable
 {
+
+    public $id;
+    public $userid;
+    public $statusid;
+    public $subtotal;
+    public $subtotalcurrency;
+    public $total;
+    public $totalcurrency;
+    public $surchargeid;
+    public $paymentmethodid;
+    public $shippingmethodid;
+    public $message;
+    public $modified;
+    public $created;
+
 	/**
 	 * Constructor
 	 *

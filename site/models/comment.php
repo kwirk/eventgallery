@@ -14,24 +14,28 @@ jimport( 'joomla.application.component.model' );
 
 //jimport( 'joomla.application.component.helper' );
 
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryModelComment extends JModelLegacy
 {
     
 	
 	function getData($commentId)
 	{
+        $db = JFactory::getDBO();
+
 	 	$query = ' SELECT * FROM #__eventgallery_comment '.
-				 ' WHERE id='.$this->_db->Quote($commentId);
-		$this->_db->setQuery( $query );
-		return $this->_db->loadObject();
+				 ' WHERE id='.$db->Quote($commentId);
+		$db->setQuery( $query );
+		return $db->loadObject();
 	}
 	
 	function getFile($commentId)
 	{
+        $db = JFactory::getDBO();
 		$comment = $this->getData($commentId);
 		$query = ' SELECT * FROM #__eventgallery_file '.
-			     ' WHERE file='.$this->_db->Quote($comment->file).' and folder='.$this->_db->Quote($comment->folder);
-		$this->_db->setQuery( $query );
-		return new EventgalleryHelpersImageLocal($this->_db->loadObject());
+			     ' WHERE file='.$db->Quote($comment->file).' and folder='.$db->Quote($comment->folder);
+		$db->setQuery( $query );
+		return new EventgalleryHelpersImageLocal($db->loadObject());
 	}
 }

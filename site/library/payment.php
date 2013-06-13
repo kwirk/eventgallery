@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryLibrarySurcharge extends EventgalleryLibraryDatabaseObject
+class EventgalleryLibraryPayment extends EventgalleryLibraryDatabaseObject
 {
 
 	protected $_object = null;
@@ -42,9 +42,9 @@ class EventgalleryLibrarySurcharge extends EventgalleryLibraryDatabaseObject
         $db = JFactory::getDBO();
 
         $query = $db->getQuery(true);
-        $query->select('s.*');
-        $query->from('#__eventgallery_surcharge s');
-        $query->where('s.id='.$db->Quote($this->_object_id));
+        $query->select('p.*');
+        $query->from('#__eventgallery_payment p');
+        $query->where('p.id='.$db->Quote($this->_object_id));
 
         $db->setQuery($query);
         $this->_object = $db->loadObject();
@@ -58,7 +58,7 @@ class EventgalleryLibrarySurcharge extends EventgalleryLibraryDatabaseObject
 	}
 
     /**
-     * @return float the price value
+     * @return string the price value
      */
     public function getPrice() {
 		return $this->_object->price;

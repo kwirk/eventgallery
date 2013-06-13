@@ -14,19 +14,40 @@ defined('_JEXEC') or die();
 class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
 {
 
-	protected $_imagetypeset_id = null;
-	protected $_imagetypeset = null;
-	protected $_imagetypes = null;
-	protected $_defaultimagetype_id = null;
+    /**
+     * @var int
+     */
+    protected $_imagetypeset_id = null;
 
- 	public function __construct($imagetypeset_id = -1)
+    /**
+     * @var TableImagetypeset
+     */
+    protected $_imagetypeset = null;
+
+    /**
+     * @var array
+     */
+    protected $_imagetypes = null;
+
+    /**
+     * @var int
+     */
+    protected $_defaultimagetype_id = null;
+
+    /**
+     * @param int $imagetypeset_id
+     */
+    public function __construct($imagetypeset_id = -1)
 	{		
 		$this->_imagetypeset_id = $imagetypeset_id;
 		$this->_loadImageTypeSet();
 	    parent::__construct();	    	 
 	}
 
-	protected function _loadImageTypeSet() {
+    /**
+     *
+     */
+    protected function _loadImageTypeSet() {
 
 		$this->_imagetypeset = null;
 		$this->_imagetypes = null;		
@@ -43,12 +64,15 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
 		$db->setQuery($query);
 		$this->_imagetypeset = $db->loadObject();
 
-		$this->_imageTypeset = $this->_imagetypeset->id;
+		$this->_imagetypeset_id = $this->_imagetypeset->id;
 
 		$this->_loadImageTypes();
 	}
 
-	protected function _loadImageTypes() {
+    /**
+     * @throws Exception
+     */
+    protected function _loadImageTypes() {
 
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);
@@ -79,18 +103,29 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
  		
 	}
 
-	public function getImageTypes() {
+    /**
+     * @return array|null
+     */
+    public function getImageTypes() {
 		return $this->_imagetypes;
 	}
 
-	public function getImageType($imagetypeid) {
+    /**
+     * @param int $imagetypeid
+     * @return EventgalleryLibraryImagetype
+     */
+    public function getImageType($imagetypeid) {
 		return $this->_imagetypes[$imagetypeid];
 
 	}
 
-	public function getDefaultImageType() {
+    /**
+     * @return EventgalleryLibraryImagetype
+     */
+    public function getDefaultImageType() {
 		if ($this->_defaultimagetype_id==0) {
-			return array_values($this->_imagetypes)[0];
+            $result = array_values($this->_imagetypes);
+			return $result[0];
 		} else {
 			return $this->getImageType($this->_defaultimagetype_id);
 		}

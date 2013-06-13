@@ -88,10 +88,10 @@ include 'components/com_eventgallery/views/cart.php';
 	<div style="clear:both"></div>
 	
 	<div class="thumbnails">
-		<?php foreach($this->entries as $entry) :?>
+		<?php foreach($this->entries as $entry) : /** @var EventgalleryHelpersImageDefault $entry */?>
 		    <?php $this->assign('entry',$entry)?>
 		    <div class="thumbnail-container">
-	    	<a class="thumbnail" href="<?php echo $this->entry->getImageUrl(null, null, true); ?>"
+	    	<a class="thumbnail" href="<?php echo $entry->getImageUrl(null, null, true); ?>"
 	            title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8') ?>"
 	            data-title="<?php echo rawurlencode($entry->getLightBoxTitle()) ?>"
 	            rel="lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox',0)==1?'fullscreen':''; ?>]"><?php echo $this->entry->getLazyThumbImgTag(50,50);?>

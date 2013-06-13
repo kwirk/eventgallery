@@ -99,7 +99,7 @@ defined('_JEXEC') or die('Restricted access');
 	<div style="clear:both"></div>
 		
 	<div class="thumbnails">
-		<?php foreach($this->entries as $entry) :?>
+		<?php foreach($this->entries as $entry) : /** @var EventgalleryHelpersImageDefault $entry */?>
 			    <?php $this->assign('entry',$entry)?>
 			    
 				<div class="thumbnail" data-url="<?php echo JRoute::_("index.php?option=com_eventgallery&view=singleimage&folder=".$this->entry->folder."&file=".$this->entry->file) ?>">				

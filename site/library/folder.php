@@ -15,9 +15,20 @@ defined('_JEXEC') or die();
 class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
 {
 
-	protected $_foldername = null;
-	protected $_folder = null;
-	protected $_imagetypeset = null;
+    /**
+     * @var string
+     */
+    protected $_foldername = null;
+
+    /**
+     * @var TableFolder
+     */
+    protected $_folder = null;
+
+    /**
+     * @var EventgalleryLibraryImagetypeset
+     */
+    protected $_imagetypeset = null;
 
 	/**
 	* $creates the lineitem object. $dblineitem is the database object of this line item
@@ -27,9 +38,12 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
 		$this->_foldername = $foldername;		
 		$this->_loadFolder();
 	    parent::__construct();	 
-	}	
+	}
 
-	protected function _loadFolder() {
+    /**
+     * loads a folder from the databas
+     */
+    protected function _loadFolder() {
 		$db = JFactory::getDBO();
 
 		$query = $db->getQuery(true);
@@ -45,27 +59,45 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
     	
 	}
 
-	public function getFolderName() {
+    /**
+     * @return string
+     */
+    public function getFolderName() {
 		return $this->_folder->folder;
 	}
 
-	public function getImageTypeSet() {
+    /**
+     * @return EventgalleryLibraryImagetypeset
+     */
+    public function getImageTypeSet() {
 		return $this->_imagetypeset;
-	}	
+	}
 
-	public function isCartable() {
+    /**
+     * @return bool
+     */
+    public function isCartable() {
 		return $this->_folder->cartable==1;
 	}
 
-	public function isPublished() {
+    /**
+     * @return bool
+     */
+    public function isPublished() {
 		return $this->_folder->published==1;
 	}
 
-	public function getPassword() {
+    /**
+     * @return string
+     */
+    public function getPassword() {
 		return $this->_folder->password;
 	}
 
-	public function isAccessible() {
+    /**
+     * @return bool
+     */
+    public function isAccessible() {
 
 		if (strlen($this->getPassword())>0) {
 	    	$session = JFactory::getSession();

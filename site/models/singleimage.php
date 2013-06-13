@@ -17,8 +17,14 @@ jimport( 'joomla.application.component.model' );
 class EventgalleryModelSingleimage extends JModelLegacy
 {
 
+    /**
+     * @var TableFolder
+     */
     var $folder = null;
-	var $file= null;
+    /**
+     * @var TableFile
+     */
+    var $file= null;
 	var $nextFile = null;
 	var $prevFile = null;
 	var $nextFiles = Array();
@@ -50,8 +56,6 @@ class EventgalleryModelSingleimage extends JModelLegacy
 	    if (!$this->_dataLoaded)
 	    {
 	    	$this->loadFolder($folder);
-	    	
-	    	$files = Array();
 	    	
             // picasa files are not stored in the database
             $countHits = true;
@@ -92,6 +96,9 @@ class EventgalleryModelSingleimage extends JModelLegacy
                      * Update Hits
                      */
                     if ($countHits == true) {
+                        /**
+                         * @var TableFile $table
+                         */
                         $table = $this->getTable('File');
                         $table->bind($file);
                         $table->hits++;
@@ -207,9 +214,17 @@ class EventgalleryModelSingleimage extends JModelLegacy
 	    	}
 	    }
     }
-    
-  	function store_comment($data,$published)
+
+    /**
+     * @param $data
+     * @param $published
+     * @return bool|TableComment
+     */
+    function store_comment($data,$published)
     {
+        /**
+         * @var TableComment $entry
+         */
         $entry  = $this->getTable('Comment');
 
         if (!$entry->bind($data, "published")) {
@@ -224,8 +239,6 @@ class EventgalleryModelSingleimage extends JModelLegacy
         
         if (!$entry->store()) {
             $this->setError($this->_db->getErrorMsg());
-            echo $this->_db->getErrorMsg();
-            die();
             return false;
         }
         

@@ -21,4 +21,3 @@ class RestViewRest extends JViewLegacy
 
 
 }
-?>

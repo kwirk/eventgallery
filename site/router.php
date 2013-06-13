@@ -14,19 +14,14 @@ jimport('joomla.application.categories');
 /**
  * Build the route for the com_eventgallery component
  *
- * @param	array	An array of URL arguments
+ * @param	array	$query An array of URL arguments
  * @return	array	The URL arguments to use to assemble the subsequent URL.
  * @since	1.5
  */
 function EventgalleryBuildRoute(&$query)
 {
 	
-	$segments	= array();
-
 	// get a menu item based on Itemid or currently active
-	$app		= JFactory::getApplication();
-	$menu		= $app->getMenu();
-	$params		= JComponentHelper::getParams('com_eventgallery');
 	$config 	= JFactory::getConfig();
 	$segments = array();
 	
@@ -63,7 +58,7 @@ function EventgalleryBuildRoute(&$query)
 /**
  * Parse the segments of a URL.
  *
- * @param	array	The segments of the URL to parse.
+ * @param	array	$segments The segments of the URL to parse.
  *
  * @return	array	The URL attributes to be used by the application.
  * @since	1.5
@@ -71,14 +66,6 @@ function EventgalleryBuildRoute(&$query)
 function EventgalleryParseRoute($segments)
 {
 	$vars = array();
-
-	//Get the active menu item.
-	$app	= JFactory::getApplication();
-	$menu	= $app->getMenu();
-	$item	= $menu->getActive();
-	$params = JComponentHelper::getParams('com_eventgallery');
-	$advanced = $params->get('sef_advanced_link', 0);
-	$db = JFactory::getDBO();
 
 	// Count route segments
 	$count = count($segments);

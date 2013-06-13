@@ -18,7 +18,10 @@ class EventgalleryViewResizeimage extends JViewLegacy
 
 	function display($tpl = null)
 	{
-		$app = JFactory::getApplication();
+        /**
+         * @var JSite $app
+         */
+        $app = JFactory::getApplication();
 		$params	 = $app->getParams();			
 
 		$file=JRequest::getString('file');
@@ -148,9 +151,8 @@ class EventgalleryViewResizeimage extends JViewLegacy
                 if ($canvasHeight>$height) {
                     $canvasHeight=$height;
                     $canvasWidth=ceil($height*$orig_ratio);
-                    $width = $canvasWidth;
-                
                 }
+
                 $width = $canvasWidth;
                 $height = $canvasHeight;                
             } else {

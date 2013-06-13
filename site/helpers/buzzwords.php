@@ -10,7 +10,7 @@ defined('_JEXEC') or die;
 
 class BuzzwordsHelper
 {
-	function validateBuzzwords($buzzwords,$text)
+	public static function validateBuzzwords($buzzwords,$text)
     {
         foreach($buzzwords as $buzzword) 
         {
@@ -25,4 +25,3 @@ class BuzzwordsHelper
         return true;
     }	
 }
-?>

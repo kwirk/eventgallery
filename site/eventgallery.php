@@ -25,12 +25,12 @@ require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controller.php');
 
 
 // Require specific controller if requested
-if($controller = JRequest::getVar('controller')) {
+if($controller = JFactory::getApplication()->input->get('controller')) {
 	require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.$controller.'.php');
 }
 
 
-$view = JRequest::getVar( 'view' , 'null' );
+$view = JFactory::getApplication()->input->get( 'view' , 'null' );
 if (strcmp('rest',$view)==0 || strcmp('cart',$view)==0 || strcmp('checkout',$view)==0) {
 	require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.ucfirst($view).'.php');	
 	$classname = ucfirst($view).'Controller'.$controller;
@@ -40,6 +40,9 @@ if (strcmp('rest',$view)==0 || strcmp('cart',$view)==0 || strcmp('checkout',$vie
 
 }
 
+/**
+ * @var JControllerLegacy $controller
+ */
 $controller = new $classname( );
 
 // Perform the Request task
@@ -50,4 +53,3 @@ $controller->redirect();
 
 
 
-?>

@@ -14,7 +14,10 @@ defined('_JEXEC') or die;
 class EventgalleryHelpersCartconnector {
 
 	public static function getLink($folder, $file) {
-		$app	 = JFactory::getApplication();	   
+        /**
+         * @var JSite $app
+         */
+        $app	 = JFactory::getApplication();
 		$params	 = $app->getParams();
 
 		$linkPattern = $params->get('cart_connector_link','');		

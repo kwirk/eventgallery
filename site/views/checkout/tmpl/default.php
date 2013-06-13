@@ -27,10 +27,10 @@ defined('_JEXEC') or die('Restricted access');
 					<th class="imagetype"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_IMAGETYPE')?></th>
 					<th class="price"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_PRICE')?></th>
 				</tr>
-				<?php foreach($this->cart->getLineItems() as $lineitem) :?>
+				<?php foreach($this->cart->getLineItems() as $lineitem) : /** @var EventgalleryLibraryLineitem $lineitem *//** @var EventgalleryLibraryLineitem $lineitem */?>
 					<tr class="cart-item">
 						<td class="image">
-							<?php echo $lineitem->getCartThumb($lineitem->id); ?>
+							<?php echo $lineitem->getCartThumb($lineitem->getId()); ?>
 						</td>
 						<td class="quantity">
 							<?php echo $lineitem->getQuantity() ?>

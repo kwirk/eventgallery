@@ -14,22 +14,33 @@ defined('_JEXEC') or die();
 
 class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements EventgalleryHelpersImageInterface
 {
+    /**
+     * @var string
+     */
+    protected $_filename = null;
+    /**
+     * @var EventgalleryHelpersImageInterface
+     */
+    protected $_file = null;
 
-	protected $_filename = null;
-	protected $_file = null;
-
-	/**
-	* $creates the lineitem object. $dblineitem is the database object of this line item
-	*/
-	function __construct($foldername, $filename)
+    /**
+     * creates the lineitem object. $dblineitem is the database object of this line item
+     *
+     * @param string $foldername
+     * @param string $filename
+     */
+    function __construct($foldername, $filename)
 	{	
 		parent::__construct($foldername);	 			 		
 		$this->_filename = $filename;
 		$this->_loadFile();
 	    
-	}	
+	}
 
-	protected function _loadFile() {
+    /**
+     * loads the file from the database
+     */
+    protected function _loadFile() {
 		$fileObject = null;
 
 		if (strpos($this->_foldername,'@')>-1) {
@@ -60,45 +71,89 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
             $fileObject = new EventgalleryHelpersImageLocal($result);        	            
 		}
 
-		
-		$this->_file = $fileObject;
+        /**
+         * @var EventgalleryHelpersImageInterface $fileObject
+         */
+        $this->_file = $fileObject;
 
 	}
 
-	public function getCartThumb($lineitemid) {
+    /**
+     * @param int $lineitemid
+     * @return string
+     */
+    public function getCartThumb($lineitemid) {
 
 		return $this->_file->getCartThumb($lineitemid);
 	}
 
-	public function getFileName() {
-		return $this->_file->file;
+    /**
+     * @return string
+     */
+    public function getFileName() {
+		return $this->_file->getFileName();
 	}
 
-	public function isPublished() {
-		return $this->_folder->published==1 && $this->_file->published==1;
+    /**
+     * @return bool
+     */
+    public function isPublished() {
+		return $this->_folder->published==1 && $this->_file->isPublished()==1;
 	}
 
-
+    /**
+     * @param int $width
+     * @param int $height
+     * @return string
+     */
     public function getFullImgTag($width = 104, $height = 104)
     {
         return $this->_file->getFullImgTag($width, $height);
     }
 
+    /**
+     * @param int $width
+     * @param int $height
+     * @param string $cssClass
+     * @param bool $crop
+     * @return string
+     */
     public function getThumbImgTag($width = 104, $height = 104, $cssClass = "", $crop = false)
     {
         return $this->_file->getThumbImgTag($width, $height, $cssClass, $crop);
     }
 
+    /**
+     * @param int $width
+     * @param int $height
+     * @param string $cssClass
+     * @param bool $crop
+     * @return string
+     */
     public function getLazyThumbImgTag($width = 104, $height = 104, $cssClass = "", $crop = false)
     {
         return $this->_file->getLazyThumbImgTag($width, $height, $cssClass, $crop);
     }
 
+    /**
+     * @param int $width
+     * @param int $height
+     * @param $fullsize
+     * @param bool $larger
+     * @return string
+     */
     public function getImageUrl($width = 104, $height = 104, $fullsize, $larger = false)
     {
         return $this->_file->getImageUrl($width, $height, $fullsize, $larger);
     }
 
+    /**
+     * @param int $width
+     * @param int $height
+     * @param bool $larger
+     * @param bool $crop
+     * @return string
+     */
     public function getThumbUrl($width = 104, $height = 104, $larger = true, $crop = false)
     {
         return $this->_file->getThumbUrl($width, $height, $larger, $larger);

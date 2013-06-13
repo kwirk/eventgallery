@@ -61,7 +61,44 @@ class EventgalleryLibraryManagerCart
 
         }
 
-        $cart->doCalculation();
+        EventgalleryLibraryManagerCart::calculateCart();
+
+    }
+
+    public static function calculateCart() {
+        $cart = EventgalleryLibraryManagerCart::getCart();
+
+        // set subtotal;
+        /**
+         * @var  float $subtotal
+         */
+        $subtotal = 0;
+        /**
+         * @var EventgalleryLibraryLineitem $lineitem
+         */
+
+        $subtotalCurrency = "";
+
+        foreach($cart->getLineItems() as $lineitem) {
+            $subtotal += $lineitem->getPrice();
+            $subtotalCurrency = $lineitem->getCurrency();
+        }
+
+        $cart->setSubTotal($subtotal);
+        $cart->setSubTotalCurrency($subtotalCurrency);
+
+        /**
+         * @var  float $total
+         */
+        $total = $subtotal;
+        if ($cart->getSurcharge()!=null)  $total += $cart->getSurcharge()->getPrice();
+        if ($cart->getShipping()!=null)  $total += $cart->getShipping()->getPrice();
+        if ($cart->getPayment()!=null)  $total += $cart->getPayment()->getPrice();
+
+        $cart->setTotal($total);
+        $cart->setTotalCurrency($subtotalCurrency);
+
+        $cart->storeCart();
     }
  
 }

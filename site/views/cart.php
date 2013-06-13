@@ -8,10 +8,16 @@
  */
 defined('_JEXEC') or die('Restricted access'); ?>
 
-<?php 
-	$myApp	 = JFactory::getApplication();
-	$myParams	 = $myApp->getParams();
-	$use_cart = !(strcmp('0',$myParams->get('use_cart','1'))==0);
+<?php
+/**
+ * @var JSite $myApp
+ */
+$myApp	 = JFactory::getApplication();
+/**
+ * @var JRegistry $myParams
+ */
+$myParams	 = $myApp->getParams();
+$use_cart = !(strcmp('0',$myParams->get('use_cart','1'))==0);
 ?>
 
 <?php IF($use_cart): ?>

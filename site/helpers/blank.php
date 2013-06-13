@@ -52,7 +52,7 @@ if (!is_dir($cachedir))
 
 
 if ($width==-1) {
-	$width==1;
+	$width=1;
 }
 
 if ($height==-1) {

@@ -13,29 +13,41 @@ jimport( 'joomla.application.component.view');
 
 class EventgalleryViewSingleImage extends JViewLegacy
 {
-	function display($tpl = null)
-	{		
+    /**
+     * @var JRegistry
+     */
+    protected $params;
+    protected $state;
+    protected $use_comments;
+    protected $model;
+    /**
+     * @var JDocument
+     */
+    public $document;
 
-	    $app	 = JFactory::getApplication();	   
-	    
+	function display($tpl = null)
+	{
+        /**
+         * @var JSite $app
+         */
+	    $app	 = JFactory::getApplication();
+
+        $this->state = $this->get('State');
+        $this->params	 = $app->getParams();
 	    
 		$model = $this->getModel('singleimage');		
 		$model->getData(JRequest::getString('folder'),JRequest::getString('file'));
-		$this->assign('model',$model);
-		
-		$params	 = $app->getParams();
+
 
 		/* Default Page fallback*/		
 		$active	= $app->getMenu()->getActive();
 		if (null == $active) {
-			$params = $app->getMenu()->getDefault()->params;
+            $this->params->merge($app->getMenu()->getDefault()->params);
 		}
 
-        $this->assign('use_comments', $params->get('use_comments'));
-        $this->assign('paging_images_count', $params->get('paging_images_count'));
-        $this->assign('singleimage_preview', $params->get('singleimage_preview'));
-        $this->assign('page_width',$params->get('page_width', 600));
-		$this->assign('params', $params);
+        $this->model = $model;
+        $this->use_comments = $this->params->get('use_comments');
+
 		
 		$folder = $model->folder;
 		
@@ -121,4 +133,3 @@ class EventgalleryViewSingleImage extends JViewLegacy
 	}
 
 }
-?>

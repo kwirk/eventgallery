@@ -13,24 +13,44 @@ jimport( 'joomla.application.component.view');
 jimport( 'joomla.application.pathway');
 jimport( 'joomla.html.pagination');
 
-
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryViewEvent extends JViewLegacy
 {
+    /**
+     * @var JRegistry
+     */
+    protected $params;
+    protected $state;
+    protected $pageNav;
+    protected $entries;
+    protected $entriesCount;
+    protected $folder;
+    protected $use_comments;
+    /**
+     * @var JDocument
+     */
+    public $document;
+
 	function display($tpl = null)
-	{		
+	{
+        /**
+         * @var JCacheControllerCallback $cache
+         */
 	    $cache =  JFactory::getCache('com_eventgallery');
+        /**
+         * @var JSite $app
+         */
 		$app	 = JFactory::getApplication();
-		$document = JFactory::getDocument();
-		$params	 = $app->getParams();
+        $this->state = $this->get('State');
+		$this->params	 = $app->getParams();
 
 		/* Default Page fallback*/		
 		$active	= $app->getMenu()->getActive();
 		if (null == $active) {
-			$params = $app->getMenu()->getDefault()->params;
+			$this->params->merge($app->getMenu()->getDefault()->params);
 		}
-	
-			
-		if ($layout = $params->get('event_layout'))
+
+		if ($layout = $this->params->get('event_layout'))
 		{
 			$this->setLayout($layout);
 		}
@@ -40,7 +60,7 @@ class EventgalleryViewEvent extends JViewLegacy
 
 		$pageNav = $model->getPagination(JRequest::getVar('folder',''));	
 		
-		$entries = "";
+
 		if ($this->getLayout() =='ajaxpaging' || $this->getLayout() =='imagelist') {
 	    	//$entries = $model->getEntries(JRequest::getVar('folder',''),-1,-1);
 	    	$entries = $cache->call( array( $model, 'getEntries' ), JRequest::getVar('folder',''),-1,-1);
@@ -61,23 +81,17 @@ class EventgalleryViewEvent extends JViewLegacy
 		
 		if (!$accessAllowed) {
 			$app->redirect(JRoute::_("index.php?option=com_eventgallery&view=password&folder=".$folder->folder, false));	
-		}				
-	    
-	    $this->assignRef('pageNav', $pageNav);
-	    $this->assignRef('entries',	$entries );
-	    $entryCount  = count($entries);
-	    $this->assignRef('entriesCount', $entryCount);
-	    $this->assignRef('folder',	$folder );
-	    
+		}
+
+	    $this->pageNav = $pageNav;
+	    $this->entries = $entries;
+	    $this->entriesCount = count($entries);
+	    $this->folder = $folder;
+        $this->use_comments = $this->params->get('use_comments');
+
 	    $pathway = $app->getPathway();
 		$pathway->addItem($folder->description);
-		
-	    
-		
-		$this->assign('params', $params);
-        $this->assign('use_comments', $params->get('use_comments'));
-				
-		
+
 		$this->_prepareDocument();
 		
 		parent::display($tpl);
@@ -90,7 +104,7 @@ class EventgalleryViewEvent extends JViewLegacy
 	{
 		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
-		$pathway = $app->getPathway();
+
 		$title = null;
 
 		// Because the application sets a default page title,
@@ -135,4 +149,4 @@ class EventgalleryViewEvent extends JViewLegacy
 	}
 }
 
-?>
+

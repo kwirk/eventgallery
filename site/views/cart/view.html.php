@@ -14,19 +14,31 @@ jimport( 'joomla.application.component.view');
 
 class CartViewCart extends JViewLegacy
 {
+    /**
+     * @var JRegistry
+     */
+    protected $params;
+    protected $state;
+    protected $cart;
+
+    /**
+     * @var JDocument
+     */
+    public $document;
+
 	function display($tpl = null)
-	{		
-	    $app = JFactory::getApplication();		   
-		 
+	{
+        /**
+         * @var JSite $app
+         */
+        $app = JFactory::getApplication();
+        $this->state = $this->get('State');
+        $this->params =  $app->getParams();
 
-		$cart = EventgalleryLibraryManagerCart::getCart();
-		
+		$this->cart = EventgalleryLibraryManagerCart::getCart();
 
-		$params	 = $app->getParams();
-		$this->assign('cart', $cart);
-		$this->assign('params', $params);
 		
-		if ($cart->getLineItemsCount()==0) {
+		if ($this->cart->getLineItemsCount()==0) {
 			$this->setLayout("empty");
 		}
 
@@ -82,4 +94,3 @@ class CartViewCart extends JViewLegacy
 	}
 
 }
-?>

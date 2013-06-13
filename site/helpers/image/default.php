@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @package     Sven.Bluege
@@ -8,91 +8,117 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;	
+defined('_JEXEC') or die;
 
 
-abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersImageInterface{
+abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersImageInterface
+{
+    public $width;
+    public $height;
+    public $folder;
+    public $file;
+    public $published;
 
-	    /**
-	    * returns the title of an image. Same as lightbox but without :: char.
-	    */
-	    public function getTitle() {
-	    	return str_replace("::", "", $this->getLightBoxTitle());
-	    }
+    /**
+     * checks if the image has a title to show.
+     */
+    public function hasTitle()
+    {
+        if (strlen($this->getTitle()) > 0) {
+            return true;
+        }
 
-	    /**
-	    *  returns a title with the following format:
-	    * 
-	    *   <span class="img-caption img-caption-part1">Foo</span>[::<span class="img-caption img-caption-part1">Bar</span>][::<span class="img-exif">EXIF</span>]
-	    * 
-	    *  :: is the separator for the lightbox to split in title and caption.
-	    */
+        return false;
+    }
 
-	    public function getLightBoxTitle() {
+    /**
+     * returns the title of an image. Same as lightbox but without :: char.
+     */
+    public function getTitle()
+    {
+        return str_replace("::", "", $this->getLightBoxTitle());
+    }
 
-	    	$app	 = JFactory::getApplication();	   		
-			$params	 = $app->getParams();
+    /**
+     *  returns a title with the following format:
+     *
+     *   <span class="img-caption img-caption-part1">Foo</span>[::<span class="img-caption img-caption-part1">Bar</span>][::<span class="img-exif">EXIF</span>]
+     *
+     *  :: is the separator for the lightbox to split in title and caption.
+     */
 
-			$showExif = $params->get('show_exif','1')=='1';
+    public function getLightBoxTitle()
+    {
 
-			$caption = "";
+        $caption = "";
 
-			if (isset($this->title) && strlen($this->title)>0) {	
-				$caption .= '<span class="img-caption img-caption-part1">'.$this->title.'</span>';
-			}
+        if (isset($this->title) && strlen($this->title) > 0) {
+            $caption .= '<span class="img-caption img-caption-part1">' . $this->title . '</span>';
+        }
 
-			if (isset($this->caption) && strlen($this->caption)>0) {
+        if (isset($this->caption) && strlen($this->caption) > 0) {
 
-				if (strlen($caption)>0) {
-					$caption .= "::";
-				}
-				$caption .= '<span class="img-caption img-caption-part2">'.$this->caption.'</span>';
-				
-			}
-			
+            if (strlen($caption) > 0) {
+                $caption .= "::";
+            }
+            $caption .= '<span class="img-caption img-caption-part2">' . $this->caption . '</span>';
 
-	    	return $caption;
-	    }
+        }
 
-	    /**
-	    * checks if the image has a title to show.
-	    */
-	    public function hasTitle() {
-	    	if (strlen($this->getTitle())>0) {
-	    		return true;
-	    	}
 
-	    	return false;
-	    }
+        return $caption;
+    }
 
-	    /**
-	    * returns the title of an image. Returns the part before the :: only and strips out all tag elements
-	    */
-	    public function getPlainTextTitle() {
+    public function getCartThumb($lineitemid)
+    {
+        return '<a class="thumbnail"
+    						href="' . $this->getImageUrl(null, null, true) . '"
+    						title="' . htmlentities($this->getPlainTextTitle()) . '"
+    						data-title="' . rawurlencode($this->getLightBoxTitle()) . '"
+    						data-lineitem-id="' . $lineitemid . '"
+    						rel="lightbo2[cart]"> ' . $this->getThumbImgTag(100, 100) . '</a>';
+    }
 
-			if (isset($this->title)) {
-	    		return strip_tags($this->title);
-	    	}
+    /**
+     * returns the title of an image. Returns the part before the :: only and strips out all tag elements
+     */
+    public function getPlainTextTitle()
+    {
 
-	    	if (isset($this->caption)) {
-	    		return strip_tags($this->caption);
-	    	}	
+        if (isset($this->title)) {
+            return strip_tags($this->title);
+        }
 
-	    	return "";
-	    }
+        if (isset($this->caption)) {
+            return strip_tags($this->caption);
+        }
 
-	    public function getCartThumb($lineitemid) {
-	    	return '<a class="thumbnail" 
-    						href="'.$this->getImageUrl(null, null, true).'" 
-    						title="'.htmlentities($this->getPlainTextTitle()).'" 
-    						data-title="'.rawurlencode($this->getLightBoxTitle()).'" 
-    						data-lineitem-id="'.$lineitemid.'"
-    						rel="lightbo2[cart]"> '.$this->getThumbImgTag(100,100).'</a>';
-	    }
-	    
-	
+        return "";
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFolderName()
+    {
+        return $this->folder;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published == 1 ? true : false;
+    }
+
+
 }
-
-	
-	
-?>

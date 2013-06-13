@@ -25,10 +25,10 @@ defined('_JEXEC') or die('Restricted access');
 					<th class="imagetype"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_IMAGETYPE')?></th>
 					<th class="price"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_PRICE')?></th>
 				</tr>
-				<?php foreach($this->cart->getLineItems() as $lineitem) :?>
+				<?php foreach($this->cart->getLineItems() as $lineitem) : /** @var EventgalleryLibraryLineitem $lineitem */?>
 					<tr id="row_<?php echo $lineitem->getId() ?>" class="cart-item">
 						<td class="image">
-							<?php echo $lineitem->getCartThumb($lineitem->id); ?>
+							<?php echo $lineitem->getCartThumb($lineitem->getId()); ?>
 						</td>
 						<td class="quantity">
 							<input class="validate-numeric required input-small" type="number" name="quantity_<?php echo $lineitem->getId() ?>" value="<?php echo $lineitem->getQuantity() ?>"/>
@@ -39,6 +39,7 @@ defined('_JEXEC') or die('Restricted access');
 							<select class="required imagetype" name="type_<?php echo $lineitem->getId() ?>">
 								<?php
 									foreach($lineitem->getFile()->getImageTypeSet()->getImageTypes() as $imageType) {
+                                        /** @var EventgalleryLibraryImagetype $imageType */
 										$selected = $lineitem->getImageType()->getId() == $imageType->getId() ?'selected="selected"':'';
 										echo '<option '.$selected.' value="'.$imageType->getId().'">'.$imageType->getDisplayName().' ('.$imageType->getCurrency().' '.$imageType->getPrice().')'.'</option>';
 									}
@@ -91,7 +92,7 @@ defined('_JEXEC') or die('Restricted access');
 				</span>
 			</div>
             <?php ENDIF ?>
-			<div class="total">
+			<div class="total ">
 				<div class="total-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL')?></div>
 				<span class="total">
 					<?php echo $this->cart->getTotalCurrency(); ?>
@@ -101,6 +102,10 @@ defined('_JEXEC') or die('Restricted access');
 					<?php echo JText::_('COM_EVENTGALLERY_CART_VAT_HINT')?>
 				</span>
 			</div>
+			
+		</div>
+		<div class="needs-calculation" style="">
+			<?php echo JText::_('COM_EVENTGALLERY_CART_RECALCULATE')?>
 		</div>
 
 	    <fieldset>	    		
@@ -116,11 +121,26 @@ defined('_JEXEC') or die('Restricted access');
 <script type="text/javascript">
 		window.addEvent("domready", function() {
 			
-			var setUpdateMode = function() {
+			// hide the recalc message
+			new Fx.Slide($$('.needs-calculation')[0]).hide();
+
+			// update the carts description once something changed
+			var setNeedsCalculationMode = function(e) {
+
 				$$(".cart-item td.price").fade('out');
-				$$(".cart-summary .subtotal").fade('out');
-				$$(".cart-summary .total").fade('out');
-			}
+				var cartSummary = $$(".cart-summary")[0];
+
+				new Fx.Slide(cartSummary, { 
+					duration:500,
+					onComplete: function() {
+						var needsCalc = $$(".needs-calculation")[0];
+						new Fx.Slide(needsCalc, { 
+							duration:250							
+						}).slideIn();
+					}
+				}).slideOut();
+			}			
+				
 
 			var removeItem = function(e) {				
 				e.stop();
@@ -157,8 +177,7 @@ defined('_JEXEC') or die('Restricted access');
 								}).slideOut(); // Slide it!
 							});				
 
-							$$(".cart-summary .subtotal").fade('out');	
-							$$(".cart-summary .total").fade('out');						
+							setNeedsCalculationMode();				
 							
 						}
 						
@@ -167,14 +186,11 @@ defined('_JEXEC') or die('Restricted access');
 	        	).send();
 
 				$(e.target).fade('out');
-
-
 							
 			}
 
-			$$(".cart-item input").addEvent('change',setUpdateMode);
-			$$(".cart-item select").addEvent('change',setUpdateMode);			
-
+			$$(".cart-item input").addEvent('change',setNeedsCalculationMode);
+			$$(".cart-item select").addEvent('change',setNeedsCalculationMode);			
 			$$(".cart-item .delete-lineitem").addEvent('click',removeItem);			
 
 			

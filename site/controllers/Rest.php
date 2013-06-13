@@ -12,10 +12,10 @@ class RestController extends JControllerLegacy
 {
     /**
      * @param bool $cachable
-     * @param bool $urlparams
+     * @param array $urlparams
      * @return JControllerLegacy|void
      */
-    public function display($cachable = false, $urlparams = false)
+    public function display($cachable = false, $urlparams  = array())
     {
         parent::display($cachable, $urlparams);
     }
@@ -33,7 +33,9 @@ class RestController extends JControllerLegacy
 
         $cart = EventgalleryLibraryManagerCart::getCart();
         $cart->addItem($folder, $file, $quantity, $typeid);
+        EventgalleryLibraryManagerCart::calculateCart();
         $this->printCartJSON($cart);
+
 
     }
 
@@ -74,12 +76,12 @@ class RestController extends JControllerLegacy
     public function removeFromCart()
     {
 
-        $session = JFactory::getSession();
+
         $lineitemid = JRequest::getString('lineitemid', null);
 
         $cart = EventgalleryLibraryManagerCart::getCart();
-
         $cart->deleteLineItem($lineitemid);
+        EventgalleryLibraryManagerCart::calculateCart();
 
         $this->printCartJSON($cart);
     }

@@ -22,8 +22,13 @@ interface  EventgalleryHelpersImageInterface {
     public function getImageUrl($width=104,  $height=104, $fullsize, $larger=false);	    
 	    
     public function getThumbUrl ($width=104, $height=104, $larger=true, $crop=false);
-	
+
+    public function getCartThumb($lineitemid);
+
+    public function getFileName();
+
+    public function getFolderName();
+
+    public function isPublished();
+
 }
-	
-	
-?>

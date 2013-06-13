@@ -129,4 +129,3 @@
 		
 		echo readfile($image_thumb_file);
 
-?>

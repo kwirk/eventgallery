@@ -10,7 +10,7 @@ defined('_JEXEC') or die;
 
 class CartController extends JControllerLegacy
 {
-	public function display($cachable = false, $urlparams = false)
+	public function display($cachable = false, $urlparams  = array())
 	{			
 		parent::display($cachable, $urlparams);		
 	}

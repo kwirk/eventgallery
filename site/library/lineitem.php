@@ -15,15 +15,35 @@ defined('_JEXEC') or die();
 class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
 {
 
+    /**
+     * @var TableImagelineitem
+     */
     protected $_lineitem = null;
+    /**
+     * @var int
+     */
     protected $_lineitem_id = null;
+
+    /**
+     * @var string
+     */
     protected $_lineitem_table = 'Imagelineitem';
+
+    /**
+     * @var EventgalleryLibraryFile
+     */
     protected $_file = null;
+
+    /**
+     * @var EventgalleryLibraryImagetype
+     */
     protected $_imagetype = null;
 
     /**
      * creates the lineitem object. The given $lineitem can be an stdClass object or a id of a line item.
      * This is necessary since a lineitemcontainer can already preload it's line items with a single query.
+     *
+     * @param $lineitem
      */
     function __construct($lineitem)
     {
@@ -58,37 +78,59 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
 
     }
 
+    /**
+     * @return EventgalleryLibraryFile|null
+     */
     public function getFile()
     {
         return $this->_file;
     }
 
+    /**
+     * @return string
+     */
     public function getFileName()
     {
         return $this->_lineitem->file;
     }
 
+    /**
+     * @return string
+     */
     public function getFolderName()
     {
         return $this->_lineitem->folder;
     }
 
+    /**
+     * @return int
+     */
     public function getQuantity()
     {
         return $this->_lineitem->quantity;
     }
 
+    /**
+     * @param int $quantity
+     */
     public function setQuantity($quantity)
     {
         $this->_lineitem->quantity = $quantity;
-        $this->_store;
+        $this->_store();
     }
 
+    /**
+     * @return EventgalleryLibraryImagetype|null
+     */
     public function getImageType()
     {
         return $this->_imagetype;
     }
 
+    /**
+     * @param int $imagetypeid
+     * @throws Exception
+     */
     public function setImageType($imagetypeid)
     {
         $newImageType = $this->_file->getImageTypeSet()->getImageType($imagetypeid);
@@ -102,6 +144,9 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
         $this->_store();
     }
 
+    /**
+     *
+     */
     protected function _store()
     {
         $this->_lineitem->table = $this->_lineitem_table;
@@ -109,28 +154,46 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
         parent::store((array)$this->_lineitem);
     }
 
+    /**
+     * @return string
+     */
     public function getCartThumb()
     {
         return $this->_file->getCartThumb($this->getId());
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->_lineitem->id;
     }
 
+    /**
+     * @return float
+     */
     public function getPrice() {
         return $this->_lineitem->price;
     }
 
+    /**
+     * @return float
+     */
     public function getSinglePrice() {
         return $this->_lineitem->singleprice;
     }
 
+    /**
+     * @return string
+     */
     public function getCurrency() {
         return $this->_lineitem->currency;
     }
 
+    /**
+     * deletes the current line item.
+     */
     public function delete()
     {
         $db = JFactory::getDBO();
@@ -139,6 +202,9 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
         $db->execute();
     }
 
+    /**
+     * @return int
+     */
     public function getLineItemContainerId()
     {
         return $this->_lineitem->lineitemcontainerid;
