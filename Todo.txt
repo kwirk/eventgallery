@@ -2,13 +2,14 @@ Front End
 
 - Payment Selection
 - Shipping Selection
-- Surcharge Selection
+- Surcharge Selection/Automatic Selection By Rule
 - Image Type Details
 - Address Handling
 - User-Management
 - Order Tracking
 - eMail-Handling
 - Cart Module
+- Service Line Items
 
 Back End
 
