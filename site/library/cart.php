@@ -49,8 +49,14 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
         $this->_lineitemcontainer = $db->loadObject();
 
         if ($this->_lineitemcontainer == null) {
-            $data = array('userid' => $this->_user_id, 'table' => $this->_lineitemcontainer_table);
-            $this->_lineitemcontainer = parent::store($data);
+
+            /**
+             * @var TableCart $data
+             */
+            $data = JTable::getInstance('cart', 'Table');
+            $data->userid = $this->_user_id;
+            $this->_lineitemcontainer = $this->store((array)$data, 'Cart');
+
         }
 
         $this->_loadLineItems();
@@ -93,20 +99,17 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
             'singleprice' => $imagetype->getPrice(),
             'price' => $quantity * $imagetype->getPrice(),
             'currency' => $imagetype->getCurrency(),
-            'typeid' => $imagetype->getId(),
-            'table' => 'Imagelineitem');
+            'typeid' => $imagetype->getId());
 
-        $this->store($item);
+        $this->store($item, 'Imagelineitem');
 
         $this->_updateLineItemContainer();
     }
 
-    public function storeCart()
+    protected function _storeLineItemContainer()
     {
         $data = $this->_lineitemcontainer;
-        $data->surchargeid = 1;
-        $data->table = $this->_lineitemcontainer_table;
-        $this->store((array)$data);
+        $this->store((array)$data, $this->_lineitemcontainer_table);
     }
 
     /**
@@ -160,8 +163,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
             'singleprice' => $imageType->getPrice(),
             'price' => $count * $imageType->getPrice(),
             'currency' => $imageType->getCurrency(),
-            'typeid' => $imageType->getId(),
-            'table' => 'Imagelineitem');
+            'typeid' => $imageType->getId());
 
         $lineitem = $this->getLineItemByFileAndType($item['folder'], $item['file'], $item['typeid']);
 
@@ -171,7 +173,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
             $item['price'] = $item['quantity'] * $item['singleprice'];
         }
 
-        $this->store($item);
+        $this->store($item, 'Imagelineitem');
 
         $this->_updateLineItemContainer();
 
@@ -184,7 +186,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
      * @param $typeid
      * @return stdClass
      */
-    function getLineItemByFileAndType($folder, $file, $typeid)
+    public function getLineItemByFileAndType($folder, $file, $typeid)
     {
         $db = JFactory::getDBO();
         $query = $db->getQuery(TRUE);
@@ -199,4 +201,11 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
         return $item;
     }
 
+    /**
+     * @param int $statusid
+     */
+    public function setStatus($statusid) {
+        $this->_lineitemcontainer->statusid = $statusid;
+        $this->_storeLineItemContainer();
+    }
 }

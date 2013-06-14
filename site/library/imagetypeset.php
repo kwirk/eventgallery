@@ -80,7 +80,7 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
 		$query->select('t.*, tsta.default as defaultimagetype');
 		$query->from('#__eventgallery_imagetypeset_imagetype_assignment tsta left join #__eventgallery_imagetype t on tsta.typeid=t.id');				
 		$query->where('tsta.typesetid='.$db->quote($this->_imagetypeset->id));
-		$query->order('tsta.default DESC');
+		$query->order('tsta.ordering');
 		$db->setQuery($query);
 		$dbtypes = $db->loadObjectList();
 		$types = array();
@@ -88,8 +88,9 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
 		$this->_defaultimagetype_id = null;
 
 		foreach ($dbtypes as $dbtype) {
-			if ($dbtype->defaultimagetype==1) {
-				$this->_defaultimagetype_id = $dbtype->defaultimagetype;
+
+            if ($dbtype->defaultimagetype==1) {
+				$this->_defaultimagetype_id = $dbtype->id;
 			}
 			$types[$dbtype->id] = new EventgalleryLibraryImagetype($dbtype);
 		}		
@@ -123,7 +124,7 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
      * @return EventgalleryLibraryImagetype
      */
     public function getDefaultImageType() {
-		if ($this->_defaultimagetype_id==0) {
+		if ($this->_defaultimagetype_id==null) {
             $result = array_values($this->_imagetypes);
 			return $result[0];
 		} else {

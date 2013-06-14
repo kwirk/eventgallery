@@ -114,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_cart` (
   `documentno` varchar(45) DEFAULT NULL,
   `userid` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
   `statusid` int(11) DEFAULT NULL,
   `subtotal` decimal(8,2) DEFAULT NULL,
   `subtotalcurrency` varchar(3) NOT NULL,
@@ -141,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_order` (
   `shippingstatusid` int(11) DEFAULT NULL,
   `userid` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
   `subtotal` decimal(8,2) DEFAULT NULL,
   `subtotalcurrency` varchar(3) NOT NULL,
   `total` decimal(8,2) DEFAULT NULL,
@@ -272,8 +274,8 @@ INSERT INTO `ztx1s_eventgallery_imagetypeset` (`id`, `name`, `description`, `not
 --
 
 INSERT INTO `ztx1s_eventgallery_imagetypeset_imagetype_assignment` (`typesetid`, `typeid`, `default`, `ordering`, `modified`, `created`) VALUES
-(1, 1, 1, 1, '0000-00-00 00:00:00', NULL),
-(1, 2, 0, 2, NULL, NULL),
+(1, 1, 0, 1, '0000-00-00 00:00:00', NULL),
+(1, 2, 1, 2, NULL, NULL),
 (1, 3, 0, 4, '0000-00-00 00:00:00', NULL),
 (1, 4, 0, 3, '0000-00-00 00:00:00', NULL),
 (2, 4, 0, 1, '0000-00-00 00:00:00', NULL),

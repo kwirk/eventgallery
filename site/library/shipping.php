@@ -43,7 +43,7 @@ class EventgalleryLibraryShipping extends EventgalleryLibraryDatabaseObject
 
         $query = $db->getQuery(true);
         $query->select('s.*');
-        $query->from('#__eventgallery_shipping s');
+        $query->from('#__eventgallery_shippingmethod s');
         $query->where('s.id='.$db->Quote($this->_object_id));
 
         $db->setQuery($query);
@@ -90,6 +90,13 @@ class EventgalleryLibraryShipping extends EventgalleryLibraryDatabaseObject
      */
     public function getDescription() {
         return $this->_ls_description->get();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDefault() {
+        return $this->_object->default==1?true:false;
     }
 
 }

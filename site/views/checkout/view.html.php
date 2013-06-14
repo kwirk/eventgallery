@@ -22,7 +22,13 @@ class CheckoutViewCheckout extends JViewLegacy
      */
     protected $params;
     protected $state;
+    /**
+     * @var EventgalleryLibraryCart
+     */
     protected $cart;
+    protected $billingform;
+    protected $userdataform;
+    protected $shippingform;
 
     /**
      * @var JDocument
@@ -38,8 +44,34 @@ class CheckoutViewCheckout extends JViewLegacy
         $this->state = $this->get('State');
         $this->params	= $app->getParams();
 
+        $this->cart = EventgalleryLibraryManagerCart::getCart();
 
-		$this->cart = EventgalleryLibraryManagerCart::getCart();
+        if ($this->getLayout()=='default') {
+			$this->setLayout("review");
+		}
+
+        if ($this->getLayout()=='change') {
+
+            $xmlPath = JPATH_SITE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_eventgallery' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR;
+
+            $this->userdataform = JForm::getInstance('userdata', $xmlPath. 'userdata.xml');
+            $this->userdataform->reset();
+            $this->userdataform->bind(array('email'=>$this->cart->getEMail(), 'phone'=>$this->cart->getPhone()));
+
+            $this->billingform = JForm::getInstance('billing',$xmlPath. 'billingaddress.xml');
+            $this->billingform->reset();
+
+            if ($this->cart->getBillingAddress() != null) {
+                $this->billingform->bind($this->cart->getBillingAddress()->_getData('billing_'));
+            }
+
+            $this->shippingform = JForm::getInstance('shipping',$xmlPath. 'shippingaddress.xml');
+            $this->shippingform->reset();
+            if ($this->cart->getShippingAddress()!=null) {
+                $this->shippingform->bind($this->cart->getShippingAddress()->_getData('shipping_'));
+            }
+        }
+
 
 
 		$pathway = $app->getPathWay();		

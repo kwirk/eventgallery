@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form name="billing">
+        <fieldset name="billing">
+                <field name="billing_firstname" type="text"/>
+                <field name="billing_lastname" type="text"/>
+                <field name="billing_address1" type="text"/>
+                <field name="billing_address2" type="text"/>
+                <field name="billing_address3" type="text"/>
+                <field name="billing_city" type="text"/>
+                <field name="billing_zip" type="text" />
+                <field name="billing_country" type="text" />                
+        </fieldset>
+</form>

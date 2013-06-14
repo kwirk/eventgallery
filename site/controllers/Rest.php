@@ -33,7 +33,7 @@ class RestController extends JControllerLegacy
 
         $cart = EventgalleryLibraryManagerCart::getCart();
         $cart->addItem($folder, $file, $quantity, $typeid);
-        EventgalleryLibraryManagerCart::calculateCart();
+        EventgalleryLibraryManagerCart::updateCart();
         $this->printCartJSON($cart);
 
 
@@ -81,7 +81,7 @@ class RestController extends JControllerLegacy
 
         $cart = EventgalleryLibraryManagerCart::getCart();
         $cart->deleteLineItem($lineitemid);
-        EventgalleryLibraryManagerCart::calculateCart();
+        EventgalleryLibraryManagerCart::updateCart();
 
         $this->printCartJSON($cart);
     }

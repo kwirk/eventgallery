@@ -16,7 +16,10 @@ defined('_JEXEC') or die();
  */
 class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
 {
-
+    /**
+     * @var TableOrder
+     */
+    protected $_lineitemcontainer = null;
     /**
      * @var string
      */
@@ -55,6 +58,17 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
         $this->_loadLineItems(1);
     }
 
+    /**
+     * @param EventgalleryLibraryOrderStatus $orderStatus
+     */
+    public function setOrderStatus($orderStatus)
+    {
+        if ($orderStatus == null) {
+            return;
+        }
+        $this->_lineitemcontainer->orderstatusid = $orderStatus->getId();
+        $this->_storeLineItemContainer();
+    }
 
 
     /**
@@ -70,15 +84,89 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
         $this->_payment = null;
     }
 
-
-
-    public function storeOrder()
-    {
-        $data = $this->_lineitemcontainer;
-        $data->table = $this->_lineitemcontainer_table;
-        $this->store((array)$data);
+    /**
+     * Use this method never in your source code. This is only for managers.
+     *
+     * @return TableOrder
+     */
+    public function _getInternalDataObject() {
+        return $this->_lineitemcontainer;
     }
 
+    protected function _storeLineItemContainer()
+    {
+        $data = $this->_lineitemcontainer;
+        $this->store((array)$data, $this->_lineitemcontainer_table);
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getEMail() {
+        return $this->_lineitemcontainer->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEMail($email){
+        $this->_lineitemcontainer->email = $email;
+        $this->_storeLineItemContainer();
+    }
+
+    /**
+     * sets a surcharge
+     *
+     * @param EventgalleryLibrarySurcharge $surcharge
+     */
+    public function setSurcharge($surcharge)
+    {
+        if ($surcharge==null) {
+            return;
+        }
+
+        $this->_lineitemcontainer->surchargetotal = $surcharge->getPrice();
+        $this->_lineitemcontainer->surchargetotalcurrency = $surcharge->getCurrency();
+
+        parent::setSurcharge($surcharge);
+    }
+
+    /**
+     * sets a shipping method
+     *
+     * @param EventgalleryLibraryShipping $shipping
+     */
+    public function setShipping($shipping)
+    {
+        if ($shipping==null) {
+            return;
+        }
+
+        $this->_lineitemcontainer->shippingtotal = $shipping->getPrice();
+        $this->_lineitemcontainer->shippingtotalcurrency = $shipping->getCurrency();
+
+        parent::setShipping($shipping);
+
+    }
+
+    /**
+     * sets a payment
+     *
+     * @param EventgalleryLibraryPayment $payment
+     */
+    public function setPayment($payment)
+    {
+        if ($payment==null) {
+            return;
+        }
+
+        $this->_lineitemcontainer->paymenttotal = $payment->getPrice();
+        $this->_lineitemcontainer->paymenttotalcurrency = $payment->getCurrency();
+
+        parent::setPayment($payment);
+    }
 
 
 }

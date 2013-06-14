@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form name="userdata">
+        <fieldset name="userdata">
+                <field name="email" type="text"/>
+                <field name="phone" type="text"/>
+                
+        </fieldset>
+</form>

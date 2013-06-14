@@ -12,10 +12,14 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableImagetype extends JTable
 {
-    public $typesetid;
-    public $typeid;
-    public $default;
-    public $ordering;
+    public $id;
+    public $type;
+    public $size;
+    public $currency;
+    public $name;
+    public $displayname;
+    public $description;
+    public $note;
     public $modified;
     public $created;
 

@@ -1,0 +1,106 @@
+<?php // no direct access
+
+/**
+ * @package     Sven.Bluege
+ * @subpackage  com_eventgallery
+ *
+ * @copyright   Copyright (C) 2005 - 2013 Sven Bluege All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+defined('_JEXEC') or die('Restricted access'); 
+
+?>
+
+
+
+<div class="eventgallery-checkout">
+<h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ITEMS_IN_YOUR_CART')?></h1>
+<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_TEXT')?>&nbsp;
+<a class="" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>
+	<form action="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=createOrder") ?>" method="post" class="form-validate form-horizontal checkout-form">
+		<div class="cart-items">
+			<table>
+				<tr>
+					<th>&nbsp;</th>							
+					<th class="quantity"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_QUANTITY')?></th>
+					<th class="imagetype"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_IMAGETYPE')?></th>
+					<th class="price"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_PRICE')?></th>
+				</tr>
+				<?php foreach($this->cart->getLineItems() as $lineitem) : /** @var EventgalleryLibraryLineitem $lineitem *//** @var EventgalleryLibraryLineitem $lineitem */?>
+					<tr class="cart-item">
+						<td class="image">
+							<?php echo $lineitem->getCartThumb($lineitem->getId()); ?>
+						</td>
+						<td class="quantity">
+							<?php echo $lineitem->getQuantity() ?>
+						</td>
+						<td class="imagetype">							
+							<?php echo $lineitem->getImageType()->getDisplayName().
+								' ('.
+								$lineitem->getImageType()->getCurrency().
+								' '.
+								$lineitem->getImageType()->getPrice()
+								.')'; 
+							?>							
+						</td>
+						<td class="price">								
+							<?php echo $lineitem->getCurrency(); ?>
+							<?php echo $lineitem->getPrice(); ?>
+						</td>
+					</tr>
+				<?php endforeach?>
+			</table>
+		</div>		
+		
+		<div class="cart-summary">
+			<div class="subtotal">
+				<div class="subtotal-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_SUBTOTAL')?></div>
+				<span class="subtotal">
+					<?php echo $this->cart->getSubTotalCurrency(); ?>
+					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+				</span>													
+			</div>
+
+			<div class="surcharge">
+				<div class="surcharge-headline">Shipping</div>
+				<span class="surcharge">
+					<?php echo $this->cart->getSubTotalCurrency(); ?>
+					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+				</span>													
+			</div>
+
+			<div class="surcharge">
+				<div class="surcharge-headline">Payment</div>
+				<span class="surcharge">
+					<?php echo $this->cart->getSubTotalCurrency(); ?>
+					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+					<a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change") ?>">change</a>
+				</span>													
+			</div>
+			
+			<div class="total">
+				<div class="total-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL')?></div>
+				<span class="total">
+					<?php echo $this->cart->getTotalCurrency(); ?>
+					<?php printf("%.2f", $this->cart->getTotal()); ?>
+				</span>
+				<span class="vat">
+					<?php echo JText::_('COM_EVENTGALLERY_CART_VAT_HINT')?>
+				</span>
+			</div>
+		</div>
+
+
+	    <fieldset>	    		
+			<div class="form-actions">
+				<input name="change" type="submit" class="validate btn" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SUBMIT')?>"/>           
+				<input name="continue" type="submit" class="validate btn btn-primary" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SUBMIT')?>"/>           
+			</div>
+	    </fieldset>
+	    <?php echo JHtml::_('form.token'); ?>
+	</form>
+</div>
+
+
+

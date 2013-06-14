@@ -17,13 +17,25 @@ class EventgalleryLibraryDatabaseObject extends JObject
 	function __construct()
 	{
 		parent::__construct(); 
-	}    
+	}
 
 
-	public function store($data=null)
-	{    
+    /**
+     * @param array $data
+     * @param string $table the JTable name suffix
+     * @return bool|JTable
+     * @throws Exception
+     */
+    public function store($data, $table)
+	{
+        if ($data==null) {
+            throw new Exception("'can't store something without data to $table");
+        }
 		$data = $data ? $data : JRequest::get('post');
-		$row = JTable::getInstance($data['table'],'Table');
+        if (isset($data['table'])) {
+            throw new Exception('Data should not contain table attribute');
+        }
+		$row = JTable::getInstance($table,'Table');
 
 		$date = date("Y-m-d H:i:s");
 

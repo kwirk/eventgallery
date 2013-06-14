@@ -12,6 +12,41 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableOrder extends JTable
 {
+
+    public $id;
+    public $documentno;
+    public $userid;
+    public $email;
+    public $phone;
+    public $statusid;
+    public $subtotal;
+    public $subtotalcurrency;
+    public $total;
+    public $totalcurrency;
+    public $surchargeid;
+    public $paymentmethodid;
+    public $shippingmethodid;
+    public $billingaddressid;
+    public $shippingaddressid;
+    public $message;
+    public $modified;
+    public $created;
+
+    public $orderstatusid;
+    public $paymentstatusid;
+    public $shippingstatusid;
+
+    public $surchargetotal;
+    public $surchargetotalcurrency;
+
+    public $paymenttotal;
+    public $paymenttotalcurrency;
+
+    public $shippingtotal;
+    public $shippingtotalcurrency;
+
+
+
 	/**
 	 * Constructor
 	 *

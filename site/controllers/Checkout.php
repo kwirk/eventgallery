@@ -14,13 +14,60 @@ class CheckoutController extends JControllerLegacy
 	{			
 		parent::display($cachable, $urlparams);		
 	}
- 
 
-	public function sendOrder() {
+    /**
+     * just sets the layout for the confirm page
+     *
+     * @param bool $cachable
+     * @param array $urlparams
+     */
+    public function confirm($cachable = false, $urlparams  = array()) {
+        JRequest::setVar('layout', 'confirm');
+        $this->display($cachable, $urlparams);
+    }
 
+    /**
+     * Just sets the layout for the change page
+     *
+     * @param bool $cachable
+     * @param array $urlparams
+     */
+    public function change($cachable = false, $urlparams  = array()) {
+        JRequest::setVar('layout', 'change');
+        $this->display($cachable, $urlparams);
+ 	}
+
+    public function saveChanges() {
+
+        JRequest::checkToken();
+
+        EventgalleryLibraryManagerCart::updateCart();
+
+        $continue = JRequest::getString( 'continue' , null );
+
+        if ($continue == null) {
+            $msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_CHANGES_STORED');
+            //$this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change"),$msg,'info');
+            $this->change();
+        } else {
+            $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout"));
+        }
+    }
+
+
+	public function createOrder() {
+
+        // switch to the change page.
+        $continue = JRequest::getString( 'continue' , null );
+
+        if ($continue==null) {
+            $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change"));
+            return;
+        }
 
 		$config = JFactory::getConfig();
 		// Check for request forgeries.
+        JRequest::checkToken();
 
         EventgalleryLibraryManagerCart::updateCart();
 
@@ -35,6 +82,7 @@ class CheckoutController extends JControllerLegacy
 
  		/* create order*/
         $orderMgr = new EventgalleryLibraryManagerOrder();
+
         $order = $orderMgr->createOrder($cart);
         $lineitems = $order->getLineItems();
 
@@ -46,6 +94,8 @@ class CheckoutController extends JControllerLegacy
 		$message = JRequest::getString( 'message' , "null" );
 		$subject_message = JRequest::getString( 'subject' , "null" );
 
+        $order->setMessage($message);
+        $order->setEMail($email);
 
 		$mailer = JFactory::getMailer();		
 		
@@ -126,11 +176,11 @@ class CheckoutController extends JControllerLegacy
 
 		if ( $send !== true ) {
 		    $msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_FAILED').' ('. $mailer->ErrorInfo.')';
-		    $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout"),$msg);
 		}  else {
 			$msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_STORED');
-			$this->setRedirect(JRoute::_("index.php?option=com_eventgallery"),$msg,'info');
 		}
+
+        $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout&task=confirm"),$msg,'info');
 
 		
 

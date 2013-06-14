@@ -149,9 +149,8 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
      */
     protected function _store()
     {
-        $this->_lineitem->table = $this->_lineitem_table;
         $this->_lineitem->price = $this->_lineitem->singleprice * $this->_lineitem->quantity;
-        parent::store((array)$this->_lineitem);
+        $this->store((array)$this->_lineitem, $this->_lineitem_table);
     }
 
     /**

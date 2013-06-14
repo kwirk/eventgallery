@@ -24,6 +24,7 @@ class CartController extends JControllerLegacy
             $cart->cloneLineItem($lineitemid);
         }
 
+        EventgalleryLibraryManagerCart::calculateCart();
 
         $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=cart"));
     }

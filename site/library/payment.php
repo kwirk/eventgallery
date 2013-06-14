@@ -43,7 +43,7 @@ class EventgalleryLibraryPayment extends EventgalleryLibraryDatabaseObject
 
         $query = $db->getQuery(true);
         $query->select('p.*');
-        $query->from('#__eventgallery_payment p');
+        $query->from('#__eventgallery_paymentmethod p');
         $query->where('p.id='.$db->Quote($this->_object_id));
 
         $db->setQuery($query);
@@ -58,7 +58,7 @@ class EventgalleryLibraryPayment extends EventgalleryLibraryDatabaseObject
 	}
 
     /**
-     * @return string the price value
+     * @return float the price value
      */
     public function getPrice() {
 		return $this->_object->price;
@@ -90,6 +90,13 @@ class EventgalleryLibraryPayment extends EventgalleryLibraryDatabaseObject
      */
     public function getDescription() {
         return $this->_ls_description->get();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDefault() {
+        return $this->_object->default==1?true:false;
     }
 
 }

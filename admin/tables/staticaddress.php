@@ -10,34 +10,27 @@
 defined('_JEXEC') or die('Restricted access');
 
 
-class TableCart extends JTable
+class TableStaticaddress extends JTable
 {
 
     public $id;
-    public $documentno;
-    public $userid;
-    public $email;
-    public $phone;
-    public $statusid;
-    public $subtotal;
-    public $subtotalcurrency;
-    public $total;
-    public $totalcurrency;
-    public $surchargeid;
-    public $paymentmethodid;
-    public $shippingmethodid;
-    public $billingaddressid;
-    public $shippingaddressid;
-    public $message;
+    public $firstname;
+    public $lastname;
+    public $address1;
+    public $address2;
+    public $address3;
+    public $city;
+    public $country;
+    public $zip;
     public $modified;
     public $created;
-
 	/**
 	 * Constructor
 	 *
 	 * @param object Database connector object
 	 */
 	function __construct( &$db ) {
-		parent::__construct('#__eventgallery_cart', 'id', $db);
+		parent::__construct('#__eventgallery_staticaddress', 'id', $db);
 	}
 }
+?>

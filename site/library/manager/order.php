@@ -23,27 +23,39 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
      * creates a order from a cart
      *
      * @param EventgalleryLibraryCart $cart
-     * @return bool|mixed
+     * @return EventgalleryLibraryOrder
      */
     public function createOrder($cart) {
-        $order = array();
-    	$order['table'] = 'Order';
-        $order['userid'] = $cart->getUserId();
-    	$order = $this->store($order);
+
+        $data = $cart->_getInternalDataObject();
+        unset($data['id']);
+
+        /**
+         * @var TableOrder $orderTable
+         */
+        $orderTable = $this->store($data, 'Order');
 
         /**
          * @var EventgalleryLibraryLineitem $lineitem
          */
         foreach($cart->getLineItems() as $lineitem) {
     		$data = array();
-    		$data['table'] = 'Imagelineitem';
             $data['id'] = $lineitem->getId();
     		$data['status'] = 1;
-    		$data['lineitemcontainerid'] = $order->id;    		
-    		$this->store($data);
+    		$data['lineitemcontainerid'] = $orderTable->id;
+    		$this->store($data, 'Imagelineitem');
     	}
 
-        $order = new EventgalleryLibraryOrder($order->id);
+        /**
+         * @var EventgalleryLibraryOrder $order
+         */
+        $order = new EventgalleryLibraryOrder($orderTable->id);
+        $order->setOrderStatus(EventgalleryLibraryManagerOrderstatus::getDefaultOrderStatus());
+        $order->setPayment($cart->getPayment());
+        $order->setShipping($cart->getShipping());
+        $order->setSurcharge($cart->getSurcharge());
+
+        $cart->setStatus(1);
 
         return $order;
     }

@@ -46,12 +46,23 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     protected $_lineitemcontainer_table = null;
 
+    /**
+     * @var EventgalleryLibraryAddress
+     */
+    protected $_billingaddress = null;
+
+    /**
+     * @var EventgalleryLibraryAddress
+     */
+    protected $_shippingaddress = null;
+
     public function __construct()
     {
         parent::__construct();
     }
 
     protected abstract function _loadLineItemContainer();
+    protected abstract function _storeLineItemContainer();
 
      /**
      * loads lineitems from the database
@@ -80,6 +91,18 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         $this->_lineitems = $lineitems;
     }
 
+    /**
+     * Use this method never in your source code. This is only for managers.
+     *
+     * @return array
+     */
+    public function _getInternalDataObject() {
+        return get_object_vars($this->_lineitemcontainer);
+    }
+
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->_lineitemcontainer->id;
@@ -129,6 +152,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     public function setSubTotalCurrency($currency)
     {
         $this->_lineitemcontainer->subtotalcurrency = $currency;
+        $this->_storeLineItemContainer();
     }
 
     /**
@@ -141,6 +165,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     public function setSubTotal($price)
     {
         $this->_lineitemcontainer->subtotal = $price;
+        $this->_storeLineItemContainer();
     }
 
     /**
@@ -165,6 +190,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     public function setTotal($price)
     {
         $this->_lineitemcontainer->total = $price;
+        $this->_storeLineItemContainer();
     }
 
     /**
@@ -182,6 +208,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     public function setTotalCurrency($currency)
     {
         $this->_lineitemcontainer->totalcurrency = $currency;
+        $this->_storeLineItemContainer();
     }
 
     /**
@@ -214,8 +241,12 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     public function setSurcharge($surcharge)
     {
+        if ($surcharge==null) {
+            return;
+        }
         $this->_surcharge = $surcharge;
         $this->_lineitemcontainer->surchargeid = $surcharge->getId();
+        $this->_storeLineItemContainer();
     }
 
     /**
@@ -240,12 +271,16 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     public function setShipping($shipping)
     {
+        if ($shipping==null) {
+            return;
+        }
         $this->_shipping = $shipping;
         $this->_lineitemcontainer->shippingmethodid = $shipping->getId();
+        $this->_storeLineItemContainer();
     }
 
     /**
-     * @return EventgalleryLibrarySurcharge|null
+     * @return EventgalleryLibraryPayment|null
      */
     public function getPayment()
     {
@@ -266,8 +301,12 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     public function setPayment($payment)
     {
+        if ($payment==null) {
+            return;
+        }
         $this->_payment = $payment;
         $this->_lineitemcontainer->paymentmethodid = $payment->getId();
+        $this->_storeLineItemContainer();
     }
 
     function deleteLineItem($lineitemid)
@@ -281,7 +320,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         }
 
         $this->getLineItem($lineitemid)->delete();
-        $this->_updateCart();
+        $this->_updateLineItemContainer();
     }
 
     /**
@@ -295,6 +334,98 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         } else {
             return null;
         }
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getEMail() {
+        return $this->_lineitemcontainer->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEMail($email) {
+        $this->_lineitemcontainer->email = $email;
+        $this->_storeLineItemContainer();
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone() {
+        return $this->_lineitemcontainer->phone;
+    }
+
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone) {
+        $this->_lineitemcontainer->phone = $phone;
+        $this->_storeLineItemContainer();
+    }
+
+    /**
+     * @return EventgalleryLibraryAddress
+     */
+
+    public function getBillingAddress() {
+        if ($this->_billingaddress==null && $this->_lineitemcontainer->billingaddressid!=null) {
+            $this->_billingaddress = new EventgalleryLibraryAddress($this->_lineitemcontainer->billingaddressid);
+        }
+        return $this->_billingaddress;
+    }
+
+    /**
+     * @param EventgalleryLibraryAddress $billingAddress
+     */
+    public function setBillingAddress($billingAddress) {
+        if ($billingAddress==null) {
+            return;
+        }
+        $this->_billingaddress = $billingAddress;
+        $this->_lineitemcontainer->billingaddressid = $billingAddress->getId();
+        $this->_storeLineItemContainer();
+    }
+
+    /**
+     * @return EventgalleryLibraryAddress
+     */
+    public function getShippingAddress() {
+        if ($this->_shippingaddress==null && $this->_lineitemcontainer->shippingaddressid!=null) {
+            $this->_shippingaddress = new EventgalleryLibraryAddress($this->_lineitemcontainer->shippingaddressid);
+        }
+        return $this->_shippingaddress;
+    }
+
+    /**
+     * @param EventgalleryLibraryAddress $shippingAddress
+     */
+    public function setShippingAddress($shippingAddress) {
+        if ($shippingAddress==null) {
+            return;
+        }
+        $this->_shippingaddress = $shippingAddress;
+        $this->_lineitemcontainer->shippingaddressid = $shippingAddress->getId();
+        $this->_storeLineItemContainer();
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage() {
+        return $this->_lineitemcontainer->message;
+    }
+
+    /**
+     * @param string $message
+     */
+    public function setMessage($message){
+        $this->_lineitemcontainer->message = $message;
+        $this->_storeLineItemContainer();
     }
 
     /**
