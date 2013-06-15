@@ -44,11 +44,15 @@ class CheckoutViewCheckout extends JViewLegacy
         $this->state = $this->get('State');
         $this->params	= $app->getParams();
 
-        $this->cart = EventgalleryLibraryManagerCart::getCart();
+        $this->cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
 
         if ($this->getLayout()=='default') {
-			$this->setLayout("review");
+			$this->setLayout('review');
 		}
+
+        if ($this->getLayout()!='confirm' && ($this->cart->getBillingAddress()==null || $this->cart->getShippingAddress()==null)) {
+            $this->setLayout('change');
+        }
 
         if ($this->getLayout()=='change') {
 
@@ -56,7 +60,11 @@ class CheckoutViewCheckout extends JViewLegacy
 
             $this->userdataform = JForm::getInstance('userdata', $xmlPath. 'userdata.xml');
             $this->userdataform->reset();
-            $this->userdataform->bind(array('email'=>$this->cart->getEMail(), 'phone'=>$this->cart->getPhone()));
+            $this->userdataform->bind(  array(
+                                            'message'=>$this->cart->getMessage(),
+                                            'email'=>$this->cart->getEMail(),
+                                            'phone'=>$this->cart->getPhone()));
+            $this->userdataform->bind(JRequest::get('post'));
 
             $this->billingform = JForm::getInstance('billing',$xmlPath. 'billingaddress.xml');
             $this->billingform->reset();
@@ -64,15 +72,17 @@ class CheckoutViewCheckout extends JViewLegacy
             if ($this->cart->getBillingAddress() != null) {
                 $this->billingform->bind($this->cart->getBillingAddress()->_getData('billing_'));
             }
+            $this->billingform->bind(JRequest::get('post'));
+
 
             $this->shippingform = JForm::getInstance('shipping',$xmlPath. 'shippingaddress.xml');
-            $this->shippingform->reset();
+
             if ($this->cart->getShippingAddress()!=null) {
                 $this->shippingform->bind($this->cart->getShippingAddress()->_getData('shipping_'));
             }
+            $this->shippingform->bind(JRequest::get('post'));
+
         }
-
-
 
 		$pathway = $app->getPathWay();		
 		$pathway->addItem(JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH'));

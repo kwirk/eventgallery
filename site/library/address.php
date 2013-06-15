@@ -15,7 +15,7 @@ class EventgalleryLibraryAddress extends EventgalleryLibraryDatabaseObject
 {
 
     /**
-     * @var TableAddress
+     * @var TableStaticaddress
      */
     protected $_object = null;
     protected $_object_id = null;

@@ -15,9 +15,9 @@ defined('_JEXEC') or die('Restricted access');
 
 
 <div class="eventgallery-checkout">
-<h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ITEMS_IN_YOUR_CART')?></h1>
-<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_TEXT')?>&nbsp;
-<a class="" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>
+<h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_HEADLINE')?></h1>
+<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_TEXT')?>&nbsp;
+<!--<a class="" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>-->
 	<form action="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=createOrder") ?>" method="post" class="form-validate form-horizontal checkout-form">
 		<div class="cart-items">
 			<table>
@@ -61,25 +61,37 @@ defined('_JEXEC') or die('Restricted access');
 					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
 				</span>													
 			</div>
+            <?php IF ($this->cart->getSurcharge() != null): ?>
 
-			<div class="surcharge">
-				<div class="surcharge-headline">Shipping</div>
+            <div class="surcharge">
+                <div class="surcharge-headline"><?php echo $this->cart->getSurcharge()->getDisplayName(); ?></div>
 				<span class="surcharge">
-					<?php echo $this->cart->getSubTotalCurrency(); ?>
-					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+					<?php echo $this->cart->getSurcharge()->getCurrency(); ?>
+                    <?php echo $this->cart->getSurcharge()->getPrice(); ?>
+				</span>
+            </div>
+            <?php ENDIF ?>
+            <?php IF ($this->cart->getShipping() != null): ?>
+			<div class="surcharge">
+                <div class="surcharge-headline"><?php echo $this->cart->getShipping()->getDisplayName(); ?>
+                <a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change") ?>">(<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CHANGE') ?>)</a></div>
+				<span class="surcharge">
+					<?php echo $this->cart->getShipping()->getCurrency(); ?>
+                    <?php echo $this->cart->getShipping()->getPrice(); ?>
 				</span>													
 			</div>
-
+            <?php ENDIF ?>
+            <?php IF ($this->cart->getPayment() != null): ?>
 			<div class="surcharge">
-				<div class="surcharge-headline">Payment</div>
+                <div class="surcharge-headline"><?php echo $this->cart->getPayment()->getDisplayName(); ?>
+                <a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change") ?>">(<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CHANGE') ?>)</a></div>
 				<span class="surcharge">
-					<?php echo $this->cart->getSubTotalCurrency(); ?>
-					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
-					<a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change") ?>">change</a>
-				</span>													
+					<?php echo $this->cart->getPayment()->getCurrency(); ?>
+                    <?php echo $this->cart->getPayment()->getPrice(); ?>
+				</span>
 			</div>
-			
-			<div class="total">
+            <?php ENDIF ?>
+			<div class="total ">
 				<div class="total-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL')?></div>
 				<span class="total">
 					<?php echo $this->cart->getTotalCurrency(); ?>
@@ -88,14 +100,38 @@ defined('_JEXEC') or die('Restricted access');
 				<span class="vat">
 					<?php echo JText::_('COM_EVENTGALLERY_CART_VAT_HINT')?>
 				</span>
-			</div>
+			</div>			
 		</div>
 
 
+		<div class="review-billing-address">
+			<h2><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_BILLINGADDRESS_HEADLINE') ?></h2>
+			<?php echo $this->cart->getBillingAddress()->getFirstName(); ?> <?php echo $this->cart->getBillingAddress()->getLastName(); ?> <br/>
+			<?php echo $this->cart->getBillingAddress()->getAddress1(); ?><br />
+			<?php echo $this->cart->getBillingAddress()->getAddress2(); ?><br />
+			<?php echo $this->cart->getBillingAddress()->getAddress3(); ?><br />
+			<?php echo $this->cart->getBillingAddress()->getZip(); ?> <?php echo $this->cart->getBillingAddress()->getCity(); ?><br />
+			<?php echo $this->cart->getBillingAddress()->getCountry(); ?><br />
+			<a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change") ?>">(<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CHANGE') ?>)</a>
+		</div>
+
+		<div class="review-shipping-address">
+			<h2><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_SHIPPINGADDRESS_HEADLINE') ?></h2>
+			<?php echo $this->cart->getShippingAddress()->getFirstName(); ?> <?php echo $this->cart->getShippingAddress()->getLastName(); ?> <br/>
+			<?php echo $this->cart->getShippingAddress()->getAddress1(); ?><br />
+			<?php echo $this->cart->getShippingAddress()->getAddress2(); ?><br />
+			<?php echo $this->cart->getShippingAddress()->getAddress3(); ?><br />
+			<?php echo $this->cart->getShippingAddress()->getZip(); ?> <?php echo $this->cart->getShippingAddress()->getCity(); ?><br />
+			<?php echo $this->cart->getShippingAddress()->getCountry(); ?><br />
+			<a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change") ?>">(<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CHANGE') ?>)</a>
+		</div>
+
+		<div class="clearfix"></div>
+
 	    <fieldset>	    		
 			<div class="form-actions">
-				<input name="change" type="submit" class="validate btn" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SUBMIT')?>"/>           
-				<input name="continue" type="submit" class="validate btn btn-primary" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SUBMIT')?>"/>           
+				<!--<input name="change" type="submit" class="validate btn" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CHANGE')?>"/>           -->
+				<input name="continue" type="submit" class="validate btn btn-primary" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CONTINUE')?>"/>           
 			</div>
 	    </fieldset>
 	    <?php echo JHtml::_('form.token'); ?>

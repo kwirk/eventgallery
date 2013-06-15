@@ -13,21 +13,39 @@ defined('_JEXEC') or die();
 
 class EventgalleryLibraryManagerCart
 {
+    protected static $_instance;
+
+    protected $_carts = array();
+
+
 	function __construct()
 	{		   
 	 
 	}
 
+    public static function getInstance() {
+
+        if (self::$_instance==null){
+            self::$_instance = new self;
+        }
+
+        return self::$_instance;
+    }
+
 	/**
-	* get the cart from the database. 
-	*/
-    public static function getCart() {
+	* get the cart from the database.
+     *
+     * @return EventgalleryLibraryCart
+     */
+    public function getCart() {
 
     	/* try to get the right user id for the cart. This can also be the session id */
 		$session = JFactory::getSession();
 		$user_id = $session->getId();
-    	
-    	return new EventgalleryLibraryCart($user_id);
+        if (!isset($this->_carts[$user_id])) {
+            $this->_carts[$user_id] = new EventgalleryLibraryCart($user_id);
+        }
+    	return $this->_carts[$user_id];
     }
 
     /**
@@ -36,8 +54,11 @@ class EventgalleryLibraryManagerCart
      * the current user.
      *
      * @param EventgalleryLibraryCart $cart
+     * @return array contains errors which occured during updates
      */
-    public static function updateCart(EventgalleryLibraryCart $cart = null) {
+    public function updateCart(EventgalleryLibraryCart $cart = null) {
+
+        $errors = array();
 
         if ($cart == null) {
             $cart = EventgalleryLibraryManagerCart::getCart();
@@ -76,7 +97,7 @@ class EventgalleryLibraryManagerCart
          * SHIPPING UPDATE
          */
 
-        $shippingmethodid = JRequest::getString( 'paymentid' , null );
+        $shippingmethodid = JRequest::getString( 'shippingid' , null );
 
 
         if ($shippingmethodid != null || $cart->getShipping()==null) {
@@ -104,30 +125,44 @@ class EventgalleryLibraryManagerCart
             $cart->setPayment($methode);
         }
 
+        $formErrors = array();
+        $xmlPath = JPATH_SITE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_eventgallery' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR;
+
         /**
          * USERDATA UPDATES
          */
 
-        $phone = JRequest::getString( 'phone' , null );
-        if ($phone != null) {
-            $cart->setPhone($phone);
-        }
+        $userdataform = JForm::getInstance('billing',$xmlPath. 'billingaddress.xml');
+        $userdataform->bind(JRequest::get( 'post' ));
+        $userdatavalidation =$userdataform->validate(JRequest::get( 'post' ));
+        if ($userdatavalidation !== true) {
+            $formErrors = array_merge($formErrors,$userdataform->getErrors());
+        } else {
 
-        $email = JRequest::getString( 'email' , null );
-        if ($email != null) {
-            $cart->setEMail($email);
-        }
+            $phone = JRequest::getString( 'phone' , null );
+            if ($phone != null) {
+                $cart->setPhone($phone);
+            }
 
-        $message = JRequest::getString( 'message' , null );
-        if ($message != null) {
-            $cart->setMessage($message);
-        }
+            $email = JRequest::getString( 'email' , null );
+            if ($email != null) {
+                $cart->setEMail($email);
+            }
 
+            $message = JRequest::getString( 'message' , null );
+            if ($message != null) {
+                $cart->setMessage($message);
+            }
+        }
         /**
          * ADDRESS UPDATE
+         *
+         * validate billing address first. If this address is okay,
+         * continue with the shipping address. This works for the customer
+         * since there is also client side validation available
          */
 
-        $xmlPath = JPATH_SITE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_eventgallery' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR;
+
 
         $addressMgr = new EventgalleryLibraryManagerAddress();
 
@@ -136,49 +171,70 @@ class EventgalleryLibraryManagerCart
          */
         $billingform = JForm::getInstance('billing',$xmlPath. 'billingaddress.xml');
         $billingform->bind(JRequest::get( 'post' ));
-        $billingform->validate(JRequest::get( 'post' ));
+        $billingvalidation =$billingform->validate(JRequest::get( 'post' ));
+        if ($billingvalidation !== true) {
+            $formErrors = array_merge($formErrors,$billingform->getErrors());
+        } else {
 
-        $billingdata = array();
-        foreach($billingform->getFieldset() as $field) {
-            $billingdata[$field->name] = $field->value;
-        }
-
-        $billingAddress = $cart->getBillingAddress();
-        if ($billingAddress != null) {
-            $billingdata['id'] = $billingAddress->getId();
-        }
-
-        $billingAddress =  $addressMgr->createStaticAddress($billingdata,'billing_');
-
-        $cart->setBillingAddress($billingAddress);
-
-        $shiptodifferentaddress = JRequest::getString( 'shiptodifferentaddress' , null);
-        if ($shiptodifferentaddress=='true') {
-            $shippingform = JForm::getInstance('shipping', $xmlPath . 'shippingaddress.xml');
-            $shippingform->bind(JRequest::get('post'));
-
-            $shippingdata = array();
-            foreach ($shippingform->getFieldset() as $field) {
-                $shippingdata[$field->name] = $field->value;
+            $billingdata = array();
+            foreach($billingform->getFieldset() as $field) {
+                $billingdata[$field->name] = $field->value;
             }
 
-            $shippingAddress = $cart->getShippingAddress();
-            if ($shippingAddress != null && $shippingAddress->getId() != $billingAddress->getId()) {
-                $shippingdata['id'] = $shippingAddress->getId();
+            /**
+             * @var EventgalleryLibraryAddress $billingAddress
+             */
+            $billingAddress = $cart->getBillingAddress();
+            if ($billingAddress != null) {
+                $billingdata['id'] = $billingAddress->getId();
             }
 
-            $shippingAddress = $addressMgr->createStaticAddress($shippingdata, 'shipping_');
+            $billingAddress =  $addressMgr->createStaticAddress($billingdata,'billing_');
 
-            $cart->setShippingAddress($shippingAddress);
-        }
-        elseif ($shiptodifferentaddress=='false'){
-            $cart->setShippingAddress($billingAddress);
+            $cart->setBillingAddress($billingAddress);
+
+
+            $shiptodifferentaddress = JRequest::getString( 'shiptodifferentaddress' , null);
+            if ($shiptodifferentaddress=='true') {
+                /**
+                 * @var JForm $shippingform
+                 */
+                $shippingform = JForm::getInstance('shipping', $xmlPath . 'shippingaddress.xml');
+                $shippingform->bind(JRequest::get('post'));
+                $shippingvalidation = $shippingform->validate(JRequest::get('post'));
+                if ($shippingvalidation !== true) {
+                    $formErrors = array_merge($formErrors, $shippingform->getErrors());
+                } else {
+                    $shippingdata = array();
+                    foreach ($shippingform->getFieldset() as $field) {
+                        $shippingdata[$field->name] = $field->value;
+                    }
+
+                    $shippingAddress = $cart->getShippingAddress();
+                    if ($shippingAddress != null && $shippingAddress->getId() != $billingAddress->getId()) {
+                        $shippingdata['id'] = $shippingAddress->getId();
+                    }
+
+                    /**
+                     * @var EventgalleryLibraryAddress $shippingAddress
+                     */
+                    $shippingAddress = $addressMgr->createStaticAddress($shippingdata, 'shipping_');
+
+                    $cart->setShippingAddress($shippingAddress);
+                }
+            }
+            elseif ($shiptodifferentaddress=='false'){
+                $cart->setShippingAddress($billingAddress);
+            }
         }
         EventgalleryLibraryManagerCart::calculateCart();
 
+        $errors['formerrors'] = $formErrors;
+
+        return $errors;
     }
 
-    public static function calculateCart() {
+    public function calculateCart() {
         $cart = EventgalleryLibraryManagerCart::getCart();
 
         // set subtotal;

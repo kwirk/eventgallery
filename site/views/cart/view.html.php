@@ -19,6 +19,10 @@ class CartViewCart extends JViewLegacy
      */
     protected $params;
     protected $state;
+
+    /**
+     * @var EventgalleryLibraryCart
+     */
     protected $cart;
 
     /**
@@ -35,7 +39,7 @@ class CartViewCart extends JViewLegacy
         $this->state = $this->get('State');
         $this->params =  $app->getParams();
 
-		$this->cart = EventgalleryLibraryManagerCart::getCart();
+		$this->cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
 
 		
 		if ($this->cart->getLineItemsCount()==0) {

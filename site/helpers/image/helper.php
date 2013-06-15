@@ -248,7 +248,7 @@ class EventgalleryHelpersImageHelper {
 
 	public static function picasaweb_ListAlbums($userName, $key, $thumbsize = 666) {
 
-		$url = 'http://picasaweb.google.com/data/feed/api/user/'.urlencode($userName).'?authKey=$key&kind=album';
+		$url = 'http://picasaweb.google.com/data/feed/api/user/'.urlencode($userName).'?authKey='.$key.'&kind=album';
 		$xml = file_get_contents($url);
 		$xml = str_replace("xmlns='http://www.w3.org/2005/Atom'", '', $xml);
 

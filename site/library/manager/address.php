@@ -19,10 +19,11 @@ class EventgalleryLibraryManagerAddress extends EventgalleryLibraryDatabaseObjec
 	 
 	}
 
+
     /**
-     * @param array $data
-     * @oaram string $prefix
-     * @return bool|JTable
+     * @param $data
+     * @param $prefix
+     * @return EventgalleryLibraryAddress
      */
     public function createStaticAddress($data, $prefix) {
        $newData = array();

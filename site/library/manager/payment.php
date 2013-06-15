@@ -57,11 +57,11 @@ class EventgalleryLibraryManagerPayment
             $this->_methodes_active = array();
 
             foreach($items as $item) {
-                $itemObject = new EventgalleryLibraryPayment($item);
+                $itemObject = new EventgalleryLibraryShipping($item);
                 if ($item->active==1) {
-                    array_push($this->_methodes_active, $itemObject);
+                    $this->_methodes_active[$itemObject->getId()] = $itemObject;
                 }
-                array_push($this->_methodes, $itemObject);
+                $this->_methodes[$itemObject->getId()] =  $itemObject;
             }
         }
         if ($activeOnly) {
@@ -95,11 +95,9 @@ class EventgalleryLibraryManagerPayment
      * @return EventgalleryLibraryPayment
      */
     public function getMethode($methodid, $activeOnly) {
-        if ($activeOnly) {
-            $methodes = $this->_methodes_active;
-        } else {
-            $methodes = $this->_methodes;
-        }
+
+        $methodes = $this->getMethodes($activeOnly);
+
 
         if (isset($methodes[$methodid])) {
             return $methodes[$methodid];

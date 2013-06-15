@@ -18,7 +18,7 @@ class EventgalleryModelEvents extends JModelLegacy
 {
 
     var $_commentCount = null;
-    /** @noinspection PhpUnusedParameterInspection */
+
     function getEntries($page = 1, $entriesPerPage=10, $tags = "", $sortAttribute='ordering')
     {
 

@@ -793,6 +793,11 @@ div.img:hover .button-alreadyInCart i.big
 	display:block;		
 }
 
+.eventgallery-checkout div.review-shipping-address,
+.eventgallery-checkout div.review-billing-address {
+	float: left;
+	width: 49%;
+}
 
 /* bootstrap additions for joomla 2.5*/
 

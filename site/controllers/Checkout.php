@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 class CheckoutController extends JControllerLegacy
 {
 	public function display($cachable = false, $urlparams  = array())
-	{			
+	{
 		parent::display($cachable, $urlparams);		
 	}
 
@@ -37,20 +37,34 @@ class CheckoutController extends JControllerLegacy
         $this->display($cachable, $urlparams);
  	}
 
-    public function saveChanges() {
+    public function saveChanges($cachable = false, $urlparams  = array()) {
 
         JRequest::checkToken();
 
-        EventgalleryLibraryManagerCart::updateCart();
+        $errors = EventgalleryLibraryManagerCart::getInstance()->updateCart();
+        if (isset($errors['formerrors']) && count($errors['formerrors'])>0) {
+            $msg = "";
+            $app = JFactory::getApplication();
 
-        $continue = JRequest::getString( 'continue' , null );
+            /**
+             * @var Exception $error
+             */
+            foreach ($errors['formerrors'] as $error) {
+                $this->setMessage($msg);
+                $app->enqueueMessage($error->getMessage(), 'error');
+            }
 
-        if ($continue == null) {
+            $this->change($cachable, $urlparams);
+        }
+        else {
+            $continue = JRequest::getString( 'continue' , null );
+
             $msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_CHANGES_STORED');
-            //$this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change"),$msg,'info');
-            $this->change();
-        } else {
-            $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout"));
+            if ($continue == null) {
+                $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change"),$msg,'info');
+            } else {
+                $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout"),$msg,'info');
+            }
         }
     }
 
@@ -69,10 +83,10 @@ class CheckoutController extends JControllerLegacy
 		// Check for request forgeries.
         JRequest::checkToken();
 
-        EventgalleryLibraryManagerCart::updateCart();
+        EventgalleryLibraryManagerCart::getInstance()->updateCart();
 
 		/* @var EventgalleryLibraryCart $cart */
-        $cart = EventgalleryLibraryManagerCart::getCart();
+        $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
 
 
 		$overallImageCount = $cart->getLineItemsTotalCount();

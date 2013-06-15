@@ -9,14 +9,32 @@
  */
 
 defined('_JEXEC') or die('Restricted access'); 
+$methodes = EventgalleryLibraryManagerShipping::getInstance()->getMethodes(true);
+$currentMethod = $this->cart->getShipping()==null?EventgalleryLibraryManagerShipping::getInstance()->getDefaultMethode():$this->cart->getShipping();
+
 
 ?>
 
-<div class="eventgallery-checkout">
+<div class="control-group">
+	<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SHIPPINGMETHODE_LABEL') ?>
+	<div class="controls">  
+				
+		
+		<select class="" name="shippingid">
+	        <?php FOREACH($methodes as $method): ?>
+	        	<?php 
 
-	Shipping
-
+	        		$selected = "";
+	        		
+	        		if ($method->getId() == $currentMethod->getId()) {
+	        			$selected = 'selected = "selected"';
+	        		}
+	        		
+	        		
+	        	?>
+	            <option <?php echo $selected; ?> value="<?php echo $method->getId();?>"><?php echo $method->getDisplayName();?> (<?php echo $method->getCurrency();?> <?php echo $method->getPrice();?>) </option>
+	        <?php ENDFOREACH ?>
+	    </select>
+	</div>
 </div>
-
-
 

@@ -400,7 +400,8 @@ class JPEG_ICC
 
 					if ($this->getJPEGSegmentContainsICC($jpeg_data, $pos, $size))
 					{
-						list($chunk_no, $chunk_cnt) = $this->getJPEGSegmentICCChunkInfo($jpeg_data, $pos);
+                        /** @noinspection PhpUnusedLocalVariableInspection */
+                        list($chunk_no, $chunk_cnt) = $this->getJPEGSegmentICCChunkInfo($jpeg_data, $pos);
 						if ($chunks_to_go == -1) $chunks_to_go = $chunk_cnt; // first time save chunks count
 
 						$jpeg_data = substr_replace($jpeg_data, '', $pos, $size + 2); // remove this APP segment from dataset (segment size + 2B app marker)
@@ -472,7 +473,8 @@ class JPEG_ICC
 		$len = strlen($jpeg_data);
 		$pos = 0;
 		$counter = 0; // ehm...
-		$chunks_to_go = -1;
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        $chunks_to_go = -1;
 
 		while ($pos < $len && $counter < 100)
 		{
