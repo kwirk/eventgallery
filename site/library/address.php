@@ -17,46 +17,48 @@ class EventgalleryLibraryAddress extends EventgalleryLibraryDatabaseObject
     /**
      * @var TableStaticaddress
      */
-    protected $_object = null;
-    protected $_object_id = null;
+    protected $_object = NULL;
+    protected $_object_id = NULL;
 
- 	public function __construct($object)
-	{
+    public function __construct($object)
+    {
         if ($object instanceof stdClass OR $object instanceof JTable) {
-		    $this->_object = $object;
+            $this->_object = $object;
             $this->_object_id = $object->id;
         } else {
             $this->_object_id = $object;
             $this->_loadAddress();
         }
 
-	    parent::__construct();	    	 
-	}
+        parent::__construct();
+    }
 
     /**
      * Load the address by id
      */
-    protected function _loadAddress() {
+    protected function _loadAddress()
+    {
         $db = JFactory::getDBO();
 
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from('#__eventgallery_staticaddress');
-        $query->where('id='.$db->Quote($this->_object_id));
+        $query->where('id=' . $db->Quote($this->_object_id));
 
         $db->setQuery($query);
         $this->_object = $db->loadObject();
     }
 
-
     /**
      * @param string $prefix
+     *
      * @return array
      */
-    public function _getData($prefix) {
+    public function _getData($prefix)
+    {
         $result = array();
-        foreach(get_object_vars($this->_object) as $key=>$value) {
-            $result[$prefix.$key]=$value;
+        foreach (get_object_vars($this->_object) as $key => $value) {
+            $result[$prefix . $key] = $value;
         }
         return $result;
     }
@@ -64,39 +66,48 @@ class EventgalleryLibraryAddress extends EventgalleryLibraryDatabaseObject
     /**
      * @return string the id
      */
-    public function getId() {
-		return $this->_object->id;
-	}
+    public function getId()
+    {
+        return $this->_object->id;
+    }
 
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->_object->firstname;
     }
 
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->_object->lastname;
     }
 
-    public function getAddress1() {
+    public function getAddress1()
+    {
         return $this->_object->address1;
     }
 
-    public function getAddress2() {
+    public function getAddress2()
+    {
         return $this->_object->address2;
     }
 
-    public function getAddress3() {
+    public function getAddress3()
+    {
         return $this->_object->address3;
     }
 
-    public function getCity() {
+    public function getCity()
+    {
         return $this->_object->city;
     }
 
-    public function getZip() {
+    public function getZip()
+    {
         return $this->_object->zip;
     }
 
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->_object->country;
     }
 

@@ -1,15 +1,13 @@
 Front End
 
-- Payment Selection
-- Shipping Selection
 - Surcharge Selection/Automatic Selection By Rule
 - Image Type Details
-- Address Handling
 - User-Management
 - Order Tracking
 - eMail-Handling
 - Cart Module
 - Service Line Items
+- Payment/Shipping method plugins
 
 Back End
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package     Sven.Bluege
  * @subpackage  com_eventgallery
@@ -10,18 +10,16 @@ defined('_JEXEC') or die;
 
 class BuzzwordsHelper
 {
-	public static function validateBuzzwords($buzzwords,$text)
+    public static function validateBuzzwords($buzzwords, $text)
     {
-        foreach($buzzwords as $buzzword) 
-        {
-            if (strlen($buzzword)>0)
-            {
-                $buzzword=strtoupper(trim($buzzword));
-                if (strpos(strtoupper("  ".$text),strtoupper($buzzword)) > 0 ) {                    
+        foreach ($buzzwords as $buzzword) {
+            if (strlen($buzzword) > 0) {
+                $buzzword = strtoupper(trim($buzzword));
+                if (strpos(strtoupper("  " . $text), strtoupper($buzzword)) > 0) {
                     return false;
                 }
             }
         }
         return true;
-    }	
+    }
 }

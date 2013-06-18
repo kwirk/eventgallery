@@ -72,7 +72,7 @@ abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersIma
     public function getCartThumb($lineitemid)
     {
         return '<a class="thumbnail"
-    						href="' . $this->getImageUrl(null, null, true) . '"
+    						href="' . $this->getImageUrl(NULL, NULL, true) . '"
     						title="' . htmlentities($this->getPlainTextTitle()) . '"
     						data-title="' . rawurlencode($this->getLightBoxTitle()) . '"
     						data-lineitem-id="' . $lineitemid . '"

@@ -15,29 +15,24 @@ defined('_JEXEC') or die();
 class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
 {
 
+    const TYPE_CART = 0;
+    const TYPE_ORDER = 1;
     /**
      * @var TableImagelineitem
      */
     protected $_lineitem = null;
     /**
+     * @var string
+     */
+    protected $_lineitem_dbtable = null;
+    /**
      * @var int
      */
     protected $_lineitem_id = null;
-
     /**
      * @var string
      */
-    protected $_lineitem_table = 'Imagelineitem';
-
-    /**
-     * @var EventgalleryLibraryFile
-     */
-    protected $_file = null;
-
-    /**
-     * @var EventgalleryLibraryImagetype
-     */
-    protected $_imagetype = null;
+    protected $_lineitem_table = null;
 
     /**
      * creates the lineitem object. The given $lineitem can be an stdClass object or a id of a line item.
@@ -55,9 +50,6 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
             $this->_loadLineItem();
         }
 
-        $this->_file = new EventgalleryLibraryFile($this->_lineitem->folder, $this->_lineitem->file);
-        $this->_imagetype = new EventgalleryLibraryImagetype($this->_lineitem->typeid);
-
         parent::__construct();
     }
 
@@ -70,7 +62,7 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
 
         $query = $db->getQuery(true);
         $query->select('*');
-        $query->from('#__eventgallery_imagelineitem');
+        $query->from($this->_lineitem_dbtable);
         $query->where('id=' . $db->Quote($this->_lineitem_id));
         $db->setQuery($query);
         $this->_lineitem = $db->loadObject();
@@ -79,27 +71,47 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     }
 
     /**
-     * @return EventgalleryLibraryFile|null
+     * deletes the current line item.
      */
-    public function getFile()
+    public function delete()
     {
-        return $this->_file;
+        $db = JFactory::getDBO();
+        $query = "delete from " . $this->_lineitem_dbtable . " where id=" . $db->quote($this->getId())
+            . " and lineitemcontainerid=" . $db->quote($this->getLineItemContainerId()) . "";
+        $db->setQuery($query);
+        $db->execute();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->_lineitem->id;
     }
 
     /**
      * @return string
      */
-    public function getFileName()
+    public function getLineItemContainerId()
     {
-        return $this->_lineitem->file;
+        return $this->_lineitem->lineitemcontainerid;
     }
 
     /**
      * @return string
      */
-    public function getFolderName()
+    public function getCurrency()
     {
-        return $this->_lineitem->folder;
+        return $this->_lineitem->currency;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->_lineitem->price;
     }
 
     /**
@@ -108,6 +120,14 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     public function getQuantity()
     {
         return $this->_lineitem->quantity;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSinglePrice()
+    {
+        return $this->_lineitem->singleprice;
     }
 
     /**
@@ -120,93 +140,12 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     }
 
     /**
-     * @return EventgalleryLibraryImagetype|null
-     */
-    public function getImageType()
-    {
-        return $this->_imagetype;
-    }
-
-    /**
-     * @param int $imagetypeid
-     * @throws Exception
-     */
-    public function setImageType($imagetypeid)
-    {
-        $newImageType = $this->_file->getImageTypeSet()->getImageType($imagetypeid);
-        /* @var $newImageType EventgalleryLibraryImagetype */
-        if ($newImageType == null) {
-            throw new Exception("The selected image type is invalid for this line item");
-        }
-
-        $this->_lineitem->typeid = $newImageType->getId();
-        $this->_lineitem->singleprice = $newImageType->getPrice();
-        $this->_store();
-    }
-
-    /**
      *
      */
     protected function _store()
     {
         $this->_lineitem->price = $this->_lineitem->singleprice * $this->_lineitem->quantity;
         $this->store((array)$this->_lineitem, $this->_lineitem_table);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCartThumb()
-    {
-        return $this->_file->getCartThumb($this->getId());
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->_lineitem->id;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPrice() {
-        return $this->_lineitem->price;
-    }
-
-    /**
-     * @return float
-     */
-    public function getSinglePrice() {
-        return $this->_lineitem->singleprice;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCurrency() {
-        return $this->_lineitem->currency;
-    }
-
-    /**
-     * deletes the current line item.
-     */
-    public function delete()
-    {
-        $db = JFactory::getDBO();
-        $query = "delete from #__eventgallery_imagelineitem where id=" . $db->quote($this->getId()) . " and lineitemcontainerid=" . $db->quote($this->getLineItemContainerId()) . "";
-        $db->setQuery($query);
-        $db->execute();
-    }
-
-    /**
-     * @return int
-     */
-    public function getLineItemContainerId()
-    {
-        return $this->_lineitem->lineitemcontainerid;
     }
 
 }

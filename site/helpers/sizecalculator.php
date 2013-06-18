@@ -12,50 +12,55 @@ defined('_JEXEC') or die;
 * there is a set of sizes. based on the longest site of the image it'll use one of
 * the entries in the set. If the image has width== height it's a square, we'll return a square sized image
 */
-class EventgalleryHelpersSizecalculator {
-	
-	var $img_width = null;
-	var $img_height = null;
-	var $desired_width = null;	
-	var $width = null;
-	var $height = null;
-	var $isCrop = false;
+class EventgalleryHelpersSizecalculator
+{
 
-	// constructor
-    public function __construct($img_width, $img_height, $desired_width, $isCrop=false) {		    
-    	$this->img_width = $img_width;
-    	$this->img_height = $img_height;
-    	$this->desired_width = $desired_width;
-    	$this->isCrop = $isCrop;
-    	$this->adjustSize();
+    var $img_width = NULL;
+    var $img_height = NULL;
+    var $desired_width = NULL;
+    var $width = NULL;
+    var $height = NULL;
+    var $isCrop = false;
+
+    // constructor
+    public function __construct($img_width, $img_height, $desired_width, $isCrop = false)
+    {
+        $this->img_width = $img_width;
+        $this->img_height = $img_height;
+        $this->desired_width = $desired_width;
+        $this->isCrop = $isCrop;
+        $this->adjustSize();
 
     }
 
-	private function adjustSize() {
-		$sizeSet = new EventgalleryHelpersSizeset();
+    private function adjustSize()
+    {
+        $sizeSet = new EventgalleryHelpersSizeset();
 
-		if ($this->isCrop) {
-			$this->width = $sizeSet->getMatchingSize($this->desired_width);
-			$this->height = $this->width;
-			return;
-		}
+        if ($this->isCrop) {
+            $this->width = $sizeSet->getMatchingSize($this->desired_width);
+            $this->height = $this->width;
+            return;
+        }
 
-		if ($this->img_width>$this->img_height)	{
-			$this->width = $sizeSet->getMatchingSize($this->desired_width);
-			$this->height = ceil($this->img_height/$this->img_width*$this->width);
-		} else {
-			$this->height = $sizeSet->getMatchingSize($this->desired_width);
-			$this->width = ceil($this->img_width/$this->img_height*$this->height);
-		}
+        if ($this->img_width > $this->img_height) {
+            $this->width = $sizeSet->getMatchingSize($this->desired_width);
+            $this->height = ceil($this->img_height / $this->img_width * $this->width);
+        } else {
+            $this->height = $sizeSet->getMatchingSize($this->desired_width);
+            $this->width = ceil($this->img_width / $this->img_height * $this->height);
+        }
 
-	}
-
-    public function getWidth() {
-    	return $this->width;
     }
 
-    public function getHeight() {
-    	return $this->height;
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    public function getHeight()
+    {
+        return $this->height;
     }
 
 }

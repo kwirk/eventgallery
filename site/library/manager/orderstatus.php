@@ -13,31 +13,31 @@ defined('_JEXEC') or die();
 
 class EventgalleryLibraryManagerOrderstatus
 {
-	
-	function __construct()
-	{		
-	 
-	}
 
-    public static function getDefaultOrderStatus() {
+    function __construct()
+    {
+
+    }
+
+    public static function getDefaultOrderStatus()
+    {
 
         $db = JFactory::getDBO();
-        $query = $db->getQuery(TRUE);
+        $query = $db->getQuery(true);
         $query->select('s.*');
         $query->from('#__eventgallery_orderstatus s');
         $query->where('s.default=1');
         $db->setQuery($query);
         $items = $db->loadObjectList();
 
-        if (count($items)==0) {
-            return null;
+        if (count($items) == 0) {
+            return NULL;
         }
 
         $item = $items[0];
 
         return new EventgalleryLibraryOrderstatus($item);
     }
-    
 
- 
+
 }

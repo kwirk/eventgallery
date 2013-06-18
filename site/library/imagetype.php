@@ -14,37 +14,38 @@ defined('_JEXEC') or die();
 class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
 {
 
-	protected $_imagetype = null;
-    protected $_imagetype_id = null;
-    protected $_ls_displayname = null;
-    protected $_ls_description = null;
+    protected $_imagetype = NULL;
+    protected $_imagetype_id = NULL;
+    protected $_ls_displayname = NULL;
+    protected $_ls_description = NULL;
 
- 	public function __construct($dbimagetype)
-	{
+    public function __construct($dbimagetype)
+    {
         if ($dbimagetype instanceof stdClass) {
-		    $this->_imagetype = $dbimagetype;
+            $this->_imagetype = $dbimagetype;
             $this->_imagetype_id = $dbimagetype->id;
         } else {
             $this->_imagetype_id = $dbimagetype;
             $this->_loadImageType();
         }
 
-        $this->_ls_displayname =  new EventgalleryLibraryDatabaseLocalizablestring($this->_imagetype->displayname);
-        $this->_ls_description =  new EventgalleryLibraryDatabaseLocalizablestring($this->_imagetype->description);
+        $this->_ls_displayname = new EventgalleryLibraryDatabaseLocalizablestring($this->_imagetype->displayname);
+        $this->_ls_description = new EventgalleryLibraryDatabaseLocalizablestring($this->_imagetype->description);
 
-	    parent::__construct();	    	 
-	}
+        parent::__construct();
+    }
 
     /**
      * Load the image type by id
      */
-    protected function _loadImageType() {
+    protected function _loadImageType()
+    {
         $db = JFactory::getDBO();
 
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from('#__eventgallery_imagetype');
-        $query->where('id='.$db->Quote($this->_imagetype_id));
+        $query->where('id=' . $db->Quote($this->_imagetype_id));
 
         $db->setQuery($query);
         $this->_imagetype = $db->loadObject();
@@ -53,42 +54,48 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
     /**
      * @return string the id of the image type
      */
-    public function getId() {
-		return $this->_imagetype->id;
-	}
+    public function getId()
+    {
+        return $this->_imagetype->id;
+    }
 
     /**
      * @return string the price value of the image type
      */
-    public function getPrice() {
-		return $this->_imagetype->price;
-	}
+    public function getPrice()
+    {
+        return $this->_imagetype->price;
+    }
 
     /**
      * @return string the currency of the image type
      */
-    public function getCurrency() {
-		return $this->_imagetype->currency;
-	}
+    public function getCurrency()
+    {
+        return $this->_imagetype->currency;
+    }
 
     /**
      * @return string display name of the image type
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->_imagetype->name;
     }
 
     /**
      * @return string display name of the image type
      */
-    public function getDisplayName() {
+    public function getDisplayName()
+    {
         return $this->_ls_displayname->get();
     }
 
     /**
      * @return string display name of the image type
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->_ls_description->get();
     }
 

@@ -14,57 +14,56 @@ defined('_JEXEC') or die();
 class EventgalleryLibraryDatabaseObject extends JObject
 {
 
-	function __construct()
-	{
-		parent::__construct(); 
-	}
-
+    function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
-     * @param array $data
+     * @param array  $data
      * @param string $table the JTable name suffix
+     *
      * @return bool|JTable
      * @throws Exception
      */
     public function store($data, $table)
-	{
-        if ($data==null) {
-            throw new Exception("'can't store something without data to $table");
+    {
+        if ($data == null) {
+            throw new Exception("'can't store something without data for table $table");
         }
-		$data = $data ? $data : JRequest::get('post');
+        $data = $data ? $data : JRequest::get('post');
         if (isset($data['table'])) {
-            throw new Exception('Data should not contain table attribute');
+            throw new Exception('Data should not contain table attribute for security reasons.');
         }
-		$row = JTable::getInstance($table,'Table');
 
-		$date = date("Y-m-d H:i:s");
+        $row = JTable::getInstance($table, 'Table');
 
-		// Bind the form fields to the table
-		if (!$row->bind($data))
-		{
-			return false;
-		}
 
-		$row->modified = $date;
-		if ( !$row->created )
-		{
-			$row->created = $date;
-		}
+        $date = date("Y-m-d H:i:s");
 
-		// Make sure the record is valid
-		if (!$row->check())
-		{
-			return false;
-		}
+        // Bind the form fields to the table
+        if (!$row->bind($data)) {
+            return false;
+        }
 
-		if (!$row->store())
-		{
-			return false;
-		}
+        $row->modified = $date;
 
-		return $row;
+        if (!$row->created) {
+            $row->created = $date;
+        }
 
-	}
+        // Make sure the record is valid
+        if (!$row->check()) {
+            return false;
+        }
+
+        if (!$row->store()) {
+            return false;
+        }
+
+        return $row;
+
+    }
 
 
 }

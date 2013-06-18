@@ -5,7 +5,6 @@
 DROP TABLE IF EXISTS `ztx1s_eventgallery_imagelineitem`;
 CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_imagelineitem` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(2) NOT NULL DEFAULT 0,
   `folder` varchar(255) NOT NULL,
   `file` varchar(255) NOT NULL,
   `quantity` int(10) unsigned NOT NULL DEFAULT '1',
@@ -13,11 +12,33 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_imagelineitem` (
   `price` decimal(8,2) NOT NULL,
   `singleprice` decimal(8,2) NOT NULL,
   `currency` varchar(3) NOT NULL,
-  `lineitemcontainerid` int(11) DEFAULT NULL,
+  `lineitemcontainerid` varchar(50) DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,  
   PRIMARY KEY (`id`),
-  KEY `id_idx` (`typeid`),
+  KEY `id_idx1` (`lineitemcontainerid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Tabellenstruktur für Tabelle `ztx1s_eventgallery_servicelineitem`
+--
+DROP TABLE IF EXISTS `ztx1s_eventgallery_servicelineitem`;
+CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_servicelineitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `methodid` int(4) DEFAULT NULL,
+  `lineitemcontainerid` varchar(50) DEFAULT NULL,
+  `type` int(4) DEFAULT NULL,
+  `quantity` int(10) unsigned NOT NULL DEFAULT '1',
+  `name` varchar(45) DEFAULT NULL,
+  `displayname` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `data` text DEFAULT NULL,
+  `price` decimal(8,2) NOT NULL,
+  `currency` varchar(3) NOT NULL,
+  `ordering` int(11) NOT NULL DEFAULT 0,
+  `modified` timestamp NULL DEFAULT NULL,
+  `created` timestamp NULL DEFAULT NULL,  
+  PRIMARY KEY (`id`),
   KEY `id_idx1` (`lineitemcontainerid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -111,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_imagetype` (
 --
 DROP TABLE IF EXISTS `ztx1s_eventgallery_cart`;
 CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_cart` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `documentno` varchar(45) DEFAULT NULL,
+  `id` varchar(50) NOT NULL ,
+  `documentno` int(11) DEFAULT NULL,
   `userid` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
@@ -121,9 +142,6 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_cart` (
   `subtotalcurrency` varchar(3) NOT NULL,
   `total` decimal(8,2) DEFAULT NULL,
   `totalcurrency` varchar(3) NOT NULL,
-  `surchargeid` int(11) DEFAULT NULL,
-  `paymentmethodid` int(11) DEFAULT NULL,
-  `shippingmethodid` int(11) DEFAULT NULL,
   `billingaddressid` int(11) DEFAULT NULL,
   `shippingaddressid` int(11) DEFAULT NULL,
   `message` text DEFAULT NULL,
@@ -136,28 +154,18 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_cart` (
 
 DROP TABLE IF EXISTS `ztx1s_eventgallery_order`;
 CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_order` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(50) NOT NULL ,
   `documentno` varchar(45) DEFAULT NULL,
   `orderstatusid` int(11) DEFAULT NULL,
-  `paymentstatusid` int(11) DEFAULT NULL,
-  `shippingstatusid` int(11) DEFAULT NULL,
+  `paymentstatusid` int(11) DEFAULT 0,
+  `shippingstatusid` int(11) DEFAULT 0,
   `userid` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
   `subtotal` decimal(8,2) DEFAULT NULL,
   `subtotalcurrency` varchar(3) NOT NULL,
   `total` decimal(8,2) DEFAULT NULL,
   `totalcurrency` varchar(3) NOT NULL,
-  `surchargeid` int(11) DEFAULT NULL,
-  `surchargetotal` decimal(8,2) DEFAULT NULL,
-  `surchargetotalcurrency` varchar(3) NOT NULL,
-  `paymentmethodid` int(11) DEFAULT NULL,
-  `paymenttotal` decimal(8,2) DEFAULT NULL,
-  `paymenttotalcurrency` varchar(3) NOT NULL,
-  `shippingmethodid` int(11) DEFAULT NULL,
-  `shippingtotal` decimal(8,2) DEFAULT NULL,
-  `shippingtotalcurrency` varchar(3) NOT NULL,
-
   `billingaddressid` int(11) DEFAULT NULL,
   `shippingaddressid` int(11) DEFAULT NULL,
   `message` text DEFAULT NULL,
@@ -240,10 +248,13 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_surcharge` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `displayname` text DEFAULT NULL,
-  `description` text DEFAULT NULL,  
+  `description` text DEFAULT NULL,
+  `data` text DEFAULT NULL,  
   `price` decimal(8,2) NOT NULL,
   `currency` varchar(3) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
+  `ordering` int(11) NOT NULL DEFAULT 0,
+  `default` int(1) NOT NULL DEFAULT 0,
   `rule` int(11) DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,

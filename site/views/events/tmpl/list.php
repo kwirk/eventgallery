@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package     Sven.Bluege
  * @subpackage  com_eventgallery
@@ -10,25 +10,31 @@
 defined('_JEXEC') or die('Restricted access'); ?>
 
 <div id="events">
-	<?php if ($this->params->get('show_page_heading', 1)) : ?>
-	<div class="page-header">
-		<h1> <?php echo $this->escape($this->params->get('page_heading')); ?> </h1>
-	</div>
-	<?php endif; ?>
-	<p class="database-info">(<?php echo $this->fileCount ?> <?php echo JText::_('COM_EVENTGALLERY_EVENTS_LIST_IMAGESIN') ?> <?php echo $this->folderCount ?> <?php echo JText::_('COM_EVENTGALLERY_EVENTS_LIST_FOLDERS') ?>)</p>
-	<p class="greetings"><?php echo $this->params->get('greetings',''); ?></p>	
-	
-	<div>
-		<ul class="events">
-		<?php $count=0; foreach($this->entries as $entry) :?>
-			<?php $this->assign('entry',$entry)?>
-		    <li class="event">	
-				<a href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>">
-					<?php IF($this->params->get('show_date',1)==1):?><span class="date"><?php echo JHTML::Date($this->entry->date);?></span><?php ENDIF ?>
-					<span class="description"><?php echo $this->entry->description;?></span>
-				</a>
-			</li>
-		<?php ENDFOREACH; ?>
-	</div>
+    <?php if ($this->params->get('show_page_heading', 1)) : ?>
+        <div class="page-header">
+            <h1> <?php echo $this->escape($this->params->get('page_heading')); ?> </h1>
+        </div>
+    <?php endif; ?>
+    <p class="database-info">(<?php echo $this->fileCount ?> <?php echo JText::_(
+            'COM_EVENTGALLERY_EVENTS_LIST_IMAGESIN'
+        ) ?> <?php echo $this->folderCount ?> <?php echo JText::_('COM_EVENTGALLERY_EVENTS_LIST_FOLDERS') ?>)</p>
+
+    <p class="greetings"><?php echo $this->params->get('greetings', ''); ?></p>
+
+    <div>
+        <ul class="events">
+            <?php $count = 0;
+            foreach ($this->entries as $entry) : ?>
+                <?php $this->assign('entry', $entry) ?>
+                <li class="event">
+                    <a href="<?php echo JRoute::_("index.php?view=event&folder=" . $this->entry->folder) ?>">
+                        <?php IF ($this->params->get('show_date', 1) == 1): ?><span class="date"><?php echo JHTML::Date(
+                            $this->entry->date
+                        ); ?></span><?php ENDIF ?>
+                        <span class="description"><?php echo $this->entry->description; ?></span>
+                    </a>
+                </li>
+            <?php ENDFOREACH; ?>
+    </div>
 </div>		
 	

@@ -10,40 +10,45 @@ defined('_JEXEC') or die;
 
 class CartController extends JControllerLegacy
 {
-	public function display($cachable = false, $urlparams  = array())
-	{			
-		parent::display($cachable, $urlparams);		
-	}
+    public function display($cachable = false, $urlparams = array())
+    {
+        parent::display(false, $urlparams);
+    }
 
-    public function cloneLineItem() {
-        $lineitemid = JRequest::getString('lineitemid', null);
+    public function cloneLineItem()
+    {
+        $lineitemid = JRequest::getString('lineitemid', NULL);
         /* @var EventgalleryLibraryCart $cart */
-        $cart = EventgalleryLibraryManagerCart::getCart();
+        $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
         $lineitem = $cart->getLineItem($lineitemid);
-        if ($lineitem != null) {
+        if ($lineitem != NULL) {
             $cart->cloneLineItem($lineitemid);
         }
 
-        EventgalleryLibraryManagerCart::calculateCart();
+        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
 
         $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=cart"));
     }
 
-    public function updateCart() {
+    /**
+     * updates the cart
+     */
+    public function updateCart()
+    {
 
         // Check for request forgeries.
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
-        EventgalleryLibraryManagerCart::updateCart();
+        EventgalleryLibraryManagerCart::getInstance()->updateLineItems();
+        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
 
-        $continue = JRequest::getString( 'continue' , null );
+        $continue = JRequest::getString('continue', NULL);
 
-        if ($continue == null) {
+        if ($continue == NULL) {
             $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=cart"));
         } else {
             $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout"));
         }
     }
-
 
 
 }

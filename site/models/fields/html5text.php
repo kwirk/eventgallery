@@ -1,37 +1,40 @@
 <?php
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
- 
+
 jimport('joomla.form.formfield');
- 
+
 // The class name must always be the same as the filename (in camel case)
-class JFormFieldhtml5text extends JFormField {
- 
-        //The field class must know its own type through the variable $type.
-        protected $type = 'html5text';
- 
-        
- 
-        public function getInput() {
-  	       {
+class JFormFieldhtml5text extends JFormField
+{
 
-                $placeholder = $this->element['placeholder'] ? (string) $this->element['placeholder'] : "";
-                $placeholder = $this->translateLabel ? JText::_($placeholder) : $placeholder;
+    //The field class must know its own type through the variable $type.
+    protected $type = 'html5text';
 
-                $inputtype = $this->element['inputtype'] ? (string) $this->element['inputtype'] : "text";
-                // Initialize some field attributes.
-                $size = $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
-                $maxLength = $this->element['maxlength'] ? ' maxlength="' . (int) $this->element['maxlength'] . '"' : '';
-                $class = $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
 
-                $readonly = ((string) $this->element['readonly'] == 'true') ? ' readonly="readonly"' : '';
-                $disabled = ((string) $this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
+    public function getInput()
+    {
+        {
 
-                // Initialize JavaScript field attributes.
-                $onchange = $this->element['onchange'] ? ' onchange="' . (string) $this->element['onchange'] . '"' : '';
+            $placeholder = $this->element['placeholder'] ? (string)$this->element['placeholder'] : "";
+            $placeholder = $this->translateLabel ? JText::_($placeholder) : $placeholder;
 
-                return '<input placeholder="'.$placeholder.'" type="'.$inputtype.'" name="' . $this->name . '" id="' . $this->id . '"' . ' value="'
-                        . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly . $onchange . $maxLength . '/>';
+            $inputtype = $this->element['inputtype'] ? (string)$this->element['inputtype'] : "text";
+            // Initialize some field attributes.
+            $size = $this->element['size'] ? ' size="' . (int)$this->element['size'] . '"' : '';
+            $maxLength = $this->element['maxlength'] ? ' maxlength="' . (int)$this->element['maxlength'] . '"' : '';
+            $class = $this->element['class'] ? ' class="' . (string)$this->element['class'] . '"' : '';
+
+            $readonly = ((string)$this->element['readonly'] == 'true') ? ' readonly="readonly"' : '';
+            $disabled = ((string)$this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
+
+            // Initialize JavaScript field attributes.
+            $onchange = $this->element['onchange'] ? ' onchange="' . (string)$this->element['onchange'] . '"' : '';
+
+            return '<input placeholder="' . $placeholder . '" type="' . $inputtype . '" name="' . $this->name . '" id="'
+            . $this->id . '"' . ' value="'
+            . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly
+            . $onchange . $maxLength . '/>';
         }
-        }
+    }
 }

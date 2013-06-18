@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @package     Sven.Bluege
+ * @subpackage  com_eventgallery
+ *
+ * @copyright   Copyright (C) 2005 - 2013 Sven Bluege All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die();
+
+abstract class EventgalleryLibraryMethod extends EventgalleryLibraryDatabaseObject
+{
+
+    protected $_object = NULL;
+    protected $_object_id = NULL;
+    protected $_data = NULL;
+    protected $_ls_displayname = NULL;
+    protected $_ls_description = NULL;
+
+    public function __construct($object)
+    {
+        if ($object instanceof stdClass) {
+            $this->_object = $object;
+            $this->_object_id = $object->id;
+        } else {
+            $this->_object_id = $object;
+            $this->_loadMethodData();
+        }
+
+        $this->_ls_displayname = new EventgalleryLibraryDatabaseLocalizablestring($this->_object->displayname);
+        $this->_ls_description = new EventgalleryLibraryDatabaseLocalizablestring($this->_object->description);
+
+        parent::__construct();
+    }
+
+    /**
+     * Load the image type by id
+     */
+    abstract protected function _loadMethodData();
+
+    /**
+     * @return string the id
+     */
+    public function getId()
+    {
+        return $this->_object->id;
+    }
+
+    /**
+     * @return float the price value
+     */
+    public function getPrice()
+    {
+        return $this->_object->price;
+    }
+
+    /**
+     * @return string the currency
+     */
+    public function getCurrency()
+    {
+        return $this->_object->currency;
+    }
+
+    /**
+     * @return string display name
+     */
+    public function getName()
+    {
+        return $this->_object->name;
+    }
+
+    /**
+     * @return string display name
+     */
+    public function getDisplayName()
+    {
+        return $this->_ls_displayname->get();
+    }
+
+    /**
+     * @return string display name
+     */
+    public function getDescription()
+    {
+        return $this->_ls_description->get();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDefault()
+    {
+        return $this->_object->default == 1 ? true : false;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getData()
+    {
+        if (NULL == $this->_data) {
+            $this->_data = json_decode($this->_object->data);
+        }
+
+        return $this->_data;
+    }
+
+}

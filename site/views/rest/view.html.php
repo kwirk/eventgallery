@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package     Sven.Bluege
  * @subpackage  com_eventgallery
@@ -9,15 +9,15 @@
 
 defined('_JEXEC') or die;
 
-jimport( 'joomla.application.component.view');
+jimport('joomla.application.component.view');
 
 
 class RestViewRest extends JViewLegacy
 {
-	function display($tpl = null)
-	{			 		
-		parent::display($tpl);
-	}
+    function display($tpl = NULL)
+    {
+        parent::display($tpl);
+    }
 
 
 }

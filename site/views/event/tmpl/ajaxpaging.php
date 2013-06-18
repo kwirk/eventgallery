@@ -9,153 +9,171 @@
 defined('_JEXEC') or die('Restricted access'); ?>
 
 <script type="text/javascript">
-	/* <![CDATA[ */
+    /* <![CDATA[ */
 
-	var myGallery;
+    var myGallery;
 
-	/* Method to bring the thumb rel attribute to the right size */
-	var adjustImageSize = function() {
-			var imageContainerSize = $('bigimageContainer').getSize();
-			var sizeCalculator = new SizeCalculator();
-	    	var width = imageContainerSize.x;
-	    	 
-			$$('#thumbs .ajax-thumbnail').each(function(item){
-				var ratio = item.getAttribute('data-width')/item.getAttribute('data-height');
-				var height = Math.round(width/ratio);
-				var googleWidth = sizeCalculator.getSize(width, height, ratio);
-				item.setAttribute('rel', sizeCalculator.adjustImageURL(item.getAttribute('rel'), googleWidth));
-			});
-	}
+    /* Method to bring the thumb rel attribute to the right size */
+    var adjustImageSize = function () {
+        var imageContainerSize = $('bigimageContainer').getSize();
+        var sizeCalculator = new SizeCalculator();
+        var width = imageContainerSize.x;
 
-	/* start the eventgallery*/
-	window.addEvent("domready", function(){
-		adjustImageSize();
-		myGallery = new JSGallery2($$('.thumbnail'), $('bigImage'), $('pageContainer'), 
-			{	'prevHandle': $('prev'), 
-				'nextHandle': $('next'), 
-				'countHandle': $('count'),
-				'prev_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/prev_button.png'?>',
-				'next_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>',
-				'zoom_image' : '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
-				'titleTarget': 'bigImageDescription',
-				'showCartButton' : <?php echo $this->folder->cartable==1?'true':'false'; ?>,
-				'showCartConnector': <?php echo $this->params->get('show_cart_connector', 0)==1&&$this->folder->cartable==1?'true':'false'; ?>,
-				'lightboxRel' : 'lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox',0)==1?'fullscreen':''; ?>]'
-			});
-		
-	});	
+        $$('#thumbs .ajax-thumbnail').each(function (item) {
+            var ratio = item.getAttribute('data-width') / item.getAttribute('data-height');
+            var height = Math.round(width / ratio);
+            var googleWidth = sizeCalculator.getSize(width, height, ratio);
+            item.setAttribute('rel', sizeCalculator.adjustImageURL(item.getAttribute('rel'), googleWidth));
+        });
+    }
 
-	/* Method which handles the case the window got resized */
-	var resizePage = function() {
+    /* start the eventgallery*/
+    window.addEvent("domready", function () {
+        adjustImageSize();
+        myGallery = new JSGallery2($$('.thumbnail'), $('bigImage'), $('pageContainer'),
+            {    'prevHandle': $('prev'),
+                'nextHandle': $('next'),
+                'countHandle': $('count'),
+                'prev_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/prev_button.png'?>',
+                'next_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>',
+                'zoom_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
+                'titleTarget': 'bigImageDescription',
+                'showCartButton': <?php echo $this->folder->cartable==1?'true':'false'; ?>,
+                'showCartConnector': <?php echo $this->params->get('show_cart_connector', 0)==1&&$this->folder->cartable==1?'true':'false'; ?>,
+                'lightboxRel': 'lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox',0)==1?'fullscreen':''; ?>]'
+            });
 
-		window.clearTimeout(eventgalleryAjaxResizeTimer);
-			  
-		var eventgalleryAjaxResizeTimer = (function(){
-			var size = $$('.ajaxpaging .navigation').getLast().getSize();
+    });
 
-			$$('.navigation .page').setStyle('width',size.x+2+"px");
-			if (myGallery != undefined) {
-				adjustImageSize();
-				myGallery.resetThumbs();
-				myGallery.gotoPage(myGallery.currentPageNumber);
-			}
-		}.bind(this)).delay(500);
-	};
+    /* Method which handles the case the window got resized */
+    var resizePage = function () {
 
-	window.addEvent('load', resizePage);
-	window.addEvent('resize', resizePage);
-/* ]]> */
+        window.clearTimeout(eventgalleryAjaxResizeTimer);
+
+        var eventgalleryAjaxResizeTimer = (function () {
+            var size = $$('.ajaxpaging .navigation').getLast().getSize();
+
+            $$('.navigation .page').setStyle('width', size.x + 2 + "px");
+            if (myGallery != undefined) {
+                adjustImageSize();
+                myGallery.resetThumbs();
+                myGallery.gotoPage(myGallery.currentPageNumber);
+            }
+        }.bind(this)).delay(500);
+    };
+
+    window.addEvent('load', resizePage);
+    window.addEvent('resize', resizePage);
+    /* ]]> */
 </script>
 
 
 <?php include 'components/com_eventgallery/views/cart.php'; ?>
-	
+
 <div class="ajaxpaging">
-	
 
-	<?php 
-		$pageCount = 0;
-		$imageCount = 0;
-		$imagesOnPage = 0;
-		$imagesFirstPage = $this->params->get('event_ajax_list_number_of_thumbnail_on_first_page',11);
-		$imagesPerPage = $this->params->get('event_ajax_list_number_of_thumbnail_per_page',22);
-		
-		$pagesCount = ceil( (count($this->entries) - $imagesFirstPage) / $imagesPerPage) + 1;
-	?>
-	<div class="navigation">
-	
-		<div id="pagerContainer">
-			<div id="thumbs">
-				<div id="pageContainer">
 
-					<div id="page<?php echo $pageCount++; ?>" class="page">
+    <?php
+    $pageCount = 0;
+    $imageCount = 0;
+    $imagesOnPage = 0;
+    $imagesFirstPage = $this->params->get('event_ajax_list_number_of_thumbnail_on_first_page', 11);
+    $imagesPerPage = $this->params->get('event_ajax_list_number_of_thumbnail_per_page', 22);
 
-						<?php foreach($this->entries as $entry) :/** @var EventgalleryHelpersImageDefault $entry */?>
-			
-							<?php IF ($pageCount == 1 && $imageCount == 0): ?>
-								<?php IF($this->params->get('show_date',1)==1):?>
-									<h4 class="date">
-										<?php echo JHTML::Date($this->folder->date);?>
-									</h4>
-								<?php ENDIF ?>
-								<h1 class="description">
-									<?php echo $this->folder->description; ?>
-								</h1>
-								<div class="text">	
-									<?php echo $this->folder->text; ?>
-								</div>
-							<?php ENDIF; ?>				
-													
-							<?php $this->assign('entry',$entry)?>
-							<?php $imagesOnPage++ ?>
+    $pagesCount = ceil((count($this->entries) - $imagesFirstPage) / $imagesPerPage) + 1;
+    ?>
+    <div class="navigation">
 
-							<div class="thumbnail" id="image<?php echo $imageCount++;?>">				
-								 <a longdesc="<?php echo $entry->getImageUrl(null, null, true);?>" 
-								 	 class="ajax-thumbnail"	
-									 href="<?php echo $entry->getImageUrl(null, null, true);?>"
-									 title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8'); ?>"
-								     rel="<?php echo $entry->getImageUrl(50, 50, false, false); ?>"
-								     data-folder="<?php echo $entry->folder; ?>"
-								     data-file="<?php echo $entry->file; ?>"
-								     data-cart-connector-link="<?php echo rawurlencode(EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file));?>"
-								     data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
-								     data-width="<?php echo $entry->width; ?>"
-								     data-height="<?php echo $entry->height; ?>"
-								     data-description="<?php if($this->params->get('show_date',1)==1) {echo JHTML::Date($this->folder->date).' - ';} echo $this->folder->description."&lt;br /&gt; ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE')." $imageCount ".JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')." $this->entriesCount" ?>
-										<br /><?php echo rawurlencode($entry->getTitle()); ?>"				  
-									 data-title="<?php echo rawurlencode($entry->getLightBoxTitle()); ?>"
-									 >
-								    <?php echo $entry->getThumbImgTag($this->params->get('event_ajax_list_thumbnail_size', 75), $this->params->get('event_ajax_list_thumbnail_size', 75));?>
-								 </a>
-							</div>		    
-				
-							<?php IF (  ($imagesOnPage % $imagesPerPage == 0) || ($pageCount==1 && ($imagesOnPage % $imagesFirstPage == 0))  ): ?>
-								</div>
-								<div id="page<?php echo $pageCount++; ?>" class="page">
-								<?php $imagesOnPage = 0; ?>
-							<?php ENDIF; ?>									
-				
-						<?php endforeach?>
-					</div>
-						
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-		
-		<!--<a style="" href="#" onclick="myGallery.prevPage(); return false;" id="prev"><img src="<?php echo JURI::base().'components/com_eventgallery/media/images/prev_button.png'?>" alt="back" style="border: 0px;"/></a>
+        <div id="pagerContainer">
+            <div id="thumbs">
+                <div id="pageContainer">
+
+                    <div id="page<?php echo $pageCount++; ?>" class="page">
+
+                        <?php foreach ($this->entries as $entry) :/** @var EventgalleryHelpersImageDefault $entry */ ?>
+
+                        <?php IF ($pageCount == 1 && $imageCount == 0): ?>
+                            <?php IF ($this->params->get('show_date', 1) == 1): ?>
+                                <h4 class="date">
+                                    <?php echo JHTML::Date($this->folder->date); ?>
+                                </h4>
+                            <?php ENDIF ?>
+                            <h1 class="description">
+                                <?php echo $this->folder->description; ?>
+                            </h1>
+                            <div class="text">
+                                <?php echo $this->folder->text; ?>
+                            </div>
+                        <?php ENDIF; ?>
+
+                        <?php $this->assign('entry', $entry) ?>
+                        <?php $imagesOnPage++ ?>
+
+                        <div class="thumbnail" id="image<?php echo $imageCount++; ?>">
+                            <a longdesc="<?php echo $entry->getImageUrl(NULL, NULL, true); ?>"
+                               class="ajax-thumbnail"
+                               href="<?php echo $entry->getImageUrl(NULL, NULL, true); ?>"
+                               title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8'); ?>"
+                               rel="<?php echo $entry->getImageUrl(50, 50, false, false); ?>"
+                               data-folder="<?php echo $entry->folder; ?>"
+                               data-file="<?php echo $entry->file; ?>"
+                               data-cart-connector-link="<?php echo rawurlencode(
+                                   EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file)
+                               ); ?>"
+                               data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
+                               data-width="<?php echo $entry->width; ?>"
+                               data-height="<?php echo $entry->height; ?>"
+                               data-description="<?php if ($this->params->get('show_date', 1) == 1) {
+                                   echo JHTML::Date($this->folder->date) . ' - ';
+                               }
+                               echo $this->folder->description . "&lt;br /&gt; " . JText::_(
+                                       'COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE'
+                                   ) . " $imageCount " . JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')
+                                   . " $this->entriesCount" ?>
+										<br /><?php echo rawurlencode($entry->getTitle()); ?>"
+                               data-title="<?php echo rawurlencode($entry->getLightBoxTitle()); ?>"
+                                >
+                                <?php echo $entry->getThumbImgTag(
+                                    $this->params->get('event_ajax_list_thumbnail_size', 75),
+                                    $this->params->get('event_ajax_list_thumbnail_size', 75)
+                                ); ?>
+                            </a>
+                        </div>
+
+                        <?php IF (($imagesOnPage % $imagesPerPage == 0)
+                        || ($pageCount == 1
+                            && ($imagesOnPage % $imagesFirstPage == 0))): ?>
+                    </div>
+                    <div id="page<?php echo $pageCount++; ?>" class="page">
+                        <?php $imagesOnPage = 0; ?>
+                        <?php ENDIF; ?>
+
+                        <?php endforeach ?>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <!--<a style="" href="#" onclick="myGallery.prevPage(); return false;" id="prev"><img src="<?php echo JURI::base().'components/com_eventgallery/media/images/prev_button.png'?>" alt="back" style="border: 0px;"/></a>
 		<a style="" href="#" onclick="myGallery.nextPage(); return false;" id="next"><img src="<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>" alt="next" style="border: 0px;"/></a>-->
-		<div class="pagination"><ul id="count"></ul></div>
-		
-	</div>
+        <div class="pagination">
+            <ul id="count"></ul>
+        </div>
 
-	<div class="image">	
-		
-			<div id="bigimageContainer">
-				<img src="<?php echo JURI::base().'components/com_eventgallery/media/images/loading_s.gif'?>" alt="" id="bigImage"/>
-				<span id="bigImageDescription" class="img_overlay img_overlay_fotos overlay_3"><?php echo JText::_('COM_EVENTGALLERY_EVENT_AJAX_LOADING') ?></span>
-			</div>
-		
-		</div>	
-	<div style="clear:both"></div>
+    </div>
+
+    <div class="image">
+
+        <div id="bigimageContainer">
+            <img src="<?php echo JURI::base() . 'components/com_eventgallery/media/images/loading_s.gif' ?>" alt=""
+                 id="bigImage"/>
+            <span id="bigImageDescription" class="img_overlay img_overlay_fotos overlay_3"><?php echo JText::_(
+                    'COM_EVENTGALLERY_EVENT_AJAX_LOADING'
+                ) ?></span>
+        </div>
+
+    </div>
+    <div style="clear:both"></div>
 </div>

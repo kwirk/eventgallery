@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @package     Sven.Bluege
@@ -11,62 +11,70 @@
 defined('_JEXEC') or die;
 
 
-jimport( 'joomla.application.component.view');
+jimport('joomla.application.component.view');
 
 
 class CheckoutViewCheckout extends JViewLegacy
 {
 
     /**
-     * @var JRegistry
+     * @var JDocument
      */
-    protected $params;
-    protected $state;
+    public $document;
+    protected $billingform;
     /**
      * @var EventgalleryLibraryCart
      */
     protected $cart;
-    protected $billingform;
-    protected $userdataform;
-    protected $shippingform;
-
     /**
-     * @var JDocument
+     * @var JRegistry
      */
-    public $document;
+    protected $params;
+    protected $shippingform;
+    protected $state;
+    protected $userdataform;
 
-	function display($tpl = null)
-	{
+    function display($tpl = null)
+    {
         /**
          * @var JSite $app
          */
         $app = JFactory::getApplication();
         $this->state = $this->get('State');
-        $this->params	= $app->getParams();
+        $this->params = $app->getParams();
 
         $this->cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
 
-        if ($this->getLayout()=='default') {
-			$this->setLayout('review');
-		}
+        if ($this->getLayout() == 'default') {
+            $this->setLayout('review');
+        }
 
-        if ($this->getLayout()!='confirm' && ($this->cart->getBillingAddress()==null || $this->cart->getShippingAddress()==null)) {
+        if ($this->getLayout() != 'confirm'
+            && ($this->cart->getBillingAddress() == null
+                || $this->cart->getShippingAddress() == null
+                || $this->cart->getPaymentMethod() == null
+                || $this->cart->getShippingMethod() == null)
+        ) {
             $this->setLayout('change');
         }
 
-        if ($this->getLayout()=='change') {
+        if ($this->getLayout() == 'change') {
 
-            $xmlPath = JPATH_SITE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_eventgallery' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR;
+            $xmlPath = JPATH_SITE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_eventgallery'
+                . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'forms' . DIRECTORY_SEPARATOR;
 
-            $this->userdataform = JForm::getInstance('userdata', $xmlPath. 'userdata.xml');
+            $this->userdataform = JForm::getInstance('userdata', $xmlPath . 'userdata.xml');
             $this->userdataform->reset();
-            $this->userdataform->bind(  array(
-                                            'message'=>$this->cart->getMessage(),
-                                            'email'=>$this->cart->getEMail(),
-                                            'phone'=>$this->cart->getPhone()));
+            $this->userdataform->bind(
+                array(
+                    'message' => $this->cart->getMessage(),
+                    'email' => $this->cart->getEMail(),
+                    'phone' => $this->cart->getPhone()
+                )
+            );
             $this->userdataform->bind(JRequest::get('post'));
 
-            $this->billingform = JForm::getInstance('billing',$xmlPath. 'billingaddress.xml');
+            $this->billingform = JForm::getInstance('billing', $xmlPath . 'billingaddress.xml');
             $this->billingform->reset();
 
             if ($this->cart->getBillingAddress() != null) {
@@ -75,64 +83,60 @@ class CheckoutViewCheckout extends JViewLegacy
             $this->billingform->bind(JRequest::get('post'));
 
 
-            $this->shippingform = JForm::getInstance('shipping',$xmlPath. 'shippingaddress.xml');
+            $this->shippingform = JForm::getInstance('shipping', $xmlPath . 'shippingaddress.xml');
 
-            if ($this->cart->getShippingAddress()!=null) {
+            if ($this->cart->getShippingAddress() != null) {
                 $this->shippingform->bind($this->cart->getShippingAddress()->_getData('shipping_'));
             }
             $this->shippingform->bind(JRequest::get('post'));
 
         }
 
-		$pathway = $app->getPathWay();		
-		$pathway->addItem(JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH'));
-		
-		$this->_prepareDocument();
-		
-		parent::display($tpl);
-	}
-	
-		
-	/**
-	 * Prepares the document
-	 */
-	protected function _prepareDocument()
-	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
-		$title = null;
+        $pathway = $app->getPathWay();
+        $pathway->addItem(JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH'));
 
-		// Because the application sets a default page title,
-		// we need to get it from the menu item itself
-		$menu = $menus->getActive();
-		if ($menu)
-		{
-			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-		}
-		
+        $this->_prepareDocument();
 
-		$title = $this->params->get('page_title', '');
+        parent::display($tpl);
+    }
 
-		$title .= " - ".JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH');
+    /**
+     * Prepares the document
+     */
+    protected function _prepareDocument()
+    {
+        $app = JFactory::getApplication();
+        $menus = $app->getMenu();
+        $title = null;
+
+        // Because the application sets a default page title,
+        // we need to get it from the menu item itself
+        $menu = $menus->getActive();
+        if ($menu) {
+            $this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+        }
 
 
-		// Check for empty title and add site name if param is set
-		if (empty($title)) {
-			$title = $app->getCfg('sitename');
-		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
-		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
-		}
-		
-		
-		if ($this->document) {
-				
-			$this->document->setTitle($title);
-			
-		}
-	}
+        $title = $this->params->get('page_title', '');
+
+        $title .= " - " . JText::_('COM_EVENTGALLERY_CART_CHECKOUT_PATH');
+
+
+        // Check for empty title and add site name if param is set
+        if (empty($title)) {
+            $title = $app->getCfg('sitename');
+        } elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
+            $title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+        } elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
+            $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+        }
+
+
+        if ($this->document) {
+
+            $this->document->setTitle($title);
+
+        }
+    }
 
 }

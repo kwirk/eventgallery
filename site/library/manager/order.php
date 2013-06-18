@@ -13,22 +13,35 @@ defined('_JEXEC') or die();
 
 class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
 {
-	
-	function __construct()
-	{		
-	 
-	}
+
+    function __construct()
+    {
+
+    }
 
     /**
      * creates a order from a cart
      *
      * @param EventgalleryLibraryCart $cart
+     *
      * @return EventgalleryLibraryOrder
      */
-    public function createOrder($cart) {
+    public function createOrder($cart)
+    {
 
+        $db = JFactory::getDBO();
         $data = $cart->_getInternalDataObject();
-        unset($data['id']);
+
+        $uuid = uniqid("", true);
+        $uuid = base_convert($uuid,16,10);
+
+        $query = $db->getQuery(true);
+        $query->insert("#__eventgallery_order");
+        $query->set("id=".$db->quote($uuid));
+        $db->setQuery($query);
+        $db->execute();
+
+        $data['id'] = $uuid;
 
         /**
          * @var TableOrder $orderTable
@@ -36,29 +49,36 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
         $orderTable = $this->store($data, 'Order');
 
         /**
-         * @var EventgalleryLibraryLineitem $lineitem
+         * @var EventgalleryLibraryImagelineitem $lineitem
          */
-        foreach($cart->getLineItems() as $lineitem) {
-    		$data = array();
+        foreach ($cart->getLineItems() as $lineitem) {
+            $data = array();
             $data['id'] = $lineitem->getId();
-    		$data['status'] = 1;
-    		$data['lineitemcontainerid'] = $orderTable->id;
-    		$this->store($data, 'Imagelineitem');
-    	}
+            $data['lineitemcontainerid'] = $orderTable->id;
+            $this->store($data, 'Imagelineitem');
+        }
+
+        /**
+         * @var EventgalleryLibraryServicelineitem $lineitem
+         */
+        foreach ($cart->getServiceLineItems() as $lineitem) {
+            $data = array();
+            $data['id'] = $lineitem->getId();
+            $data['lineitemcontainerid'] = $orderTable->id;
+            $this->store($data, 'Servicelineitem');
+        }
 
         /**
          * @var EventgalleryLibraryOrder $order
          */
         $order = new EventgalleryLibraryOrder($orderTable->id);
         $order->setOrderStatus(EventgalleryLibraryManagerOrderstatus::getDefaultOrderStatus());
-        $order->setPayment($cart->getPayment());
-        $order->setShipping($cart->getShipping());
-        $order->setSurcharge($cart->getSurcharge());
+
 
         $cart->setStatus(1);
 
         return $order;
     }
 
- 
+
 }

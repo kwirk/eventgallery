@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @package     Sven.Bluege
@@ -8,20 +8,21 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;	
+defined('_JEXEC') or die;
 
 
-interface  EventgalleryHelpersImageInterface {
-	    
-    public function getFullImgTag($width=104,  $height=104);
-	    
-    public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false);
-	    
-    public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false);
-	    
-    public function getImageUrl($width=104,  $height=104, $fullsize, $larger=false);	    
-	    
-    public function getThumbUrl ($width=104, $height=104, $larger=true, $crop=false);
+interface  EventgalleryHelpersImageInterface
+{
+
+    public function getFullImgTag($width = 104, $height = 104);
+
+    public function getThumbImgTag($width = 104, $height = 104, $cssClass = "", $crop = false);
+
+    public function getLazyThumbImgTag($width = 104, $height = 104, $cssClass = "", $crop = false);
+
+    public function getImageUrl($width = 104, $height = 104, $fullsize, $larger = false);
+
+    public function getThumbUrl($width = 104, $height = 104, $larger = true, $crop = false);
 
     public function getCartThumb($lineitemid);
 

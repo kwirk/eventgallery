@@ -8,33 +8,42 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
 $methodes = EventgalleryLibraryManagerShipping::getInstance()->getMethodes(true);
-$currentMethod = $this->cart->getShipping()==null?EventgalleryLibraryManagerShipping::getInstance()->getDefaultMethode():$this->cart->getShipping();
+$currentMethod
+    = $this->cart->getShippingMethod() == NULL ? EventgalleryLibraryManagerShipping::getInstance()->getDefaultMethode()
+    : $this->cart->getShippingMethod();
 
 
 ?>
 
 <div class="control-group">
-	<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SHIPPINGMETHODE_LABEL') ?>
-	<div class="controls">  
-				
-		
-		<select class="" name="shippingid">
-	        <?php FOREACH($methodes as $method): ?>
-	        	<?php 
+    <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SHIPPINGMETHODE_LABEL') ?>
+    <div class="controls">
 
-	        		$selected = "";
-	        		
-	        		if ($method->getId() == $currentMethod->getId()) {
-	        			$selected = 'selected = "selected"';
-	        		}
-	        		
-	        		
-	        	?>
-	            <option <?php echo $selected; ?> value="<?php echo $method->getId();?>"><?php echo $method->getDisplayName();?> (<?php echo $method->getCurrency();?> <?php echo $method->getPrice();?>) </option>
-	        <?php ENDFOREACH ?>
-	    </select>
-	</div>
+
+        <select class="" name="shippingid">
+            <?php FOREACH ($methodes as $method): ?>
+
+
+                <?php
+                /**
+                 * @var EventgalleryLibraryShipping $method
+                 */
+                $selected = "";
+
+                if ($method->getId() == $currentMethod->getId()) {
+                    $selected = 'selected = "selected"';
+                }
+
+
+                ?>
+                <option <?php echo $selected; ?>
+                    value="<?php echo $method->getId(); ?>"><?php echo $method->getDisplayName(); ?>
+                    (<?php echo $method->getCurrency(); ?> <?php echo $method->getPrice(); ?>)
+                </option>
+            <?php ENDFOREACH ?>
+        </select>
+    </div>
 </div>
 

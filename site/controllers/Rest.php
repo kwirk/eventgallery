@@ -11,11 +11,12 @@ defined('_JEXEC') or die;
 class RestController extends JControllerLegacy
 {
     /**
-     * @param bool $cachable
+     * @param bool  $cachable
      * @param array $urlparams
+     *
      * @return JControllerLegacy|void
      */
-    public function display($cachable = false, $urlparams  = array())
+    public function display($cachable = false, $urlparams = array())
     {
         parent::display($cachable, $urlparams);
     }
@@ -26,14 +27,14 @@ class RestController extends JControllerLegacy
     public function add2cart()
     {
 
-        $file = JRequest::getString('file', null);
-        $folder = JRequest::getString('folder', null);
+        $file = JRequest::getString('file', NULL);
+        $folder = JRequest::getString('folder', NULL);
         $quantity = JRequest::getString('quantity', 1);
-        $typeid = JRequest::getString('typeid', null);
+        $typeid = JRequest::getString('typeid', NULL);
 
         $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
         $cart->addItem($folder, $file, $quantity, $typeid);
-        EventgalleryLibraryManagerCart::getInstance()->updateCart();
+        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
         $this->printCartJSON($cart);
 
 
@@ -49,13 +50,15 @@ class RestController extends JControllerLegacy
 
         $jsonCart = array();
         foreach ($cart->getLineItems() as $lineitem) {
-            /* @var $lineitem EventgalleryLibraryLineitem */
-            $item = array('file' => $lineitem->getFileName(),
+            /* @var $lineitem EventgalleryLibraryImagelineitem */
+            $item = array(
+                'file' => $lineitem->getFileName(),
                 'folder' => $lineitem->getfolderName(),
                 'count' => $lineitem->getQuantity(),
                 'lineitemid' => $lineitem->getId(),
                 'typeid' => $lineitem->getImageType()->getId(),
-                'imagetag' => $lineitem->getCartThumb());
+                'imagetag' => $lineitem->getCartThumb()
+            );
 
             array_push($jsonCart, $item);
         }
@@ -77,11 +80,11 @@ class RestController extends JControllerLegacy
     {
 
 
-        $lineitemid = JRequest::getString('lineitemid', null);
+        $lineitemid = JRequest::getString('lineitemid', NULL);
 
         $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
         $cart->deleteLineItem($lineitemid);
-        EventgalleryLibraryManagerCart::getInstance()->updateCart();
+        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
 
         $this->printCartJSON($cart);
     }

@@ -146,6 +146,7 @@ site/library/database/index.html svneol=native#text/html
 site/library/database/object.php -text
 site/library/file.php -text
 site/library/folder.php -text
+site/library/imagelineitem.php -text
 site/library/imagetype.php -text
 site/library/imagetypeset.php -text
 site/library/index.html svneol=native#text/html
@@ -159,9 +160,11 @@ site/library/manager/orderstatus.php -text
 site/library/manager/payment.php -text
 site/library/manager/shipping.php -text
 site/library/manager/surcharge.php -text
+site/library/method.php -text
 site/library/order.php -text
 site/library/orderstatus.php -text
 site/library/payment.php -text
+site/library/servicelineitem.php -text
 site/library/shipping.php -text
 site/library/surcharge.php -text
 site/media/css/eventgallery.css -text
@@ -289,6 +292,10 @@ site/views/events/tmpl/list.php -text
 site/views/events/tmpl/list.xml -text
 site/views/events/view.html.php -text
 site/views/index.html svneol=native#text/html
+site/views/mail/index.html svneol=native#text/html
+site/views/mail/tmpl/confirm.php -text
+site/views/mail/tmpl/index.html svneol=native#text/html
+site/views/mail/view.html.php -text
 site/views/password/index.html svneol=native#text/html
 site/views/password/tmpl/default.php -text
 site/views/password/tmpl/index.html svneol=native#text/html

@@ -16,10 +16,12 @@ defined('_JEXEC') or die();
  */
 class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
 {
+
+    protected $_lineitemstatus = EventgalleryLibraryLineitem::TYPE_CART;
     /**
      * @var TableOrder
      */
-    protected $_lineitemcontainer = null;
+    protected $_lineitemcontainer = NULL;
     /**
      * @var string
      */
@@ -38,11 +40,11 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
     protected function _loadLineItemContainer()
     {
 
-        $this->_lineitemcontainer = null;
-        $this->_lineitems = null;
+        $this->_lineitemcontainer = NULL;
+        $this->_lineitems = NULL;
 
         $db = JFactory::getDBO();
-        $query = $db->getQuery(TRUE);
+        $query = $db->getQuery(true);
 
         $query->select('o.*');
         $query->from('#__eventgallery_order as o');
@@ -51,11 +53,12 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
 
         $this->_lineitemcontainer = $db->loadObject();
 
-        if ($this->_lineitemcontainer == null) {
-            throw new Exception("no order found for id ". $this->_lineitemcontainer_id);
+        if ($this->_lineitemcontainer == NULL) {
+            throw new Exception("no order found for id " . $this->_lineitemcontainer_id);
         }
 
-        $this->_loadLineItems(1);
+        $this->_loadLineItems();
+        $this->_loadServiceLineItems();
     }
 
     /**
@@ -63,7 +66,7 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
      */
     public function setOrderStatus($orderStatus)
     {
-        if ($orderStatus == null) {
+        if ($orderStatus == NULL) {
             return;
         }
         $this->_lineitemcontainer->orderstatusid = $orderStatus->getId();
@@ -71,102 +74,7 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
     }
 
 
-    /**
-     * Updates the cart object stucture from the database
-     */
-    protected function _updateLineItemContainer()
-    {
-        $this->_loadLineItemContainer();
 
-        // reset some objects since we change some things.
-        $this->_surcharge = null;
-        $this->_shipping = null;
-        $this->_payment = null;
-    }
-
-    /**
-     * Use this method never in your source code. This is only for managers.
-     *
-     * @return TableOrder
-     */
-    public function _getInternalDataObject() {
-        return $this->_lineitemcontainer;
-    }
-
-    protected function _storeLineItemContainer()
-    {
-        $data = $this->_lineitemcontainer;
-        $this->store((array)$data, $this->_lineitemcontainer_table);
-    }
-
-
-
-    /**
-     * @return string
-     */
-    public function getEMail() {
-        return $this->_lineitemcontainer->email;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEMail($email){
-        $this->_lineitemcontainer->email = $email;
-        $this->_storeLineItemContainer();
-    }
-
-    /**
-     * sets a surcharge
-     *
-     * @param EventgalleryLibrarySurcharge $surcharge
-     */
-    public function setSurcharge($surcharge)
-    {
-        if ($surcharge==null) {
-            return;
-        }
-
-        $this->_lineitemcontainer->surchargetotal = $surcharge->getPrice();
-        $this->_lineitemcontainer->surchargetotalcurrency = $surcharge->getCurrency();
-
-        parent::setSurcharge($surcharge);
-    }
-
-    /**
-     * sets a shipping method
-     *
-     * @param EventgalleryLibraryShipping $shipping
-     */
-    public function setShipping($shipping)
-    {
-        if ($shipping==null) {
-            return;
-        }
-
-        $this->_lineitemcontainer->shippingtotal = $shipping->getPrice();
-        $this->_lineitemcontainer->shippingtotalcurrency = $shipping->getCurrency();
-
-        parent::setShipping($shipping);
-
-    }
-
-    /**
-     * sets a payment
-     *
-     * @param EventgalleryLibraryPayment $payment
-     */
-    public function setPayment($payment)
-    {
-        if ($payment==null) {
-            return;
-        }
-
-        $this->_lineitemcontainer->paymenttotal = $payment->getPrice();
-        $this->_lineitemcontainer->paymenttotalcurrency = $payment->getCurrency();
-
-        parent::setPayment($payment);
-    }
 
 
 }

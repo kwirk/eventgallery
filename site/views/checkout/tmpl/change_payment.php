@@ -8,35 +8,43 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
 
 $methodes = EventgalleryLibraryManagerPayment::getInstance()->getMethodes(true);
-$currentMethod = $this->cart->getPayment()==null?EventgalleryLibraryManagerPayment::getInstance()->getDefaultMethode():$this->cart->getPayment();
+$currentMethod
+    = $this->cart->getPaymentMethod() == NULL ? EventgalleryLibraryManagerPayment::getInstance()->getDefaultMethode()
+    : $this->cart->getPaymentMethod();
 
 
 ?>
 
 <div class="control-group">
-	<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_PAYMENTMETHODE_LABEL') ?>
-	<div class="controls">  
-				
-		
-		<select class="" name="paymentid">
-	        <?php FOREACH($methodes as $method): ?>
-	        	<?php 
+    <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_PAYMENTMETHODE_LABEL') ?>
+    <div class="controls">
 
-	        		$selected = "";
-	        		
-	        		if ($method->getId() == $currentMethod->getId()) {
-	        			$selected = 'selected = "selected"';
-	        		}
-	        		
-	        		
-	        	?>
-	            <option <?php echo $selected; ?> value="<?php echo $method->getId();?>"><?php echo $method->getDisplayName();?> (<?php echo $method->getCurrency();?> <?php echo $method->getPrice();?>) </option>
-	        <?php ENDFOREACH ?>
-	    </select>
-	</div>
+
+        <select class="" name="paymentid">
+            <?php FOREACH ($methodes as $method): ?>
+                <?php
+
+                /**
+                 * @var EventgalleryLibraryPayment $method
+                 */
+                $selected = "";
+
+                if ($method->getId() == $currentMethod->getId()) {
+                    $selected = 'selected = "selected"';
+                }
+
+
+                ?>
+                <option <?php echo $selected; ?>
+                    value="<?php echo $method->getId(); ?>"><?php echo $method->getDisplayName(); ?>
+                    (<?php echo $method->getCurrency(); ?> <?php echo $method->getPrice(); ?>)
+                </option>
+            <?php ENDFOREACH ?>
+        </select>
+    </div>
 </div>
 
 

@@ -12,7 +12,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 //load tables
-JTable::addIncludePath(JPATH_ADMINISTRATOR.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'tables');
+JTable::addIncludePath(
+    JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_eventgallery'
+    . DIRECTORY_SEPARATOR . 'tables'
+);
 
 // load forms
 JForm::addFormPath(JPATH_COMPONENT . '/models/forms');
@@ -27,29 +30,29 @@ JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT);
 EventgalleryHelpersMedialoader::load();
 
 // Require the base controller
-require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controller.php');
+require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'controller.php');
 
 
 // Require specific controller if requested
-if($controller = JFactory::getApplication()->input->get('controller')) {
-	require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.$controller.'.php');
+if ($controller = JFactory::getApplication()->input->get('controller')) {
+    require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . $controller . '.php');
 }
 
 
-$view = JFactory::getApplication()->input->get( 'view' , 'null' );
-if (strcmp('rest',$view)==0 || strcmp('cart',$view)==0 || strcmp('checkout',$view)==0) {
-	require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.ucfirst($view).'.php');	
-	$classname = ucfirst($view).'Controller'.$controller;
-}else {
-	// Create the controller
-	$classname	= 'EventgalleryController'.$controller;
+$view = JFactory::getApplication()->input->get('view', 'null');
+if (strcmp('rest', $view) == 0 || strcmp('cart', $view) == 0 || strcmp('checkout', $view) == 0) {
+    require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . ucfirst($view) . '.php');
+    $classname = ucfirst($view) . 'Controller' . $controller;
+} else {
+    // Create the controller
+    $classname = 'EventgalleryController' . $controller;
 
 }
 
 /**
  * @var JControllerLegacy $controller
  */
-$controller = new $classname( );
+$controller = new $classname();
 
 // Perform the Request task
 $controller->execute(JFactory::getApplication()->input->get('task'));

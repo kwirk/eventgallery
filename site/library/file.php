@@ -17,11 +17,11 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
     /**
      * @var string
      */
-    protected $_filename = null;
+    protected $_filename = NULL;
     /**
      * @var EventgalleryHelpersImageInterface
      */
-    protected $_file = null;
+    protected $_file = NULL;
 
     /**
      * creates the lineitem object. $dblineitem is the database object of this line item
@@ -30,80 +30,86 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
      * @param string $filename
      */
     function __construct($foldername, $filename)
-	{	
-		parent::__construct($foldername);	 			 		
-		$this->_filename = $filename;
-		$this->_loadFile();
-	    
-	}
+    {
+        parent::__construct($foldername);
+        $this->_filename = $filename;
+        $this->_loadFile();
+
+    }
 
     /**
      * loads the file from the database
      */
-    protected function _loadFile() {
-		$fileObject = null;
+    protected function _loadFile()
+    {
+        $fileObject = NULL;
 
-		if (strpos($this->_foldername,'@')>-1) {
-			$values = explode("@",$this->_foldername,2);
-			$folderObject = $this->_folder;
-			$picasakey = $folderObject->picasakey;
-			$album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $picasakey);
+        if (strpos($this->_foldername, '@') > -1) {
+            $values = explode("@", $this->_foldername, 2);
+            $folderObject = $this->_folder;
+            $picasakey = $folderObject->picasakey;
+            $album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $picasakey);
 
-			foreach ($album->photos as $photo) {
+            foreach ($album->photos as $photo) {
 
-				if (strcmp($photo->file, $this->_filename)==0) {
-					$fileObject = new EventgalleryHelpersImagePicasa($photo);
-					break;
-				}
-				
-			}
-            
-		} else {
-    	
-    	    $db = JFactory::getDBO();
-    	    $query = $db->getQuery(true);
-    	    $query->select('*');
-    	    $query->from('#__eventgallery_file');
-    	    $query->where('folder='.$db->Quote($this->_foldername));
-    	    $query->where('file='.$db->Quote($this->_filename));            
-            $db->setQuery($query);            
+                if (strcmp($photo->file, $this->_filename) == 0) {
+                    $fileObject = new EventgalleryHelpersImagePicasa($photo);
+                    break;
+                }
+
+            }
+
+        } else {
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->select('*');
+            $query->from('#__eventgallery_file');
+            $query->where('folder=' . $db->Quote($this->_foldername));
+            $query->where('file=' . $db->Quote($this->_filename));
+            $db->setQuery($query);
             $result = $db->loadObject();
-            $fileObject = new EventgalleryHelpersImageLocal($result);        	            
-		}
+            $fileObject = new EventgalleryHelpersImageLocal($result);
+        }
 
         /**
          * @var EventgalleryHelpersImageInterface $fileObject
          */
         $this->_file = $fileObject;
 
-	}
+    }
 
     /**
      * @param int $lineitemid
+     *
      * @return string
      */
-    public function getCartThumb($lineitemid) {
+    public function getCartThumb($lineitemid)
+    {
 
-		return $this->_file->getCartThumb($lineitemid);
-	}
+        return $this->_file->getCartThumb($lineitemid);
+    }
 
     /**
      * @return string
      */
-    public function getFileName() {
-		return $this->_file->getFileName();
-	}
+    public function getFileName()
+    {
+        return $this->_file->getFileName();
+    }
 
     /**
      * @return bool
      */
-    public function isPublished() {
-		return $this->_folder->published==1 && $this->_file->isPublished()==1;
-	}
+    public function isPublished()
+    {
+        return $this->_folder->published == 1 && $this->_file->isPublished() == 1;
+    }
 
     /**
      * @param int $width
      * @param int $height
+     *
      * @return string
      */
     public function getFullImgTag($width = 104, $height = 104)
@@ -112,10 +118,11 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
     }
 
     /**
-     * @param int $width
-     * @param int $height
+     * @param int    $width
+     * @param int    $height
      * @param string $cssClass
-     * @param bool $crop
+     * @param bool   $crop
+     *
      * @return string
      */
     public function getThumbImgTag($width = 104, $height = 104, $cssClass = "", $crop = false)
@@ -124,10 +131,11 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
     }
 
     /**
-     * @param int $width
-     * @param int $height
+     * @param int    $width
+     * @param int    $height
      * @param string $cssClass
-     * @param bool $crop
+     * @param bool   $crop
+     *
      * @return string
      */
     public function getLazyThumbImgTag($width = 104, $height = 104, $cssClass = "", $crop = false)
@@ -136,10 +144,11 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
     }
 
     /**
-     * @param int $width
-     * @param int $height
-     * @param $fullsize
+     * @param int  $width
+     * @param int  $height
+     * @param      $fullsize
      * @param bool $larger
+     *
      * @return string
      */
     public function getImageUrl($width = 104, $height = 104, $fullsize, $larger = false)
@@ -148,14 +157,15 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
     }
 
     /**
-     * @param int $width
-     * @param int $height
+     * @param int  $width
+     * @param int  $height
      * @param bool $larger
      * @param bool $crop
+     *
      * @return string
      */
     public function getThumbUrl($width = 104, $height = 104, $larger = true, $crop = false)
     {
-        return $this->_file->getThumbUrl($width, $height, $larger, $larger);
+        return $this->_file->getThumbUrl($width, $height, $larger, $crop);
     }
 }

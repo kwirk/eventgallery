@@ -9,7 +9,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-jimport( 'joomla.application.component.model' );
+jimport('joomla.application.component.model');
 
 
 //jimport( 'joomla.application.component.helper' );
@@ -17,25 +17,25 @@ jimport( 'joomla.application.component.model' );
 /** @noinspection PhpUndefinedClassInspection */
 class EventgalleryModelComment extends JModelLegacy
 {
-    
-	
-	function getData($commentId)
-	{
+
+
+    function getData($commentId)
+    {
         $db = JFactory::getDBO();
 
-	 	$query = ' SELECT * FROM #__eventgallery_comment '.
-				 ' WHERE id='.$db->Quote($commentId);
-		$db->setQuery( $query );
-		return $db->loadObject();
-	}
-	
-	function getFile($commentId)
-	{
+        $query = ' SELECT * FROM #__eventgallery_comment ' .
+            ' WHERE id=' . $db->Quote($commentId);
+        $db->setQuery($query);
+        return $db->loadObject();
+    }
+
+    function getFile($commentId)
+    {
         $db = JFactory::getDBO();
-		$comment = $this->getData($commentId);
-		$query = ' SELECT * FROM #__eventgallery_file '.
-			     ' WHERE file='.$db->Quote($comment->file).' and folder='.$db->Quote($comment->folder);
-		$db->setQuery( $query );
-		return new EventgalleryHelpersImageLocal($db->loadObject());
-	}
+        $comment = $this->getData($commentId);
+        $query = ' SELECT * FROM #__eventgallery_file ' .
+            ' WHERE file=' . $db->Quote($comment->file) . ' and folder=' . $db->Quote($comment->folder);
+        $db->setQuery($query);
+        return new EventgalleryHelpersImageLocal($db->loadObject());
+    }
 }

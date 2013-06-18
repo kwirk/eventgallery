@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package     Sven.Bluege
  * @subpackage  com_eventgallery
@@ -9,9 +9,9 @@
 
 defined('_JEXEC') or die;
 
-jimport( 'joomla.application.component.view');
-jimport( 'joomla.application.pathway');
-jimport( 'joomla.html.pagination');
+jimport('joomla.application.component.view');
+jimport('joomla.application.pathway');
+jimport('joomla.html.pagination');
 
 
 class EventgalleryViewPassword extends JViewLegacy
@@ -31,87 +31,81 @@ class EventgalleryViewPassword extends JViewLegacy
     public $document;
 
 
-    function display($tpl = null)
-	{
+    function display($tpl = NULL)
+    {
         /**
          * @var JSite $app
          */
-        $app	 = JFactory::getApplication();
+        $app = JFactory::getApplication();
         $this->state = $this->get('State');
-        $this->params	 = $app->getParams();
+        $this->params = $app->getParams();
 
-		$file = JRequest::getString('file','');
-		$folder = JRequest::getString('folder','');
+        $file = JRequest::getString('file', '');
+        $folder = JRequest::getString('folder', '');
 
-		$model = JModelLegacy::getInstance('Event', 'EventgalleryModel');
-		
-		$folder = $model->getFolder($folder);
+        $model = JModelLegacy::getInstance('Event', 'EventgalleryModel');
 
-		if (!is_object($folder)) {
-			$app->redirect(JRoute::_("index.php?", false));
-		}
+        $folder = $model->getFolder($folder);
 
-		$formAction = JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$folder->folder);
+        if (!is_object($folder)) {
+            $app->redirect(JRoute::_("index.php?", false));
+        }
 
-		$this->folder = $folder;
-		$this->file = $file;
-		$this->formaction = $formAction;
+        $formAction = JRoute::_("index.php?option=com_eventgallery&view=event&folder=" . $folder->folder);
 
-		$this->_prepareDocument();
-		
-		parent::display($tpl);
-	}
-	
-	/**
-	 * Prepares the document
-	 */
-	protected function _prepareDocument()
-	{
-		$app	= JFactory::getApplication();
-		$menus	= $app->getMenu();
+        $this->folder = $folder;
+        $this->file = $file;
+        $this->formaction = $formAction;
 
-		$title = null;
+        $this->_prepareDocument();
 
-		// Because the application sets a default page title,
-		// we need to get it from the menu item itself
-		$menu = $menus->getActive();
-		if ($menu)
-		{
-			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-		}
-		
+        parent::display($tpl);
+    }
 
-		$title = $this->params->get('page_title', '');
+    /**
+     * Prepares the document
+     */
+    protected function _prepareDocument()
+    {
+        $app = JFactory::getApplication();
+        $menus = $app->getMenu();
 
-		if ($this->folder->description) {
-			$title = $this->folder->description;
-		}
+        $title = NULL;
+
+        // Because the application sets a default page title,
+        // we need to get it from the menu item itself
+        $menu = $menus->getActive();
+        if ($menu) {
+            $this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+        }
 
 
-		// Check for empty title and add site name if param is set
-		if (empty($title)) {
-			$title = $app->getCfg('sitename');
-		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
-		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
-		}
-		if (empty($title)) {
-			$title = $this->folder->description;
-		}
-		$this->document->setTitle($title);
+        $title = $this->params->get('page_title', '');
 
-		if ($this->folder->text)
-		{
-			$this->document->setDescription($this->folder->text);
-		}
-		elseif (!$this->folder->text && $this->params->get('menu-meta_description'))
-		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
-		}
-	}
+        if ($this->folder->description) {
+            $title = $this->folder->description;
+        }
+
+
+        // Check for empty title and add site name if param is set
+        if (empty($title)) {
+            $title = $app->getCfg('sitename');
+        } elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
+            $title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+        } elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
+            $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+        }
+        if (empty($title)) {
+            $title = $this->folder->description;
+        }
+        $this->document->setTitle($title);
+
+        if ($this->folder->text) {
+            $this->document->setDescription($this->folder->text);
+        } elseif (!$this->folder->text && $this->params->get('menu-meta_description')) {
+            $this->document->setDescription($this->params->get('menu-meta_description'));
+        }
+    }
 }
 
 
