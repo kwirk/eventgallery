@@ -131,13 +131,7 @@ There are several views available:
 	- _Sort By_ defines the direction and the attribute which is used the sort the events.
 	- _Intro Text_ defines a text for the events page. Usually displayed on top of the page. 
 	- _Tags_ defines which tag a event need to get displayed on this list of events.
-	- _Max events on Page_ How many events should we show? If you have 456 and set the number to 20, it'll show only 20. 
-	- _Max big events_ Defines who many events we show as big event tiles.
-	- _Number of Thumbnails_ how many thumbnails do we want to show per event? (since 2.6.3 unused for big events)
-	- _Thumbnail width_ defines the width of a thumbnail for each type of element (since 2.6.3 unused for big events)
-	- _Max middle events_ how many of the events should we show medium sized?
-	- _Show Thumbnails_ guess what...
-	- _show more link_ Show a link to the simple list where show all the available events. 
+	- _Max events per Page_ How many events should we show per page until the paging bar will appear. 
 	- _show exif_ If EXIF information for an image are available this toggle switches them on or off. 
 	- _show event text_ Defines to show the text for an event on the event list. 
 	- _show date_ You can toggle the appearance of the date for the events show within this menu item
@@ -378,6 +372,8 @@ If you want to display the thumbnails beside the big image you can simply let th
 		  If you're fit with JavaScript you can target the new add2cart button and apply a different
 		  behavior. The link contains two attributes data-file and data-folder which might become useful.
 		- Lightbox uses it's own name space now. This will reduce the conlicts with other lightbox includes.
+		- List of events supports paging now
+		- remove the a lot of configuration options for the events list
 
 	- Bug Fixes
 
