@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		<h1> <?php echo $this->escape($this->params->get('page_heading')); ?> </h1>
 	</div>
 	<?php endif; ?>
-	<p class="database-info">(<?php echo $this->fileCount ?> <?php echo JText::_('COM_EVENTGALLERY_EVENTS_LIST_IMAGESIN') ?> <?php echo $this->folderCount ?> <?php echo JText::_('COM_EVENTGALLERY_EVENTS_LIST_FOLDERS') ?>)</p>
+	
 	<p class="greetings"><?php echo $this->params->get('greetings',''); ?></p>	
 	
 	<div>
@@ -30,5 +30,15 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			</li>
 		<?php ENDFOREACH; ?>
 	</div>
+
+	<form method="post" name="adminForm">
+
+		<div class="pagination">
+		<div class="counter pull-right"><?php echo $this->pageNav->getPagesCounter(); ?></div>
+		<div class="float_left"><?php echo $this->pageNav->getPagesLinks(); ?></div>
+		<div class="clear"></div>
+		</div>
+		
+	</form>
 </div>		
 	

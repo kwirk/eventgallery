@@ -33,27 +33,8 @@
 		
 		
 			<field name="tags" type="text" default="" label="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_DESC" />
-		
-			<field name="max_events" type="text" default="0" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_ON_PAGE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_ON_PAGE_DESC" />
-			
 			<field type="spacer" />
-			<field name="max_big_events" type="text" default="1000" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_MAX_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_MAX_DESC" />
-			<field name="max_big_events_thumbnails" type="text" default="1" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAILS_DESC" />
-			<field name="max_big_events_thumbnails_width" type="text" default="320" label="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAIL_WIDTH_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_BIG_EVENTS_THUMBNAIL_WIDTH_DESC" />
-			<field type="spacer" />
-			<field name="max_middle_events" type="text" default="0" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_MAX_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_MAX_DESC" />
-			<field name="max_middle_events_thumbnails" type="text" default="3" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAILS_DESC" />
-			<field name="max_middle_events_thumbnails_width" type="text" default="50" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAIL_WIDTH_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MIDDLE_EVENTS_THUMBNAIL_WIDTH_DESC" />
 
-			<field type="spacer" />
-			<field name="show_thumbnails" type="radio" default="1" label="COM_EVENTGALLERY_OPTIONS_EVENTS_SHOW_THUMBNAILS_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_SHOW_THUMBNAILS_DESC">
-				<option value="0">hide</option>
-				<option value="1">show</option>
-			</field>
-			<field name="show_more_link" type="radio" default="0" label="COM_EVENTGALLERY_OPTIONS_EVENTS_SHOW_MORE_LINK_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_SHOW_MORE_LINK_DESC">
-				<option value="0">hide</option>
-				<option value="1">show</option>
-			</field>
 			<field name="show_exif" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_LABEL" description="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_DESC">
 			  <option value="1">JYES</option>
 			  <option value="0">JNO</option>

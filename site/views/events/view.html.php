@@ -15,14 +15,19 @@ jimport( 'joomla.application.component.view');
 class EventgalleryViewEvents extends JViewLegacy
 {
 
+	protected $pageNav;
+	protected $cache;
+	protected $params;
+
+
 	function display($tpl = null)
 	{	
-		$cache = JFactory::getCache('com_eventgallery');
+		$this->cache = JFactory::getCache('com_eventgallery');
 		
 		$app = JFactory::getApplication();		
 		
 		$params	 = $app->getParams();
-        $this->assign('params', $params);
+        $this->params = $params;
 
 		/* Default Page fallback*/		
 		$active	= $app->getMenu()->getActive();
@@ -30,12 +35,14 @@ class EventgalleryViewEvents extends JViewLegacy
 			$params = $app->getMenu()->getDefault()->params;
 		}
 
-		$entriesPerPage = 10;
+		$entriesPerPage = $params->get('max_events_per_page', 12);
 		$model = $this->getModel('events');
 		$eventModel = $this->getModel('event');
 
 	    //$entries = $model->getEntries(JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
-		$entries = $cache->call( array( $model, 'getEntries' ), JRequest::getVar('page',1), $entriesPerPage, $params->get('tags'), $params->get('sort_events_by'));
+		$entries = $this->cache->call( array( $model, 'getEntries' ), JRequest::getVar('start',0), $entriesPerPage, $params->get('tags'), $params->get('sort_events_by'));
+
+		$this->pageNav = $model->getPagination();
 
 		$fileCount = $model->getFileCount();
 		$folderCount = $model->getFolderCount();

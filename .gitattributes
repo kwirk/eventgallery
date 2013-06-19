@@ -240,6 +240,7 @@ site/views/events/index.html -text
 site/views/events/metadata.xml -text
 site/views/events/tmpl/default.php -text
 site/views/events/tmpl/default.xml -text
+site/views/events/tmpl/default_event.php -text
 site/views/events/tmpl/index.html -text
 site/views/events/tmpl/list.php -text
 site/views/events/tmpl/list.xml -text
