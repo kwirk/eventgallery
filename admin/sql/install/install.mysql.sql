@@ -1,21 +1,3 @@
-drop table IF EXISTS `#__eventgallery_token`;
-
-CREATE TABLE IF NOT EXISTS `#__eventgallery_comment` (
-  `id` int(11) NOT NULL auto_increment,
-  `file` varchar(125) NOT NULL,
-  `folder` varchar(125) NOT NULL,
-  `text` text NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `user_id` varchar(255) NOT NULL,
-  `ip` varchar(15) NOT NULL,
-  `published` tinyint(4) NOT NULL default '1',
-  `date` datetime NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `link` varchar(255) NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `filefolderkey` (`folder`,`file`)
-);
-
 CREATE TABLE IF NOT EXISTS `#__eventgallery_file` (
   `id` int(11) NOT NULL auto_increment,
   `folder` varchar(125) NOT NULL,
