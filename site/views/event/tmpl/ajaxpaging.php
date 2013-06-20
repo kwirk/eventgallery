@@ -176,4 +176,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
     </div>
     <div style="clear:both"></div>
+    <?php IF ($this->folder->cartable == 1): ?>
+        <div class="well">
+            <?php include dirname(__FILE__).'/../../snippets/imagesetinformation.php'; ?>            
+            <div class="clearfix"></div>
+        </div>
+    <?php ENDIF ?>
 </div>

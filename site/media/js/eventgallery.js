@@ -452,9 +452,15 @@ var EventgalleryCart = new Class({
         $(document.body).addEvent('click:relay(.eventgallery-add2cart)', function (e) {
             this.add2cart(e)
         }.bind(this));
+
+        $(document.body).addEvent('click:relay(.eventgallery-add-all)', function (e) {
+            this.addAll2cart(e)
+        }.bind(this));
+
         $(document.body).addEvent('click:relay(.eventgallery-removeFromCart)', function (e) {
             this.removeFromCart(e)
         }.bind(this));
+
         $(document.body).addEvent('updatecartlinks', function (e) {
             this.populateCart(true);
         }.bind(this));
@@ -488,7 +494,11 @@ var EventgalleryCart = new Class({
             } else {
                 // update if a third or more row is created
                 if (up.getStyle('display') != 'none') {
-                    this.myVerticalSlide.start($$(this.options.cartItemsSelector).getLast().getSize().y);
+                    // timeout to avoid any size issues because of a slow browser
+                    setTimeout(function() {
+                        this.myVerticalSlide.stop();
+                        this.myVerticalSlide.start($$(this.options.cartItemsSelector).getLast().getSize().y);  
+                    }.bind(this), 1000);                    
                 }
             }
         } else {
@@ -501,11 +511,18 @@ var EventgalleryCart = new Class({
     /* Populate the cart element on the page with the data we used */
     populateCart: function (linksOnly) {
 
+        
+        var fx1 = new Fx.Slide($$(this.options.cartSelector)[0], {resetHeight : true});
         if (this.cart.length == 0) {
-            $$(this.options.emptyCartSelector).setStyle('display', 'block');
-            $$(this.options.cartSelector).setStyle('display', 'none');
+            
+            fx1.slideOut();
+            $$(this.options.emptyCartSelector).setStyle('display', 'block');            
+            //$$(this.options.cartSelector).setStyle('display', 'none');
         } else {
-            $$(this.options.cartSelector).setStyle('display', 'block');
+            $$(this.options.cartSelector).setStyle('display', 'block');            
+            fx1.slideIn();
+
+            
             $$(this.options.emptyCartSelector).setStyle('display', 'none');
         }
         // define where all the cart html items are located
@@ -567,17 +584,54 @@ var EventgalleryCart = new Class({
     },
 
     /* Send a request to the server to remove an item from the cart */
-    removeFromCart: function (e) {
-        return this.doRequest(e, this.options.removeUrl);
+    removeFromCart: function (event) {
+        return this.doRequest(event, this.options.removeUrl);
     },
 
     /* Send a request to the server to add an item to the cart */
-    add2cart: function (e) {
-        return this.doRequest(e, this.options.add2cartUrl);
+    add2cart: function (event) {
+        
+        var radioButtons = $$('input:checked[name=currentimagetype]');
+        if (radioButtons.length>0) {
+            if (event.target.tagName == 'A') {
+                linkElement = $(event.target);
+            } else {
+                linkElement = $(event.target).getParent('A');
+            }
+            
+            var data = linkElement.getAttribute('data-id');
+            data = data + '&imagetypeid=' + radioButtons[0].value;
+
+            return this.doRequest(event, this.options.add2cartUrl, data);
+        } else {
+            return this.doRequest(event, this.options.add2cartUrl);
+        }
+    },
+
+     /* Send a request to the server to add an item to the cart */
+    addAll2cart: function (event) {
+        
+        var radioButtons = $$('input:checked[name=currentimagetype]');
+        var items = [];
+
+        $$('.eventgallery-add2cart').each(function(item) {
+            //var data = item.getAttribute('data-id');
+            //data = data + '&imagetypeid=' + radioButtons[0].value;
+            //items.push(data);
+            $(document.body).fireEvent('click:relay(.eventgallery-add2cart)',
+            {
+                target: item,
+                stop: function(){},
+                preventDefault: function(){},
+                stopPropagation: function(){}
+            });
+
+        });
+
     },
 
     /* do the request and care about the clicked buttons. */
-    doRequest: function (event, url) {
+    doRequest: function (event, url, data) {
         var linkElement;
 
         if (event.target.tagName == 'A') {
@@ -587,7 +641,10 @@ var EventgalleryCart = new Class({
         }
 
         var iconElement = linkElement.getChildren('i').getLast();
-        var data = linkElement.getAttribute('data-id');
+        if (data == undefined) {
+            var data = linkElement.getAttribute('data-id');
+        }
+        var imagetype = $$('input:checked[name=currentimagetype]')[0];
 
         iconElement.addClass('loading');
         var myRequest = new Request.JSON(

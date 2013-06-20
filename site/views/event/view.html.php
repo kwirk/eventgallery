@@ -26,6 +26,7 @@ class EventgalleryViewEvent extends JViewLegacy
     protected $entriesCount;
     protected $folder;
     protected $use_comments;
+    protected $imageset;
     /**
      * @var JDocument
      */
@@ -43,6 +44,8 @@ class EventgalleryViewEvent extends JViewLegacy
         $app = JFactory::getApplication();
         $this->state = $this->get('State');
         $this->params = $app->getParams();
+
+
 
         /* Default Page fallback*/
         $active = $app->getMenu()->getActive();
@@ -92,6 +95,8 @@ class EventgalleryViewEvent extends JViewLegacy
         $this->entriesCount = count($entries);
         $this->folder = $folder;
         $this->use_comments = $this->params->get('use_comments');
+        $folderObject = new EventgalleryLibraryFolder($folder->folder);
+        $this->imageset = $folderObject->getImageTypeSet();
 
         $pathway = $app->getPathway();
         $pathway->addItem($folder->description);

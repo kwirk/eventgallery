@@ -418,7 +418,7 @@
 
 #singleimage .singleimage {
     width: 100%;
-    min-height: 500px;
+    min-height: 400px;
     background-image: url(../images/loading.gif);
     background-repeat: no-repeat;
     background-position: 30% 10px;
@@ -558,7 +558,7 @@ a.button-removeFromCart i.loading {
     width: 35px;
     height: 30px;
     display: block;
-    opacity: 0.2;
+    opacity: 0.7;
     transition: opacity 0.5s;
     -moz-transition: opacity 0.5s; /* Firefox 4 */
     -webkit-transition: opacity 0.5s; /* Safari and Chrome */

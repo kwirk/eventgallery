@@ -392,6 +392,15 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     }
 
     /**
+     * @param $documentNumber
+     */
+    public function setDocumentNumber($documentNumber)
+    {
+        $this->_lineitemcontainer->documentno = $documentNumber;
+        $this->_storeLineItemContainer();
+    }
+
+    /**
      * sets a shipping
      *
      * @param EventgalleryLibraryShipping $shipping
@@ -495,5 +504,17 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     public function getServiceLineItems() {
         return $this->_servicelineitems;
+    }
+
+    public function getCreationDate() {
+        return $this->_lineitemcontainer->created;
+    }
+
+    public function getModificationDate() {
+        return $this->_lineitemcontainer->modified;
+    }
+
+    public function getDocumentNumber() {
+        return $this->_lineitemcontainer->documentno;
     }
 }

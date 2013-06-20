@@ -84,9 +84,14 @@ include 'components/com_eventgallery/views/cart.php';
         <?php echo $this->folder->description; ?>
     </h1>
 
+
     <div class="text">
         <?php echo $this->folder->text; ?>
     </div>
+
+    <?php IF ($this->folder->cartable == 1): ?>
+        <?php include 'components/com_eventgallery/views/snippets/imagesetselection.php'; ?>
+    <?php ENDIF ?>
 
     <div style="clear:both"></div>
 
@@ -94,7 +99,7 @@ include 'components/com_eventgallery/views/cart.php';
         <?php foreach ($this->entries as $entry) : /** @var EventgalleryHelpersImageDefault $entry */ ?>
             <?php $this->assign('entry', $entry) ?>
             <div class="thumbnail-container">
-                <a class="thumbnail" href="<?php echo $entry->getImageUrl(NULL, NULL, true); ?>"
+                <a class="thumbnail" href="<?php echo $entry->getImageUrl(null, null, true); ?>"
                    title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8') ?>"
                    data-title="<?php echo rawurlencode($entry->getLightBoxTitle()) ?>"
                    rel="lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox', 0) == 1 ? 'fullscreen'

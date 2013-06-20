@@ -20,6 +20,7 @@ class EventgalleryViewSingleImage extends JViewLegacy
     protected $state;
     protected $use_comments;
     protected $model;
+    protected $imageset;
     /**
      * @var JDocument
      */
@@ -70,6 +71,9 @@ class EventgalleryViewSingleImage extends JViewLegacy
                 JRoute::_("index.php?option=com_eventgallery&view=password&folder=" . $folder->folder, false)
             );
         }
+
+        $folderObject = new EventgalleryLibraryFolder($folder->folder);
+        $this->imageset = $folderObject->getImageTypeSet();
 
         $pathway = $app->getPathWay();
         $pathway->addItem(

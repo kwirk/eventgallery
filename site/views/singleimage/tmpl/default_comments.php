@@ -22,6 +22,6 @@ defined('_JEXEC') or die('Restricted access');
                 <div class="text"><?php echo $comment->text ?></div>
             </div>
         </div>
-    <?php ENDFOREACH
+    <?php ENDFOREACH;
 } ?>
 <div style="clear:both;"></div>

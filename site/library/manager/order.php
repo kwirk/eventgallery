@@ -73,7 +73,7 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
          */
         $order = new EventgalleryLibraryOrder($orderTable->id);
         $order->setOrderStatus(EventgalleryLibraryManagerOrderstatus::getDefaultOrderStatus());
-
+        $order->setDocumentNumber(EventgalleryLibraryDatabaseSequence::generateNewId());
 
         $cart->setStatus(1);
 

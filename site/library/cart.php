@@ -164,7 +164,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
 
         if ($lineitem != NULL) {
             $item['id'] = $lineitem->id;
-            $item['quantity'] += $lineitem->quantity;
+            // $item['quantity'] += $lineitem->quantity;
             $item['price'] = $item['quantity'] * $item['singleprice'];
         }
 

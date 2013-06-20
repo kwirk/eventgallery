@@ -27,16 +27,16 @@ class RestController extends JControllerLegacy
     public function add2cart()
     {
 
+
         $file = JRequest::getString('file', NULL);
         $folder = JRequest::getString('folder', NULL);
         $quantity = JRequest::getString('quantity', 1);
-        $typeid = JRequest::getString('typeid', NULL);
+        $imagetypeid = JRequest::getString('imagetypeid', NULL);
 
         $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
-        $cart->addItem($folder, $file, $quantity, $typeid);
+        $cart->addItem($folder, $file, $quantity, $imagetypeid);
         EventgalleryLibraryManagerCart::getInstance()->calculateCart();
         $this->printCartJSON($cart);
-
 
     }
 

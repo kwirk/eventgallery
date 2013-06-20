@@ -171,9 +171,9 @@ defined('_JEXEC') or die('Restricted access');
            $this->params->get('use_fullscreen_lightbox', 0) == 1 ? 'fullscreen' : ''; ?>]"
            title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_ZOOM') ?>"><i class="icon-zoom-in"></i></a>
 
-
+        
         <?php IF ($this->model->folder->cartable == 1): ?>
-            <a href="#" class="btn button-add2cart eventgallery-add2cart"
+            <a href="#" class="btn btn-primary button-add2cart imagetypeselection-show"
                title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART') ?>"
                data-id="folder=<?php echo $this->model->file->folder . "&file=" . $this->model->file->file ?>"><i
                     class="icon-cart-small"></i></a>
@@ -194,6 +194,13 @@ defined('_JEXEC') or die('Restricted access');
         <?php ENDIF ?>
     </div>
 
+
+    <?php IF ($this->model->folder->cartable == 1): ?>
+        <?php $this->set('file', $this->model->file) ?>
+        <?php include 'components/com_eventgallery/views/snippets/imagesetselectionsingle.php'; ?>
+    <?php ENDIF ?>
+
+
     <br>
     <?php echo $this->loadTemplate('commentform'); ?>
     <br>
@@ -211,6 +218,9 @@ defined('_JEXEC') or die('Restricted access');
         <?php ENDIF ?>
     </div>
 
+
+  
+    
     <a name="comments"></a>
     <?php echo $this->loadTemplate('comments'); ?>
 

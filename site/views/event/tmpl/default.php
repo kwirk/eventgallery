@@ -90,6 +90,10 @@ defined('_JEXEC') or die('Restricted access');
         <?php echo $this->folder->text; ?>
     </div>
 
+    <?php IF ($this->folder->cartable == 1): ?>
+        <?php include 'components/com_eventgallery/views/snippets/imagesetselection.php'; ?>
+    <?php ENDIF ?>
+
     <form method="post" name="adminForm">
 
         <div class="pagination">

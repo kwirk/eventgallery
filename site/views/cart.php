@@ -40,7 +40,7 @@ $use_cart = !(strcmp('0', $myParams->get('use_cart', '1')) == 0);
                 'getCartUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&')
             };
 
-            var eventgalleryCart = new EventgalleryCart(options);
+           var eventgalleryCart = new EventgalleryCart(options);
 
         });
         /* ]]> */
@@ -80,7 +80,7 @@ $use_cart = !(strcmp('0', $myParams->get('use_cart', '1')) == 0);
 
 <?php ELSE: ?>
     <style type="text/css">
-        .button-add2cart {
+        .eventgallery-add2cart {
             display: none !important;
         }
     </style>

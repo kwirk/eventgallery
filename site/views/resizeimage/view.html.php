@@ -16,7 +16,7 @@ require_once JPATH_BASE . '/components/com_eventgallery/helpers/vendors/class.jp
 class EventgalleryViewResizeimage extends JViewLegacy
 {
 
-    function display()
+    function display($tpl=null)
     {
         /**
          * @var JSite $app
