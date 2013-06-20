@@ -376,6 +376,8 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- remove the a lot of configuration options for the events list
 
 	- Bug Fixes
+		- fixed missing error messages on checkout page
+		- updated markdown library to prevent some warning messages in the documentation view
 
 ## 2.6.3
 
