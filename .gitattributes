@@ -16,6 +16,9 @@ admin/doc/index.html svneol=native#text/html
 admin/doc/readme.md -text
 admin/eventgallery.php -text
 admin/helpers/index.html -text
+admin/helpers/php_markdown_extra/License.md -text
+admin/helpers/php_markdown_extra/MarkdownExtra.php -text
+admin/helpers/php_markdown_extra/Readme.md -text
 admin/helpers/php_markdown_extra/index.html svneol=native#text/html
 admin/helpers/php_markdown_extra/markdown.php -text
 admin/index.html -text

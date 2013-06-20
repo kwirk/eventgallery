@@ -141,11 +141,12 @@ div#documentation {font-size:16px;}
 
 <div id="documentation">
 <?php
-	 include_once JPATH_COMPONENT.'/helpers/php_markdown_extra/markdown.php';
+	 require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/Markdown.php';
+   require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/MarkdownExtra.php';
 
 
-
-	 $my_html = Markdown(file_get_contents(JPATH_COMPONENT."/doc/readme.md"));
+   use \Michelf\MarkdownExtra;
+	 $my_html = MarkdownExtra::defaultTransform(file_get_contents(JPATH_COMPONENT."/doc/readme.md"));;
 
 	 //fix links
 	 $search  = '<img src="img/';
