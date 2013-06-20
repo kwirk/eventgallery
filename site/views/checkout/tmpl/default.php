@@ -36,15 +36,15 @@ defined('_JEXEC') or die('Restricted access');
 	    <fieldset>	    		
 
 	        <div class="control-group">
-	           	<label class="control-label" for="name"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_NAME')?></label>
+	           	<label id="name-lbl" class="control-label" for="name"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_NAME')?></label>
 		        <div class="controls">
-		            <input type="text" name="name" class="required input-xlarge" id="input01" placeholder="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_NAME_PLACEHOLDER')?>">
+		            <input type="text" name="name" class="required input-xlarge" id="name" placeholder="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_NAME_PLACEHOLDER')?>">
 		        </div>
 	        </div>
 			<div class="control-group">
-				<label class="control-label" for="email"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_EMAIL')?></label>
+				<label id="email-lbl" class="control-label" for="email"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_EMAIL')?></label>
 				<div class="controls">
-					<input type="email" name="email" class="required validate-email input-xlarge" id="input01" placeholder="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_EMAIL_PLACEHOLDER')?>">
+					<input type="email" name="email" class="required validate-email input-xlarge" id="email" placeholder="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_EMAIL_PLACEHOLDER')?>">
 				</div>
 			</div>
 			<div class="control-group">
@@ -58,9 +58,9 @@ defined('_JEXEC') or die('Restricted access');
 				</div>
 			</div>         
 			<div class="control-group">
-				<label class="control-label" for="message"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_MESSAGE')?></label>
+				<label id="message-lbl" class="control-label" for="message"><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_MESSAGE')?></label>
 				<div class="controls">            
-					<textarea name="message" class="required input-xlarge" rows="8" placeholder="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_MESSAGE_PLACEHOLDER')?>"></textarea>
+					<textarea name="message" id="message" class="required input-xlarge" rows="8" placeholder="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_MESSAGE_PLACEHOLDER')?>"></textarea>
 				</div>
 			</div>
 			<div class="form-actions">
