@@ -97,6 +97,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
             'quantity' => $quantity,
             'singleprice' => $imagetype->getPrice(),
             'price' => $quantity * $imagetype->getPrice(),
+            'taxrate' => $imagetype->getTaxrate(),
             'currency' => $imagetype->getCurrency(),
             'typeid' => $imagetype->getId()
         );
@@ -156,6 +157,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
             'quantity' => $count,
             'singleprice' => $imageType->getPrice(),
             'price' => $count * $imageType->getPrice(),
+            'taxrate' => $imageType->getTaxrate(),
             'currency' => $imageType->getCurrency(),
             'typeid' => $imageType->getId()
         );
@@ -164,7 +166,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
 
         if ($lineitem != NULL) {
             $item['id'] = $lineitem->id;
-            // $item['quantity'] += $lineitem->quantity;
+            $item['quantity'] += $lineitem->quantity;
             $item['price'] = $item['quantity'] * $item['singleprice'];
         }
 

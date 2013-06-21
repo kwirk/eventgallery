@@ -51,9 +51,17 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
     /**
      * @return string
      */
+    public function getMiniCartThumb()
+    {
+        return $this->_file->getMiniCartThumb($this);
+    }
+
+    /**
+     * @return string
+     */
     public function getCartThumb()
     {
-        return $this->_file->getCartThumb($this->getId());
+        return $this->_file->getCartThumb($this);
     }
 
     /**

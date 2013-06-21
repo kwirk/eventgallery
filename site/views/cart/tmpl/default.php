@@ -33,7 +33,7 @@ defined('_JEXEC') or die('Restricted access');
                             <?php echo $lineitem->getCartThumb($lineitem->getId()); ?>
                         </td>
                         <td class="quantity">
-                            <input class="validate-numeric required input-small" type="number"
+                            <input class="validate-numeric required input-small eventgallery-quantity" type="number"
                                    name="quantity_<?php echo $lineitem->getId() ?>"
                                    value="<?php echo $lineitem->getQuantity() ?>"/>
                             <a class="delete delete-lineitem" data-lineitemid="<?php echo $lineitem->getId() ?>"
@@ -122,11 +122,17 @@ defined('_JEXEC') or die('Restricted access');
         </div>
 
         <fieldset>
+
             <div class="form-actions">
-                <input name="updateCart" type="submit" class="validate btn "
-                       value="<?php echo JText::_('COM_EVENTGALLERY_CART_FORM_UPDATE') ?>"/>
-                <input name="continue" type="submit" class="validate btn btn-primary"
-                       value="<?php echo JText::_('COM_EVENTGALLERY_CART_FORM_CONTINUE') ?>"/>
+                <input name="updateCart" type="submit" class="validate btn btn-warning eventgallery-removeAll pull-left"
+                       value="<?php echo JText::_('COM_EVENTGALLERY_CART_FORM_REMOVE_ALL') ?>"/>
+                <div class="btn-group pull-right">
+                    <input name="updateCart" type="submit" class="validate btn eventgallery-update"
+                           value="<?php echo JText::_('COM_EVENTGALLERY_CART_FORM_UPDATE') ?>"/>
+                    <input name="continue" type="submit" class="validate btn btn-primary"
+                           value="<?php echo JText::_('COM_EVENTGALLERY_CART_FORM_CONTINUE') ?>"/>
+                </div>
+                <div class="clearfix"></div>
             </div>
         </fieldset>
         <?php echo JHtml::_('form.token'); ?>
@@ -204,9 +210,15 @@ defined('_JEXEC') or die('Restricted access');
 
         }
 
+        function removeAllItems() {
+            $$("input.eventgallery-quantity").set('value',0);
+            $$(".eventgallery-update")[0].fireEvent('click');
+        }
+
         $$(".cart-item input").addEvent('change', setNeedsCalculationMode);
         $$(".cart-item select").addEvent('change', setNeedsCalculationMode);
         $$(".cart-item .delete-lineitem").addEvent('click', removeItem);
+        $$(".eventgallery-removeAll").addEvent('click', removeAllItems);
 
 
     });

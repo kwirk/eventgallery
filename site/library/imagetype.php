@@ -59,6 +59,10 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
         return $this->_imagetype->id;
     }
 
+
+    public function getTaxrate() {
+        return $this->_imagetype->taxrate;
+    }
     /**
      * @return string the price value of the image type
      */

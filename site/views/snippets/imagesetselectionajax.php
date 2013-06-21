@@ -16,16 +16,19 @@ defined('_JEXEC') or die('Restricted access'); ?>
 </style>
 
 <div class="imagetypeselection-container">
-    <button class="btn btn-primary imagetypeselection-show"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES') ?></button>
+<button class="btn btn-primary imagetypeselection-show"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES') ?></button>
 
-    <div class="well imagetypeselection" style="display:none">
-        <?php include dirname(__FILE__).'/imagesetinformation.php'; ?>
-        <div class="btn-group pull-right">
-            <button class="btn eventgallery-add-all"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_ADD_ALL') ?></button>
-            <button class="btn imagetypeselection-hide"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_CLOSE') ?></button>       
-        </div>
-        <div class="clearfix"></div>
+<div class="well imagetypeselection" style="display:none">
+    <?php include dirname(__FILE__).'/imagesetinformation.php'; ?>
+    <div class="btn-group pull-right">
+        <a class="btn imagetypeselection-hide"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_CLOSE') ?></a>       
+        <a class="eventgallery-add2cart btn btn-primary" 
+           data-id="">
+            <i></i><?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART') ?>
+        </a>
     </div>
+    <div class="clearfix"></div>
+</div>
 </div>
 
 <script>
@@ -56,11 +59,17 @@ defined('_JEXEC') or die('Restricted access'); ?>
         }
 
         $$('.imagetypeselection-hide').addEvent('click', closeImageTypeSelection);
+        
         $$('.imagetypeselection-show').addEvent('click', openImageTypeSelection); 
-    
+
+        
+       
+
         imagetypeselectionFX.slideOut().chain(function() {imagetypeselection.show()} );
         
         $$('.imagetypeselection-show').show();
+
+
         $$(".eventgallery-add2cart").hide();
     
     });

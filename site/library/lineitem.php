@@ -107,6 +107,22 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     }
 
     /**
+     * returns the amount of tax
+     *
+     * @return float
+     */
+    public function getTax() {
+        return $this->getPrice()*$this->getTaxrate()/100;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTaxrate() {
+        return $this->_lineitem->taxrate;
+    }
+
+    /**
      * @return float
      */
     public function getPrice()

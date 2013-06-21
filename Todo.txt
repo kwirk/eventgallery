@@ -1,13 +1,17 @@
 Front End
 
 - Surcharge Selection/Automatic Selection By Rule
-- Image Type Details
+- include structure
 - User-Management
 - Order Tracking
-- eMail-Handling
+- eMail-Handling (hübsch machen)
 - Cart Module
-- Service Line Items
 - Payment/Shipping method plugins
+- AGB
+- Impressum
+
+
+- licence key per payment/shipping method
 
 Back End
 

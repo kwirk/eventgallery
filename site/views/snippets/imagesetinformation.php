@@ -32,8 +32,11 @@ defined('_JEXEC') or die('Restricted access'); ?>
     </p>
     <table class="table">
         <?php FOREACH($this->imageset->getImageTypes() as $imageType): ?>            
-            <?php 
-                $checked = "";
+            <?php
+            /**
+             * @var EventgalleryLibraryImagetype $imageType
+             */
+            $checked = "";
                 if ($imageType->getId() == $this->imageset->getDefaultImageType()->getId()) {
                     $checked = 'checked="checked"';
                 }

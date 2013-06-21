@@ -360,6 +360,7 @@ var JSGallery2 = new Class({
         // prepare the add2cart button
         if (this.options.showCartButton) {
             this.add2cartLink.set('data-id', source.getAttribute('data-id'));
+            $$('.eventgallery-add2cart').set('data-id', source.getAttribute('data-id'));
         }
 
         if (this.options.showCartConnector) {

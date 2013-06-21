@@ -124,7 +124,8 @@ class EventgalleryLibraryManagerShipping extends  EventgalleryLibraryDatabaseObj
         $item = array(
             'lineitemcontainerid' => $lineitemcontainer->getId(),
             'quantity' => $quantity,
-            'singleprice' => $method->getPrice(),
+            'singleprice' => $method->getPrice(),#
+            'taxrate' => $method->getTaxrate(),
             'price' => $quantity * $method->getPrice(),
             'currency' => $method->getCurrency(),
             'methodid' => $method->getId(),

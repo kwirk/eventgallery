@@ -69,14 +69,24 @@ abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersIma
         return $caption;
     }
 
-    public function getCartThumb($lineitemid)
+    public function getCartThumb($lineitem)
     {
         return '<a class="thumbnail"
     						href="' . $this->getImageUrl(NULL, NULL, true) . '"
-    						title="' . htmlentities($this->getPlainTextTitle()) . '"
+    						title="' . htmlentities($lineitem->getImageType()->getDisplayName()) . '"
     						data-title="' . rawurlencode($this->getLightBoxTitle()) . '"
-    						data-lineitem-id="' . $lineitemid . '"
-    						rel="lightbo2[cart]"> ' . $this->getThumbImgTag(100, 100) . '</a>';
+    						data-lineitem-id="' . $lineitem->getId() . '"
+    						rel="lightbo2[cart]"> ' . $this->getThumbImgTag(104, 104) . '</a>';
+    }
+
+    public function getMiniCartThumb($lineitem)
+    {
+        return '<a class="thumbnail"
+    						href="' . $this->getImageUrl(NULL, NULL, true) . '"
+    						title="' . htmlentities($lineitem->getImageType()->getDisplayName()) . '"
+    						data-title="' . rawurlencode($this->getLightBoxTitle()) . '"
+    						data-lineitem-id="' . $lineitem->getId() . '"
+    						rel="lightbo2[cart]"> ' . $this->getThumbImgTag(48, 48) . '</a>';
     }
 
     /**

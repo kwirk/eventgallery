@@ -186,7 +186,7 @@ $order = $this->order;
                 contains VAT:    
             </td>
             <td>
-                <?php echo $order->getTotalCurrency().' '.sprintf("%0.2f", $order->getTotal()*0.19); ?>
+                <?php echo $order->getTotalCurrency().' '.sprintf("%0.2f", $order->getTax()); ?>
             </td>
         </tr>
 

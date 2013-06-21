@@ -80,14 +80,25 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
     }
 
     /**
-     * @param int $lineitemid
+     * @param EventgalleryLibraryImagelineitem $lineitem
      *
      * @return string
      */
-    public function getCartThumb($lineitemid)
+    public function getMiniCartThumb($lineitem)
     {
 
-        return $this->_file->getCartThumb($lineitemid);
+        return $this->_file->getMiniCartThumb($lineitem);
+    }
+
+    /**
+     * @param EventgalleryLibraryImagelineitem $lineitem
+     *
+     * @return string
+     */
+    public function getCartThumb($lineitem)
+    {
+
+        return $this->_file->getCartThumb($lineitem);
     }
 
     /**

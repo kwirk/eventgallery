@@ -534,6 +534,7 @@ div.commentform input.captcha {
 /* Cart buttons */
 
 a.button-add2cart i.loading,
+a.button-alreadyInCart i.loading,
 a.button-removeFromCart i.loading {
     background-image: url(../images/cart/loading.gif);
     background-color: #fff;
@@ -633,8 +634,8 @@ div.img:hover .button-alreadyInCart i.big {
 }
 
 .eventgallery-ajaxcart .cart-items-container {
-    min-height: 140px;
-    height: 140px;
+    min-height: 90px;
+    height: 90px;
     overflow: hidden;
 }
 
@@ -647,7 +648,8 @@ div.img:hover .button-alreadyInCart i.big {
 .eventgallery-ajaxcart .cart-items img,
 .eventgallery-checkout .cart-items img,
 .eventgallery-cart .cart-items img {
-    width: 100px;
+
+
 }
 
 .eventgallery-ajaxcart .cart-items .cart-item {
@@ -655,9 +657,15 @@ div.img:hover .button-alreadyInCart i.big {
     float: left;
     font-size: 0px;
     line-height: 0px;
-    margin-right: 27px;
+    margin-right: 24px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.eventgallery-ajaxcart .cart-items .cart-item .badge {
+    position:absolute; 
+    top: -5px; 
+    right: -5px;
 }
 
 .eventgallery-ajaxcart .cart-items .cart-item .button-removeFromCart {

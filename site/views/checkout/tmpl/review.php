@@ -105,7 +105,7 @@ defined('_JEXEC') or die('Restricted access');
                     <?php printf("%.2f", $this->cart->getTotal()); ?>
 				</span>
 				<span class="vat">
-					<?php echo JText::_('COM_EVENTGALLERY_CART_VAT_HINT') ?>
+					<?php echo JText::sprintf('COM_EVENTGALLERY_CART_VAT_HINT_WITH_PLACEHOLDER', $this->cart->getTaxCurrency(), $this->cart->getTax()) ?>
 				</span>
             </div>
         </div>
@@ -145,7 +145,7 @@ defined('_JEXEC') or die('Restricted access');
 
         <fieldset>
             <div class="form-actions">
-                <!--<input name="change" type="submit" class="validate btn" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CHANGE')?>"/>           -->
+                <input name="change" type="submit" class="validate btn" value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CHANGE')?>"/>
                 <input name="continue" type="submit" class="validate btn btn-primary"
                        value="<?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_FORM_CONTINUE') ?>"/>
             </div>

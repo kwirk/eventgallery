@@ -70,6 +70,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php include 'components/com_eventgallery/views/cart.php'; ?>
 
+<?php IF ($this->folder->cartable == 1): ?>
+    <?php include 'components/com_eventgallery/views/snippets/imagesetselectionajax.php'; ?>            
+<?php ENDIF ?>
+
 <div class="ajaxpaging">
 
 
@@ -176,10 +180,5 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
     </div>
     <div style="clear:both"></div>
-    <?php IF ($this->folder->cartable == 1): ?>
-        <div class="well">
-            <?php include dirname(__FILE__).'/../../snippets/imagesetinformation.php'; ?>            
-            <div class="clearfix"></div>
-        </div>
-    <?php ENDIF ?>
+    
 </div>

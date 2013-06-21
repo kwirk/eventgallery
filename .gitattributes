@@ -316,6 +316,7 @@ site/views/singleimage/tmpl/index.html -text
 site/views/singleimage/view.html.php -text
 site/views/snippets/imagesetinformation.php -text
 site/views/snippets/imagesetselection.php -text
+site/views/snippets/imagesetselectionajax.php -text
 site/views/snippets/imagesetselectionsingle.php -text
 site/views/snippets/index.html svneol=native#text/html
 tests/data/images/20111008_155119_IMG_0559.jpg -text svneol=unset#image/jpeg

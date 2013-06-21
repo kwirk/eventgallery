@@ -55,9 +55,11 @@ class RestController extends JControllerLegacy
                 'file' => $lineitem->getFileName(),
                 'folder' => $lineitem->getfolderName(),
                 'count' => $lineitem->getQuantity(),
+                'singleprice' => $lineitem->getSinglePrice(),
+                'price' => $lineitem->getPrice(),
                 'lineitemid' => $lineitem->getId(),
                 'typeid' => $lineitem->getImageType()->getId(),
-                'imagetag' => $lineitem->getCartThumb()
+                'imagetag' => $lineitem->getMiniCartThumb()
             );
 
             array_push($jsonCart, $item);

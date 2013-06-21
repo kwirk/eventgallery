@@ -14,11 +14,11 @@ defined('_JEXEC') or die();
 abstract class EventgalleryLibraryMethod extends EventgalleryLibraryDatabaseObject
 {
 
-    protected $_object = NULL;
-    protected $_object_id = NULL;
-    protected $_data = NULL;
-    protected $_ls_displayname = NULL;
-    protected $_ls_description = NULL;
+    protected $_object = null;
+    protected $_object_id = null;
+    protected $_data = null;
+    protected $_ls_displayname = null;
+    protected $_ls_description = null;
 
     public function __construct($object)
     {
@@ -102,11 +102,27 @@ abstract class EventgalleryLibraryMethod extends EventgalleryLibraryDatabaseObje
      */
     public function getData()
     {
-        if (NULL == $this->_data) {
+        if (null == $this->_data) {
             $this->_data = json_decode($this->_object->data);
         }
 
         return $this->_data;
+    }
+
+
+    /**
+     * returns the amount of tax for this item
+     *
+     * @return float
+     */
+    public function getTax() {
+        return $this->getPrice()*$this->getTaxrate()/100;
+    }
+    /**
+     * @return int
+     */
+    public function getTaxrate() {
+        return $this->_object->taxrate;
     }
 
 }

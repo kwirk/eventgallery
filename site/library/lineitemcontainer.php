@@ -163,15 +163,11 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         return $this->_lineitemcontainer->message;
     }
 
-    /**
-     * returns a lineitem with a specific id from this lineitemcontainer
-     */
 
     /**
-     * @return EventgalleryLibraryPayment|null
+     * @return EventgalleryLibraryServicelineitem|null
      */
-    public function getPaymentMethod()
-    {
+    public function getPaymentMethodServiceLineItem() {
         foreach ($this->_servicelineitems as $servicelineitem) {
             /**
              * @var EventgalleryLibraryServicelineitem $servicelineitem
@@ -181,6 +177,17 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
             }
         }
 
+        return null;
+    }
+    /**
+     * @return EventgalleryLibraryPayment|null
+     */
+    public function getPaymentMethod()
+    {
+        $sli = $this->getPaymentMethodServiceLineItem();
+        if ($sli) {
+            return $sli->getMethod();
+        }
         return null;
     }
 
@@ -204,10 +211,9 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     }
 
     /**
-     * @return EventgalleryLibraryShipping|null
+     * @return EventgalleryLibraryServicelineitem|null
      */
-    public function getShippingMethod()
-    {
+    public function getShippingMethodServiceLineItem() {
         foreach ($this->_servicelineitems as $servicelineitem) {
             /**
              * @var EventgalleryLibraryServicelineitem $servicelineitem
@@ -217,6 +223,17 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
             }
         }
 
+        return null;
+    }
+    /**
+     * @return EventgalleryLibraryShipping|null
+     */
+    public function getShippingMethod()
+    {
+        $sli = $this->getShippingMethodServiceLineItem();
+        if ($sli) {
+            return $sli->getMethod();
+        }
         return null;
     }
 
@@ -237,10 +254,9 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     }
 
     /**
-     * @return EventgalleryLibrarySurcharge|null
+     * @return EventgalleryLibraryServicelineitem|null
      */
-    public function getSurcharge()
-    {
+    public function getSurchargeServiceLineItem() {
         foreach ($this->_servicelineitems as $servicelineitem) {
             /**
              * @var EventgalleryLibraryServicelineitem $servicelineitem
@@ -250,6 +266,17 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
             }
         }
 
+        return null;
+    }
+    /**
+     * @return EventgalleryLibrarySurcharge|null
+     */
+    public function getSurcharge()
+    {
+        $sli = $this->getSurchargeServiceLineItem();
+        if ($sli) {
+            return $sli->getMethod();
+        }
         return null;
     }
 
@@ -292,6 +319,41 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     }
 
     /**
+     * @return string
+     */
+    public function getTaxCurrency() {
+        return $this->getTotalCurrency();
+    }
+
+    /**
+     * returns float the tax amount
+     */
+    public function getTax() {
+        $tax = 0;
+
+        foreach($this->getLineItems() as $lineitem) {
+            /**
+             * @var EventgalleryLibraryLineitem $lineitem
+             */
+            $tax += $lineitem->getTax();
+        }
+
+        if ($this->getShippingMethodServiceLineItem()) {
+            $tax += $this->getShippingMethodServiceLineItem()->getTax();
+        }
+
+        if ($this->getPaymentMethodServiceLineItem()) {
+            $tax += $this->getPaymentMethodServiceLineItem()->getTax();
+        }
+
+        if ($this->getSurchargeServiceLineItem()) {
+            $tax += $this->getSurchargeServiceLineItem()->getTax();
+        }
+
+        return $tax;
+    }
+
+    /**
      * @return float
      */
     public function getTotal()
@@ -301,7 +363,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getTotalCurrency()
     {

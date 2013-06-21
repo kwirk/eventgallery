@@ -545,7 +545,12 @@ var EventgalleryCart = new Class({
             var id = 'folder=' + this.cart[i].folder + '&file=' + this.cart[i].file;
             //add the item to the cart. Currently we simple refresh the whole cart.
             if (!linksOnly) {
-                cartHTML.set('html', cartHTML.get('html') + '<div class="cart-item">' + this.cart[i].imagetag + '<a href="#" title="' + this.options.removeLinkTitle + '" class="eventgallery-removeFromCart button-removeFromCart" data-id="lineitemid=' + this.cart[i].lineitemid + '"><i class="big"></i></a></div>');
+                cartHTML.set('html', cartHTML.get('html') + 
+                    '<div class="cart-item"><span class="badge">'+this.cart[i].count+'</span>' + 
+                        this.cart[i].imagetag + 
+                        '<a href="#" title="' + this.options.removeLinkTitle + '" class="eventgallery-removeFromCart button-removeFromCart" data-id="lineitemid=' + this.cart[i].lineitemid + '">'+
+                        '<i class="big"></i>' +
+                        '</a></div>');
             }
             // mark the add2cart link to show the item is already in the cart
             $$('a.eventgallery-add2cart[data-id="' + id + '"]').addClass('button-alreadyInCart').removeClass('button-add2cart');
@@ -645,8 +650,15 @@ var EventgalleryCart = new Class({
             var data = linkElement.getAttribute('data-id');
         }
         var imagetype = $$('input:checked[name=currentimagetype]')[0];
-
+        
         iconElement.addClass('loading');
+
+        var oldBtnClass = "";
+        if (linkElement.hasClass('btn-primary')) {
+            oldBtnClass = 'btn-primary';
+            linkElement.removeClass(oldBtnClass);
+            linkElement.addClass('btn-info');
+        }
         var myRequest = new Request.JSON(
             {
                 url: url,
@@ -658,6 +670,16 @@ var EventgalleryCart = new Class({
                         this.populateCart();
                     }
                     iconElement.removeClass('loading');
+
+                    if (oldBtnClass.length>0) {
+                        linkElement.removeClass('btn-info');
+                        linkElement.addClass('btn-success');
+                        setTimeout(function() {
+                            linkElement.removeClass('btn-success');
+                            linkElement.addClass(oldBtnClass);
+                        }.bind(this), 2000); 
+                    }
+
                 }.bind(this)
             }
         ).send();

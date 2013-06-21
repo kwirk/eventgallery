@@ -24,7 +24,20 @@ interface  EventgalleryHelpersImageInterface
 
     public function getThumbUrl($width = 104, $height = 104, $larger = true, $crop = false);
 
-    public function getCartThumb($lineitemid);
+
+    /**
+     * @param EventgalleryLibraryImagelineitem $lineitem
+     *
+     * @return string
+     */
+    public function getMiniCartThumb($lineitem);
+
+    /**
+     * @param EventgalleryLibraryImagelineitem $lineitem
+     *
+     * @return string
+     */
+    public function getCartThumb($lineitem);
 
     public function getFileName();
 

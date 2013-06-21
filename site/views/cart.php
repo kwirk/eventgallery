@@ -25,6 +25,7 @@ $use_cart = !(strcmp('0', $myParams->get('use_cart', '1')) == 0);
     <script type="text/javascript">
         /* <![CDATA[ */
         window.addEvent("domready", function () {
+
             var options = {
                 buttonShowType: 'inline',
                 emptyCartSelector: '.eventgallery-cart-empty',
@@ -46,7 +47,7 @@ $use_cart = !(strcmp('0', $myParams->get('use_cart', '1')) == 0);
         /* ]]> */
     </script>
 
-    <div class="eventgallery-ajaxcart">
+    <div class="eventgallery-ajaxcart well">
 
         <h2><?php echo JText::_('COM_EVENTGALLERY_CART') ?></h2>
 

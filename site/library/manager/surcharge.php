@@ -126,6 +126,7 @@ class EventgalleryLibraryManagerSurcharge extends EventgalleryLibraryDatabaseObj
             'quantity' => $quantity,
             'singleprice' => $method->getPrice(),
             'price' => $quantity * $method->getPrice(),
+            'taxrate' => $method->getTaxrate(),
             'currency' => $method->getCurrency(),
             'methodid' => $method->getId(),
             'type' => EventgalleryLibraryServicelineitem::TYPE_SURCHARGE,
