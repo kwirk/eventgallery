@@ -59,6 +59,7 @@ admin/tables/index.html -text
 admin/tables/order.php -text
 admin/tables/orderstatus.php -text
 admin/tables/paymentmethod.php -text
+admin/tables/servicelineitem.php -text
 admin/tables/shippingmethod.php -text
 admin/tables/staticaddress.php -text
 admin/tables/surcharge.php -text
