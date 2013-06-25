@@ -324,6 +324,17 @@ If you want to display the thumbnails beside the big image you can simply let th
 
 ![Switch from two rows to two columns](img/frontend/event_ajax_list_css_custom.jpg)
 
+### Modify Events List
+
+The number of elements per row is something you can change by simple CSS. There is not configuration option because with css you can use Media Queries to adjust the tiles based on the current view port.
+
+A simple css definition would look like this. It will give you 4 item per row.
+
+	div#events .item-container {
+		width: 25%
+	}
+	
+
 # FAQ {#FAQ}
 
 ## Thumbs do not show up {#FAQThumbs}
