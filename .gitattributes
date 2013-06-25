@@ -144,6 +144,7 @@ site/library/address.php -text
 site/library/cart.php -text
 site/library/database/Localizablestring.php -text
 site/library/database/index.html svneol=native#text/html
+site/library/database/localizablestring.php -text
 site/library/database/object.php -text
 site/library/database/sequence.php -text
 site/library/file.php -text
