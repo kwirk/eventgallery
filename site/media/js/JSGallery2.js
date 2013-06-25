@@ -18,6 +18,7 @@ var JSGallery2 = new Class({
         'prev_image': 'prev_image.png',
         'showCartButton': true,
         'showCartConnector': false,
+		'cartConnectorLinkRel': '',
         'activeClass': 'thumbnail-active', // the css class for the active thumbnail
         'loadingClass': 'thumbnail-loading', // the css class for the loading thumbnail
         'lightboxRel': 'lightbo2' // the trigger rel for the lightbox script
@@ -180,6 +181,7 @@ var JSGallery2 = new Class({
                 'class': 'button-cart-connector',
                 html: '<i class="big"></i>',
                 id: 'ajax-cartconnector',
+			    rel: this.options.cartConnectorLinkRel,
                 styles: {
                     'font-size': '59px',
                     'right': '0px',

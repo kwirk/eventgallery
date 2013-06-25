@@ -19,13 +19,16 @@ class EventgalleryViewEvents extends JViewLegacy
     protected $fileCount;
     protected $folderCount;
     protected $eventModel;
+    protected $pageNav;
+    protected $cache;
+
 
     function display($tpl = NULL)
     {
         /**
          * @var JCacheControllerCallback $cache
          */
-        $cache = JFactory::getCache('com_eventgallery');
+        $this->cache = JFactory::getCache('com_eventgallery');
 
         /**
          * @var JSite $app
@@ -40,15 +43,17 @@ class EventgalleryViewEvents extends JViewLegacy
             $this->params->merge($app->getMenu()->getDefault()->params);
         }
 
-        $entriesPerPage = 10;
+		$entriesPerPage = $this->params->get('max_events_per_page', 12);
         $model = $this->getModel('events');
         $eventModel = $this->getModel('event');
 
         //$entries = $model->getEntries(JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
-        $entries = $cache->call(
-            array($model, 'getEntries'), JRequest::getVar('page', 1), $entriesPerPage, $this->params->get('tags'),
+        $entries = $this->cache->call(
+            array($model, 'getEntries'), JRequest::getVar('start', 0), $entriesPerPage, $this->params->get('tags'),
             $this->params->get('sort_events_by')
         );
+
+        $this->pageNav = $model->getPagination();
 
 
         $this->entries = $entries;

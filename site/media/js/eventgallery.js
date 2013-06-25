@@ -293,8 +293,12 @@ var EventgalleryImagelist = new Class({
 
         }.bind(this));
 
+			$$(this.options.eventgallerySelector).getLast().setStyle('min-height', this.options.rowHeight*this.images.length);
+			
         this.processList();
         this.options.initComplete();
+			
+			$$(this.options.eventgallerySelector).getLast().setStyle('min-height','auto');
     },
     /*calculated the with of an element*/
     getRowWidth: function () {

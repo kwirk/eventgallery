@@ -148,8 +148,8 @@ class CheckoutController extends JControllerLegacy
         /* create order*/
         $orderMgr = new EventgalleryLibraryManagerOrder();
 
-        $order = $cart;
-        #$order = $orderMgr->createOrder($cart);
+        #$order = $cart;
+        $order = $orderMgr->createOrder($cart);
         $orderMgr->processOnOrderSubmit($order);
 
         $send = $this->_sendOrderConfirmationMail($order);

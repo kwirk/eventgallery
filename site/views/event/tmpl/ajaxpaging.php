@@ -40,6 +40,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
                 'titleTarget': 'bigImageDescription',
                 'showCartButton': <?php echo $this->folder->cartable==1?'true':'false'; ?>,
                 'showCartConnector': <?php echo $this->params->get('show_cart_connector', 0)==1&&$this->folder->cartable==1?'true':'false'; ?>,
+				'cartConnectorLinkRel' : '<?php echo $this->params->get('cart_connector_link_rel', 'nofollow')?>',
                 'lightboxRel': 'lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox',0)==1?'fullscreen':''; ?>]'
             });
 

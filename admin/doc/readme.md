@@ -3,7 +3,23 @@
 It's time to introduce a new gallery component for Joomla. I guess you're already waiting for something like this since there is a real lack of such kind of components ;-)
 Initially I build this component to show photos of different events to the audience. To where other components have folders this component calls them events. Because of this this component is called Event Gallery. 
 
-If you want to support the development of this component you might want to have a look at this donation page: [![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=svenbluege%40gmail%2ecom&lc=GB&item_name=Event%20Gallery%20Development&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest)
+If you want to support the development of this component you might want to have a look at this PayPal donation page or at Flattr.
+
+
+[![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=svenbluege%40gmail%2ecom&lc=GB&item_name=Event%20Gallery%20Development&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest)
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+/* ]]> */</script>
+<a class="FlattrButton" style="display:none;" href="http://www.svenbluege.de/joomla-event-gallery"></a>
 
 
 Let's list all the features this gallery component provides:
@@ -35,7 +51,7 @@ Let's list all the features this gallery component provides:
 
 - Images! Large Images. At least as wide as the space where you want to show them is. Bigger is better :)
 - Joomla 2.5 (>2.5.8) or Joomla 3
-- use PHP 5.4, PHP 5.3 might work too
+- PHP 5.3 or later
 - GD library for PHP
 - set the PHP memory limit high enough
 - your Joomla Template should put jQuery into no conflict mode
@@ -131,13 +147,7 @@ There are several views available:
 	- _Sort By_ defines the direction and the attribute which is used the sort the events.
 	- _Intro Text_ defines a text for the events page. Usually displayed on top of the page. 
 	- _Tags_ defines which tag a event need to get displayed on this list of events.
-	- _Max events on Page_ How many events should we show? If you have 456 and set the number to 20, it'll show only 20. 
-	- _Max big events_ Defines who many events we show as big event tiles.
-	- _Number of Thumbnails_ how many thumbnails do we want to show per event? (since 2.6.3 unused for big events)
-	- _Thumbnail width_ defines the width of a thumbnail for each type of element (since 2.6.3 unused for big events)
-	- _Max middle events_ how many of the events should we show medium sized?
-	- _Show Thumbnails_ guess what...
-	- _show more link_ Show a link to the simple list where show all the available events. 
+	- _Max events per Page_ How many events should we show per page until the paging bar will appear. 
 	- _show exif_ If EXIF information for an image are available this toggle switches them on or off. 
 	- _show event text_ Defines to show the text for an event on the event list. 
 	- _show date_ You can toggle the appearance of the date for the events show within this menu item
@@ -286,6 +296,10 @@ There are only a few things globally manageable.
 
 	Defines a pattern for an external link. You can use the following placeholder: ${folder},${file} and ${fileBase} like this: http://www.foo.bar?category=${folder}&amp;sku=${fileBase}
 
+- external cart link rel
+	
+	Defines the rel attribute of this link. By default this is nofollow so the search engine crawlers will not follow your external cart links.
+
 - image quality
 
 	Defines the output quality of every generated image. Default is 85% which is pretty good. Lower values will result in lower quality.
@@ -309,6 +323,17 @@ This section is intended to provide some help with customizations.
 If you want to display the thumbnails beside the big image you can simply let them float the way you need them. 
 
 ![Switch from two rows to two columns](img/frontend/event_ajax_list_css_custom.jpg)
+
+### Modify Events List
+
+The number of elements per row is something you can change by simple CSS. There is not configuration option because with css you can use Media Queries to adjust the tiles based on the current view port.
+
+A simple css definition would look like this. It will give you 4 item per row.
+
+	div#events .item-container {
+		width: 25%
+	}
+	
 
 # FAQ {#FAQ}
 
@@ -368,14 +393,26 @@ If you want to display the thumbnails beside the big image you can simply let th
 ## 2.6.4
 
 	- New Features
-		- added option to display links to external sites instead of using the internal add2cart 
-		  button. As of now there is a global configuration option where you can define a pattern
-		  for the external link. Make sure you use the internal or the external cart button only. 
-		  If you're fit with JavaScript you can target the new add2cart button and apply a different
-		  behavior. The link contains two attributes data-file and data-folder which might become useful.
-		- Lightbox uses it's own name space now. This will reduce the conlicts with other lightbox includes.
+		- added option to display links to external sites instead of using the internal
+		  add2cart button. As of now there is a global configuration option where you 
+		  can define a pattern for the external link. Make sure you use the internal 
+		  or the external cart button only. If you're fit with JavaScript you can 
+		  target the new add2cart button and apply a different behavior. The link 
+		  contains two attributes data-file and data-folder which might become useful.
+		- Lightbox uses it's own name space now. This will reduce the conflicts with 
+		  other lightbox includes.
+		- List of events supports paging now
+		- remove the a lot of configuration options for the events list (the new 
+		  feature is the clean code ;-)
 
 	- Bug Fixes
+		- fixed missing error messages on checkout page
+		- updated markdown library to prevent some warning messages in the documentation 
+		   view
+		- fixes issue with flexible layouts. The width is calculated initially, then 
+		  the scroll bars appear and the width decreases. The images will end up unaligned. 
+		  Now I set the min-width of the container initially to a height so the 
+		  scrollbars appear and the width calculation works.
 
 ## 2.6.3
 
@@ -386,19 +423,22 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- AJAX list loads images based one the available page size.
 		- react on missing write permission on cache folder while writing a thumbnail
 		- configuration option for image quality added.
-		- significant reduced memory consumption and increased performance for processing Google Picasa XML files.
+		- significant reduced memory consumption and increased performance for processing 
+		  Google Picasa XML files.
 		- added limit box for events list and file list
 		- you can define the sorting of events for every menu item.
 		- improved order mail
-		- added option to display the lightbox in full screen mode. This is very handy if you want to
-		  support mobile devices since this mode does not waste as much space as the current lightbox.
+		- added option to display the lightbox in full screen mode. This is very handy if 
+		  you want to support mobile devices since this mode does not waste as much space 
+		  as the current lightbox.
 
 
 	- Bug fixes
-		- the large image in ajax mode was not correct aligned. Usually it was displayed too large.
+		- the large image in ajax mode was not correct aligned. Usually it was displayed 
+		  too large.
 		- better support for SEO components like aceSEF.
-		- Fix for showing tiny thumbs in Opera using a template which does not define the border-width 
-		  for the css class .thumbnail
+		- Fix for showing tiny thumbs in Opera using a template which does not define the 
+		  border-width for the css class .thumbnail
 		- removed Strict Standard messages
 		- PHP 5.2 seems to work now.
 
@@ -408,21 +448,36 @@ If you want to display the thumbnails beside the big image you can simply let th
 	- New Features
 		- Ajax list: thumb size is configurable
 		- configuration to show/hide EXIF information in descriptions
-		- you can target (and therefore hide) each button of the navigation bar on the single image page using CSS
-		- added CSS classes to access date, text to style date, description and text of an event individually.
+		- you can target (and therefore hide) each button of the navigation bar on the 
+		  single image page using CSS
+		- added CSS classes to access date, text to style date, description and text of 
+		  an event individually.
 		- added toggle for date, image hits, image count, comment count for each menu item
-		- added compatibility for IE7 and IE8. You should at least see something now. Create your own browser specific css (http://www.webmonkey.com/2010/02/browser-specific_css_hacks/) to make it look nice with your Joomla Template. Keep in mind that I'll not start testing with IE7 and IE8 but I'll react on the defects you submit. No "not pixel perfect" bugs for those browsers please. 
-		- restricted possible thumb sizes to one of those entries {32, 48, 64, 72, 94, 104, 110, 128, 144, 150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 1024, 1152, 1280, 1440}. Each size is available as a square sized version and normal sized scaled down version. Doing this will prevent attackers from creating unlimited thumbs and exceed your web space.
+		- added compatibility for IE7 and IE8. You should at least see something now. 
+		  Create your own browser specific css 
+		  (http://www.webmonkey.com/2010/02/browser-specific_css_hacks/) to make it look 
+		  nice with your Joomla Template. Keep in mind that I'll not start testing with IE7 
+		  and IE8 but I'll react on the defects you submit. No "not pixel perfect" bugs for 
+		  those browsers please. 
+		- restricted possible thumb sizes to one of those entries {32, 48, 64, 72, 94, 104, 
+		  110, 128, 144, 150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 
+		  1024, 1152, 1280, 1440}. Each size is available as a square sized version and 
+		  normal sized scaled down version. Doing this will prevent attackers from creating 
+		  unlimited thumbs and exceed your web space.
 		- Configuration option for the image sharpening
-		- Embed ICC profiles. Very useful for all the people with wide gamut displays which don't like cartoon colors. 
-		- instead of setting the width & height for an image we use the right sized transparent gif now. This will make !important statements in css file unnecessary. 		
+		- Embed ICC profiles. Very useful for all the people with wide gamut displays which 
+		  don't like cartoon colors. 
+		- instead of setting the width & height for an image we use the right sized 
+		  transparent gif now. This will make !important statements in css file unnecessary. 		
 		- added support for page heading configuration at a menu item
 
 	- Bug fixes
-		- tag support: menu item for the event list can define a comma or space separated list of tags
+		- tag support: menu item for the event list can define a comma or space separated 
+		  list of tags
 		- fixed issue with the loading image on very small screens on the single image page
 		- fixed encoding issues for event text, file title and file description 
-		- fixed enlargement of images which are uploaded smaller than 1440px in the lightbox and image lists.
+		- fixed enlargement of images which are uploaded smaller than 1440px in the lightbox 
+		  and image lists.
 		- cleaning the cache is working again. Wrong task was referenced so nothing happened.
 		- an event gallery page can now be the default page
 
@@ -440,9 +495,11 @@ If you want to display the thumbnails beside the big image you can simply let th
 		- fixed SEO URLs when appending a suffix like .html to every URL.
 		- fixed adding comments. 
 		- fixed enlargement of images because of JavaScript calculations
-		- fixed hiding of navigation buttons in single image view if the last / first image is shown.
+		- fixed hiding of navigation buttons in single image view if the last / first image 
+		  is shown.
 		- fixed blue background in Ajax view with J2.5 default template
-		- fixed issue with lightbox and some URL encoding. Lightbox opened but no image appeared. 
+		- fixed issue with lightbox and some URL encoding. Lightbox opened but no image 
+		  appeared. 
 
 
 ## 2.6.0

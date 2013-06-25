@@ -38,7 +38,6 @@ class EventgalleryLibraryDatabaseObject extends JObject
 
         $row = JTable::getInstance($table, 'Table');
 
-
         $date = date("Y-m-d H:i:s");
 
         // Bind the form fields to the table

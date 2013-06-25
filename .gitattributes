@@ -16,6 +16,9 @@ admin/doc/index.html svneol=native#text/html
 admin/doc/readme.md -text
 admin/eventgallery.php -text
 admin/helpers/index.html -text
+admin/helpers/php_markdown_extra/License.md -text
+admin/helpers/php_markdown_extra/MarkdownExtra.php -text
+admin/helpers/php_markdown_extra/Readme.md -text
 admin/helpers/php_markdown_extra/index.html svneol=native#text/html
 admin/helpers/php_markdown_extra/markdown.php -text
 admin/index.html -text
@@ -112,6 +115,7 @@ admin/views/upload/view.html.php -text
 /eventgallery.xml -text
 /index.html svneol=native#text/html
 plugins/eventgallery_help.zip -text svneol=unset#application/x-zip-compressed
+/script.php -text
 site/controller.php -text
 site/controllers/Cart.php -text
 site/controllers/Checkout.php -text
@@ -143,7 +147,6 @@ site/language/nb-NO/nb-NO.com_eventgallery.ini -text
 site/language/nl-NL/nl-NL.com_eventgallery.ini -text
 site/library/address.php -text
 site/library/cart.php -text
-site/library/database/Localizablestring.php -text
 site/library/database/index.html svneol=native#text/html
 site/library/database/localizablestring.php -text
 site/library/database/object.php -text
@@ -298,6 +301,7 @@ site/views/events/index.html -text
 site/views/events/metadata.xml -text
 site/views/events/tmpl/default.php -text
 site/views/events/tmpl/default.xml -text
+site/views/events/tmpl/default_event.php -text
 site/views/events/tmpl/index.html -text
 site/views/events/tmpl/list.php -text
 site/views/events/tmpl/list.xml -text
