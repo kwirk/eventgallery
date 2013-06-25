@@ -141,7 +141,7 @@ div#documentation {font-size:16px;}
 
 <div id="documentation">
 <?php
-	 require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/Markdown.php';
+	 require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/markdown.php';
    require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/MarkdownExtra.php';
 
 

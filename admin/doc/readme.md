@@ -3,7 +3,23 @@
 It's time to introduce a new gallery component for Joomla. I guess you're already waiting for something like this since there is a real lack of such kind of components ;-)
 Initially I build this component to show photos of different events to the audience. To where other components have folders this component calls them events. Because of this this component is called Event Gallery. 
 
-If you want to support the development of this component you might want to have a look at this donation page: [![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=svenbluege%40gmail%2ecom&lc=GB&item_name=Event%20Gallery%20Development&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest)
+If you want to support the development of this component you might want to have a look at this PayPal donation page or at Flattr.
+
+
+[![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=svenbluege%40gmail%2ecom&lc=GB&item_name=Event%20Gallery%20Development&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest)
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+/* ]]> */</script>
+<a class="FlattrButton" style="display:none;" href="http://www.svenbluege.de/joomla-event-gallery"></a>
 
 
 Let's list all the features this gallery component provides:
@@ -35,7 +51,7 @@ Let's list all the features this gallery component provides:
 
 - Images! Large Images. At least as wide as the space where you want to show them is. Bigger is better :)
 - Joomla 2.5 (>2.5.8) or Joomla 3
-- use PHP 5.4, PHP 5.3 might work too
+- PHP 5.3 or later
 - GD library for PHP
 - set the PHP memory limit high enough
 - your Joomla Template should put jQuery into no conflict mode
@@ -371,13 +387,16 @@ If you want to display the thumbnails beside the big image you can simply let th
 		  for the external link. Make sure you use the internal or the external cart button only. 
 		  If you're fit with JavaScript you can target the new add2cart button and apply a different
 		  behavior. The link contains two attributes data-file and data-folder which might become useful.
-		- Lightbox uses it's own name space now. This will reduce the conlicts with other lightbox includes.
+		- Lightbox uses it's own name space now. This will reduce the conflicts with other lightbox includes.
 		- List of events supports paging now
-		- remove the a lot of configuration options for the events list
+		- remove the a lot of configuration options for the events list (the new feature is the clean code ;-)
 
 	- Bug Fixes
 		- fixed missing error messages on checkout page
 		- updated markdown library to prevent some warning messages in the documentation view
+		- fixes issue with flexible layouts. The width is calculated initially, then the scroll bars
+		  appear and the width decreases. The images will end up unaligned. Now I set the min-width of 
+		  the container initially to a height so the scrollbars appear and the width calculation works.
 
 ## 2.6.3
 
