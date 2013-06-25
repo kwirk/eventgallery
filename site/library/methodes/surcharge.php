@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryLibraryPayment extends EventgalleryLibraryMethod
+abstract class EventgalleryLibraryMethodesSurcharge extends EventgalleryLibraryMethodesMethod
 {
 
     /**
@@ -22,12 +22,16 @@ class EventgalleryLibraryPayment extends EventgalleryLibraryMethod
         $db = JFactory::getDBO();
 
         $query = $db->getQuery(true);
-        $query->select('p.*');
-        $query->from('#__eventgallery_paymentmethod p');
-        $query->where('p.id=' . $db->Quote($this->_object_id));
+        $query->select('s.*');
+        $query->from('#__eventgallery_surcharge s');
+        $query->where('s.id=' . $db->Quote($this->_object_id));
 
         $db->setQuery($query);
         $this->_object = $db->loadObject();
+    }
+
+    public function getTypeCode() {
+        return EventgalleryLibraryServicelineitem::TYPE_SURCHARGE;
     }
 
 }

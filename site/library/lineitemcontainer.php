@@ -40,12 +40,12 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     protected $_servicelineitems = null;
     /**
-     * @var EventGalleryLibraryShipping
+     * @var EventgalleryLibraryMethodesShipping
      */
 
     protected $_shippingaddress = null;
     /**
-     * @var EventgalleryLibrarySurcharge
+     * @var EventgalleryLibraryMethodesSurcharge
      */
 
     protected $_user_id = null;
@@ -180,7 +180,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         return null;
     }
     /**
-     * @return EventgalleryLibraryPayment|null
+     * @return EventgalleryLibraryMethodesPayment|null
      */
     public function getPaymentMethod()
     {
@@ -226,7 +226,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         return null;
     }
     /**
-     * @return EventgalleryLibraryShipping|null
+     * @return EventgalleryLibraryMethodesShipping|null
      */
     public function getShippingMethod()
     {
@@ -269,7 +269,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         return null;
     }
     /**
-     * @return EventgalleryLibrarySurcharge|null
+     * @return EventgalleryLibraryMethodesSurcharge|null
      */
     public function getSurcharge()
     {
@@ -283,7 +283,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     /**
      * sets a surcharge
      *
-     * @param EventgalleryLibrarySurcharge $surcharge
+     * @param EventgalleryLibraryMethodesSurcharge $surcharge
      */
     public function setSurcharge($surcharge)
     {
@@ -418,7 +418,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     /**
      * sets a Payment
      *
-     * @param EventgalleryLibraryPayment $payment
+     * @param EventgalleryLibraryMethodesPayment $payment
      */
     public function setPaymentMethod($payment)
     {
@@ -465,7 +465,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     /**
      * sets a shipping
      *
-     * @param EventgalleryLibraryShipping $shipping
+     * @param EventgalleryLibraryMethodesShipping $shipping
      */
     public function setShippingMethod($shipping)
     {

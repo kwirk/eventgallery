@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
     <form action="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=createOrder") ?>"
           method="post" class="form-validate form-horizontal checkout-form">
         <div class="cart-items">
-            <table>
+            <table class="table table-hover">
                 <tr>
                     <th>&nbsp;</th>
                     <th class="quantity"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_QUANTITY') ?></th>

@@ -28,7 +28,7 @@ $currentMethod
                 <?php
 
                 /**
-                 * @var EventgalleryLibraryPayment $method
+                 * @var EventgalleryLibraryMethodesPayment $method
                  */
                 $selected = "";
 

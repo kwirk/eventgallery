@@ -313,9 +313,9 @@ class EventgalleryLibraryManagerCart
 
         /* TODO: finish surcharge assignment */
         if ($cart->getSubTotal() > 50) {
-            $cart->setSurcharge(new EventgalleryLibrarySurcharge(2));
+            $cart->setSurcharge(EventgalleryLibraryManagerSurcharge::getInstance()->getMethode(2, true));
         } else {
-            $cart->setSurcharge(new EventgalleryLibrarySurcharge(1));
+            $cart->setSurcharge(EventgalleryLibraryManagerSurcharge::getInstance()->getMethode(1, true));
         }
         /**
          * @var  float $total

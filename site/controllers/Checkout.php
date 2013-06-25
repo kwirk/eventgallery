@@ -147,8 +147,10 @@ class CheckoutController extends JControllerLegacy
 
         /* create order*/
         $orderMgr = new EventgalleryLibraryManagerOrder();
-        $order = $orderMgr->createOrder($cart);
 
+        $order = $cart;
+        #$order = $orderMgr->createOrder($cart);
+        $orderMgr->processOnOrderSubmit($order);
 
         $send = $this->_sendOrderConfirmationMail($order);
         /* send mail */
@@ -162,7 +164,11 @@ class CheckoutController extends JControllerLegacy
 
         $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout&task=confirm"), $msg, 'info');
 
+    }
 
+    public function processPayment() {
+        // TODO: add payment handling
+        $foo="bar";
     }
 
 

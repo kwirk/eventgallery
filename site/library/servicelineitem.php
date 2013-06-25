@@ -42,7 +42,7 @@ class EventgalleryLibraryServicelineitem extends EventgalleryLibraryLineitem
     }
 
     /**
-     * @return EventgalleryLibraryPayment|EventgalleryLibraryShipping|EventgalleryLibrarySurcharge
+     * @return EventgalleryLibraryMethodesPayment|EventgalleryLibraryMethodesShipping|EventgalleryLibraryMethodesSurcharge
      */
     public function getMethod() {
 

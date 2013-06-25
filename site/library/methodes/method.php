@@ -11,7 +11,12 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-abstract class EventgalleryLibraryMethod extends EventgalleryLibraryDatabaseObject
+/**
+ * Provides an abstract class with the base implementation for each method
+ *
+ * Class EventgalleryLibraryMethodesMethod
+ */
+abstract class EventgalleryLibraryMethodesMethod extends EventgalleryLibraryDatabaseObject implements EventgalleryLibraryInterfaceMethode
 {
 
     protected $_object = null;
@@ -125,4 +130,7 @@ abstract class EventgalleryLibraryMethod extends EventgalleryLibraryDatabaseObje
         return $this->_object->taxrate;
     }
 
+    public function processOnOrderSubmit($lineitemcontainer) {
+        return true;
+    }
 }

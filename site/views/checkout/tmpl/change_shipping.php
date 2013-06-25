@@ -28,7 +28,7 @@ $currentMethod
 
                 <?php
                 /**
-                 * @var EventgalleryLibraryShipping $method
+                 * @var EventgalleryLibraryMethodesShipping $method
                  */
                 $selected = "";
 

@@ -80,5 +80,16 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
         return $order;
     }
 
+    /**
+     * @param EventgalleryLibraryLineitemcontainer $lineitemcontainer
+     */
+    public function processOnOrderSubmit($lineitemcontainer) {
+
+        $lineitemcontainer->getShippingMethod()->processOnOrderSubmit($lineitemcontainer);
+        $lineitemcontainer->getPaymentMethod()->processOnOrderSubmit($lineitemcontainer);
+        $lineitemcontainer->getSurcharge()->processOnOrderSubmit($lineitemcontainer);
+
+    }
+
 
 }

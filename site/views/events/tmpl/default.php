@@ -159,7 +159,7 @@ $cache = JFactory::getCache('com_eventgallery');
                                 $this->params->get('max_big_events', 9999) + $this->params->get('max_middle_events', 0)
                             ): ?>
                                 <div class="thumbnails">
-                                    <?php$files = $this->eventModel->getEntries(
+                                    <?php $files = $this->eventModel->getEntries(
                                         $entry->folder, -1, $this->params->get('max_middle_events_thumbnails', 0)
                                     );
                                     if (isset($this->entry->titleImage)) {

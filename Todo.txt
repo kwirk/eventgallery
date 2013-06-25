@@ -6,7 +6,17 @@ Front End
 - Order Tracking
 - eMail-Handling (hübsch machen)
 - Cart Module
-- Payment/Shipping method plugins
+- Surcharge/Payment/Shipping method plugins
+	- plugin folder
+	- Tabelle enthält Klassennamen
+	- Plugins prüfen eigene Gültigkeit/Lizenz
+	- interface for shipping/payment/surcharge
+	- isGültig(Cart)-Methode
+	- displayConfig -> drop down wird damit hinfällig, Accordeon
+	- displaySubTotal (?)
+	- Surcharge auch für "Bilder digital auf USB-Stick kaufen"
+	- mehrere Surcharges gleichzeitig gültig machen
+- digital/ nicht digital shipping
 - AGB
 - Impressum
 
