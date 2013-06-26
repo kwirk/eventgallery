@@ -10,25 +10,30 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-$methodes = EventgalleryLibraryManagerPayment::getInstance()->getMethodes(true);
+/**
+ * @var EventgalleryLibraryManagerPayment $paymentMgr
+ */
+
+$paymentMgr = EventgalleryLibraryManagerPayment::getInstance();
+$methods = $paymentMgr->getMethods(true);
 $currentMethod
-    = $this->cart->getPaymentMethod() == NULL ? EventgalleryLibraryManagerPayment::getInstance()->getDefaultMethode()
+    = $this->cart->getPaymentMethod() == NULL ? $paymentMgr->getDefaultMethod()
     : $this->cart->getPaymentMethod();
 
 
 ?>
 
 <div class="control-group">
-    <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_PAYMENTMETHODE_LABEL') ?>
+    <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_PAYMENTMETHOD_LABEL') ?>
     <div class="controls">
 
 
         <select class="" name="paymentid">
-            <?php FOREACH ($methodes as $method): ?>
+            <?php FOREACH ($methods as $method): ?>
                 <?php
 
                 /**
-                 * @var EventgalleryLibraryMethodesPayment $method
+                 * @var EventgalleryLibraryMethodsPayment $method
                  */
                 $selected = "";
 

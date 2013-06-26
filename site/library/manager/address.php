@@ -11,31 +11,12 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryLibraryManagerAddress extends EventgalleryLibraryDatabaseObject
+class EventgalleryLibraryManagerAddress extends EventgalleryLibraryManagerManager
 {
 
     function __construct()
     {
 
     }
-
-
-    /**
-     * @param $data
-     * @param $prefix
-     *
-     * @return EventgalleryLibraryAddress
-     */
-    public function createStaticAddress($data, $prefix)
-    {
-        $newData = array();
-        foreach ($data as $key => $value) {
-            $newData[str_replace($prefix, '', $key)] = $value;
-        }
-
-        $row = $this->store($newData, 'Staticaddress');
-        return new EventgalleryLibraryAddress($row);
-    }
-
 
 }

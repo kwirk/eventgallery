@@ -40,12 +40,12 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     protected $_servicelineitems = null;
     /**
-     * @var EventgalleryLibraryMethodesShipping
+     * @var EventgalleryLibraryMethodsShipping
      */
 
     protected $_shippingaddress = null;
     /**
-     * @var EventgalleryLibraryMethodesSurcharge
+     * @var EventgalleryLibraryMethodsSurcharge
      */
 
     protected $_user_id = null;
@@ -180,7 +180,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         return null;
     }
     /**
-     * @return EventgalleryLibraryMethodesPayment|null
+     * @return EventgalleryLibraryMethodsPayment|null
      */
     public function getPaymentMethod()
     {
@@ -226,7 +226,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         return null;
     }
     /**
-     * @return EventgalleryLibraryMethodesShipping|null
+     * @return EventgalleryLibraryMethodsShipping|null
      */
     public function getShippingMethod()
     {
@@ -269,7 +269,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         return null;
     }
     /**
-     * @return EventgalleryLibraryMethodesSurcharge|null
+     * @return EventgalleryLibraryMethodsSurcharge|null
      */
     public function getSurcharge()
     {
@@ -283,16 +283,19 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     /**
      * sets a surcharge
      *
-     * @param EventgalleryLibraryMethodesSurcharge $surcharge
+     * @param EventgalleryLibraryMethodsSurcharge $surcharge
      */
     public function setSurcharge($surcharge)
     {
+
         if ($surcharge == null) {
             return;
         }
 
         $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_SURCHARGE);
-        EventgalleryLibraryManagerSurcharge::getInstance()->createServiceLineItem($surcharge, $this);
+        /* @var EventgalleryLibraryFactoryServicelineitem $serviceLineItemFactory */
+        $serviceLineItemFactory = EventgalleryLibraryFactoryServicelineitem::getInstance();
+        $serviceLineItemFactory->createLineItem($this->getId(), $surcharge);
         $this->_loadServiceLineItems();
     }
 
@@ -418,7 +421,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     /**
      * sets a Payment
      *
-     * @param EventgalleryLibraryMethodesPayment $payment
+     * @param EventgalleryLibraryMethodsPayment $payment
      */
     public function setPaymentMethod($payment)
     {
@@ -427,7 +430,9 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         }
 
         $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_PAYMENTMETHOD);
-        EventgalleryLibraryManagerPayment::getInstance()->createServiceLineItem($payment, $this);
+        /* @var EventgalleryLibraryFactoryServicelineitem $serviceLineItemFactory */
+        $serviceLineItemFactory = EventgalleryLibraryFactoryServicelineitem::getInstance();
+        $serviceLineItemFactory->createLineItem($this->getId(),  $payment);
         $this->_loadServiceLineItems();
     }
 
@@ -465,7 +470,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     /**
      * sets a shipping
      *
-     * @param EventgalleryLibraryMethodesShipping $shipping
+     * @param EventgalleryLibraryMethodsShipping $shipping
      */
     public function setShippingMethod($shipping)
     {
@@ -474,7 +479,9 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
         }
 
         $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_SHIPINGMETHOD);
-        EventgalleryLibraryManagerShipping::getInstance()->createServiceLineItem($shipping, $this);
+        /* @var EventgalleryLibraryFactoryServicelineitem $serviceLineItemFactory */
+        $serviceLineItemFactory = EventgalleryLibraryFactoryServicelineitem::getInstance();
+        $serviceLineItemFactory->createLineItem($this->getId(), $shipping);
         $this->_loadServiceLineItems();
     }
 

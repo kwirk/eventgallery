@@ -89,12 +89,15 @@ class CheckoutController extends JControllerLegacy
     public function saveChanges($cachable = false, $urlparams = array())
     {
 
+        /* @var EventgalleryLibraryManagerCart $cartMgr */
+        $cartMgr = EventgalleryLibraryManagerCart::getInstance();
+
         JRequest::checkToken();
         $errors = array();
-        $errors = array_merge($errors, EventgalleryLibraryManagerCart::getInstance()->updateShippingMethod());
-        $errors = array_merge($errors, EventgalleryLibraryManagerCart::getInstance()->updatePaymentMethod());
-        $errors = array_merge($errors, EventgalleryLibraryManagerCart::getInstance()->updateAddresses());
-        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
+        $errors = array_merge($errors, $cartMgr->updateShippingMethod());
+        $errors = array_merge($errors, $cartMgr->updatePaymentMethod());
+        $errors = array_merge($errors, $cartMgr->updateAddresses());
+        $cartMgr->calculateCart();
 
         if (count($errors) > 0) {
             $msg = "";
@@ -139,10 +142,12 @@ class CheckoutController extends JControllerLegacy
         // Check for request forgeries.
         JRequest::checkToken();
 
-        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
+        /* @var EventgalleryLibraryManagerCart $cartMgr */
+        $cartMgr = EventgalleryLibraryManagerCart::getInstance();
 
-        /* @var EventgalleryLibraryCart $cart */
-        $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+        $cartMgr->calculateCart();
+
+        $cart = $cartMgr->getCart();
 
 
         /* create order*/
@@ -150,6 +155,7 @@ class CheckoutController extends JControllerLegacy
 
         #$order = $cart;
         $order = $orderMgr->createOrder($cart);
+
         $orderMgr->processOnOrderSubmit($order);
 
         $send = $this->_sendOrderConfirmationMail($order);
@@ -166,9 +172,9 @@ class CheckoutController extends JControllerLegacy
 
     }
 
-    public function processPayment() {
+    public function processPlugin() {
         // TODO: add payment handling
-        $foo="bar";
+
     }
 
 

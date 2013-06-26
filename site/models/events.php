@@ -83,7 +83,7 @@ class EventgalleryModelEvents extends JModelLegacy
                     if (strpos($entry->folder,'@')>-1) {
                         $values = explode("@",$entry->folder,2);
                         $album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $entry->picasakey);
-                        if (count($album)>0) {
+                        if (count($album->thumbs)>0) {
                             $entries[$rownum]->overallCount = $album->overallCount;
                             $entries[$rownum]->thumbs = $album->thumbs;
                             $entries[$rownum]->titleImage = new EventgalleryHelpersImagePicasa($album);
@@ -157,7 +157,14 @@ class EventgalleryModelEvents extends JModelLegacy
             
             $total = $this->_total;
 
+            /**
+             * @var integer $limit
+             */
             $limit      = $this->getState('limit');
+
+            /**
+             * @var integer $limitstart
+             */
             $limitstart = $this->getState('com_eventgallery.events.limitstart');
      
 

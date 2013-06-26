@@ -20,15 +20,22 @@ class EventgalleryViewEvents extends JViewLegacy
     protected $folderCount;
     protected $eventModel;
     protected $pageNav;
+
+    /**
+     * @var JCacheControllerCallback $cache
+     */
     protected $cache;
 
 
     function display($tpl = NULL)
     {
+
         /**
          * @var JCacheControllerCallback $cache
          */
-        $this->cache = JFactory::getCache('com_eventgallery');
+        $cache = JFactory::getCache('com_eventgallery');
+        $this->cache = $cache;
+
 
         /**
          * @var JSite $app

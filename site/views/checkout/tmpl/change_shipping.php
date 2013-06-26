@@ -9,26 +9,32 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
-$methodes = EventgalleryLibraryManagerShipping::getInstance()->getMethodes(true);
+/**
+ * @var EventgalleryLibraryManagerShipping $shippingMgr
+ */
+
+$shippingMgr = EventgalleryLibraryManagerShipping::getInstance();
+
+$methods = $shippingMgr->getMethods(true);
 $currentMethod
-    = $this->cart->getShippingMethod() == NULL ? EventgalleryLibraryManagerShipping::getInstance()->getDefaultMethode()
+    = $this->cart->getShippingMethod() == NULL ? $shippingMgr->getDefaultMethod()
     : $this->cart->getShippingMethod();
 
 
 ?>
 
 <div class="control-group">
-    <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SHIPPINGMETHODE_LABEL') ?>
+    <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_FORM_SHIPPINGMETHOD_LABEL') ?>
     <div class="controls">
 
 
         <select class="" name="shippingid">
-            <?php FOREACH ($methodes as $method): ?>
+            <?php FOREACH ($methods as $method): ?>
 
 
                 <?php
                 /**
-                 * @var EventgalleryLibraryMethodesShipping $method
+                 * @var EventgalleryLibraryMethodsShipping $method
                  */
                 $selected = "";
 

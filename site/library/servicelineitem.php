@@ -42,20 +42,26 @@ class EventgalleryLibraryServicelineitem extends EventgalleryLibraryLineitem
     }
 
     /**
-     * @return EventgalleryLibraryMethodesPayment|EventgalleryLibraryMethodesShipping|EventgalleryLibraryMethodesSurcharge
+     * @return EventgalleryLibraryMethodsPayment|EventgalleryLibraryMethodsShipping|EventgalleryLibraryMethodsSurcharge
      */
     public function getMethod() {
 
         if ($this->isPaymentMethod()) {
-            return EventgalleryLibraryManagerPayment::getInstance()->getMethode($this->_lineitem->methodid, false);
+            /* @var EventgalleryLibraryManagerPayment $paymentMgr */
+            $paymentMgr = EventgalleryLibraryManagerPayment::getInstance();
+            return $paymentMgr->getMethod($this->_lineitem->methodid, false);
         }
 
         if ($this->isShippingMethod()) {
-            return EventgalleryLibraryManagerShipping::getInstance()->getMethode($this->_lineitem->methodid, false);
+            /* @var EventgalleryLibraryManagerShipping $shippingMgr */
+            $shippingMgr = EventgalleryLibraryManagerShipping::getInstance();
+            return $shippingMgr->getMethod($this->_lineitem->methodid, false);
         }
 
         if ($this->isSurcharge()) {
-            return EventgalleryLibraryManagerSurcharge::getInstance()->getMethode($this->_lineitem->methodid, false);
+            /* @var EventgalleryLibraryManagerSurcharge $surchargeMgr */
+            $surchargeMgr = EventgalleryLibraryManagerSurcharge::getInstance();
+            return $surchargeMgr->getMethod($this->_lineitem->methodid, false);
         }
 
         return null;

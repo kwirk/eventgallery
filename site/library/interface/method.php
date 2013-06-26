@@ -12,11 +12,11 @@
 defined('_JEXEC') or die();
 
 /**
- * This interface provides a general interface for all methodes. All methodes are configured using the database.
+ * This interface provides a general interface for all methods. All methods are configured using the database.
  *
- * Class EventgalleryLibraryInterfaceMethode
+ * Class EventgalleryLibraryInterfaceMethod
  */
-interface EventgalleryLibraryInterfaceMethode
+interface EventgalleryLibraryInterfaceMethod
 {
     /**
      * Returns the id of the current method.
@@ -109,14 +109,6 @@ interface EventgalleryLibraryInterfaceMethode
     public function getTypeCode();
 
 
-    /**
-     *
-     * Event which is called if an order is about to be submitted
-     *
-     * @param $lineitemcontainer EventgalleryLibraryLineitemcontainer
-     *
-     * @return bool|array true or array with errors
-     */
-    public function processOnOrderSubmit($lineitemcontainer);
+
 
 }

@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-abstract class EventgalleryLibraryMethodesShipping extends EventgalleryLibraryMethodesMethod
+abstract class EventgalleryLibraryMethodsSurcharge extends EventgalleryLibraryMethodsMethod
 {
 
     /**
@@ -23,7 +23,7 @@ abstract class EventgalleryLibraryMethodesShipping extends EventgalleryLibraryMe
 
         $query = $db->getQuery(true);
         $query->select('s.*');
-        $query->from('#__eventgallery_shippingmethod s');
+        $query->from('#__eventgallery_surcharge s');
         $query->where('s.id=' . $db->Quote($this->_object_id));
 
         $db->setQuery($query);
@@ -31,6 +31,7 @@ abstract class EventgalleryLibraryMethodesShipping extends EventgalleryLibraryMe
     }
 
     public function getTypeCode() {
-        return EventgalleryLibraryServicelineitem::TYPE_SHIPINGMETHOD;
+        return EventgalleryLibraryServicelineitem::TYPE_SURCHARGE;
     }
+
 }

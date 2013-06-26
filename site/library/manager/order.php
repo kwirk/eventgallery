@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
+class EventgalleryLibraryManagerOrder extends EventgalleryLibraryManagerManager
 {
 
     function __construct()
@@ -29,52 +29,13 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryDatabaseObject
     public function createOrder($cart)
     {
 
-        $db = JFactory::getDBO();
-        $data = $cart->_getInternalDataObject();
-
-        $uuid = uniqid("", true);
-        $uuid = base_convert($uuid,16,10);
-
-        $query = $db->getQuery(true);
-        $query->insert("#__eventgallery_order");
-        $query->set("id=".$db->quote($uuid));
-        $db->setQuery($query);
-        $db->execute();
-
-        $data['id'] = $uuid;
-
         /**
-         * @var TableOrder $orderTable
+         * @var EventgalleryLibraryFactoryOrder $orderFactory
          */
-        $orderTable = $this->store($data, 'Order');
+        $orderFactory = EventgalleryLibraryFactoryOrder::getInstance();
+        $order = $orderFactory->createOrder($cart);
 
-        /**
-         * @var EventgalleryLibraryImagelineitem $lineitem
-         */
-        foreach ($cart->getLineItems() as $lineitem) {
-            $data = array();
-            $data['id'] = $lineitem->getId();
-            $data['lineitemcontainerid'] = $orderTable->id;
-            $this->store($data, 'Imagelineitem');
-        }
-
-        /**
-         * @var EventgalleryLibraryServicelineitem $lineitem
-         */
-        foreach ($cart->getServiceLineItems() as $lineitem) {
-            $data = array();
-            $data['id'] = $lineitem->getId();
-            $data['lineitemcontainerid'] = $orderTable->id;
-            $this->store($data, 'Servicelineitem');
-        }
-
-        /**
-         * @var EventgalleryLibraryOrder $order
-         */
-        $order = new EventgalleryLibraryOrder($orderTable->id);
-        $order->setOrderStatus(EventgalleryLibraryManagerOrderstatus::getDefaultOrderStatus());
-        $order->setDocumentNumber(EventgalleryLibraryDatabaseSequence::generateNewId());
-
+        // put the cart in the cart history
         $cart->setStatus(1);
 
         return $order;

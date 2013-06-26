@@ -20,6 +20,16 @@ defined('_JEXEC') or die('Restricted access');
     <!--<a class="" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>-->
     <form action="<?php echo JRoute::_("index.php?option=com_eventgallery&view=checkout&task=createOrder") ?>"
           method="post" class="form-validate form-horizontal checkout-form">
+
+        <div class="basic-information">
+            <p><strong><?php echo JText::_('COM_EVENTGALLERY_CHECKOUT_USERDATA_EMAIL_LABEL') ?></strong><br />
+            <?php echo $this->cart->getEMail() ?></p>
+            <p><strong><?php echo JText::_('COM_EVENTGALLERY_CHECKOUT_USERDATA_PHONE_LABEL') ?></strong><br />
+            <?php echo $this->cart->getPhone() ?></p>
+            <p><strong><?php echo JText::_('COM_EVENTGALLERY_CHECKOUT_USERDATA_MESSAGE_LABEL') ?></strong><br />
+            <?php echo $this->cart->getMessage() ?></p>
+        </div>
+
         <div class="cart-items">
             <table class="table table-hover">
                 <tr>

@@ -12,8 +12,8 @@ defined('_JEXEC') or die('Restricted access');
 
 /**
  * @var EventgalleryLibraryOrder $order
+ *
  */
-
 $order = $this->order;
 ?>
 <style type="text/css">
@@ -99,6 +99,7 @@ $order = $this->order;
 
         <?php
         /**
+         *@var EventgalleryLibraryOrder $order
         * @var EventgalleryLibraryImagelineitem $lineitem
         */
         FOREACH ($order->getLineItems() as $lineitem): ?>

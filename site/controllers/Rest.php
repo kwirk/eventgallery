@@ -33,9 +33,12 @@ class RestController extends JControllerLegacy
         $quantity = JRequest::getString('quantity', 1);
         $imagetypeid = JRequest::getString('imagetypeid', NULL);
 
-        $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+        /* @var EventgalleryLibraryManagerCart $cartMgr */
+        $cartMgr = EventgalleryLibraryManagerCart::getInstance();
+
+        $cart = $cartMgr->getCart();
         $cart->addItem($folder, $file, $quantity, $imagetypeid);
-        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
+        $cartMgr->calculateCart();
         $this->printCartJSON($cart);
 
     }
@@ -71,7 +74,9 @@ class RestController extends JControllerLegacy
 
     public function getCart()
     {
-        $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+        /* @var EventgalleryLibraryManagerCart $cartMgr */
+        $cartMgr = EventgalleryLibraryManagerCart::getInstance();
+        $cart = $cartMgr->getCart();
         $this->printCartJSON($cart);
     }
 
@@ -83,10 +88,12 @@ class RestController extends JControllerLegacy
 
 
         $lineitemid = JRequest::getString('lineitemid', NULL);
+        /* @var EventgalleryLibraryManagerCart $cartMgr */
+        $cartMgr = EventgalleryLibraryManagerCart::getInstance();
 
-        $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+        $cart = $cartMgr->getCart();
         $cart->deleteLineItem($lineitemid);
-        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
+        $cartMgr->calculateCart();
 
         $this->printCartJSON($cart);
     }

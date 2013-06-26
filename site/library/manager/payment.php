@@ -11,19 +11,11 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryLibraryManagerPayment extends EventgalleryLibraryManagerMethode
+class EventgalleryLibraryManagerPayment extends EventgalleryLibraryManagerMethod
 {
 
     protected $_tablename = '#__eventgallery_paymentmethod';
 
-    protected static $_instance;
 
-    public static function getInstance()
-    {
-        if (self::$_instance == null) {
-            self::$_instance = new EventgalleryLibraryManagerPayment();
-        }
-        return self::$_instance;
-    }
 
 }

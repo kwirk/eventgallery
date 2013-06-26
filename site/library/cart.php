@@ -80,29 +80,18 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
          */
         $lineitem = $this->getLineItem($lineitemid);
 
-
         // do not clone a not existing line item.
         if ($lineitem == NULL) {
             return;
         }
 
-        $quantity = 1;
-        $file = $lineitem->getFile();
-        $imagetype = $file->getImageTypeSet()->getDefaultImageType();
+        /**
+         * @var EventgalleryLibraryFactoryImagelineitem $imageLineItemFactory
+         */
+        $imageLineItemFactory = EventgalleryLibraryFactoryImagelineitem::getInstance();
+        $newLineitem = $imageLineItemFactory->copyLineItem($this->getId(), $lineitem);
 
-        $item = array(
-            'lineitemcontainerid' => $this->getId(),
-            'folder' => $file->getFolderName(),
-            'file' => $file->getFileName(),
-            'quantity' => $quantity,
-            'singleprice' => $imagetype->getPrice(),
-            'price' => $quantity * $imagetype->getPrice(),
-            'taxrate' => $imagetype->getTaxrate(),
-            'currency' => $imagetype->getCurrency(),
-            'typeid' => $imagetype->getId()
-        );
-
-        $this->store($item, 'Imagelineitem');
+        $newLineitem->setQuantity(1);
 
         $this->_updateLineItemContainer();
     }
@@ -150,54 +139,46 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
 
         /* security check END */
 
-        $item = array(
-            'lineitemcontainerid' => $this->getId(),
-            'folder' => $file->getFolderName(),
-            'file' => $file->getFileName(),
-            'quantity' => $count,
-            'singleprice' => $imageType->getPrice(),
-            'price' => $count * $imageType->getPrice(),
-            'taxrate' => $imageType->getTaxrate(),
-            'currency' => $imageType->getCurrency(),
-            'typeid' => $imageType->getId()
-        );
+        /**
+         * @var EventgalleryLibraryFactoryImagelineitem $imageLineItemFactory
+         */
+        $imageLineItemFactory = EventgalleryLibraryFactoryImagelineitem::getInstance();
 
-        $lineitem = $this->getLineItemByFileAndType($item['folder'], $item['file'], $item['typeid']);
 
-        if ($lineitem != NULL) {
-            $item['id'] = $lineitem->id;
-            $item['quantity'] += $lineitem->quantity;
-            $item['price'] = $item['quantity'] * $item['singleprice'];
+        $lineitem = $this->getLineItemByFileAndType($foldername, $filename, $typeid);
+
+        if ($lineitem == null) {
+            $lineitem = $imageLineItemFactory->createLineitem($this->getId(), $foldername, $filename, $typeid, $count);
+        } else {
+            $lineitem->setQuantity($lineitem->getQuantity()+$count);
         }
 
-        $this->store($item, 'Imagelineitem');
-
         $this->_updateLineItemContainer();
+
+        return $lineitem;
 
     }
 
     /**
      * tries to find a line item in the database
      *
-     * @param $folder
-     * @param $file
-     * @param $typeid
+     * @param $foldername
+     * @param $filename
+     * @param $imagetypeid
      *
-     * @return stdClass
+     * @return null|EventgalleryLibraryImagelineitem
      */
-    public function getLineItemByFileAndType($folder, $file, $typeid)
+    public function getLineItemByFileAndType($foldername, $filename, $imagetypeid)
     {
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
-        $query->select('ili.*');
-        $query->from('#__eventgallery_imagelineitem as ili');
-        $query->where('ili.lineitemcontainerid=' . $db->quote($this->getId()));
-        $query->where('ili.folder=' . $db->quote($folder));
-        $query->where('ili.file=' . $db->quote($file));
-        $query->where('ili.typeid=' . $db->quote($typeid));
-        $db->setQuery($query);
-        $item = $db->loadObject();
-        return $item;
+        foreach($this->getLineItems() as $lineitem) {
+            /**
+             * @var EventgalleryLibraryImagelineitem $lineitem
+             */
+            if ($lineitem->getFolderName() == $foldername && $lineitem->getFileName()==$filename && $lineitem->getImageType()->getId()==$imagetypeid) {
+                return $lineitem;
+            }
+        }
+        return null;
     }
 
     /**

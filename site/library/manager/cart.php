@@ -11,9 +11,9 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryLibraryManagerCart
+class EventgalleryLibraryManagerCart extends EventgalleryLibraryManagerManager
 {
-    protected static $_instance;
+
     protected $_carts = array();
 
     function __construct()
@@ -21,15 +21,6 @@ class EventgalleryLibraryManagerCart
 
     }
 
-    public static function getInstance()
-    {
-
-        if (self::$_instance == NULL) {
-            self::$_instance = new self;
-        }
-
-        return self::$_instance;
-    }
 
     /**
      * Updates line item quantities and types.
@@ -48,7 +39,7 @@ class EventgalleryLibraryManagerCart
         $errors = array();
 
         if ($cart == NULL) {
-            $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+            $cart = $this->getCart();
         }
 
         /**
@@ -110,9 +101,8 @@ class EventgalleryLibraryManagerCart
         $errors = array();
 
         if ($cart == NULL) {
-            $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+            $cart = $this->getCart();
         }
-
 
         /**
          * SHIPPING UPDATE
@@ -120,14 +110,17 @@ class EventgalleryLibraryManagerCart
 
         $shippingmethodid = JRequest::getString('shippingid', NULL);
 
-
         if ($shippingmethodid != NULL || $cart->getShippingMethod() == NULL) {
+            /**
+             * @var EventgalleryLibraryManagerShipping $shippingMgr
+             * @var EventgalleryLibraryMethodsShipping $method
+             */
             $shippingMgr = EventgalleryLibraryManagerShipping::getInstance();
-            $methode = $shippingMgr->getMethode($shippingmethodid, true);
-            if ($methode == NULL) {
-                $methode = $shippingMgr->getDefaultMethode();
+            $method = $shippingMgr->getMethod($shippingmethodid, true);
+            if ($method == NULL) {
+                $method = $shippingMgr->getDefaultMethod();
             }
-            $cart->setShippingMethod($methode);
+            $cart->setShippingMethod($method);
         }
 
         return $errors;
@@ -144,7 +137,7 @@ class EventgalleryLibraryManagerCart
         $errors = array();
 
         if ($cart == NULL) {
-            $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+            $cart = $this->getCart();
         }
 
         /**
@@ -155,12 +148,16 @@ class EventgalleryLibraryManagerCart
 
 
         if ($paymentmethodid != NULL || $cart->getPaymentMethod() == NULL) {
+            /**
+             * @var EventgalleryLibraryManagerPayment $paymentMgr
+             * @var EventgalleryLibraryMethodsPayment $method
+             */
             $paymentMgr = EventgalleryLibraryManagerPayment::getInstance();
-            $methode = $paymentMgr->getMethode($paymentmethodid, true);
-            if ($methode == NULL) {
-                $methode = $paymentMgr->getDefaultMethode();
+            $method = $paymentMgr->getMethod($paymentmethodid, true);
+            if ($method == NULL) {
+                $method = $paymentMgr->getDefaultMethod();
             }
-            $cart->setPaymentMethod($methode);
+            $cart->setPaymentMethod($method);
         }
 
         return $errors;
@@ -182,7 +179,7 @@ class EventgalleryLibraryManagerCart
         $errors = array();
 
         if ($cart == NULL) {
-            $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+            $cart = $this->getCart();
         }
 
 
@@ -222,7 +219,7 @@ class EventgalleryLibraryManagerCart
          */
 
 
-        $addressMgr = new EventgalleryLibraryManagerAddress();
+        $addressFactory = new EventgalleryLibraryFactoryAddress();
 
         /**
          * @var JForm $billingform
@@ -247,7 +244,7 @@ class EventgalleryLibraryManagerCart
                 $billingdata['id'] = $billingAddress->getId();
             }
 
-            $billingAddress = $addressMgr->createStaticAddress($billingdata, 'billing_');
+            $billingAddress = $addressFactory->createStaticAddress($billingdata, 'billing_');
 
             $cart->setBillingAddress($billingAddress);
 
@@ -276,7 +273,7 @@ class EventgalleryLibraryManagerCart
                     /**
                      * @var EventgalleryLibraryAddress $shippingAddress
                      */
-                    $shippingAddress = $addressMgr->createStaticAddress($shippingdata, 'shipping_');
+                    $shippingAddress = $addressFactory->createStaticAddress($shippingdata, 'shipping_');
 
                     $cart->setShippingAddress($shippingAddress);
                 }
@@ -290,7 +287,7 @@ class EventgalleryLibraryManagerCart
 
     public function calculateCart()
     {
-        $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+        $cart = $this->getCart();
 
         // set subtotal;
         /**
@@ -311,12 +308,13 @@ class EventgalleryLibraryManagerCart
         $cart->setSubTotal($subtotal);
         $cart->setSubTotalCurrency($subtotalCurrency);
 
-        /* TODO: finish surcharge assignment */
-        if ($cart->getSubTotal() > 50) {
-            $cart->setSurcharge(EventgalleryLibraryManagerSurcharge::getInstance()->getMethode(2, true));
-        } else {
-            $cart->setSurcharge(EventgalleryLibraryManagerSurcharge::getInstance()->getMethode(1, true));
-        }
+
+        /**
+         * @var EventgalleryLibraryManagerSurcharge $surchargeMgr
+         */
+        $surchargeMgr = EventgalleryLibraryManagerSurcharge::getInstance();
+        $cart->setSurcharge($surchargeMgr->calculateSurcharge($cart));
+
         /**
          * @var  float $total
          */

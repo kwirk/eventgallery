@@ -18,14 +18,15 @@ class CartController extends JControllerLegacy
     public function cloneLineItem()
     {
         $lineitemid = JRequest::getString('lineitemid', NULL);
-        /* @var EventgalleryLibraryCart $cart */
-        $cart = EventgalleryLibraryManagerCart::getInstance()->getCart();
+        /* @var EventgalleryLibraryManagerCart $cartMgr */
+        $cartMgr = EventgalleryLibraryManagerCart::getInstance();
+        $cart = $cartMgr->getCart();
         $lineitem = $cart->getLineItem($lineitemid);
         if ($lineitem != NULL) {
             $cart->cloneLineItem($lineitemid);
         }
 
-        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
+        $cartMgr->calculateCart();
 
         $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=cart"));
     }
@@ -38,8 +39,10 @@ class CartController extends JControllerLegacy
 
         // Check for request forgeries.
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
-        EventgalleryLibraryManagerCart::getInstance()->updateLineItems();
-        EventgalleryLibraryManagerCart::getInstance()->calculateCart();
+        /* @var EventgalleryLibraryManagerCart $cartMgr */
+        $cartMgr = EventgalleryLibraryManagerCart::getInstance();
+        $cartMgr->updateLineItems();
+        $cartMgr->calculateCart();
 
         $continue = JRequest::getString('continue', NULL);
 

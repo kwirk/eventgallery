@@ -14,9 +14,9 @@ defined('_JEXEC') or die();
 /**
  * Provides an abstract class with the base implementation for each method
  *
- * Class EventgalleryLibraryMethodesMethod
+ * Class EventgalleryLibraryMethodsMethod
  */
-abstract class EventgalleryLibraryMethodesMethod extends EventgalleryLibraryDatabaseObject implements EventgalleryLibraryInterfaceMethode
+abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatabaseObject implements EventgalleryLibraryInterfaceMethod, EventgalleryLibraryInterfaceEvents
 {
 
     protected $_object = null;

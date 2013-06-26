@@ -124,8 +124,8 @@ defined('_JEXEC') or die('Restricted access');
         <fieldset>
 
             <div class="form-actions">
-                <input name="updateCart" type="submit" class="validate btn btn-warning eventgallery-removeAll pull-left"
-                       value="<?php echo JText::_('COM_EVENTGALLERY_CART_FORM_REMOVE_ALL') ?>"/>
+                <a href="#" class="validate btn btn-warning eventgallery-removeAll pull-left"
+                       ><?php echo JText::_('COM_EVENTGALLERY_CART_FORM_REMOVE_ALL') ?></a>
                 <div class="btn-group pull-right">
                     <input name="updateCart" type="submit" class="validate btn eventgallery-update"
                            value="<?php echo JText::_('COM_EVENTGALLERY_CART_FORM_UPDATE') ?>"/>
@@ -210,11 +210,16 @@ defined('_JEXEC') or die('Restricted access');
 
         }
 
-        function removeAllItems() {
+        /**
+        * sets the quantity to 0 and submits the form.
+        */
+        function removeAllItems(e) {
+            e.preventDefault();      
             $$("input.eventgallery-quantity").set('value',0);
-            $$(".eventgallery-update")[0].fireEvent('click');
+            $(e.target).getParent('form').submit();
         }
 
+      
         $$(".cart-item input").addEvent('change', setNeedsCalculationMode);
         $$(".cart-item select").addEvent('change', setNeedsCalculationMode);
         $$(".cart-item .delete-lineitem").addEvent('click', removeItem);

@@ -23,7 +23,8 @@ class CaptchaHelper
         return false;
     }
 
-    function encrypt($string, $key)
+    //function encrypt($string, $key)
+    function encrypt($string)
     {
         /*$result = '';
         for($i=0; $i<strlen($string); $i++) {

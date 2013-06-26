@@ -42,7 +42,7 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
      */
     function __construct($lineitem)
     {
-        if ($lineitem instanceof stdClass) {
+        if (is_object($lineitem) ) {
             $this->_lineitem = $lineitem;
             $this->_lineitem_id = $lineitem->id;
         } else {
@@ -152,6 +152,7 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     public function setQuantity($quantity)
     {
         $this->_lineitem->quantity = $quantity;
+        $this->_lineitem->price = $this->_lineitem->singleprice * $quantity;
         $this->_store();
     }
 
@@ -162,6 +163,15 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     {
         $this->_lineitem->price = $this->_lineitem->singleprice * $this->_lineitem->quantity;
         $this->store((array)$this->_lineitem, $this->_lineitem_table);
+    }
+
+    /**
+     * Returns the internal data object. Do not use this method but for storing reasons
+     *
+     * @return TableImagelineitem
+     */
+    public function _getInternalDataObject() {
+        return $this->_lineitem;
     }
 
 }

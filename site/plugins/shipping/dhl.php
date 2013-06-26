@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryPluginsShippingDhl extends  EventgalleryLibraryMethodesShipping
+class EventgalleryPluginsShippingDhl extends  EventgalleryLibraryMethodsShipping
 {
 
 

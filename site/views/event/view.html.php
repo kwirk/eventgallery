@@ -31,6 +31,10 @@ class EventgalleryViewEvent extends JViewLegacy
      * @var JDocument
      */
     public $document;
+    /**
+     * @var JCacheControllerCallback
+     */
+    protected $cache;
 
     function display($tpl = NULL)
     {
@@ -38,6 +42,9 @@ class EventgalleryViewEvent extends JViewLegacy
          * @var JCacheControllerCallback $cache
          */
         $cache = JFactory::getCache('com_eventgallery');
+        $this->cache = $cache;
+
+
         /**
          * @var JSite $app
          */
@@ -65,14 +72,14 @@ class EventgalleryViewEvent extends JViewLegacy
 
         if ($this->getLayout() == 'ajaxpaging' || $this->getLayout() == 'imagelist') {
             //$entries = $model->getEntries(JRequest::getVar('folder',''),-1,-1);
-            $entries = $cache->call(array($model, 'getEntries'), JRequest::getVar('folder', ''), -1, -1);
+            $entries = $this->cache->call(array($model, 'getEntries'), JRequest::getVar('folder', ''), -1, -1);
         } else {
             //$entries = $model->getEntries(JRequest::getVar('folder',''));
-            $entries = $cache->call(array($model, 'getEntries'), JRequest::getVar('folder', ''));
+            $entries = $this->cache->call(array($model, 'getEntries'), JRequest::getVar('folder', ''));
         }
 
         //$folder = $model->getFolder(JRequest::getVar('folder',''));
-        $folder = $cache->call(array($model, 'getFolder'), JRequest::getVar('folder', ''));
+        $folder = $this->cache->call(array($model, 'getFolder'), JRequest::getVar('folder', ''));
 
         if (!is_object($folder)) {
             $app->redirect(

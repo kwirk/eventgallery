@@ -22,7 +22,11 @@
 						}
 					?>
 					
-					<?php foreach($files as $file):?>
+					<?php foreach($files as $file):
+                        /**
+                        * @var EventgalleryHelpersImageInterface $file
+                        */?>
+
 						<a class="event-thumbnail" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>">
 							<?php echo $file->getLazyThumbImgTag(50,50, "", true); ?>	
 						</a>											

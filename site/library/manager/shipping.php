@@ -11,19 +11,11 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryLibraryManagerShipping extends  EventgalleryLibraryManagerMethode
+class EventgalleryLibraryManagerShipping extends  EventgalleryLibraryManagerMethod
 {
 
     protected $_tablename = '#__eventgallery_shippingmethod';
 
-    protected static $_instance;
 
-    public static function getInstance()
-    {
-        if (self::$_instance == null) {
-            self::$_instance = new EventgalleryLibraryManagerShipping();
-        }
-        return self::$_instance;
-    }
 
 }
