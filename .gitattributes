@@ -103,6 +103,7 @@ admin/views/upload/view.html.php -text
 /eventgallery.xml -text
 /index.html svneol=native#text/html
 plugins/eventgallery_help.zip -text svneol=unset#application/x-zip-compressed
+/script.php -text
 site/controller.php -text
 site/controllers/Checkout.php -text
 site/controllers/Rest.php -text

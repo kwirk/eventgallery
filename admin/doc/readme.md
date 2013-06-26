@@ -312,6 +312,11 @@ There are only a few things globally manageable.
 
 	You can define a matrix which is used to sharpen the generated images. By default this is [[-1,-1,-1],[-1,16,-1],[-1,-1,-1]] and it will do a good job. In case you want to have blurry or even sharper images this is the configuration parameter you'll have to touch. Please find the possible values here: http://php.net/manual/en/function.imageconvolution.php . In case you have no clue what this is about, don't touch it. After a change delete the cache otherwise you will see no result.
 
+- Use Rendering Fallback
+
+	On some servers the execution of script is not allowed in subfolders. The execution is necessary since images are delivered by a script and we don't want to run the whole joomla framework for every request. If you encounter issues with images that do not appear, you can use the fallback to use index.php for image delivering. This is `slow and should be not your long term solution`. Contact your provider to make sure php scripts can be executed in component folders. At least this would be great for the following scripts: components/com_eventgallery/helpers/image.php and blank.php.
+
+
 ![Configuration options](img/backend/configuration.jpg)
 
 # Extend {#Extend}
@@ -350,6 +355,7 @@ A simple css definition would look like this. It will give you 4 item per row.
 - PHP should have write permission to /images, /cache and /logs
 - Picasa Images do not show up because the method get\_file\_content is not working. Check with your hosting provider to solve this issue.
 - Error 500: PHP should be able to execute the script /components/com_eventgallery/helpers/image.php in order to display thumbs.
+- try to use Use Rendering Fallback and contact your provider if this works for you so he can change the server settings.
 
 ### Joomla Configuration
 - Picasa albums do not work because your SEO-component strips out the @-sign from the URLs
@@ -439,6 +445,8 @@ A simple css definition would look like this. It will give you 4 item per row.
 		- added option to display the lightbox in full screen mode. This is very handy if 
 		  you want to support mobile devices since this mode does not waste as much space 
 		  as the current lightbox.
+		- workaround for image delivery problems on some servers. See Use Rendering 
+		  Fallback in the components global configuration options for details.
 
 
 	- Bug fixes

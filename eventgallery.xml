@@ -9,7 +9,7 @@
 	<authorUrl>www.svenbluege.de</authorUrl>
 	<version>2.6.4</version>
 	<description>COM_EVENTGALLERY_XML_DESCRIPTION</description>
-	
+	<scriptfile>script.php</scriptfile>
 	<install>
 		<sql>
 			<file driver="mysql" charset="utf8">sql/install/install.mysql.sql</file>

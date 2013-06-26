@@ -12,6 +12,24 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
+<?php
+	
+	/**
+	* adjust the image path
+	*/
+
+
+	$_image_script_path = 'components/com_eventgallery/helpers/image.php';
+	$params = JComponentHelper::getParams('com_eventgallery');
+
+	if ($params->get('use_legacy_image_rendering','0')=='1') {
+		$_image_script_path = "index.php";
+	}
+
+
+?>
+
+
 <form method="POST" name="adminForm" id="adminForm">
 <?php if (!empty( $this->sidebar)) : ?>
 	<div id="j-sidebar-container" class="span2">
@@ -87,7 +105,7 @@ defined('_JEXEC') or die('Restricted access');
 				</td>
 				<td>
 					<?php echo $row->file?><br />
-					<img class="thumbnail" src="<?php echo JURI::base().("../components/com_eventgallery/helpers/image.php?view=resizeimage&folder=".$row->folder."&file=".$row->file."&option=com_eventgallery&width=100&height=50")?>" />
+					<img class="thumbnail" src="<?php echo JURI::base().("../$_image_script_path?view=resizeimage&folder=".$row->folder."&file=".$row->file."&option=com_eventgallery&width=100&height=50")?>" />
 				</td>
 				<td>
 					<?php echo $checked; ?>

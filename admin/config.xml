@@ -59,6 +59,10 @@
 				cols="50" 
 				description="COM_EVENTGALLERY_OPTIONS_COMMON_SHARPINGMATRIX_DESCRIPTION" />
 
+		<field name="use_legacy_image_rendering" type="radio" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_LEGACY_IMAGE_RENDERING_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_LEGACY_IMAGE_RENDERING_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		
 </fieldset>
 <fieldset name="accesscontrol" label="Permissions">
