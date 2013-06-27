@@ -1,11 +1,8 @@
 Front End
 
-- include structure
 - User-Management
 - Order Tracking
 - eMail-Handling (hübsch machen)
-- Surcharge/Payment/Shipping method plugins
-	- mehrere Surcharges gleichzeitig gültig machen
 - AGB
 - Impressum
 - paypal fertig machen (IPN verarbeitung)
