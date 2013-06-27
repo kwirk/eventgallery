@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
 $cache = JFactory::getCache('com_eventgallery');
 ?>
 
-<?php include 'components/com_eventgallery/views/cart.php'; ?>
+<?php  echo  $this->loadSnippet("cart"); ?>
 
 <script type="text/javascript">
 

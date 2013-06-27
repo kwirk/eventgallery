@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 
-class EventgalleryViewEvents extends JViewLegacy
+class EventgalleryViewEvents extends EventgalleryLibraryCommonView
 {
     protected $params;
     protected $entries;
@@ -71,5 +71,7 @@ class EventgalleryViewEvents extends JViewLegacy
 
         parent::display($tpl);
     }
+
+
 }
 

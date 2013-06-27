@@ -107,7 +107,7 @@ defined('_JEXEC') or die('Restricted access');
 
 </script>
 
-<?php include 'components/com_eventgallery/views/cart.php'; ?>
+<?php  echo  $this->loadSnippet("cart"); ?>
 
 <div id="singleimage">
 
@@ -197,7 +197,7 @@ defined('_JEXEC') or die('Restricted access');
 
     <?php IF ($this->model->folder->cartable == 1): ?>
         <?php $this->set('file', $this->model->file) ?>
-        <?php include 'components/com_eventgallery/views/snippets/imagesetselectionsingle.php'; ?>
+        <?php echo $this->loadSnippet('imageset/imagesetselectionsingle'); ?>
     <?php ENDIF ?>
 
 

@@ -147,6 +147,7 @@ site/language/nb-NO/nb-NO.com_eventgallery.ini -text
 site/language/nl-NL/nl-NL.com_eventgallery.ini -text
 site/library/address.php -text
 site/library/cart.php -text
+site/library/common/view.php -text
 site/library/database/index.html svneol=native#text/html
 site/library/database/localizablestring.php -text
 site/library/database/object.php -text
@@ -275,7 +276,8 @@ site/plugins/shipping/email.php -text
 site/plugins/surcharge/standard.php -text
 site/router.php -text
 site/tests/EventgalleryLibraryDatabaseLocalizablestringTest.php -text
-site/views/cart.php -text
+site/tests/bootstrap.php -text
+site/tests/lib/TestLoader.php -text
 site/views/cart/index.html svneol=native#text/html
 site/views/cart/tmpl/default.php -text
 site/views/cart/tmpl/empty.php -text
@@ -335,11 +337,12 @@ site/views/singleimage/tmpl/default_commentform.php -text
 site/views/singleimage/tmpl/default_comments.php -text
 site/views/singleimage/tmpl/index.html -text
 site/views/singleimage/view.html.php -text
-site/views/snippets/imagesetinformation.php -text
-site/views/snippets/imagesetselection.php -text
-site/views/snippets/imagesetselectionajax.php -text
-site/views/snippets/imagesetselectionsingle.php -text
 site/views/snippets/index.html svneol=native#text/html
+site/views/snippets/tmpl/cart.php -text
+site/views/snippets/tmpl/imageset/imagesetinformation.php -text
+site/views/snippets/tmpl/imageset/imagesetselection.php -text
+site/views/snippets/tmpl/imageset/imagesetselectionajax.php -text
+site/views/snippets/tmpl/imageset/imagesetselectionsingle.php -text
 tests/data/images/20111008_155119_IMG_0559.jpg -text svneol=unset#image/jpeg
 tests/data/images/20111009_163636_IMG_0612.jpg -text svneol=unset#image/jpeg
 tests/data/images/20111010_172737_IMG_0680.jpg -text svneol=unset#image/jpeg

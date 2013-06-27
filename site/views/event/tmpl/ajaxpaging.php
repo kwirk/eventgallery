@@ -69,10 +69,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 </script>
 
 
-<?php include 'components/com_eventgallery/views/cart.php'; ?>
+<?php  echo  $this->loadSnippet("cart"); ?>
 
 <?php IF ($this->folder->cartable == 1): ?>
-    <?php include 'components/com_eventgallery/views/snippets/imagesetselectionajax.php'; ?>            
+    <?php echo $this->loadSnippet('imageset/imagesetselectionajax'); ?>
 <?php ENDIF ?>
 
 <div class="ajaxpaging">

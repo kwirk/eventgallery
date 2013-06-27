@@ -84,7 +84,7 @@ class EventgalleryLibraryManagerCart extends EventgalleryLibraryManagerManager
         /* try to get the right user id for the cart. This can also be the session id */
         $session = JFactory::getSession();
         $user_id = $session->getId();
-        if (!isset($this->_carts[$user_id])) {
+        if (!isset($this->_carts[$user_id]) || $this->_carts[$user_id]->getStatus()!=0) {
             $this->_carts[$user_id] = new EventgalleryLibraryCart($user_id);
         }
         return $this->_carts[$user_id];

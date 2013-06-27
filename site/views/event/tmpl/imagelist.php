@@ -20,7 +20,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 */
 
-include 'components/com_eventgallery/views/cart.php';
+echo $this->loadSnippet('cart');
 
 ?>
 
@@ -90,7 +90,7 @@ include 'components/com_eventgallery/views/cart.php';
     </div>
 
     <?php IF ($this->folder->cartable == 1): ?>
-        <?php include 'components/com_eventgallery/views/snippets/imagesetselection.php'; ?>
+        <?php echo $this->loadSnippet('imageset/imagesetselection'); ?>
     <?php ENDIF ?>
 
     <div style="clear:both"></div>

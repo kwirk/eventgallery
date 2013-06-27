@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 
-class EventgalleryViewMail extends JViewLegacy
+class EventgalleryViewMail extends EventgalleryLibraryCommonView
 {
 
     

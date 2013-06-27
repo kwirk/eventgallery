@@ -14,7 +14,7 @@ jimport('joomla.application.pathway');
 jimport('joomla.html.pagination');
 
 /** @noinspection PhpUndefinedClassInspection */
-class EventgalleryViewEvent extends JViewLegacy
+class EventgalleryViewEvent extends EventgalleryLibraryCommonView
 {
     /**
      * @var JRegistry

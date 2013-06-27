@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 
-class EventgalleryViewSingleImage extends JViewLegacy
+class EventgalleryViewSingleImage extends EventgalleryLibraryCommonView
 {
     /**
      * @var JRegistry

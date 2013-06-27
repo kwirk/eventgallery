@@ -74,7 +74,7 @@ defined('_JEXEC') or die('Restricted access');
     });
 </script>
 
-<?php include 'components/com_eventgallery/views/cart.php'; ?>
+<?php  echo  $this->loadSnippet("cart"); ?>
 
 <div id="event">
     <?php IF ($this->params->get('show_date', 1) == 1): ?>
@@ -101,7 +101,7 @@ defined('_JEXEC') or die('Restricted access');
 
 
     <?php IF ($this->folder->cartable == 1): ?>
-        <?php include 'components/com_eventgallery/views/snippets/imagesetselection.php'; ?>
+        <?php echo $this->loadSnippet('imageset/imagesetselection'); ?>
     <?php ENDIF ?>
 
     

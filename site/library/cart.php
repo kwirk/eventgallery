@@ -73,6 +73,11 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
         $this->_loadServiceLineItems();
     }
 
+    /**
+     * @param $lineitemid
+     *
+     * @return EventgalleryLibraryImagelineitem|null
+     */
     function cloneLineItem($lineitemid)
     {
         /**
@@ -82,7 +87,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
 
         // do not clone a not existing line item.
         if ($lineitem == NULL) {
-            return;
+            return null;
         }
 
         /**
@@ -94,6 +99,8 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
         $newLineitem->setQuantity(1);
 
         $this->_updateLineItemContainer();
+
+        return $newLineitem;
     }
 
     /**
@@ -188,6 +195,13 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
     {
         $this->_lineitemcontainer->statusid = $statusid;
         $this->_storeLineItemContainer();
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus() {
+        return $this->_lineitemcontainer->statusid;
     }
 
 }

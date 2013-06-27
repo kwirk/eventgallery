@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 
-class CartViewCart extends JViewLegacy
+class CartViewCart extends EventgalleryLibraryCommonView
 {
     /**
      * @var JRegistry
