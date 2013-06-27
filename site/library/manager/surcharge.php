@@ -21,7 +21,7 @@ class EventgalleryLibraryManagerSurcharge extends EventgalleryLibraryManagerMeth
      *
      * @param $cart
      *
-     * @return EventgalleryLibraryMethodsSurcharge
+     * @return EventgalleryLibraryMethodsSurcharge|null
      */
     public function calculateSurcharge($cart) {
 
@@ -37,7 +37,7 @@ class EventgalleryLibraryManagerSurcharge extends EventgalleryLibraryManagerMeth
 
         }
 
-        return $this->getDefaultMethod();
+        return null;
     }
 
 }

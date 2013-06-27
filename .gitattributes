@@ -271,6 +271,7 @@ site/plugins/payment/cod.php -text
 site/plugins/payment/paypal/payment.php -text
 site/plugins/payment/paypal/vendor/paypal.php -text
 site/plugins/shipping/dhl.php -text
+site/plugins/shipping/email.php -text
 site/plugins/surcharge/standard.php -text
 site/router.php -text
 site/tests/EventgalleryLibraryDatabaseLocalizablestringTest.php -text

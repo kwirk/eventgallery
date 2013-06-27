@@ -43,17 +43,15 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
         parent::__construct($lineitem);
 
 
-        $this->_file = new EventgalleryLibraryFile($this->_lineitem->folder, $this->_lineitem->file);
-        $this->_imagetype = new EventgalleryLibraryImagetype($this->_lineitem->typeid);
-
     }
+
 
     /**
      * @return string
      */
     public function getMiniCartThumb()
     {
-        return $this->_file->getMiniCartThumb($this);
+        return $this->getFile()->getMiniCartThumb($this);
     }
 
     /**
@@ -61,7 +59,7 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
      */
     public function getCartThumb()
     {
-        return $this->_file->getCartThumb($this);
+        return $this->getFile()->getCartThumb($this);
     }
 
     /**
@@ -69,6 +67,9 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
      */
     public function getFile()
     {
+        if ($this->_file == null) {
+            $this->_file = new EventgalleryLibraryFile($this->_lineitem->folder, $this->_lineitem->file);
+        }
         return $this->_file;
     }
 
@@ -93,6 +94,10 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
      */
     public function getImageType()
     {
+        if ($this->_imagetype == null) {
+            $this->_imagetype = new EventgalleryLibraryImagetype($this->_lineitem->typeid);
+        }
+
         return $this->_imagetype;
     }
 
@@ -103,7 +108,7 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
      */
     public function setImageType($imagetypeid)
     {
-        $newImageType = $this->_file->getImageTypeSet()->getImageType($imagetypeid);
+        $newImageType = $this->getFile()->getImageTypeSet()->getImageType($imagetypeid);
         /* @var $newImageType EventgalleryLibraryImagetype */
         if ($newImageType == null) {
             throw new Exception("The selected image type is invalid for this line item");
@@ -112,6 +117,7 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
         $this->_lineitem->typeid = $newImageType->getId();
         $this->_lineitem->singleprice = $newImageType->getPrice();
         $this->_store();
+        $this->_imagetype = null;
     }
 
 }

@@ -103,4 +103,12 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
         return $this->_ls_description->get();
     }
 
+    /**
+     * Defines if this image type is a digital one. The oposite is a format which has to be shipped physically.
+     *
+     * @return bool
+     */
+    public function isDigital() {
+        return $this->_imagetype->isdigital==1?true:false;
+    }
 }

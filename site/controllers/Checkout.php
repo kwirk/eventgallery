@@ -156,10 +156,11 @@ class CheckoutController extends JControllerLegacy
         #$order = $cart;
         $order = $orderMgr->createOrder($cart);
 
+        /* send mail */
+        $send = $this->_sendOrderConfirmationMail($order);
+
         $orderMgr->processOnOrderSubmit($order);
 
-        $send = $this->_sendOrderConfirmationMail($order);
-        /* send mail */
 
 
         if ($send !== true) {

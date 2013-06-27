@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryPluginsShippingDhl extends  EventgalleryLibraryMethodsShipping
+class EventgalleryPluginsShippingEmail extends  EventgalleryLibraryMethodsShipping
 {
 
 
@@ -24,17 +24,17 @@ class EventgalleryPluginsShippingDhl extends  EventgalleryLibraryMethodsShipping
      */
     public function isEligible($cart)
     {
+
         foreach($cart->getLineItems() as $imagelineitem) {
             /**
              * @var EventgalleryLibraryImagelineitem $imagelineitem
              */
-
-            // if at least one item in the cart is not digital return true;
+            // if at least one item in the cart is a physical good return false
             if (!$imagelineitem->getImageType()->isDigital()) {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 }

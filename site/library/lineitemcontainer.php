@@ -288,11 +288,12 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     public function setSurcharge($surcharge)
     {
 
+        $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_SURCHARGE);
+
         if ($surcharge == null) {
             return;
         }
 
-        $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_SURCHARGE);
         /* @var EventgalleryLibraryFactoryServicelineitem $serviceLineItemFactory */
         $serviceLineItemFactory = EventgalleryLibraryFactoryServicelineitem::getInstance();
         $serviceLineItemFactory->createLineItem($this->getId(), $surcharge);
@@ -425,11 +426,13 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     public function setPaymentMethod($payment)
     {
+
+        $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_PAYMENTMETHOD);
+
         if ($payment == null) {
             return;
         }
 
-        $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_PAYMENTMETHOD);
         /* @var EventgalleryLibraryFactoryServicelineitem $serviceLineItemFactory */
         $serviceLineItemFactory = EventgalleryLibraryFactoryServicelineitem::getInstance();
         $serviceLineItemFactory->createLineItem($this->getId(),  $payment);
@@ -474,11 +477,13 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     public function setShippingMethod($shipping)
     {
+
+        $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_SHIPINGMETHOD);
+
         if ($shipping == null) {
             return;
         }
 
-        $this->_deleteMethodByType(EventgalleryLibraryServicelineitem::TYPE_SHIPINGMETHOD);
         /* @var EventgalleryLibraryFactoryServicelineitem $serviceLineItemFactory */
         $serviceLineItemFactory = EventgalleryLibraryFactoryServicelineitem::getInstance();
         $serviceLineItemFactory->createLineItem($this->getId(), $shipping);

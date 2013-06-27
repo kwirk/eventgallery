@@ -42,9 +42,15 @@ $currentMethod
                     $selected = 'selected = "selected"';
                 }
 
+                $disabled = "";
+
+                if ($method->isEligible($this->cart)==false ) {
+                    $disabled = 'disabled="disabled"';
+                    $selected = "";
+                }
 
                 ?>
-                <option <?php echo $selected; ?>
+                <option <?php echo $selected; ?> <?php echo $disabled; ?>
                     value="<?php echo $method->getId(); ?>"><?php echo $method->getDisplayName(); ?>
                     (<?php echo $method->getCurrency(); ?> <?php echo $method->getPrice(); ?>)
                 </option>

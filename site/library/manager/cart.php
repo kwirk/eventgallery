@@ -117,7 +117,7 @@ class EventgalleryLibraryManagerCart extends EventgalleryLibraryManagerManager
              */
             $shippingMgr = EventgalleryLibraryManagerShipping::getInstance();
             $method = $shippingMgr->getMethod($shippingmethodid, true);
-            if ($method == NULL) {
+            if ($method == NULL || $method->isEligible($cart)==false ) {
                 $method = $shippingMgr->getDefaultMethod();
             }
             $cart->setShippingMethod($method);
@@ -288,6 +288,14 @@ class EventgalleryLibraryManagerCart extends EventgalleryLibraryManagerManager
     public function calculateCart()
     {
         $cart = $this->getCart();
+
+        if ($cart->getShippingMethod() && $cart->getShippingMethod()->isEligible($cart)==false) {
+            $cart->setShippingMethod(null);
+        }
+
+        if ($cart->getPaymentMethod() && $cart->getPaymentMethod()->isEligible($cart)==false) {
+            $cart->setPaymentMethod(null);
+        }
 
         // set subtotal;
         /**

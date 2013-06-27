@@ -103,7 +103,7 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
     }
 
     /**
-     * @return mixed|null
+     * @return stdClass|null
      */
     public function getData()
     {

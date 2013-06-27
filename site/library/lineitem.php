@@ -46,7 +46,7 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
             $this->_lineitem = $lineitem;
             $this->_lineitem_id = $lineitem->id;
         } else {
-            $this->_imagetype_id = $lineitem;
+            $this->_lineitem_id = $lineitem;
             $this->_loadLineItem();
         }
 
