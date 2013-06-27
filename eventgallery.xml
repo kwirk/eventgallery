@@ -41,15 +41,6 @@
 		<filename>index.html</filename>
 	</files>
 		
-	<!--<languages folder="site">
-			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
-			<language tag="de-DE">language/de-DE/de-DE.com_eventgallery.ini</language>
-			<language tag="it-IT">language/it-IT/it-IT.com_eventgallery.ini</language>
-			<language tag="nb-NO">language/nb-NO/nb-NO.com_eventgallery.ini</language>
-			<language tag="nl-NL">language/nl-NL/nl-NL.com_eventgallery.ini</language>
-			<language tag="hu-HU">language/hu-HU/hu-HU.com_eventgallery.ini</language>
-		</languages>-->
-	
 	<administration>
 		<menu img="class:media">COM_EVENTGALLERY_MENU</menu>
 		<submenu>
@@ -74,12 +65,6 @@
 			<filename>index.html</filename>
 		</files>
 		
-		<!--<languages folder="admin">
-			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.ini</language>
-			<language tag="en-GB">language/en-GB/en-GB.com_eventgallery.sys.ini</language>
-			<language tag="fr-FR">language/en-GB/en-GB.com_eventgallery.ini</language>
-			<language tag="fr-FR">language/en-GB/en-GB.com_eventgallery.sys.ini</language>
-		</languages>-->
 	</administration>
 	
 </extension >
