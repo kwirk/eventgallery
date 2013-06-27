@@ -1,25 +1,14 @@
 Front End
 
-- Surcharge Selection/Automatic Selection By Rule
 - include structure
 - User-Management
 - Order Tracking
 - eMail-Handling (hübsch machen)
-- Cart Module
 - Surcharge/Payment/Shipping method plugins
-	- plugin folder
-	- Tabelle enthält Klassennamen
-	- Plugins prüfen eigene Gültigkeit/Lizenz
-	- interface for shipping/payment/surcharge
-	- isGültig(Cart)-Methode
-	- displayConfig -> drop down wird damit hinfällig, Accordeon
-	- displaySubTotal (?)
-	- Surcharge auch für "Bilder digital auf USB-Stick kaufen"
 	- mehrere Surcharges gleichzeitig gültig machen
-- digital/ nicht digital shipping
 - AGB
 - Impressum
-
+- paypal fertig machen (IPN verarbeitung)
 
 - licence key per payment/shipping method
 
