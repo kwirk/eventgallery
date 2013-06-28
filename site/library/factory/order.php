@@ -77,7 +77,7 @@ class EventgalleryLibraryFactoryOrder extends EventgalleryLibraryFactoryFactory
         $query->select('id');
         $query->from("#__eventgallery_order");
         $query->where("userid=".$db->quote($userid));
-        $query->order("created");
+        $query->order("created desc");
 
         $db->setQuery($query);
         $rows = $db->loadObjectList();
@@ -88,9 +88,6 @@ class EventgalleryLibraryFactoryOrder extends EventgalleryLibraryFactoryFactory
 
         return $orders;
     }
-
-
-
 
 
 

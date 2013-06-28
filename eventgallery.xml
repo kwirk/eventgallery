@@ -35,6 +35,8 @@
 		<folder>media</folder>
 		<folder>models</folder>
 		<folder>views</folder>
+		<folder>tests</folder>
+		
 		<filename>controller.php</filename>
 		<filename>eventgallery.php</filename>
 		<filename>router.php</filename>

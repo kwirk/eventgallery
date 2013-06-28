@@ -16,7 +16,7 @@ defined('_JEXEC') or die();
  *
  * Class EventgalleryLibraryMethodsMethod
  */
-abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatabaseObject implements EventgalleryLibraryInterfaceMethod, EventgalleryLibraryInterfaceEvents
+abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatabaseObject implements EventgalleryLibraryInterfaceMethod
 {
 
     protected $_object = null;
@@ -132,5 +132,9 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
 
     public function processOnOrderSubmit($lineitemcontainer) {
         return true;
+    }
+
+    public function onIncomingExternalRequest() {
+
     }
 }

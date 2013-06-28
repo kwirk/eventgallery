@@ -109,6 +109,21 @@ interface EventgalleryLibraryInterfaceMethod
     public function getTypeCode();
 
 
+    /**
+     *
+     * Event which is called if an order is about to be submitted
+     *
+     * @param $lineitemcontainer EventgalleryLibraryLineitemcontainer
+     *
+     * @return bool|array true or array with errors
+     */
+    public function processOnOrderSubmit($lineitemcontainer);
 
+    /**
+     * is called if there is an incoming request from an external system for a payment method.
+     *
+     * @return
+     */
+    public function onIncomingExternalRequest();
 
 }

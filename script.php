@@ -28,6 +28,8 @@ class com_eventgalleryInstallerScript
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/helpers' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/controllers' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/media' );
+                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/tests' );
+                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/language' );
                 
         }
  

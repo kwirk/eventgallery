@@ -2,11 +2,10 @@ Front End
 
 - User-Management
 - Order Tracking
-- eMail-Handling (hübsch machen)
 - AGB
 - Impressum
-- paypal fertig machen (IPN verarbeitung)
 
+- responsive order table
 - licence key per payment/shipping method
 
 Back End

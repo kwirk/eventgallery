@@ -73,6 +73,20 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
         $this->_storeLineItemContainer();
     }
 
+    /**
+     * @return int
+     */
+    public function getPaymentStatus() {
+        return $this->_lineitemcontainer->paymentstatusid;
+    }
+
+    /**
+     * @param int $paymentstatus
+     */
+    public function setPaymentStatus($paymentstatus) {
+        $this->_lineitemcontainer->paymentstatusid = $paymentstatus;
+        $this->_storeLineItemContainer();
+    }
 
 
 

@@ -840,6 +840,7 @@ div.img:hover .button-alreadyInCart i.big {
 .eventgallery-checkout div.review-billing-address {
     float: left;
     width: 49%;
+    margin-bottom: 20px;    
 }
 
 /* bootstrap additions for joomla 2.5*/

@@ -47,6 +47,7 @@ class CheckoutViewCheckout extends EventgalleryLibraryCommonView
         $cartMgr = EventgalleryLibraryManagerCart::getInstance();
         $this->cart = $cartMgr->getCart();
 
+
         if ($this->getLayout() == 'default') {
             $this->setLayout('review');
         }
@@ -57,6 +58,11 @@ class CheckoutViewCheckout extends EventgalleryLibraryCommonView
                 || $this->cart->getPaymentMethod() == null
                 || $this->cart->getShippingMethod() == null)
         ) {
+            if ($this->cart->getLineItemsCount()==0) {
+                $app->redirect(
+                    JRoute::_("index.php?option=com_eventgallery&view=cart", false)                   
+                );
+            }
             $this->setLayout('change');
         }
 

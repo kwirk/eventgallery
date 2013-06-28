@@ -24,8 +24,10 @@ admin/helpers/php_markdown_extra/markdown.php -text
 admin/index.html -text
 admin/language/en-GB/en-GB.com_eventgallery.ini -text
 admin/language/en-GB/en-GB.com_eventgallery.sys.ini -text
+admin/language/en-GB/index.html svneol=native#text/html
 admin/language/fr-FR/fr-FR.com_eventgallery.ini -text
 admin/language/fr-FR/fr-FR.com_eventgallery.sys.ini -text
+admin/language/index.html svneol=native#text/html
 admin/media/css/eventgallery.css svneol=native#text/css
 admin/media/css/index.html svneol=native#text/html
 admin/media/css/manual.css svneol=native#text/css
@@ -165,7 +167,6 @@ site/library/imagelineitem.php -text
 site/library/imagetype.php -text
 site/library/imagetypeset.php -text
 site/library/index.html svneol=native#text/html
-site/library/interface/events.php -text
 site/library/interface/index.html svneol=native#text/html
 site/library/interface/method.php -text
 site/library/lineitem.php -text
@@ -275,6 +276,7 @@ site/models/singleimage.php -text
 site/plugins/index.html svneol=native#text/html
 site/plugins/payment/cod.php -text
 site/plugins/payment/index.html svneol=native#text/html
+site/plugins/payment/paypal/cacert.pem -text
 site/plugins/payment/paypal/index.html svneol=native#text/html
 site/plugins/payment/paypal/payment.php -text
 site/plugins/payment/paypal/vendor/index.html svneol=native#text/html
@@ -350,7 +352,9 @@ site/views/singleimage/tmpl/index.html -text
 site/views/singleimage/view.html.php -text
 site/views/snippets/index.html svneol=native#text/html
 site/views/snippets/tmpl/cart.php -text
+site/views/snippets/tmpl/checkout/address.php -text
 site/views/snippets/tmpl/checkout/summary.php -text
+site/views/snippets/tmpl/checkout/total.php -text
 site/views/snippets/tmpl/imageset/imagesetinformation.php -text
 site/views/snippets/tmpl/imageset/imagesetselection.php -text
 site/views/snippets/tmpl/imageset/imagesetselectionajax.php -text

@@ -59,64 +59,19 @@ defined('_JEXEC') or die('Restricted access');
 
                         </td>
                         <td class="price">
-                            <?php echo $lineitem->getCurrency(); ?>
-                            <?php echo $lineitem->getPrice(); ?>
+                            <span>
+                                <?php echo $lineitem->getCurrency(); ?>
+                                <?php echo $lineitem->getPrice(); ?>
+                            </span>
                         </td>
                     </tr>
                 <?php endforeach ?>
             </table>
         </div>
 
-        <div class="cart-summary">
-            <div class="subtotal">
-                <div class="subtotal-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_SUBTOTAL') ?></div>
-				<span class="subtotal">
-					<?php echo $this->cart->getSubTotalCurrency(); ?>
-                    <?php printf("%.2f", $this->cart->getSubTotal()); ?>
-				</span>
-            </div>
-            <?php IF ($this->cart->getSurcharge() != NULL): ?>
+       
+        <?php $this->set('edit',false); $this->set('lineitemcontainer', $this->cart); echo $this->loadSnippet('checkout/total') ?>
 
-                <div class="surcharge">
-                    <div class="surcharge-headline"><?php echo $this->cart->getSurcharge()->getDisplayName(); ?></div>
-				<span class="surcharge">
-					<?php echo $this->cart->getSurcharge()->getCurrency(); ?>
-                    <?php echo $this->cart->getSurcharge()->getPrice(); ?>
-				</span>
-                </div>
-            <?php ENDIF ?>
-            <?php IF ($this->cart->getShippingMethod() != NULL): ?>
-                <div class="surcharge">
-                    <div class="surcharge-headline"><?php echo $this->cart->getShippingMethod()->getDisplayName(
-                        ); ?></div>
-				<span class="surcharge">
-					<?php echo $this->cart->getShippingMethod()->getCurrency(); ?>
-                    <?php echo $this->cart->getShippingMethod()->getPrice(); ?>
-				</span>
-                </div>
-            <?php ENDIF ?>
-            <?php IF ($this->cart->getPaymentMethod() != NULL): ?>
-                <div class="surcharge">
-                    <div class="surcharge-headline"><?php echo $this->cart->getPaymentMethod()->getDisplayName(
-                        ); ?></div>
-				<span class="surcharge">
-					<?php echo $this->cart->getPaymentMethod()->getCurrency(); ?>
-                    <?php echo $this->cart->getPaymentMethod()->getPrice(); ?>
-				</span>
-                </div>
-            <?php ENDIF ?>
-            <div class="total ">
-                <div class="total-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL') ?></div>
-				<span class="total">
-					<?php echo $this->cart->getTotalCurrency(); ?>
-                    <?php printf("%.2f", $this->cart->getTotal()); ?>
-				</span>
-				<span class="vat">
-					<?php echo JText::_('COM_EVENTGALLERY_CART_VAT_HINT') ?>
-				</span>
-            </div>
-
-        </div>
         <div class="needs-calculation" style="">
             <?php echo JText::_('COM_EVENTGALLERY_CART_RECALCULATE') ?>
         </div>
@@ -148,7 +103,7 @@ defined('_JEXEC') or die('Restricted access');
         // update the carts description once something changed
         var setNeedsCalculationMode = function (e) {
 
-            $$(".cart-item td.price").fade('out');
+            $$(".cart-item td.price span").fade('out');
             var cartSummary = $$(".cart-summary")[0];
 
             new Fx.Slide(cartSummary, {
@@ -209,12 +164,18 @@ defined('_JEXEC') or die('Restricted access');
             $(e.target).fade('out');
 
         }
+      
 
         /**
         * sets the quantity to 0 and submits the form.
         */
         function removeAllItems(e) {
+
             e.preventDefault();      
+            var response = confirm("<?php echo JText::_('COM_EVENTGALLERY_CART_FORM_REMOVE_ALL_CONFIRM'); ?>");
+            if (response == false) {
+                return; 
+            }
             $$("input.eventgallery-quantity").set('value',0);
             $(e.target).getParent('form').submit();
         }

@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_servicelineitem` (
   `data` text DEFAULT NULL,
   `taxrate` int(3) DEFAULT 0,
   `price` decimal(8,2) NOT NULL,
+  `singleprice` decimal(8,2) NOT NULL,
   `currency` varchar(3) NOT NULL,
   `ordering` int(11) NOT NULL DEFAULT 0,
   `modified` timestamp NULL DEFAULT NULL,
@@ -137,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_imagetype` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `ztx1s_eventgallery_order`
+-- Tabellenstruktur für Tabelle `ztx1s_eventgallery_cart`
 --
 DROP TABLE IF EXISTS `ztx1s_eventgallery_cart`;
 CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_cart` (

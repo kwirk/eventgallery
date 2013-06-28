@@ -24,12 +24,17 @@ $order = $this->order;
     
     #content {
         background-color: white;
-        max-width: 700px;
+        width: 700px;
         width: 100%;
         border: 1px solid #EEE;
         padding: 20px;
         padding-top: 40px;
         margin: auto;
+    }
+
+    table {
+        background-color: white;
+        width: 100%;
     }
 
     h1 {
@@ -78,17 +83,15 @@ $order = $this->order;
 
 </style>
 <div id="content">
-    <p>
-        Hallo <?php echo $order->getBillingAddress()->getFirstName(). ' '. $order->getBillingAddress()->getLastName(); ?>!
+    <p>  
+        <?php echo JText::sprintf('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_HEADLINE', $order->getBillingAddress()->getFirstName(). ' '. $order->getBillingAddress()->getLastName()) ?>        
     </p>
 
-    <p>
-        Thank you for placing your order! We received your order at <?php echo JHTML::_('date', $order->getCreationDate()); ?> and we'll 
-        process it with the order number <?php echo $order->getDocumentNumber(); ?>. Please find a list of your items below. We'll notice you about the shippment with a separate email. 
-        The ship-to address below is the one we'll use to send your order to. Usually this will take 2-3 weeks. 
+    <p> 
+        <?php echo JText::sprintf('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_MESSAGE', JHTML::_('date', $order->getCreationDate()), $order->getDocumentNumber()) ?>
     </p>
 
-    <h1>Your items</h1>
+    <h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_YOUR_ITEMS') ?></h1>
 
     <table>
         <th><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_COUNT'); ?></th>
@@ -130,7 +133,7 @@ $order = $this->order;
     <table class="table-summary">
         <tr class="subtotal">
             <td>
-                Subtotal
+                <?php echo JText::_('COM_EVENTGALLERY_CART_SUBTOTAL') ?>
             </td>
             <td>
                 <?php echo $order->getSubTotalCurrency().' '. sprintf("%0.2f", $order->getSubTotal()); ?>
@@ -175,7 +178,7 @@ $order = $this->order;
 
         <tr class="total">
             <td>
-                Total:    
+                <?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL') ?>:    
             </td>
             <td>
                 <?php echo $order->getTotalCurrency().' '.sprintf("%0.2f", $order->getTotal()); ?>
@@ -183,11 +186,8 @@ $order = $this->order;
         </tr>
         
         <tr class="total">
-            <td>
-                contains VAT:    
-            </td>
-            <td>
-                <?php echo $order->getTotalCurrency().' '.sprintf("%0.2f", $order->getTax()); ?>
+            <td colspan="2">
+               <?php echo JText::sprintf('COM_EVENTGALLERY_CART_VAT_HINT_WITH_PLACEHOLDER', $this->order->getTaxCurrency(), $this->order->getTax()) ?>  
             </td>
         </tr>
 
@@ -198,84 +198,34 @@ $order = $this->order;
 
     <table class="table-address">
         <tr>
-            <td>
-                <h2>Billing Address</h2>
-
-                <?php echo $order->getBillingAddress()->getFirstName(); ?> <?php echo $order->getBillingAddress()->getLastName(); ?> <br/>
-                <?php echo $order->getBillingAddress()->getAddress1(); ?><br/>
-                <?php if (strlen($order->getBillingAddress()->getAddress2())>0) echo $order->getBillingAddress()->getAddress2(); ?><br/>
-                <?php if (strlen($order->getBillingAddress()->getAddress3())>0) echo $order->getBillingAddress()->getAddress3(); ?><br/>
-                <?php echo $order->getBillingAddress()->getZip(); ?> <?php echo $order->getBillingAddress()    ->getCity(); ?><br/>
-                <?php echo $order->getBillingAddress()->getCountry(); ?><br/>
-
-
-
+            <td>            
+                <h2><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_BILLINGADDRESS_HEADLINE') ?></h2>
+                <?php $this->set('address',$order->getBillingAddress()); echo $this->loadSnippet('checkout/address') ?>    
             </td>
             <td>
-                <h2>Shipping Address</h2>
-                <?php echo $order->getShippingAddress()->getFirstName(); ?> <?php echo $order->getShippingAddress()->getLastName(); ?> <br/>
-                <?php echo $order->getShippingAddress()->getAddress1(); ?><br/>
-                <?php  if (strlen($order->getShippingAddress()->getAddress3())>0)echo $order->getShippingAddress()->getAddress2(); ?><br/>
-                <?php  if (strlen($order->getShippingAddress()->getAddress3())>0)echo $order->getShippingAddress()->getAddress3(); ?><br/>
-                <?php echo $order->getShippingAddress()->getZip(); ?> <?php echo $order->getShippingAddress()->getCity(); ?><br/>
-                <?php echo $order->getShippingAddress()->getCountry(); ?><br/>   
+                <h2><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_SHIPPINGADDRESS_HEADLINE') ?></h2>
+                <?php $this->set('address',$order->getShippingAddress()); echo $this->loadSnippet('checkout/address') ?>
             </td>
         </tr>
     </table>
 
 
     <?php IF (strlen($order->getMessage())>0):?>
-    <p><strong>Custom Message</strong></p>
+    <p><strong><?php echo JText::_('COM_EVENTGALLERY_CHECKOUT_USERDATA_MESSAGE_LABEL') ?></strong></p>
     <p>
-        Message: <?php echo $order->getMessage();?>
+        <?php echo $order->getMessage();?>
     </p>
     <?php ENDIF; ?>
     
     
     <div class="widerruf">
-        <h2>Widerrufsbelehrung</h2>
-        <p>
-        <strong>Widerrufsrecht</strong>
-        </p>
-
-        <p>
-        Sie können Ihre Vertragserklärung innerhalb von 14 Tagen ohne Angabe von Gründen in Textform (z. B. Brief, Fax, E-Mail) oder – wenn Ihnen die Sache vor Fristablauf überlassen wird – auch durch Rücksendung der Sache widerrufen. Die Frist beginnt nach Erhalt dieser Belehrung in Textform, jedoch nicht vor Eingang der Ware beim Empfänger (bei der wiederkehrenden Lieferung gleichartiger Waren nicht vor Eingang der ersten Teillieferung) und auch nicht vor Erfüllung unserer Informationspflichten gemäß Artikel 246 § 2 in Verbindung mit § 1 Absatz. 1 und 2 EGBGB sowie unserer Pflichten gemäß § 312g Absatz. 1 Satz 1 BGB in Verbindung mit Artikel 246 § 3 EGBGB. Zur Wahrung der Widerrufsfrist genügt die rechtzeitige Absendung des Widerrufs oder der Sache.
-        </p>
-        <p>
-        Der Widerruf ist zu richten an:
-        </p>
-        <p>
-        [Name/Firma]    Musterhändler GmbH<br>
-        [Angaben zum gesetzlichen Vertreter]    Geschäftsführer: Max Mustermann<br>
-        [ladungsfähige Anschrift (kein Postfach!)]  Kommerzallee 1a, 12345 Musterhausen<br>
-        [E-Mail-Adresse]    max.mustermann@xyz.de<br>
-        [ggf. Faxnummer]    Fax 01234 / 567.890<br>
-        [keine Telefonnummer!]<br>
-        </p>
-        <p>
-        <strong>Widerrufsfolgen</strong>
-        </p>
-        <p>
-        Im Falle eines wirksamen Widerrufs sind die beiderseits empfangenen Leistungen zurückzugewähren und ggf. gezogene Nutzungen (z. B. Zinsen) herauszugeben. Können Sie uns die empfangene Leistung sowie Nutzungen (z.B. Gebrauchsvorteile) nicht oder teilweise nicht oder nur in verschlechtertem Zustand zurückgewähren beziehungsweise herausgeben, müssen Sie uns insoweit Wertersatz leisten. Für die Verschlechterung der Sache und für gezogene Nutzungen müssen Sie Wertersatz nur leisten, soweit die Nutzungen oder die Verschlechterung auf einen Umgang mit der Sache zurückzuführen ist, der über die Prüfung der Eigenschaften und der Funktionsweise hinausgeht. 3 Unter "Prüfung der Eigenschaften und der Funktionsweise" versteht man das Testen und Ausprobieren der jeweiligen Ware, wie es etwa im Ladengeschäft möglich und üblich ist.
-        </p>
-        <p>
-        Paketversandfähige Sachen sind auf unsere Gefahr zurückzusenden. Sie haben die regelmäßigen Kosten der Rücksendung zu tragen, wenn die gelieferte Ware der bestellten entspricht und wenn der Preis der zurückzusendenden Sache einen Betrag von 40 Euro nicht übersteigt oder wenn Sie bei einem höheren Preis der Sache zum Zeitpunkt des Widerrufs noch nicht die Gegenleistung oder eine vertraglich vereinbarte Teilzahlung erbracht haben. 4 Anderenfalls ist die Rücksendung für Sie kostenfrei. Nicht paketversandfähige Sachen werden bei Ihnen abgeholt. Verpflichtungen zur Erstattung von Zahlungen müssen innerhalb von 30 Tagen erfüllt werden. Die Frist beginnt für Sie mit der Absendung Ihrer Widerrufserklärung oder der Sache, für uns mit deren Empfang.
-        </p>
-        <p><strong>
-        Ende der Widerrufsbelehrung
-        </strong></p>
+        <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_DISCLAIMER') ?>
+       
     </div>
     
     <div class="contact">
-        <p>
-        Firma <br>
-        Name Vorname<br>
-        Adresse<br>
-        Stadt, PLZ <br />
-        </p>
-        <p>
-        Allgemeine Geschäftsbedingungen (AGB): http://www.foobar.de/agb
-        </p>
+        <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_MERCENTADDRESS') ?>
+        
     </div>
     
 </div>

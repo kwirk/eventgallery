@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 
-<fieldset name="Eventgallery" label="General">
+<fieldset name="general" label="COM_EVENTGALLERY_EVENTS_OPTIONS_GENERAL_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_GENERAL_DESC">
 
 		<field 	name="adminmail" 
 				type="text" 
@@ -12,17 +12,38 @@
 				description="COM_EVENTGALLERY_OPTIONS_COMMON_ADMINMAIL_DESCRIPTION" />
 		
 		
-		<field name="use_comments" type="radio" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_USECOMMENTS_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USECOMMENTS_DESCRIPTION">
+		<field name="use_comments" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_USECOMMENTS_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USECOMMENTS_DESCRIPTION">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
 
-		<field name="use_cart" type="radio" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USECART_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USECART_DESCRIPTION">
+		
+		<field name="image_quality" type="integer" first="40" last="95" step="1" default="85" label="COM_EVENTGALLERY_OPTIONS_COMMON_THUMBNAIL_QUALITY_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_THUMBNAIL_QUALITY_DESC"/>
+		
+		<field name="use_sharpening" type="radio" class="btn-group" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USESHARPENING_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USESHARPENING_DESCRIPTION">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
 		
-		<field name="show_cart_connector" type="radio" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_SHOW_CART_CONNECTOR_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_SHOW_CART_CONNECTOR_DESCRIPTION">
+		
+		<field 	name="image_sharpenMatrix" 
+				type="text" 
+				default="[[-1,-1,-1],[-1,16,-1],[-1,-1,-1]]" 
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_SHARPINGMATRIX_LABEL" 
+				rows="1" 
+				cols="50" 
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_SHARPINGMATRIX_DESCRIPTION" />
+
+		
+</fieldset>
+
+<fieldset name="cart" label="COM_EVENTGALLERY_EVENTS_OPTIONS_CART_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_CART_DESC">
+		<field name="use_cart" type="radio" class="btn-group" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USECART_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USECART_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="show_cart_connector" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_SHOW_CART_CONNECTOR_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_SHOW_CART_CONNECTOR_DESCRIPTION">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>	
@@ -43,28 +64,15 @@
 			label="COM_EVENTGALLERY_OPTIONS_COMMON_CART_CONNECTOR_LINK_REL_LABEL" 
 			description="COM_EVENTGALLERY_OPTIONS_COMMON_CART_CONNECTOR_LINK_REL_DESCRIPTION" />
 		
-		<field name="image_quality" type="integer" first="40" last="95" step="1" default="85" label="COM_EVENTGALLERY_OPTIONS_COMMON_THUMBNAIL_QUALITY_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_THUMBNAIL_QUALITY_DESC"/>
-		
-		<field name="use_sharpening" type="radio" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USESHARPENING_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USESHARPENING_DESCRIPTION">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		
-		
-		<field 	name="image_sharpenMatrix" 
-				type="text" 
-				default="[[-1,-1,-1],[-1,16,-1],[-1,-1,-1]]" 
-				label="COM_EVENTGALLERY_OPTIONS_COMMON_SHARPINGMATRIX_LABEL" 
-				rows="1" 
-				cols="50" 
-				description="COM_EVENTGALLERY_OPTIONS_COMMON_SHARPINGMATRIX_DESCRIPTION" />
-
-		<field name="use_legacy_image_rendering" type="radio" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_LEGACY_IMAGE_RENDERING_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_LEGACY_IMAGE_RENDERING_DESC">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-		
 </fieldset>
+
+<fieldset name="checkout" label="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_DESC">
+		<field name="use_terms_conditions_checkbox" type="radio" class="btn-group" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USETERMCONDITIONS_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USETERMCONDITIONS_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+</fieldset>
+
 <fieldset name="accesscontrol" label="Permissions">
  
 		<field name="asset_id" type="hidden" filter="unset" /> 

@@ -108,10 +108,22 @@ class EventgalleryLibraryServicelineitem extends EventgalleryLibraryLineitem
     public function getData()
     {
         if (null == $this->_data) {
-            $this->_data = json_decode($this->_lineitem->data);
+            if ($this->_lineitem->data == null) {
+                $this->_data = new stdClass();
+            } else {
+                $this->_data = json_decode($this->_lineitem->data);
+            }
         }
 
         return $this->_data;
+    }
+
+    public function setData($key, $value) {
+
+        $this->getData()->$key = $value;
+        $this->_lineitem->data = json_encode($this->_data);
+        $this->_store();
+        $this->_data = null;
     }
 
 

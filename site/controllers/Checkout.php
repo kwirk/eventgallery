@@ -173,6 +173,20 @@ class CheckoutController extends JControllerLegacy
 
     }
 
+    public function processPayment() {
+       $methodid = JRequest::getString("paymentmethodid",null);
+        /**
+         * @var EventgalleryLibraryManagerPayment $methodMgr
+         */
+
+        $methodMgr = EventgalleryLibraryManagerPayment::getInstance();
+        $method = $methodMgr->getMethod($methodid, false);
+        if ($method != null) {
+            $method->onIncomingExternalRequest();
+        }
+
+
+    }
 
 
 

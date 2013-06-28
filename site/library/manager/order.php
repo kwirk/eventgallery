@@ -36,6 +36,7 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryManagerManager
         $order = $orderFactory->createOrder($cart);
 
         // put the cart in the cart history
+
         $cart->setStatus(1);
 
         return $order;
