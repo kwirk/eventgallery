@@ -10,12 +10,26 @@
 
 defined('_JEXEC') or die('Restricted access');
 
+/**
+ * @var EventgalleryLibraryManagerOrder $orderMgr
+ */
+$orderMgr = EventgalleryLibraryManagerOrder::getInstance();
+$orders = $orderMgr->getOrders();
+
+$order = null;
+foreach($orders as $myorder) {
+    $order = $myorder;
+    break;
+}
+
 ?>
 
 <div class="eventgallery-checkout">
 
-    Your order has been placed.
+    <h1>Your order with the id <?php echo $order->getDocumentNumber() ?> has been placed.</h1>
 
+    <?php $this->set('edit',false); $this->set('lineitemcontainer', $order); echo $this->loadSnippet('checkout/summary') ?>
+	<div class="clearfix"></div>
 </div>
 
 

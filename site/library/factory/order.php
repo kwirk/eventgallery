@@ -70,6 +70,25 @@ class EventgalleryLibraryFactoryOrder extends EventgalleryLibraryFactoryFactory
         return $order;
     }
 
+    public function getOrdersByUserId($userid) {
+        $db = JFactory::getDBO();
+
+        $query = $db->getQuery(true);
+        $query->select('id');
+        $query->from("#__eventgallery_order");
+        $query->where("userid=".$db->quote($userid));
+        $query->order("created");
+
+        $db->setQuery($query);
+        $rows = $db->loadObjectList();
+        $orders = array();
+        foreach ($rows as $row) {
+            array_push($orders, new EventgalleryLibraryOrder($row->id));
+        }
+
+        return $orders;
+    }
+
 
 
 

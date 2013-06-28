@@ -41,4 +41,9 @@ JTable::addIncludePath(
     . DIRECTORY_SEPARATOR . 'tables'
 );
 
+define('JPATH_COMPONENT', $baseDir. DIRECTORY_SEPARATOR.'components'. DIRECTORY_SEPARATOR.'com_eventgallery');
+
 JLoader::registerPrefix('Eventgallery', dirname(__FILE__).'/../');
+require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'controller.php');
+require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'controllers/Rest.php');
+require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'controllers/Checkout.php');

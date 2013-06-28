@@ -24,7 +24,10 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    		}
 	    	}
 
-	    	$app	 = JFactory::getApplication();	   		
+            /**
+             * @var JSite $app
+             */
+            $app	 = JFactory::getApplication();
 			$params	 = $app->getParams();
 
 			if ($params->get('use_legacy_image_rendering','0')=='1') {
@@ -103,7 +106,3 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    }
 	
 }
-
-	
-	
-?>

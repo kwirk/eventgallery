@@ -285,9 +285,10 @@ site/plugins/shipping/index.html svneol=native#text/html
 site/plugins/surcharge/index.html svneol=native#text/html
 site/plugins/surcharge/standard.php -text
 site/router.php -text
+site/tests/CheckoutTest.php -text
 site/tests/EventgalleryLibraryDatabaseLocalizablestringTest.php -text
+site/tests/RestControllerTest.php -text
 site/tests/bootstrap.php -text
-site/tests/lib/TestLoader.php -text
 site/views/cart/index.html svneol=native#text/html
 site/views/cart/tmpl/default.php -text
 site/views/cart/tmpl/empty.php -text
@@ -349,6 +350,7 @@ site/views/singleimage/tmpl/index.html -text
 site/views/singleimage/view.html.php -text
 site/views/snippets/index.html svneol=native#text/html
 site/views/snippets/tmpl/cart.php -text
+site/views/snippets/tmpl/checkout/summary.php -text
 site/views/snippets/tmpl/imageset/imagesetinformation.php -text
 site/views/snippets/tmpl/imageset/imagesetselection.php -text
 site/views/snippets/tmpl/imageset/imagesetselectionajax.php -text

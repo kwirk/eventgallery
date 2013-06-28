@@ -173,10 +173,7 @@ class CheckoutController extends JControllerLegacy
 
     }
 
-    public function processPlugin() {
-        // TODO: add payment handling
 
-    }
 
 
 }

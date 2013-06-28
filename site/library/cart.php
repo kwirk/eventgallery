@@ -22,7 +22,7 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
      */
     protected $_lineitemcontainer_table = "Cart";
 
-    public function __construct($user_id = NULL)
+    public function __construct($user_id)
     {
         $this->_user_id = $user_id;
         $this->_loadLineItemContainer();

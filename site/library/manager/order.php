@@ -52,5 +52,20 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryManagerManager
 
     }
 
+    public function getOrders() {
+        /* try to get the right user id for the cart. This can also be the session id */
+        $session = JFactory::getSession();
+        $user_id = $session->getId();
+
+        /**
+         * @var EventgalleryLibraryFactoryOrder $orderFactory
+         */
+        $orderFactory = EventgalleryLibraryFactoryOrder::getInstance();
+        $orders = $orderFactory->getOrdersByUserId($user_id);
+
+        return $orders;
+
+    }
+
 
 }

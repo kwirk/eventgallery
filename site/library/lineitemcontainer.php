@@ -152,7 +152,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
      */
     function getLineItems()
     {
-        return $this->_lineitems;
+        return array_values($this->_lineitems);
     }
 
     /**
