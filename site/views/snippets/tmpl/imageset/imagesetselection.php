@@ -21,15 +21,16 @@ defined('_JEXEC') or die('Restricted access'); ?>
     <div class="well imagetypeselection" style="display:none">
         <?php include dirname(__FILE__).'/imagesetinformation.php'; ?>
         <div class="btn-group pull-right">
-            <button class="btn eventgallery-add-all"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_ADD_ALL') ?></button>
             <button class="btn imagetypeselection-hide"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_CLOSE') ?></button>       
+            <button class="btn btn-primary eventgallery-add-all"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_ADD_ALL') ?></button>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
 
 <script>
-    
+
+
     window.addEvent("domready", function () {
     
         var imagetypeselection = $$('.imagetypeselection')[0];
@@ -41,14 +42,18 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 
         function closeImageTypeSelection(e) {
-            e.preventDefault();
+            if (e) {
+                e.preventDefault();
+            }
             imagetypeselectionFX.slideOut();
             imagetypeselectionShowButtonFX.slideIn();     
             $$(".eventgallery-add2cart").hide();
         }
 
         function openImageTypeSelection(e) {
-            e.preventDefault();
+            if (e) {
+                e.preventDefault();
+            }
             imagetypeselectionFX.slideIn();
             imagetypeselectionShowButtonFX.slideOut();
 
@@ -62,6 +67,14 @@ defined('_JEXEC') or die('Restricted access'); ?>
         
         $$('.imagetypeselection-show').show();
         $$(".eventgallery-add2cart").hide();
+
+        window.addEvent("resize", function(e) {
+
+            window.setTimeout(function(e) {
+                closeImageTypeSelection(e);
+            }.bind(this),500);
+
+        }.bind(this));
     
     });
 

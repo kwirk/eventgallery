@@ -678,6 +678,15 @@ div.img:hover .button-alreadyInCart i.big {
     width: 100%;
 }
 
+/**
+* Cart & checkout page
+*/
+
+.eventgallery-cart .cart-items table,
+.eventgallery-checkout .cart-items table {
+    width: 100%;
+}
+
 .eventgallery-checkout .checkout-form,
 .eventgallery-cart .cart-form {
     margin-top: 20px;
@@ -689,56 +698,44 @@ div.img:hover .button-alreadyInCart i.big {
     margin-bottom: 20px;
 }
 
-.eventgallery-cart .cart-items table,
-.eventgallery-checkout .cart-items table {
-    width: 100%;
+
+.eventgallery-cart .cart-items .image,
+.eventgallery-checkout .cart-items .image {
+    margin-right: 20px;
+    float: left;
 }
 
-.eventgallery-cart .cart-items table th,
-.eventgallery-checkout .cart-items table th {
-    font-weight: bold;
-    line-height: 3em;
-    text-align: left;
-
+.eventgallery-cart .cart-items .information,
+.eventgallery-checkout .cart-items .information {    
+    float: left;
 }
 
-.eventgallery-cart .cart-items td,
-.eventgallery-checkout .cart-items td {
-    vertical-align: top;
+.eventgallery-cart .cart-items .information input,
+.eventgallery-checkout .cart-items .information .quantity {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
 }
 
-.eventgallery-checkout .cart-items .quantity,
-.eventgallery-checkout .cart-items .imagetype {
-    text-align: right;
-}
+.eventgallery-cart .cart-items .information select,
+.eventgallery-checkout .cart-items .information .imagetype-details .displayname {
+    margin-bottom: 10px;
 
-.eventgallery-cart .needs-calculation {
-    text-align: right;
 }
 
 .eventgallery-cart .cart-items .price,
 .eventgallery-checkout .cart-items .price {
-    text-align: right;
-    white-space: nowrap;
-    padding-left: 10px;
+    float: right;
 }
 
-.eventgallery-cart .cart-item .image,
-.eventgallery-checkout .cart-item .image {
-    width: 120px;
-}
-
-.eventgallery-cart .cart-item .image a,
-.eventgallery-checkout .cart-item .image a {
-    margin-right: 20px;
-}
-
-.eventgallery-cart .cart-items a.delete,
-.eventgallery-cart .cart-items a.clone {
-    font-size: 0.7em;
+.eventgallery-cart .cart-items .imagetype-details span,
+.eventgallery-checkout .cart-items .imagetype-details span{
     display: block;
-    padding-top: 10px;
 }
+
+
+
+
 
 .eventgallery-cart .cart-summary div.subtotal,
 .eventgallery-checkout .cart-summary div.subtotal {

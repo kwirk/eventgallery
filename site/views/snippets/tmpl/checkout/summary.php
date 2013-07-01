@@ -38,34 +38,33 @@ defined('_JEXEC') or die('Restricted access');
 
 <div class="cart-items">
     <table class="table table-hover">
-        <tr>
-            <th>&nbsp;</th>
-            <th class="quantity"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_QUANTITY') ?></th>
-            <th class="imagetype"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_IMAGETYPE') ?></th>
-            <th class="price"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_PRICE') ?></th>
-        </tr>
+        
         <?php foreach ($this->lineitemcontainer->getLineItems() as $lineitem) :
             /** @var EventgalleryLibraryImagelineitem $lineitem */
              ?>
             <tr class="cart-item">
-                <td class="image">
-                    <?php echo $lineitem->getCartThumb($lineitem->getId()); ?>
-                </td>
-                <td class="quantity">
-                    <?php echo $lineitem->getQuantity() ?>
-                </td>
-                <td class="imagetype">
-                    <?php echo $lineitem->getImageType()->getDisplayName() .
-                        ' (' .
-                        $lineitem->getImageType()->getCurrency() .
-                        ' ' .
-                        $lineitem->getImageType()->getPrice()
-                        . ')';
-                    ?>
-                </td>
-                <td class="price">
-                    <?php echo $lineitem->getCurrency(); ?>
-                    <?php echo $lineitem->getPrice(); ?>
+                <td>
+                    <div class="image">
+                        <?php echo $lineitem->getCartThumb($lineitem->getId()); ?>
+                    </div>
+               
+                    <span class="price">
+                        <?php echo $lineitem->getCurrency(); ?>
+                        <?php echo $lineitem->getPrice(); ?>
+                    </span>
+                
+                    <div class="information">
+                       <span class="quantity"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_QUANTITY') ?>: <?php echo $lineitem->getQuantity() ?></span>
+                       
+                        <p class="imagetype-details"> 
+                            <span class="displayname"><?php echo $lineitem->getImageType()->getDisplayName() ?></span>
+                            <span class="description"><?php echo $lineitem->getImageType()->getDescription() ?></span>
+                            <span class="singleprice"><?php echo JText::sprintf('COM_EVENTGALLERY_LINEITEM_PRICE_PER_ITEM_WITH_PLACEHOLDER', $lineitem->getImageType()->getCurrency(), $lineitem->getImageType()->getPrice()) ?></span>
+                        </p>
+                    </div>
+
+                    <div style="clear:both;"></div>
+                           
                 </td>
             </tr>
         <?php endforeach ?>

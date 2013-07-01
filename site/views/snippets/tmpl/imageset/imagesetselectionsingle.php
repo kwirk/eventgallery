@@ -42,13 +42,17 @@ defined('_JEXEC') or die('Restricted access'); ?>
         var imagetypeselectionFX = new Fx.Slide(imagetypeselection);
         
         function closeImageTypeSelection(e) {
-            e.preventDefault();
+            if (e) {
+                e.preventDefault();
+            }
             imagetypeselectionFX.slideOut();
             $$(".eventgallery-add2cart").hide();
         }
 
         function openImageTypeSelection(e) {
-            e.preventDefault();
+            if (e) {
+                e.preventDefault();
+            }
             imagetypeselectionFX.toggle();
             $$(".eventgallery-add2cart").show();
         }
@@ -59,6 +63,14 @@ defined('_JEXEC') or die('Restricted access'); ?>
         imagetypeselectionFX.slideOut().chain(function() {imagetypeselection.show()} );        
 
         $$(".eventgallery-add2cart").hide();
+
+        window.addEvent("resize", function(e) {
+
+            window.setTimeout(function(e) {
+                closeImageTypeSelection(e);
+            }.bind(this),500);
+
+        }.bind(this));
     
     });
 

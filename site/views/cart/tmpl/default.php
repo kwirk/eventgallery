@@ -13,56 +13,62 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
+
 <div class="eventgallery-cart">
     <h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ITEMS_IN_YOUR_CART') ?></h1>
     <?php echo JText::_('COM_EVENTGALLERY_CART_TEXT') ?>
     <form action="<?php echo JRoute::_("index.php?option=com_eventgallery&view=cart&task=updateCart") ?>" method="post"
           class="form-validate form-horizontal cart-form">
         <div class="cart-items">
-            <table class="table table-hover">
-                <tr>
-                    <th>&nbsp;</th>
-                    <th class="quantity"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_QUANTITY') ?></th>
-                    <th class="imagetype"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_IMAGETYPE') ?></th>
-                    <th class="price"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_PRICE') ?></th>
-                </tr>
+            <table class="table table-hover">               
                 <?php foreach ($this->cart->getLineItems() as $lineitem) :
                     /** @var EventgalleryLibraryImagelineitem $lineitem */ ?>
                     <tr id="row_<?php echo $lineitem->getId() ?>" class="cart-item">
-                        <td class="image">
-                            <?php echo $lineitem->getCartThumb($lineitem->getId()); ?>
-                        </td>
-                        <td class="quantity">
-                            <input class="validate-numeric required input-small eventgallery-quantity" type="number"
-                                   name="quantity_<?php echo $lineitem->getId() ?>"
-                                   value="<?php echo $lineitem->getQuantity() ?>"/>
-                            <a class="delete delete-lineitem" data-lineitemid="<?php echo $lineitem->getId() ?>"
-                               href="#"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_DELETE') ?></a>
-                            <a class="clone" href="<?php echo JRoute::_(
-                                "index.php?option=com_eventgallery&view=cart&task=cloneLineItem&lineitemid="
-                                . $lineitem->getId()
-                            ); ?>"><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_CLONE') ?></a>
-                        </td>
-                        <td class="imagetype">
-                            <select class="required imagetype" name="type_<?php echo $lineitem->getId() ?>">
-                                <?php
-                                foreach ($lineitem->getFile()->getImageTypeSet()->getImageTypes() as $imageType) {
-                                    /** @var EventgalleryLibraryImagetype $imageType */
-                                    $selected = $lineitem->getImageType()->getId() == $imageType->getId()
-                                        ? 'selected="selected"' : '';
-                                    echo '<option ' . $selected . ' value="' . $imageType->getId() . '">'
-                                        . $imageType->getDisplayName() . ' (' . $imageType->getCurrency() . ' '
-                                        . $imageType->getPrice() . ')' . '</option>';
-                                }
-                                ?>
-                            </select>
-
-                        </td>
-                        <td class="price">
-                            <span>
+                        <td class="">
+                            <div class="image">
+                                <?php echo $lineitem->getCartThumb($lineitem->getId()); ?>
+                            </div>
+                       
+                            <span class="price eventgallery-hide-on-quantity-change">
                                 <?php echo $lineitem->getCurrency(); ?>
                                 <?php echo $lineitem->getPrice(); ?>
                             </span>
+                        
+                            <div class="information">
+                                <input class="validate-numeric required input-mini eventgallery-quantity" type="number"
+                                       name="quantity_<?php echo $lineitem->getId() ?>"
+                                       value="<?php echo $lineitem->getQuantity() ?>"/>
+                                <select class="required imagetype" name="type_<?php echo $lineitem->getId() ?>">
+                                    <?php
+                                    foreach ($lineitem->getFile()->getImageTypeSet()->getImageTypes() as $imageType) {
+                                        /** @var EventgalleryLibraryImagetype $imageType */
+                                        $selected = $lineitem->getImageType()->getId() == $imageType->getId()
+                                            ? 'selected="selected"' : '';
+                                        echo '<option ' . $selected . ' value="' . $imageType->getId() . '">'
+                                            . $imageType->getDisplayName() . ' (' . $imageType->getCurrency() . ' '
+                                            . $imageType->getPrice() . ')' . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                                <p class="imagetype-details eventgallery-hide-on-imagetype-change"> 
+                                    <span class="description"><?php echo $lineitem->getImageType()->getDescription() ?></span>
+                                    <span class="singleprice"><?php echo JText::sprintf('COM_EVENTGALLERY_LINEITEM_PRICE_PER_ITEM_WITH_PLACEHOLDER', $lineitem->getImageType()->getCurrency(), $lineitem->getImageType()->getPrice()) ?></span>
+                                </p>
+
+
+
+
+                                <a class="delete delete-lineitem" data-lineitemid="<?php echo $lineitem->getId() ?>"
+                                   href="#"><small><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_DELETE') ?></small></a>
+                                <a class="clone" href="<?php echo JRoute::_(
+                                    "index.php?option=com_eventgallery&view=cart&task=cloneLineItem&lineitemid="
+                                    . $lineitem->getId()
+                                ); ?>"><small><?php echo JText::_('COM_EVENTGALLERY_LINEITEM_CLONE') ?></small></a>
+                            </div>
+
+                            <div style="clear:both;"></div>
+                           
+                        
                         </td>
                     </tr>
                 <?php endforeach ?>
@@ -101,9 +107,14 @@ defined('_JEXEC') or die('Restricted access');
         new Fx.Slide($$('.needs-calculation')[0]).hide();
 
         // update the carts description once something changed
-        var setNeedsCalculationMode = function (e) {
+        var setImageTypeNeedsCalculationMode = function(e) {
+            $(e.target).getParent('tr').getElements(".eventgallery-hide-on-imagetype-change").fade('out');            
+            setQuantityNeedsCalculationMode(e);
+        }
 
-            $$(".cart-item td.price span").fade('out');
+        var setQuantityNeedsCalculationMode = function (e) {
+
+            $(e.target).getParent('tr').getElements(".eventgallery-hide-on-quantity-change").fade('out');
             var cartSummary = $$(".cart-summary")[0];
 
             new Fx.Slide(cartSummary, {
@@ -120,7 +131,7 @@ defined('_JEXEC') or die('Restricted access');
 
         var removeItem = function (e) {
             e.stop();
-            var lineitemid = $(e.target).get('data-lineitemid');
+            var lineitemid = $(e.target).getParent('a').get('data-lineitemid');
             var parent = $('row_' + lineitemid);
 
 
@@ -181,8 +192,8 @@ defined('_JEXEC') or die('Restricted access');
         }
 
       
-        $$(".cart-item input").addEvent('change', setNeedsCalculationMode);
-        $$(".cart-item select").addEvent('change', setNeedsCalculationMode);
+        $$(".cart-item input").addEvent('change', setQuantityNeedsCalculationMode);
+        $$(".cart-item select").addEvent('change', setImageTypeNeedsCalculationMode);
         $$(".cart-item .delete-lineitem").addEvent('click', removeItem);
         $$(".eventgallery-removeAll").addEvent('click', removeAllItems);
 
