@@ -44,6 +44,22 @@ class com_eventgalleryInstallerScript
                   JFile::delete( $filename );
                   echo "removed $filename<br>";
                 }
+                $filename = JPATH_ROOT . '/language/de-DE/de-DE.com_eventgallery.ini';
+                if ( JFile::exists( $filename )) {
+                  JFile::delete( $filename );
+                  echo "removed $filename<br>";
+                }
+                $filename = JPATH_ROOT . '/administrator/language/de-DE/de-DE.com_eventgallery.ini';
+                if ( JFile::exists( $filename )) {
+                  JFile::delete( $filename );
+                  echo "removed $filename<br>";
+                }
+                $filename = JPATH_ROOT . '/administrator/language/de-DE/de-DE.com_eventgallery.sys.ini';
+
+                if ( JFile::exists( $filename )) {
+                  JFile::delete( $filename );
+                  echo "removed $filename<br>";
+                }
                 
         }
 

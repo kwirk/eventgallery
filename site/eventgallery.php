@@ -37,6 +37,9 @@ if (strcmp('rest',$view)==0 || strcmp('checkout',$view)==0) {
 
 }
 
+$language = JFactory::getLanguage();
+$language->load('com_eventgallery' , JPATH_BASE.DIRECTORY_SEPARATOR.'language'.DIRECTORY_SEPARATOR.'overrides', $language->getTag(), true);
+
 $controller = new $classname( );
 
 // Perform the Request task
