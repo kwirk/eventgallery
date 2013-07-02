@@ -49,6 +49,9 @@ if (strcmp('rest', $view) == 0 || strcmp('cart', $view) == 0 || strcmp('checkout
 
 }
 
+$language = JFactory::getLanguage();
+$language->load('com_eventgallery' , JPATH_BASE.DIRECTORY_SEPARATOR.'language'.DIRECTORY_SEPARATOR.'overrides', $language->getTag(), true);
+
 /**
  * @var JControllerLegacy $controller
  */
@@ -59,6 +62,5 @@ $controller->execute(JFactory::getApplication()->input->get('task'));
 
 // Redirect if set by the controller
 $controller->redirect();
-
 
 
