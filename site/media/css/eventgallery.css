@@ -346,7 +346,7 @@
     text-align: center;
 }
 
-.ajaxpaging #bigimageContainer a:hover {
+.ajaxpaging #bigimageContainer a.link:hover {
     background-color: transparent;
 }
 

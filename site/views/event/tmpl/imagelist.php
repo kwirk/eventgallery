@@ -106,7 +106,7 @@ echo $this->loadSnippet('cart');
                        : ''; ?>]"><?php echo $this->entry->getLazyThumbImgTag(50, 50); ?>
                 </a><?php IF ($this->folder->cartable == 1): ?><a href="#"title="<?php echo JText::_(
                     'COM_EVENTGALLERY_CART_ITEM_ADD2CART'
-                ) ?>" class="button-add2cart eventgallery-add2cart"data-id="folder=<?php echo
+                ) ?>" class="button-add2cart eventgallery-add2cart btn btn-primary"data-id="folder=<?php echo
                     $this->entry->folder . "&file=" . $this->entry->file ?>"><i class="big"></i></a><?php ENDIF
                 ?><?php IF ($this->folder->cartable == 1 && $this->params->get('show_cart_connector', 0) == 1):?><a
                     href="<?php echo EventgalleryHelpersCartconnector::getLink(

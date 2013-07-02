@@ -4,8 +4,6 @@ Front End
 - Order Tracking
 - AGB
 - Impressum
-
-- responsive order table
 - licence key per payment/shipping method
 
 Back End

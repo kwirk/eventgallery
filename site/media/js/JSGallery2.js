@@ -110,7 +110,8 @@ var JSGallery2 = new Class({
                 'background': 'url(' + this.options.prev_image + ') no-repeat 0 50%'
 
             },
-            'href': '#'
+            'href': '#',
+            'class': 'link'
         }).inject(this.bigImage.getParent());
 
         this.prevLink.addEvent('mouseover', function (e) {
@@ -145,6 +146,7 @@ var JSGallery2 = new Class({
                 'right': '0px',
                 'background-image': 'url(' + this.options.next_image + ')'
             }
+            	
         });
         this.prevLink.setStyle('left', 0);
 
@@ -156,7 +158,7 @@ var JSGallery2 = new Class({
 
             this.add2cartLink = new Element('a', {
                 href: '#',
-                'class': 'eventgallery-add2cart button-add2cart',
+                'class': 'eventgallery-add2cart button-add2cart btn btn-primary',
                 html: '<i class="big"></i>',
                 id: 'ajax-add2cartbuttoncount',
                 styles: {
