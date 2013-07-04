@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 			rowHeightJitter: <?php echo $this->params->get('event_default_list_thumbnail_jitter', 0); ?>,
 			firstImageRowHeight: <?php echo $this->params->get('event_default_list_thumbnail_first_item_height',1); ?>,
 			eventgallerySelector: '.thumbnails',
-			eventgalleryImageSelector: '.thumbnail',
+			eventgalleryImageSelector: '.thumbnails .thumbnail',
 			initComplete: function() {
 				eventgalleryLazyloader = new LazyLoadEventgallery({ 
 				    range: 100, 

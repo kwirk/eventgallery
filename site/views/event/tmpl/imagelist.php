@@ -36,7 +36,7 @@ include 'components/com_eventgallery/views/cart.php';
 			rowHeightJitter: <?php echo $this->params->get('event_image_list_thumbnail_jitter',50); ?>,
 			firstImageRowHeight: <?php echo $this->params->get('event_image_list_thumbnail_first_item_height',2); ?>,
 			eventgallerySelector: '.thumbnails',
-			eventgalleryImageSelector: '.thumbnail',
+			eventgalleryImageSelector: '.thumbnails .thumbnail',
 			initComplete: function() {
 				eventgalleryLazyloader = new LazyLoadEventgallery({ 
 				    range: 100, 
