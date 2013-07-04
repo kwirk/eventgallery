@@ -9,4 +9,4 @@ set version=%version:.=_%
 set zipfilename=com_eventgallery_%version%.zip
 
 del %zipfilename%
-zip -r %zipfilename% * -i "admin/*" "site/*" "eventgallery.xml" "index.html" "LICENSE.txt" "script.php"
+zip -r ../%zipfilename% * -i "admin/*" "site/*" "eventgallery.xml" "index.html" "LICENSE.txt" "script.php"
