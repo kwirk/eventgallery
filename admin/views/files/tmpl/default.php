@@ -241,7 +241,7 @@ window.addEvent("domready", function(){
 				click: function(e) {
 
 					var myRequest = new Request({
-					    url: '<?php echo JRoute::_('index.php?task=files.saveFileCaption&option=com_eventgallery&format=raw&cid=', false); ?>'+id,
+					    url: '<?php echo JRoute::_('index.php?task=files.saveCaption&option=com_eventgallery&cid=', false); ?>'+id,
 					    data: 'caption='+encodeURIComponent(inputCaption.value)+"&title="+encodeURIComponent(inputTitle.value)
 
 					}).post();
