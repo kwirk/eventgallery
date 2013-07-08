@@ -24,10 +24,8 @@ class EventgalleryModelOrder extends JModelAdmin
     /**
      * Method to get the record form.
      *
-     * @param array $data An optional array of data for the form to
-    interogate.
-     * @param boolean $loadData True if the form is to load its own
-    data (default case), false if not.
+     * @param array $data An optional array of data for the form to interogate.
+     * @param boolean $loadData True if the form is to load its own data (default case), false if not.
      * @return JForm A JForm object on success, false on failure
      */
     public function getForm($data = array(), $loadData = true)

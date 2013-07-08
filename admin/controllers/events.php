@@ -10,14 +10,18 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class EventgalleryControllerOrders extends JControllerAdmin
+class EventgalleryControllerEvents extends JControllerAdmin
 {
     /**
      * Proxy for getModel.
      */
-    public function getModel($name = 'Order', $prefix ='EventgalleryModel', $config = array('ignore_request' => true))
+    public function getModel($name = 'Event', $prefix ='EventgalleryModel', $config = array('ignore_request' => true))
     {
         $model = parent::getModel($name, $prefix, $config);
         return $model;
     }
+
+
+
+
 }

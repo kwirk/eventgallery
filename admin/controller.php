@@ -15,12 +15,14 @@ jimport('joomla.filesystem.file');
 class EventgalleryController extends JControllerLegacy
 {
 	
+	protected $default_view = 'events';
+
 	public static function addSubmenu($vName)
 	{
 		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTS'),
 			'index.php?option=com_eventgallery',
-			$vName == 'eventgallery' || $vName==''
+			$vName == 'events' || $vName==''
 		);
 		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_COMMENTS'),
@@ -73,16 +75,10 @@ class EventgalleryController extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		
-
-		
-		$viewname = JRequest::getString('view', 'eventgallery');
+		$viewname = JRequest::getString('view', 'events');
 		$viewLayout = JRequest::getString('layout', 'default');
-		if ($viewname == 'files') {			
-			$view = $this->getView($viewname, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-			$view->setModel( $this->getModel('event'), true);	
-		}
 
-		EventgalleryController::addSubmenu(JRequest::getCmd('view', 'eventgallery'));
+		EventgalleryController::addSubmenu(JRequest::getCmd('view', 'events'));
 		parent::display($cachable, $urlparams);
 	}
 
@@ -180,32 +176,7 @@ class EventgalleryController extends JControllerLegacy
 		$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_UNPUBLISHED' );
 		$this->setRedirect( 'index.php?option=com_eventgallery&task=comments&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
 	}
-
-	/**
-	 * function to publish an event
-	 * 
-	 * @return unknown_type
-	 */
-	function publish()
-	{
-		$model = $this->getModel('folder');
-		$model->publish(1);
-		JText::_( 'COM_EVENTGALLERY_EVENT_PUBLISHED' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
-	}
 	
-	/**
-	 * function tu unpublish an event
-	 * 
-	 * @return unknown_type
-	 */
-	function unpublish()
-	{
-		$model = $this->getModel('folder');
-		$model->publish(0);
-		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_UNPUBLISHED' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
-	}
 	
 	/**
 	 * function to refresh the database-content. It syncs the content 
@@ -329,239 +300,8 @@ class EventgalleryController extends JControllerLegacy
 		$this->setRedirect( 'index.php?option=com_eventgallery', $msg );	
 	
 	}
-	
-	/**
-	 * function to edit an event
-	 * @return unknown_type
-	 */
-	function editEvent()
-	{
-		JRequest::setVar( 'view', 'event' );
-		JRequest::setVar('hidemainmenu', 1);
-		$this->display();
-	}
-
-	/**
-	 * function to delete an event. It removes every file from the 
-	 * filesystem and deletes all content excluding comments from the database.
-	 * 
-	 * @return unknown_type
-	 */
-	function removeEvent()
-	{
-
-		$model = $this->getModel('event');
-		if(!$model->delete()) {
-			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_DELETE_ERROR' );
-		} else {
-			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_DELETE_SUCCESS' );
-		}
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=eventgallery', $msg );
-	}
-
-	function cancelEvent() {
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=eventgallery');	
-	}
-	
-	/**
-	 * function to save an event after editing
-	 * 
-	 * @return unknown_type
-	 */
-	function saveEvent()
-	{
-		
-		JRequest::setVar( 'view', 'event' );
-		$model = $this->getModel('event');
-		$model->setId(JRequest::getVar('id'));
-		$item = $model->getData();
-		$oldFolder = $item->folder;
-		
-		if ($model->store($post)) {
-			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_SAVED_SUCCESS' );
-		} else {
-			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_SAVED_ERROR' );
-		}
-				
-		$item = $model->getData();
-		$newFolder = $item->folder;
-		
-		# Rename folder now:
-		
-		$basedir=JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR ;
-		if (strcmp($oldFolder, $newFolder)!=0)
-		{
-			rename($basedir.$oldFolder, $basedir.$newFolder);
-			$model->changeFolderName($oldFolder, $newFolder);
-		}		
-
-		$task	= JRequest::getCmd( 'task' );
-		switch ($task)
-		{
-			case 'applyEvent' :
-				$this->setRedirect( 'index.php?option=com_eventgallery&task=edit&cid[]='.JRequest::getVar('id'), $msg );
-				break;
-			case 'saveEvent':
-				$this->setRedirect( 'index.php?option=com_eventgallery&task=eventgallery&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
-				break;
-		}
-	}
-    
-
-	/**
-	* function which can delete a file
-	*/
-    function removeFile() {
-
-    	$model = $this->getModel('file');
-		if(!$model->delete()) {
-			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_REMOVED_ERROR' );
-		} else {
-			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_REMOVED_SUCCESS' );
-		}
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-		
-    }
-	/**
-	 * function to publish a single file/multiple files
-	 * 
-	 * @return unknown_type
-	 */
-	function Filepublish()
-	{
-		
-		$model = $this->getModel('file');
-		$model->publish(1);
-
-		$file = $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_UNPUBLISHED' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-	}
-	
-	/**
-	 * function to unpublish a single file/multiple files
-	 * 
-	 * @return unknown_type
-	 */	
-	function Fileunpublish()
-	{
-		$model = $this->getModel('file');
-		$model->publish(0);
-		$file = $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_PUBLISHED' );	
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-	}
-
-	/**
-	* saves the caption for a file
-	*/
-	function saveFileCaption() {
-		$title = JRequest::getVar( 'title', '', 'post', 'string', JREQUEST_ALLOWHTML );		
-		$caption = JRequest::getVar( 'caption', '', 'post', 'string', JREQUEST_ALLOWHTML );		
-		$model = $this->getModel('file');
-		$model->setCaption($caption, $title);
-		echo "Done";	
-	}	
-	/**
-	 * function to allow Comments of a single file/multiple files
-	 * 
-	 * @return unknown_type
-	 */
-	function allowComments()
-	{
-		$model = $this->getModel('file');
-		$model->allowComments(1);
-
-		$file = $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_ENABLE_FOR_FILE' );
 
 
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-	}
-	
-	/**
-	 * function to disallow Comments of a single file/multiple files
-	 * 
-	 * @return unknown_type
-	 */	
-	function disallowComments()
-	{
-		$model = $this->getModel('file');
-		$model->allowComments(0);
-
-		$file = $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_DISABLE_FOR_FILE' );
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-	}	
-
-	/**
-	 * function to enable an image as main image for  single file/multiple files
-	 * 
-	 * @return unknown_type
-	 */
-	function isMainImage()
-	{
-		$model = $this->getModel('file');
-		$model->setMainImage(1);
-
-		$file = $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_ENABLE_FOR_FILE' );
-
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-	}
-	
-	/**
-	 * function to enable an image as main image for a single file/multiple files
-	 * 
-	 * @return unknown_type
-	 */	
-	function isNotMainImage()
-	{
-		$model = $this->getModel('file');
-		$model->setMainImage(0);
-
-		$file = $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_DISABLE_FOR_FILE' );
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-	}	
-
-	/**
-	 * function to enable an image as main image for  single file/multiple files
-	 * 
-	 * @return unknown_type
-	 */
-	function isMainImageOnly()
-	{
-		$model = $this->getModel('file');
-		$model->setMainImageOnly(1);
-
-		$file = $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_ENABLE_FOR_FILE' );
-
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-	}
-	
-	/**
-	 * function to enable an image as main image for a single file/multiple files
-	 * 
-	 * @return unknown_type
-	 */	
-	function isNotMainImageOnly()
-	{
-		$model = $this->getModel('file');
-		$model->setMainImageOnly(0);
-
-		$file = $model->getData();
-		$msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_DISABLE_FOR_FILE' );
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&cid='.JRequest::getVar('folderid'), $msg );
-	}	
 	
 	/**
 	 * function to publish a file. This is uses for links in emails
@@ -735,27 +475,7 @@ class EventgalleryController extends JControllerLegacy
 		$this->setRedirect( 'index.php?option=com_eventgallery', $msg );
 	}
 	
-	function saveEventOrder()
-	{		
-		$model = $this->getModel('folder');
-		$model->storeOrder();
-		$msg = JText::_( 'COM_EVENTGALLERY_EVENTS_ORDER_STORED' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );		
-	}
-	
-	function orderEventUp()
-	{
-		$model = $this->getModel('folder');
-		$model->move(1);
-		$this->setRedirect( 'index.php?option=com_eventgallery&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );	
-	}
-	
-	function orderEventDown()
-	{
-		$model =$this->getModel('folder');
-		$model->move(-1);
-		$this->setRedirect( 'index.php?option=com_eventgallery&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );		
-	}
+
 	
 	function saveFileOrder()
 	{		

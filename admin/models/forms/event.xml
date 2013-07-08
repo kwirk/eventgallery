@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form name="event">
+    <fieldset name="general">
+        <field name="folder"
+               type="text"
+               inputtype="text"
+               label="COM_EVENTGALLERY_EVENTS_FOLDERNAME"
+               description="COM_EVENTGALLERY_EVENTS_FOLDERNAME_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_FOLDERNAME_PLACEHOLDER"
+               required="true"
+               validate=""
+               class="input-xlarge"
+                />
+                
+        <field name="picasakey"
+               type="text"
+               inputtype="text"
+               label="COM_EVENTGALLERY_EVENTS_PICASA_KEY"
+               description="COM_EVENTGALLERY_EVENTS_PICASA_KEY_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_PICASA_KEY_PLACEHOLDER"
+               required="true"
+               validate=""
+               class="input-xlarge"
+                />
+                
+        <field name="password"
+               type="text"
+               inputtype="text"
+               label="COM_EVENTGALLERY_EVENTS_PASSWORD"
+               description="COM_EVENTGALLERY_EVENTS_PASSWORD_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_PASSWORD_PLACEHOLDER"
+               required="true"
+               validate=""
+               class="input-xlarge"
+                />
+                
+        <field name="tags"
+               type="text"
+               inputtype="text"
+               label="COM_EVENTGALLERY_EVENTS_TAGS"
+               description="COM_EVENTGALLERY_EVENTS_TAGS_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_TAGS_PLACEHOLDER"
+               required="true"
+               validate=""
+               class="input-xlarge"
+                />
+                
+        <field name="date"
+               type="text"
+               inputtype="text"
+               label="COM_EVENTGALLERY_EVENTS_EVENT_DATE"
+               description="COM_EVENTGALLERY_EVENTS_EVENT_DATE_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_EVENT_DATE_PLACEHOLDER"
+               required="true"
+               validate=""
+               class="input-xlarge"
+                />
+                
+       <field name="description"
+               type="text"
+               inputtype="text"
+               label="COM_EVENTGALLERY_EVENTS_DESCRIPTION"
+               description="COM_EVENTGALLERY_EVENTS_DESCRIPTION_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_DESCRIPTION_PLACEHOLDER"
+               required="true"
+               validate=""
+               class="input-xlarge"
+                />
+                
+        <field name="published"
+               type="text"
+               inputtype="text"
+               label="COM_EVENTGALLERY_EVENTS_DESCRIPTION"
+               description="COM_EVENTGALLERY_EVENTS_DESCRIPTION_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_DESCRIPTION_PLACEHOLDER"
+               required="true"
+               validate=""
+               class="input-xlarge"
+                />
+
+		<field name="published" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_EVENT_PUBLISHED" description="COM_EVENTGALLERY_EVENT_PUBLISHED_DESCRIPTION">
+			<option value="0">COM_EVENTGALLERY_EVENT_UNPUBLISHED</option>
+			<option value="1">COM_EVENTGALLERY_EVENT_PUBLISHED</option>
+		</field>
+		
+		<field name="cartable" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_EVENT_CARTABLE" description="COM_EVENTGALLERY_EVENT_CARTABLE_DESCRIPTION">
+			<option value="0">COM_EVENTGALLERY_EVENT_NOT_CARTABLE</option>
+			<option value="1">COM_EVENTGALLERY_EVENT_CARTABLE</option>
+		</field>
+		
+		<field name="text"
+               type="text"
+               inputtype="text"
+               label="COM_EVENTGALLERY_EVENTS_TEXT"
+               description="COM_EVENTGALLERY_EVENTS_TEXT_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_TEXT_PLACEHOLDER"
+               required="true"
+               validate=""
+               class="input-xlarge"
+                />
+                
+    </fieldset>
+</form>

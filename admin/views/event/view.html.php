@@ -17,44 +17,45 @@ jimport( 'joomla.html.html');
 
 class EventgalleryViewEvent extends JViewLegacy
 {
-	function display($tpl = null)
-	{		
+	protected $state;
 
+	protected $item;
 
-		$app	  = JFactory::getApplication();
-		$document = JFactory::getDocument();	
-		
-		
-	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
-		$document->addStyleSheet($css);		
+	protected $form;
 
-		$event		= $this->get('Data');
-		$items      = $this->get('Files');
-		$pageNav    = $this->get('Pagination');
-		$isNew		= ($event->id < 1);
+	/**
+	 * Display the view
+	 */
+	public function display($tpl = null)
+	{
+		$this->state	= $this->get('State');
+		$this->item		= $this->get('Item');
+		$this->form		= $this->get('Form');
 
-		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
-		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ).': <small><small>[ ' . $text.' ]</small></small>' );
-		JToolBarHelper::save('saveEvent','Save Event');
-		
-		if ($isNew)  {			
-			JToolBarHelper::cancel('cancelEvent', 'Close');
-			
-		} else {
-			JToolBarHelper::apply('applyEvent','Apply Changes');
-			JToolBarHelper::cancel( 'cancelEvent', 'Close' );
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			JError::raiseError(500, implode("\n", $errors));
+			return false;
 		}
-		
-		$ordering = true;
-		$this->assignRef('ordering', $ordering);
 
-		
-		$this->assignRef('files',		$items);
-		$this->assignRef('pageNav', $pageNav);
-		$this->assignRef('isNew', 		$isNew);
-		$this->assignRef('event',		$event);
-
+		$this->addToolbar();
 		parent::display($tpl);
 	}
+
+	private function addToolbar() {
+		$isNew		= ($this->item->id < 1);
+		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
+		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ).': <small><small>[ ' . $text.' ]</small></small>' );
+		
+		
+		if (!$isNew)  {			
+			JToolBarHelper::apply('event.apply');			
+		}
+
+		JToolBarHelper::save('event.save');
+		JToolBarHelper::cancel( 'event.cancel' );
+
+	}
+
 }
-?>

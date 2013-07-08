@@ -17,58 +17,53 @@ jimport( 'joomla.html.html');
 
 class EventgalleryViewFiles extends JViewLegacy
 {
-	function display($tpl = null)
-	{		
 
+    protected $item;
+    protected $items;
+    protected $pagination;
+    protected $state;
 
-		$app	  = JFactory::getApplication();
-		$document = JFactory::getDocument();	
-				
-	    $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
-		$document->addStyleSheet($css);		
+    function display($tpl = null)
+	{
+        $this->item = $this->get('Item');
+        $this->state		= $this->get('State');
+        $this->items		= $this->get('Items');
+        $this->pagination	= $this->get('Pagination');
 
-		$event		= $this->get('Data');
+        // Check for errors.
+        if (count($errors = $this->get('Errors')))
+        {
+            JError::raiseError(500, implode("\n", $errors));
+            return false;
+        }
 
-		#print_r($this);
+        $this->addToolbar();
 
-		
-		$items      = $this->get('Files');
-		$pageNav    = $this->get('Pagination');
-		$isNew		= ($event->id < 1);
-
-		$text = $event->folder;
-		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ).': <small><small>[ ' . $text.' ]</small></small>' );				
-
-		JToolBarHelper::cancel('cancelEvent', 'Close');
-
-
-		JToolBarHelper::custom('Filepublish', 'eg-published');
-		JToolBarHelper::custom('Fileunpublish', 'eg-published-inactive');
-
-		JToolBarHelper::custom('allowComments', 'eg-comments');
-		JToolBarHelper::custom('disallowComments', 'eg-comments-inactive');
-
-
-		JToolBarHelper::custom('isMainImage', 'eg-mainimage');
-		JToolBarHelper::custom('isNotMainImage', 'eg-mainimage-inactive');
-
-		JToolBarHelper::custom('isNotMainImageOnly', 'eg-mainimageonly');
-		JToolBarHelper::custom('isMainImageOnly', 'eg-mainimageonly-inactive');
-
-		JToolBarHelper::spacer(50);
-
-		JToolBarHelper::deleteList(JText::_( 'COM_EVENTGALLERY_EVENT_IMAGE_ACTION_DELETE_ALERT' ), 'removeFile');		
-		
-		$ordering = true;
-		$this->assignRef('ordering', $ordering);
-
-		
-		$this->assignRef('files',		$items);
-		$this->assignRef('pageNav', $pageNav);
-		$this->assignRef('isNew', 		$isNew);
-		$this->assignRef('event',		$event);
-
-		parent::display($tpl);
+        parent::display($tpl);
 	}
+
+    protected function addToolbar() {
+        $text = $this->item->folder;
+        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ).': <small><small>[ ' . $text.' ]</small></small>' );
+
+        JToolBarHelper::cancel('event.cancel', 'Close');
+
+
+        JToolBarHelper::custom('files.publish', 'eg-published');
+        JToolBarHelper::custom('files.unpublish', 'eg-published-inactive');
+
+        JToolBarHelper::custom('files.allowComments', 'eg-comments');
+        JToolBarHelper::custom('files.disallowComments', 'eg-comments-inactive');
+
+
+        JToolBarHelper::custom('files.isMainImage', 'eg-mainimage');
+        JToolBarHelper::custom('files.isNotMainImage', 'eg-mainimage-inactive');
+
+        JToolBarHelper::custom('files.isNotMainImageOnly', 'eg-mainimageonly');
+        JToolBarHelper::custom('files.isMainImageOnly', 'eg-mainimageonly-inactive');
+
+        JToolBarHelper::spacer(50);
+
+        JToolBarHelper::deleteList(JText::_( 'COM_EVENTGALLERY_EVENT_IMAGE_ACTION_DELETE_ALERT' ), 'files.delete');
+    }
 }
-?>

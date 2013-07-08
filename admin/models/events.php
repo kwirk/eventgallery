@@ -10,11 +10,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-
-class EventgalleryModelOrders extends JModelList
+class EventgalleryModelEvents extends JModelList
 {
-
-    protected $context = '';
 
 	function __construct()
 	{
@@ -27,28 +24,17 @@ class EventgalleryModelOrders extends JModelList
 	 */
 	function getListQuery()
 	{
-
+		
 		// Create a new query object.
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
 		
-		$query->select('*');
-		$query->from('#__eventgallery_order');
+		$query->select('f.*, IF (isNull(c.id),0,sum(1)) commentCount');
+		$query->from('#__eventgallery_folder f left join #__eventgallery_comment c on f.folder=c.folder');
+		$query->group('f.folder');
+		$query->order('f.ordering DESC, f.folder DESC');
 
 		return $query;
 	}
-
-
-    protected function _getList($query, $limitstart = 0, $limit = 0)
-    {
-        $this->_db->setQuery($query, $limitstart, $limit);
-        $result = $this->_db->loadObjectList();
-
-        $objects = array();
-        foreach($result as $item) {
-           array_push($objects, new EventgalleryLibraryOrder($item->id));
-        }
-
-        return $objects;
-    }
+	
 }
