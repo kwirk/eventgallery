@@ -15,22 +15,17 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_eventgallery'))
 	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 }
 
-// Require the base controller
-require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controller.php');
+//load tables
+JTable::addIncludePath(
+    JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'tables'
+);
 
-// Require specific controller if requested
-if($controller = JRequest::getVar('controller')) {
-	require_once (JPATH_COMPONENT.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.$controller.'.php');
-}
+JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT_SITE);
 
-// Create the controller
-$classname	= 'EventgalleryController'.$controller;
-$controller = new $classname( );
-
-// Perform the Request task
-$controller->execute( JRequest::getVar('task'));
-
-// Redirect if set by the controller
+// Execute the task.
+$controller	= JControllerLegacy::getInstance('Eventgallery');
+$controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();
+
 
 ?>

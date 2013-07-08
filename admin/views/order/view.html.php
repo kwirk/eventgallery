@@ -18,28 +18,28 @@ jimport( 'joomla.html.pagination');
  * @package    Joomla.Tutorials
  * @subpackage Components
  */
-class EventgalleryViewOrders extends JViewLegacy
+class EventgalleryViewOrder extends JViewLegacy
 {
 
-    protected $items;
-    protected $pagination;
+    protected $form;
+    protected $item;
     protected $state;
     /**
      * Display the view
      */
     public function display($tpl = null)
     {
+// Initialiase variables.
+        $this->form = $this->get('Form');
+        $this->item = $this->get('Item');
         $this->state = $this->get('State');
-        $this->items = $this->get('Items');
-        $this->pagination = $this->get('Pagination');
-
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
                 JError::raiseError(500, implode("\n", $errors));
                 return false;
             }
-
+        #$this->addToolbar();
         parent::display($tpl);
-}
+    }
 
 }
