@@ -24,6 +24,13 @@ class EventgalleryControllerFiles extends JControllerAdmin
 
         parent::__construct($config);
 
+        $this->registerTask('allowcomments', 'allowComments');
+        $this->registerTask('disallowcomments', 'allowComments');
+        $this->registerTask('isnotmainimageonly', 'isMainImageOnly');
+        $this->registerTask('ismainimageonly', 'isMainImageOnly');
+        $this->registerTask('isnotmainimage', 'isMainImage');
+        $this->registerTask('ismainimage', 'isMainImage');
+
     }
 
 
@@ -82,98 +89,124 @@ class EventgalleryControllerFiles extends JControllerAdmin
         echo "Done";
         die();
     }
-    /**
-     * function to allow Comments of a single file/multiple files
-     *
-     * @return unknown_type
-     */
-    function allowComments()
-    {
-        $model = $this->getModel();
-        $model->allowComments(1);
-
-        $msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_ENABLE_FOR_FILE' );
 
 
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
+     public function allowComments() {
+        $cid = JFactory::getApplication()->input->get('cid', array(), 'array');
+        $data = array('allowcomments' => 1, 'disallowcomments' => 0);
+        $task = $this->getTask();
+        $value = JArrayHelper::getValue($data, $task, 0, 'int');
+        if (!is_array($cid) || count($cid) < 1)
+        {
+            JLog::add(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), JLog::WARNING, 'jerror');
+        }
+        else
+        {
+            // Get the model.
+            $model = $this->getModel();
+
+            // Make sure the item ids are integers
+            jimport('joomla.utilities.arrayhelper');
+            JArrayHelper::toInteger($cid);
+
+            // Remove the items.
+            if ($model->allowComments($cid, $value))
+            {
+                if ($value == 1)
+                {
+                    $ntext = $this->text_prefix . '_N_ITEMS_ALLOWEDCOMMENTS';
+                }
+                else
+                {
+                    $ntext = $this->text_prefix . '_N_ITEMS_DISALLOWEDCOMMENTS';
+                }
+                $this->setMessage(JText::plural($ntext, count($cid)));
+            }
+            else
+            {
+                $this->setMessage($model->getError());
+            }
+        }
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor);
+    }
+   
+    public function isMainImage() {
+        $cid = JFactory::getApplication()->input->get('cid', array(), 'array');
+        $data = array('ismainimage' => 1, 'isnotmainimage' => 0);
+        $task = $this->getTask();
+        $value = JArrayHelper::getValue($data, $task, 0, 'int');
+        if (!is_array($cid) || count($cid) < 1)
+        {
+            JLog::add(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), JLog::WARNING, 'jerror');
+        }
+        else
+        {
+            // Get the model.
+            $model = $this->getModel();
+
+            // Make sure the item ids are integers
+            jimport('joomla.utilities.arrayhelper');
+            JArrayHelper::toInteger($cid);
+
+            // Remove the items.
+            if ($model->isMainImage($cid, $value))
+            {
+                if ($value == 1)
+                {
+                    $ntext = $this->text_prefix . '_N_ITEMS_ISMAINIMAGE';
+                }
+                else
+                {
+                    $ntext = $this->text_prefix . '_N_ITEMS_ISNOTMAINIMAGE';
+                }
+                $this->setMessage(JText::plural($ntext, count($cid)));
+            }
+            else
+            {
+                $this->setMessage($model->getError());
+            }
+        }
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor);
     }
 
-    /**
-     * function to disallow Comments of a single file/multiple files
-     *
-     * @return unknown_type
-     */
-    function disallowComments()
-    {
-        $model = $this->getModel();
-        $model->allowComments(0);
+    public function isMainImageOnly() {
+        $cid = JFactory::getApplication()->input->get('cid', array(), 'array');
+        $data = array('ismainimageonly' => 1, 'isnotmainimageonly' => 0);
+        $task = $this->getTask();
+        $value = JArrayHelper::getValue($data, $task, 0, 'int');
+        if (!is_array($cid) || count($cid) < 1)
+        {
+            JLog::add(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), JLog::WARNING, 'jerror');
+        }
+        else
+        {
+            // Get the model.
+            $model = $this->getModel();
 
+            // Make sure the item ids are integers
+            jimport('joomla.utilities.arrayhelper');
+            JArrayHelper::toInteger($cid);
 
-        $msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_DISABLE_FOR_FILE' );
-
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg);
-    }
-
-    /**
-     * function to enable an image as main image for  single file/multiple files
-     *
-     * @return unknown_type
-     */
-    function isMainImage()
-    {
-        $model = $this->getModel();
-        $model->setMainImage(1);
-
-        $msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_ENABLE_FOR_FILE' );
-
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
-    }
-
-    /**
-     * function to enable an image as main image for a single file/multiple files
-     *
-     * @return unknown_type
-     */
-    function isNotMainImage()
-    {
-        $model = $this->getModel();
-        $model->setMainImage(0);
-
-        $msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_DISABLE_FOR_FILE' );
-
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
-    }
-
-    /**
-     * function to enable an image as main image for  single file/multiple files
-     *
-     * @return unknown_type
-     */
-    function isMainImageOnly()
-    {
-        $model = $this->getModel();
-        $model->setMainImageOnly(1);
-
-        $msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_ENABLE_FOR_FILE' );
-
-
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
-    }
-
-    /**
-     * function to enable an image as main image for a single file/multiple files
-     *
-     * @return unknown_type
-     */
-    function isNotMainImageOnly()
-    {
-        $model = $this->getModel();
-        $model->setMainImageOnly(0);
-
-        $msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_DISABLE_FOR_FILE' );
-
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
-    }
+            // Remove the items.
+            if ($model->isMainImageOnly($cid, $value))
+            {
+                if ($value == 1)
+                {
+                    $ntext = $this->text_prefix . '_N_ITEMS_ISMAINIMAGEONLY';
+                }
+                else
+                {
+                    $ntext = $this->text_prefix . '_N_ITEMS_ISNOTMAINIMAGEONLY';
+                }
+                $this->setMessage(JText::plural($ntext, count($cid)));
+            }
+            else
+            {
+                $this->setMessage($model->getError());
+            }
+        }
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor);
+    }    
 
     
 }

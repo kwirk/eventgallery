@@ -52,15 +52,15 @@ class EventgalleryViewFiles extends JViewLegacy
         JToolBarHelper::custom('files.publish', 'eg-published');
         JToolBarHelper::custom('files.unpublish', 'eg-published-inactive');
 
-        JToolBarHelper::custom('files.allowComments', 'eg-comments');
-        JToolBarHelper::custom('files.disallowComments', 'eg-comments-inactive');
+        JToolBarHelper::custom('files.allowcomments', 'eg-comments');
+        JToolBarHelper::custom('files.disallowcomments', 'eg-comments-inactive');
 
 
-        JToolBarHelper::custom('files.isMainImage', 'eg-mainimage');
-        JToolBarHelper::custom('files.isNotMainImage', 'eg-mainimage-inactive');
+        JToolBarHelper::custom('files.ismainimage', 'eg-mainimage');
+        JToolBarHelper::custom('files.isnotmainimage', 'eg-mainimage-inactive');
 
-        JToolBarHelper::custom('files.isNotMainImageOnly', 'eg-mainimageonly');
-        JToolBarHelper::custom('files.isMainImageOnly', 'eg-mainimageonly-inactive');
+        JToolBarHelper::custom('files.isnotmainimageonly', 'eg-mainimageonly');
+        JToolBarHelper::custom('files.ismainimageonly', 'eg-mainimageonly-inactive');
 
         JToolBarHelper::spacer(50);
 

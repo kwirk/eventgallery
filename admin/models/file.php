@@ -94,81 +94,92 @@ class EventgalleryModelFile extends JModelAdmin
 
         return true;
 
-    }
+    }  
 
-    function allowComments($allowComments)
+    function allowComments($pks, $allowcomments)
     {
-        $cids = JRequest::getVar( 'cid', array(0), '', 'array' );
-        if (count( $cids ))
+        $table = $this->getTable();
+        $pks = (array) $pks;
+        $result = true;
+
+        foreach ($pks as $i => $pk)
         {
-            foreach($cids as $cid) {
+            $table->reset();
 
-                $row = $this->getTable('file');
-
-                $query = ' SELECT * FROM #__eventgallery_file '.
-                    '  WHERE id = '.$this->_db->quote($cid);
-
-                $this->_db->setQuery( $query );
-                $data = $this->_db->loadObject();
-                $row->bind($data);
-                $row->allowcomments = $allowComments;
-                $row->id=$cid;
-                if (!$row->store()) {
-                    $this->setError( $row->getErrorMsg() );
-                }
+            if ($table->load($pk))
+            {
+                $table->allowcomments= $allowcomments;
+                $table->store();
+            }
+            else
+            {
+                $this->setError($table->getError());
+                unset($pks[$i]);
+                $result = false;
             }
         }
-        return true;
+
+
+
+        return $result;
     }
+  
 
-    function setMainImageOnly($isMainImageOnly)
+    function isMainImageOnly($pks, $ismainimageonly)
     {
-        $cids = JRequest::getVar( 'cid', array(0), '', 'array' );
-        if (count( $cids ))
+        $table = $this->getTable();
+        $pks = (array) $pks;
+        $result = true;
+
+        foreach ($pks as $i => $pk)
         {
-            foreach($cids as $cid) {
+            $table->reset();
 
-                $row = $this->getTable('file');
-
-                $query = ' SELECT * FROM #__eventgallery_file '.
-                    '  WHERE id = '.$this->_db->quote($cid);
-
-                $this->_db->setQuery( $query );
-                $data = $this->_db->loadObject();
-                $row->bind($data);
-                $row->ismainimageonly = $isMainImageOnly;
-                $row->id=$cid;
-                if (!$row->store()) {
-                    $this->setError( $row->getErrorMsg() );
-                }
+            if ($table->load($pk))
+            {
+                $table->ismainimageonly= $ismainimageonly;
+                $table->store();
+            }
+            else
+            {
+                $this->setError($table->getError());
+                unset($pks[$i]);
+                $result = false;
             }
         }
-        return true;
+
+
+
+        return $result;
     }
 
-    function setMainImage($isMainImage)
+
+    function isMainImage($pks, $ismainimage)
     {
-        $cids = JRequest::getVar( 'cid', array(0), '', 'array' );
-        if (count( $cids ))
+        $table = $this->getTable();
+        $pks = (array) $pks;
+        $result = true;
+
+        foreach ($pks as $i => $pk)
         {
-            foreach($cids as $cid) {
+            $table->reset();
 
-                $row = $this->getTable('file');
-
-                $query = ' SELECT * FROM #__eventgallery_file '.
-                    '  WHERE id = '.$this->_db->quote($cid);
-
-                $this->_db->setQuery( $query );
-                $data = $this->_db->loadObject();
-                $row->bind($data);
-                $row->ismainimage = $isMainImage;
-                $row->id=$cid;
-                if (!$row->store()) {
-                    $this->setError( $row->getErrorMsg() );
-                }
+            if ($table->load($pk))
+            {
+                $table->ismainimage= $ismainimage;
+                $table->store();
+            }
+            else
+            {
+                $this->setError($table->getError());
+                unset($pks[$i]);
+                $result = false;
             }
         }
-        return true;
+
+
+
+        return $result;
     }
 
 
