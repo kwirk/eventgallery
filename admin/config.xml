@@ -16,7 +16,16 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		
+		
 
+		
+</fieldset>
+<fieldset name="image" label="COM_EVENTGALLERY_EVENTS_OPTIONS_IMAGE_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_IMAGE_DESC">
+		<field name="use_legacy_image_rendering" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_LEGACY_IMAGE_RENDERING_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_LEGACY_IMAGE_RENDERING_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		
 		<field name="image_quality" type="integer" first="40" last="95" step="1" default="85" label="COM_EVENTGALLERY_OPTIONS_COMMON_THUMBNAIL_QUALITY_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_THUMBNAIL_QUALITY_DESC"/>
 		
@@ -33,8 +42,6 @@
 				rows="1" 
 				cols="50" 
 				description="COM_EVENTGALLERY_OPTIONS_COMMON_SHARPINGMATRIX_DESCRIPTION" />
-
-		
 </fieldset>
 
 <fieldset name="cart" label="COM_EVENTGALLERY_EVENTS_OPTIONS_CART_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_CART_DESC">
