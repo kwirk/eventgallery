@@ -129,6 +129,7 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_imagetype` (
   `name` varchar(255) DEFAULT NULL,
   `displayname` text DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `published` int(1) NULL DEFAULT NULL,
   `note` text DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,
@@ -286,13 +287,13 @@ CREATE TABLE IF NOT EXISTS `ztx1s_eventgallery_surcharge` (
 -- Daten für Tabelle `ztx1s_eventgallery_imagetype`
 --
 
-INSERT INTO `ztx1s_eventgallery_imagetype` (`id`, `type`, `isdigital`, `size`, `taxrate`, `price`, `currency`, `name`, `displayname`, `description`, `note`, `modified`, `created`) VALUES
-(1, 'paper', 0, '13x18', 19, 0.70, 'EUR', 'Fotoabzug 13x18', '{"en-GB":"Print 5x7","de-DE":"Foto 13x18"}', '{"en-GB":"A print with the size of 5x7 on premium photo paper","de-DE":"Ein Abzug der Größe 13x18 auf Premium-Fotopapier"}', 'I''ll order this using Pixum.', '0000-00-00 00:00:00', NULL),
-(2, 'paper', 0, '10x15', 19, 0.90, 'EUR', 'Fotoabzug 10x15', '{"en-GB":"Print 4x5","de-DE":"Foto 11x13"}', '{"en-GB":"A print with the size of 4x5 on premium photo paper","de-DE":"Ein Abzug der Größe 11x13 auf Premium-Fotopapier"}', 'I''ll order this using Pixum', NULL, NULL),
-(3, 'digital', 1, '20 MP', 19, 12.40, 'EUR', 'Digitale Kopie', '{"en-GB":"Digital Copy","de-DE":"Digitale Kopie"}', '{"en-GB":"A digital copy of the original image","de-DE":"Eine Kopie des originalen Bildes."}', 'Copy from my hard drive', '0000-00-00 00:00:00', NULL),
-(4, 'paper', 0, '13x18', 19, 2.00, 'EUR', 'Fotoabzug Premium 13x18', '{"en-GB":"Premium Print 5x7","de-DE":"Premium Foto 13x18"}', '{"en-GB":"A print with the size of 5x7 on premium photo paper","de-DE":"Ein Abzug der Größe 13x18 auf Premium-Fotopapier"}', 'I''ll order this using Pixum.', '0000-00-00 00:00:00', NULL),
-(5, 'paper', 0, '10x15', 19, 2.50, 'EUR', 'Fotoabzug 10x15', '{"en-GB":"Premium Print 4x5","de-DE":"Foto 11x13"}', '{"en-GB":"A print with the size of 4x5 on premium photo paper","de-DE":"Ein Abzug der Größe 11x13 auf Premium-Fotopapier"}', 'I''ll order this using Pixum', NULL, NULL),
-(6, 'digital exp', 1, '20 MP', 19, 25.00, 'EUR', 'Digitale Kopie', '{"en-GB":"Digital Copy","de-DE":"Digitale Kopie"}', '{"en-GB":"A digital copy of the original image","de-DE":"Eine Kopie des originalen Bildes."}', 'Copy from my hard drive', '0000-00-00 00:00:00', NULL);
+INSERT INTO `ztx1s_eventgallery_imagetype` (`id`, `published`, `type`, `isdigital`, `size`, `taxrate`, `price`, `currency`, `name`, `displayname`, `description`, `note`, `modified`, `created`) VALUES
+(1, 1, 'paper', 0, '13x18', 19, 0.70, 'EUR', 'Fotoabzug 13x18', '{"en-GB":"Print 5x7","de-DE":"Foto 13x18"}', '{"en-GB":"A print with the size of 5x7 on premium photo paper","de-DE":"Ein Abzug der Größe 13x18 auf Premium-Fotopapier"}', 'I''ll order this using Pixum.', '0000-00-00 00:00:00', NULL),
+(2, 1, 'paper', 0, '10x15', 19, 0.90, 'EUR', 'Fotoabzug 10x15', '{"en-GB":"Print 4x5","de-DE":"Foto 11x13"}', '{"en-GB":"A print with the size of 4x5 on premium photo paper","de-DE":"Ein Abzug der Größe 11x13 auf Premium-Fotopapier"}', 'I''ll order this using Pixum', NULL, NULL),
+(3, 1, 'digital', 1, '20 MP', 19, 12.40, 'EUR', 'Digitale Kopie', '{"en-GB":"Digital Copy","de-DE":"Digitale Kopie"}', '{"en-GB":"A digital copy of the original image","de-DE":"Eine Kopie des originalen Bildes."}', 'Copy from my hard drive', '0000-00-00 00:00:00', NULL),
+(4, 1, 'paper', 0, '13x18', 19, 2.00, 'EUR', 'Fotoabzug Premium 13x18', '{"en-GB":"Premium Print 5x7","de-DE":"Premium Foto 13x18"}', '{"en-GB":"A print with the size of 5x7 on premium photo paper","de-DE":"Ein Abzug der Größe 13x18 auf Premium-Fotopapier"}', 'I''ll order this using Pixum.', '0000-00-00 00:00:00', NULL),
+(5, 1, 'paper', 0, '10x15', 19, 2.50, 'EUR', 'Fotoabzug 10x15', '{"en-GB":"Premium Print 4x5","de-DE":"Foto 11x13"}', '{"en-GB":"A print with the size of 4x5 on premium photo paper","de-DE":"Ein Abzug der Größe 11x13 auf Premium-Fotopapier"}', 'I''ll order this using Pixum', NULL, NULL),
+(6, 1, 'digital exp', 1, '20 MP', 19, 25.00, 'EUR', 'Digitale Kopie', '{"en-GB":"Digital Copy","de-DE":"Digitale Kopie"}', '{"en-GB":"A digital copy of the original image","de-DE":"Eine Kopie des originalen Bildes."}', 'Copy from my hard drive', '0000-00-00 00:00:00', NULL);
 --
 -- Daten für Tabelle `ztx1s_eventgallery_imagetypeset`
 --

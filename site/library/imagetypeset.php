@@ -108,10 +108,7 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
         $this->_imagetypes = $types;
 
 
-        if (count($types) == 0) {
-            throw new Exception("ImageTypeSet " . $this->_imagetypeset_id
-            . ' is invalid. Please assign at least one ImageType.');
-        }
+        
 
     }
 
@@ -191,6 +188,13 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
      */
     public function getDescription() {
         return $this->_imagetypeset->description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getImageTypeCount() {
+        return count($this->_imagetypes);
     }
 
 

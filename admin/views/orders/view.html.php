@@ -40,6 +40,6 @@ class EventgalleryViewOrders extends JViewLegacy
             }
 
         parent::display($tpl);
-}
+    }
 
 }

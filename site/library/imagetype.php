@@ -96,11 +96,18 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
     }
 
     /**
-     * @return string display name of the image type
+     * @return string description name of the image type
      */
     public function getDescription()
     {
         return $this->_ls_description->get();
+    }
+
+    /**
+     * @return string
+     */
+    public function getNote() {
+        return $this->_imagetype->note;
     }
 
     /**
@@ -109,6 +116,15 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
      * @return bool
      */
     public function isDigital() {
-        return $this->_imagetype->isdigital==1?true:false;
+        return $this->_imagetype->isdigital==1;
     }
+
+    /**
+     * @return bool
+     */
+    public function isPublished() {
+        return $this->_imagetype->published==1;
+    }
+
+
 }
