@@ -30,19 +30,17 @@ defined('_JEXEC') or die('Restricted access');
 	<table class="adminlist table table-striped">
 		<thead>
 			<tr>
-				<th width="5">
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ID' ); ?>
-				</th>
-				<th class="nowrap" width="1%">
+                <th width="20">
+                    <!--<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />-->
+                    <input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+                </th>
+                <th class="nowrap" width="1%">
 					
 				</th>
 				<th>
 					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_FOLDERNAME' ); ?>
 				</th>
-				<th width="20">
-					<!--<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />-->
-					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
-				</th>			
+
 				<th>
 					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ORDER' ); ?> 
 					<?php echo JHTML::_('grid.order',  $this->items, 'filesave.png', 'events.saveorder' ); ?>	
@@ -50,20 +48,11 @@ defined('_JEXEC') or die('Restricted access');
 				<th>
 					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_DESCRIPTION' ); ?>
 				</th>
-				<th>
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_TAGS' ); ?>
-				</th>
-				<th>
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PICASA_KEY' ); ?>
-				</th>
-				<th>
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PASSWORD' ); ?>
-				</th>
-				<th>
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_CARTABLE' ); ?>
-				</th>
-				<th class="nowrap">
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_EVENT_DATE' ); ?>
+                <th class="nowrap">
+                    <?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_EVENT_DATE' ); ?>
+                </th>
+                <th>
+					&nbsp;
 				</th>
 				<th class="nowrap">
 					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_COMMENTS' ); ?>
@@ -80,59 +69,82 @@ defined('_JEXEC') or die('Restricted access');
 		{
 			$row = $this->items[$i];		
 			$checked 	= JHTML::_('grid.id',   $i, $row->id );
-			$link 		= JRoute::_( 'index.php?option=com_eventgallery&task=event.edit&id='. $row->id );
-			$uploadlink = JRoute::_( 'index.php?option=com_eventgallery&task=upload&cid[]='. $row->id );
+			$editLink 	= JRoute::_( 'index.php?option=com_eventgallery&task=event.edit&id='. $row->id );
+			$uploadLink = JRoute::_( 'index.php?option=com_eventgallery&task=upload.upload&folderid='. $row->id );
 			$filesLink  = JRoute::_( 'index.php?option=com_eventgallery&view=files&folderid='. $row->id);
+
 
 			?>
 			<tr class="">
-				<td>
-					<a href="<?php echo $link; ?>"><?php echo $row->id; ?></a>
-				</td>
+                <td>
+                    <?php echo $checked; ?>
+                </td>
 				<td>
 					<div class="btn-group">
+
                         <?php echo JHtml::_('jgrid.published', $row->published, $i, 'events.'); ?>
+
+                        <?php IF ($row->cartable==1): ?>
+                        <a style="color: green" class="btn btn-micro active" href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','events.notcartable')">
+                            <i class="icon-cart"></i>
+                        </a>
+                        <?php ELSE:?>
+                            <a class="btn btn-micro" href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','events.cartable')">
+                                <i class="icon-cart"></i>
+                            </a>
+                        <?php ENDIF ?>
+
+                        <?php IF (strpos($row->folder,'@')=== false): ?>
 						<?php /*the following mix of jgrid and btn is for being compatible with joomla 2.5 and 3.0*/ ?>
-						<a href="<?php echo $uploadlink; ?>" id="upload_<?php echo $row->id?>" class="btn btn-micro jgrid">
-							<span class="state icon-16-newcategory "><i class="icon-upload"></i>	<span class="text"></span></span>					
-						</a>
-						<a href="<?php echo $filesLink; ?>" id="files_<?php echo $row->id?>" class="btn btn-micro jgrid">
-							<span class="state icon-16-module "><i class="icon-folder-2"></i>	<span class="text"></span></span>					
-						</a>
+                            <a href="<?php echo $uploadLink; ?>" id="upload_<?php echo $row->id?>" class="btn btn-micro jgrid">
+                                <span class="state icon-16-newcategory "><i class="icon-upload"></i>	<span class="text"></span></span>
+                            </a>
+                            <a href="<?php echo $filesLink; ?>" id="files_<?php echo $row->id?>" class="btn btn-micro jgrid">
+                                <span class="state icon-16-module "><i class="icon-folder-2"></i>	<span class="text"></span></span>
+                            </a>
+                        <?php ENDIF ?>
+                        <a href="<?php echo $editLink; ?>" id="files_<?php echo $row->id?>" class="btn btn-micro jgrid">
+                            <span class="state icon-16-edit "><i class="icon-edit"></i>	<span class="text"></span></span>
+                        </a>
+
+                        <?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_CARTABLE' ); ?>
+                        <?php echo $row->cartable==1?JText::_( 'COM_EVENTGALLERY_EVENT_CARTABLE' ):JText::_( 'COM_EVENTGALLERY_EVENT_NOT_CARTABLE' ); ?>
 					</div>				
 				</td>
 				<td>
-					<a href="<?php echo $link; ?>"><?php echo $row->folder; ?></a>
+					<?php echo $row->folder; ?>
 				</td>
-				<td>
-					<?php echo $checked; ?>
-				</td>
+
 				<td class="order nowrap">
 					<div class="input-prepend">
 						<span class="add-on"><?php echo $this->pagination->orderUpIcon( $i, true, 'events.orderdown', 'JLIB_HTML_MOVE_UP', true); ?></span>
 						<span class="add-on"><?php echo $this->pagination->orderDownIcon( $i, $n, true, 'events.orderup', 'JLIB_HTML_MOVE_UP', true ); ?></span>
-						<input class="width-40 text-area-order" type="number" name="order[]" size="3"  value="<?php echo $row->ordering; ?>" />
+						<input class="width-40 text-area-order" type="text" name="order[]" size="3"  value="<?php echo $row->ordering; ?>" />
 					</div>
 				</td>
 
-				<td>
+                <td>
 					<?php echo $row->description; ?>
 				</td>
-				<td>
-					<?php echo $row->tags; ?>
+                <td class="nowrap">
+                    <?php echo JHTML::Date($row->date, JText::_('DATE_FORMAT_LC3')); ?><br>
+                </td>
+                <td>
+                    <small>
+                        <?php IF (strlen($row->tags)>0): ?>
+                            <strong><?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_TAGS' ); ?></strong><br>
+                            <?php echo $row->tags; ?><br>
+                        <?php ENDIF ?>
+                        <?php IF (strlen($row->picasakey)>0): ?>
+                            <strong> <?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PICASA_KEY' ); ?></strong><br>
+                            <?php echo $row->picasakey; ?><br>
+                        <?php ENDIF ?>
+                        <?php IF (strlen($row->password)>0): ?>
+                            <strong><?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PASSWORD' ); ?></strong><br>
+                            <?php echo $row->password; ?><br>
+                        <?php ENDIF ?>
+                    </small>
 				</td>
-				<td>
-					<?php echo $row->picasakey; ?>
-				</td>
-				<td>
-					<?php echo $row->password; ?>
-				</td>
-				<td>
-					<?php echo $row->cartable==1?JText::_( 'COM_EVENTGALLERY_EVENT_CARTABLE' ):JText::_( 'COM_EVENTGALLERY_EVENT_NOT_CARTABLE' ); ?>
-				</td>			
-				<td class="nowrap">
-					<?php echo JHTML::Date($row->date, JText::_('DATE_FORMAT_LC3')); ?><br>		
-				</td>			
 				<td class="center">
 					<a href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=folder='.$row->folder) ?>">
 						<?php echo $row->commentCount ?>

@@ -20,10 +20,12 @@ class EventgalleryViewEvents extends JViewLegacy
 		
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ), 'generic.png' );
 		//JToolBarHelper::deleteList();
-		JToolBarHelper::addNew('event.new');
+		JToolBarHelper::addNew('event.add');
 		JToolBarHelper::editList('event.edit');
 		JToolBarHelper::publishList('events.publish');
 		JToolBarHelper::unpublishList('events.unpublish');
+        JToolBarHelper::publishList('events.cartable','COM_EVENTGALLERY_EVENT_CARTABLE');
+        JToolBarHelper::unpublishList('events.notcartable','COM_EVENTGALLERY_EVENT_NOT_CARTABLE');
 		JToolBarHelper::deleteList('Remove all selected Events?','events.delete','Remove');
 		JToolBarHelper::preferences('com_eventgallery', '550');
 

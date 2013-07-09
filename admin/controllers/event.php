@@ -1,20 +1,15 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_weblinks
+ * @package     Sven.Bluege
+ * @subpackage  com_eventgallery
  *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Sven Bluege All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Weblink controller class.
- *
- * @package     Joomla.Administrator
- * @subpackage  com_weblinks
- * @since       1.6
  */
 class EventgalleryControllerEvent extends JControllerForm
 {

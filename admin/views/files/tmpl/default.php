@@ -61,20 +61,18 @@ defined('_JEXEC') or die('Restricted access');
 		<table class="table table-striped adminlist">
 		<thead>
 			<tr>
-				<th width="5">
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ID' ); ?>
-				</th>
-				<th>
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_FILENAME' ); ?>
-				</th>
+				
 				<th width="20">			
 					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 				</th>			
+				<th width="110">
+					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_FILENAME' ); ?>
+				</th>
 				<th>
 					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ORDER' ); ?> 
 					<?php echo JHTML::_('grid.order',  $this->items, 'filesave.png', 'files.saveorder' ); ?>
 				</th>
-				<th width="105">
+				<th>
 					<?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_OPTIONS' ); ?>
 				</th>		
 					
@@ -91,7 +89,7 @@ defined('_JEXEC') or die('Restricted access');
 			</tr>			
 		</thead>
 		<?php
-		$k = 0;
+
 		for ($i=0, $n=count( $this->items ); $i < $n; $i++)
 		{
 			$row = $this->items[$i];
@@ -99,24 +97,21 @@ defined('_JEXEC') or die('Restricted access');
 			$published =  JHTML::_('jgrid.published', $row->published, $i );
 
 			?>
-			<tr class="<?php echo "row$k"; ?>">
-				<td>				
-					<!-- <a name="<?php echo $row->id; ?>"></a> -->
-					<?php echo $row->id; ?>
-				</td>
+			<tr>
 				<td>
-					<?php echo $row->file?><br />
-					<img class="thumbnail" src="<?php echo JURI::base().("../$_image_script_path?view=resizeimage&folder=".$row->folder."&file=".$row->file."&option=com_eventgallery&width=100&height=50")?>" />
-				</td>
-				<td>
+					<!--<a name="<?php echo $row->id; ?>"></a>-->
 					<?php echo $checked; ?>
+				</td>
+				<td>
+					<img class="thumbnail" title="<?php echo $row->id; ?>" src="<?php echo JURI::base().("../$_image_script_path?view=resizeimage&folder=".$row->folder."&file=".$row->file."&option=com_eventgallery&width=100&height=50")?>" />
 				</td>
 				<td class="order">
 					<div class="input-prepend">
 						<span class="add-on"><?php echo $this->pagination->orderUpIcon( $i, true, 'files.orderdown', 'JLIB_HTML_MOVE_UP', true); ?></span>
-						<span class="add-on"><?php echo $this->pagination->orderDownIcon( $i, $n, true, 'files.orderup', 'JLIB_HTML_MOVE_UP', true ); ?></span>
+						<span class="add-on"><?php echo $this->pagination->orderDownIcon( $i, $n, true, 'files.orderup', 'JLIB_HTML_MOVE_DOWN', true ); ?></span>
 						<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" class="width-40 text-area-order" />
 					</div>
+					<small><?php echo $row->file?></small>
 					
 				</td>
 				<td>
@@ -166,7 +161,6 @@ defined('_JEXEC') or die('Restricted access');
 				
 			</tr>
 			<?php
-			$k = 1 - $k;
 		}
 		?>
 		</table>

@@ -16,22 +16,11 @@ jimport('joomla.html.pagination');
 
 class EventgalleryModelEvent extends JModelAdmin
 {
-	function getData()
-	{
-		// Load the data
-		if (empty( $this->_data )) {
-			$query = ' SELECT * FROM #__eventgallery_folder '.
-					'  WHERE id = \''.$this->_id.'\'';
-			$this->_db->setQuery( $query );
-			$this->_data = $this->_db->loadObject();
-		}
 
-		if (!$this->_data) {
-			
-			$this->_data = $this->getTable('folder');
-		}
-		return $this->_data;
-	}
+    public function getTable($type = 'Event', $prefix = 'Table', $config = array())
+    {
+        return JTable::getInstance($type, $prefix, $config);
+    }
 
 
 	function changeFolderName($oldFolder, $newFolder)
@@ -66,12 +55,45 @@ class EventgalleryModelEvent extends JModelAdmin
         if (empty($data))
         {
             $data = $this->getItem();
-
+            // Prime some default values.
+            if ($this->getState('event.id') == 0)
+            {
+                $app = JFactory::getApplication();
+                $data->set('id', $app->input->get('id'));
+            }
         }
 
         $this->preprocessData('com_eventgallery.event', $data);
 
         return $data;
+    }
+
+    function cartable($pks, $iscartable)
+    {
+        $table = $this->getTable();
+        $pks = (array) $pks;
+        $result = true;
+
+        foreach ($pks as $i => $pk)
+        {
+            $table->reset();
+
+            if ($table->load($pk))
+            {
+                $table->cartable= $iscartable;
+                $table->store();
+            }
+            else
+            {
+                $this->setError($table->getError());
+                unset($pks[$i]);
+                $result = false;
+            }
+        }
+
+
+
+        return $result;
     }
 
 

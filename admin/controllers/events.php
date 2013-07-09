@@ -12,6 +12,15 @@ defined('_JEXEC') or die('Restricted access');
 
 class EventgalleryControllerEvents extends JControllerAdmin
 {
+
+    public function __construct($config = array())
+    {
+        parent::__construct($config);
+
+        $this->registerTask('notcartable', 'cartable');
+        $this->registerTask('cartable', 'cartable');
+    }
+
     /**
      * Proxy for getModel.
      */
@@ -19,6 +28,45 @@ class EventgalleryControllerEvents extends JControllerAdmin
     {
         $model = parent::getModel($name, $prefix, $config);
         return $model;
+    }
+
+    public function cartable() {
+        $cid = JFactory::getApplication()->input->get('cid', array(), 'array');
+        $data = array('cartable' => 1, 'notcartable' => 0);
+        $task = $this->getTask();
+        $value = JArrayHelper::getValue($data, $task, 0, 'int');
+        if (!is_array($cid) || count($cid) < 1)
+        {
+            JLog::add(JText::_($this->text_prefix . '_NO_ITEM_SELECTED'), JLog::WARNING, 'jerror');
+        }
+        else
+        {
+            // Get the model.
+            $model = $this->getModel();
+
+            // Make sure the item ids are integers
+            jimport('joomla.utilities.arrayhelper');
+            JArrayHelper::toInteger($cid);
+
+            // Remove the items.
+            if ($model->cartable($cid, $value))
+            {
+                if ($value == 1)
+                {
+                    $ntext = $this->text_prefix . '_N_ITEMS_CARTABLE';
+                }
+                else
+                {
+                    $ntext = $this->text_prefix . '_N_ITEMS_NOTCARTABLE';
+                }
+                $this->setMessage(JText::plural($ntext, count($cid)));
+            }
+            else
+            {
+                $this->setMessage($model->getError());
+            }
+        }
+        $this->setRedirect(JRoute::_('index.php?option=com_eventgallery&view=events'));
     }
 
 

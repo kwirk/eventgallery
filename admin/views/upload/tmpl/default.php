@@ -12,10 +12,10 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-<h1><?php echo $this->event->folder?></h1> 
+<h1><?php echo $this->item->folder?></h1>
   
 
-<form id="upload" action="<?php echo JRoute::_("index.php?option=com_eventgallery&task=uploadFileByAjax&folder=".$this->event->folder."&format=raw&",false); ?>" method="POST" enctype="multipart/form-data">  
+<form id="upload" action="<?php echo JRoute::_("index.php?option=com_eventgallery&task=upload.uploadFileByAjax&folder=".$this->item->folder."&format=raw&",false); ?>" method="POST" enctype="multipart/form-data">
 <fieldset>  
 	<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="30000000" />  
 	<div>  
@@ -35,7 +35,7 @@ defined('_JEXEC') or die('Restricted access');
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 
 <input type="hidden" name="option" value="com_eventgallery" />
-<input type="hidden" name="id" value="<?php echo $this->event->id; ?>" />
+<input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
 <input type="hidden" name="task" value="" />
 
 </form>

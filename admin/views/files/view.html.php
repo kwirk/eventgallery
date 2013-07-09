@@ -46,7 +46,7 @@ class EventgalleryViewFiles extends JViewLegacy
         $text = $this->item->folder;
         JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ).': <small><small>[ ' . $text.' ]</small></small>' );
 
-        JToolBarHelper::cancel('event.cancel', 'Close');
+        JToolBarHelper::cancel('files.cancel', 'Close');
 
 
         JToolBarHelper::custom('files.publish', 'eg-published');

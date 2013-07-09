@@ -12,6 +12,22 @@ defined('_JEXEC') or die('Restricted access');
 
 class EventgalleryControllerFiles extends JControllerAdmin
 {
+
+    protected $_anchor = "";
+
+    public function __construct($config = array())
+    {
+        $cids = JRequest::getVar('cid');
+        if (isset($cids[0])) {
+            $this->_anchor = '#'.$cids[0];
+        }
+
+        parent::__construct($config);
+
+    }
+
+
+
     /**
      * Proxy for getModel.
      */
@@ -21,6 +37,9 @@ class EventgalleryControllerFiles extends JControllerAdmin
         return $model;
     }
 
+    function cancel() {
+        $this->setRedirect( 'index.php?option=com_eventgallery');
+    }
 
     /**
      * function to publish a single file/multiple files
@@ -30,20 +49,8 @@ class EventgalleryControllerFiles extends JControllerAdmin
     function publish()
     {
        parent::publish();
-       $this->setRedirect( 'index.php?option=com_eventgallery&view=files&limitstart='.JRequest::getVar('limitstart').'&folderid='.JRequest::getVar('folderid') );
+       $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor);
     }
-
-    /**
-     * function to unpublish a single file/multiple files
-     *
-     * @return unknown_type
-     */
-    function unpublish()
-    {
-        parent::publish();
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid'));
-    }
-
 
     function saveorder()
     {
@@ -54,7 +61,7 @@ class EventgalleryControllerFiles extends JControllerAdmin
     function reorder()
     {
         parent::reorder();
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid'));
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor);
     }
 
     function delete()
@@ -82,13 +89,13 @@ class EventgalleryControllerFiles extends JControllerAdmin
      */
     function allowComments()
     {
-        $model = $this->getModel('file');
+        $model = $this->getModel();
         $model->allowComments(1);
 
         $msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_ENABLE_FOR_FILE' );
 
 
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid'), $msg );
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
     }
 
     /**
@@ -98,13 +105,13 @@ class EventgalleryControllerFiles extends JControllerAdmin
      */
     function disallowComments()
     {
-        $model = $this->getModel('file');
+        $model = $this->getModel();
         $model->allowComments(0);
 
 
         $msg = JText::_( 'COM_EVENTGALLERY_COMMENTS_DISABLE_FOR_FILE' );
 
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid'), $msg);
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg);
     }
 
     /**
@@ -114,12 +121,12 @@ class EventgalleryControllerFiles extends JControllerAdmin
      */
     function isMainImage()
     {
-        $model = $this->getModel('file');
+        $model = $this->getModel();
         $model->setMainImage(1);
 
         $msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_ENABLE_FOR_FILE' );
 
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid'), $msg );
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
     }
 
     /**
@@ -129,12 +136,12 @@ class EventgalleryControllerFiles extends JControllerAdmin
      */
     function isNotMainImage()
     {
-        $model = $this->getModel('file');
+        $model = $this->getModel();
         $model->setMainImage(0);
 
         $msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGE_DISABLE_FOR_FILE' );
 
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid'), $msg );
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
     }
 
     /**
@@ -144,14 +151,13 @@ class EventgalleryControllerFiles extends JControllerAdmin
      */
     function isMainImageOnly()
     {
-        $model = $this->getModel('file');
+        $model = $this->getModel();
         $model->setMainImageOnly(1);
 
-        $file = $model->getData();
         $msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_ENABLE_FOR_FILE' );
 
 
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid'), $msg );
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
     }
 
     /**
@@ -161,13 +167,12 @@ class EventgalleryControllerFiles extends JControllerAdmin
      */
     function isNotMainImageOnly()
     {
-        $model = $this->getModel('file');
+        $model = $this->getModel();
         $model->setMainImageOnly(0);
 
-        $file = $model->getData();
         $msg = JText::_( 'COM_EVENTGALLERY_ISMAINIMAGEONLY_DISABLE_FOR_FILE' );
 
-        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid'), $msg );
+        $this->setRedirect( 'index.php?option=com_eventgallery&view=files&folderid='.JRequest::getVar('folderid').$this->_anchor, $msg );
     }
 
     

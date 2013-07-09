@@ -19,13 +19,7 @@ class EventgalleryViewUpload extends JViewLegacy
 
 	function display($tpl = null)
 	{
-
-		$this->item		= $this->get('Item');
-
-		JToolBarHelper::title(   JText::_( 'Event' ).': <small><small>[ upload ]</small></small>' );
-		JToolBarHelper::cancel( 'cancelEvent', 'Close' );
-
-		parent::display($tpl);
+		echo "RAW";
 	}
 }
 ?>

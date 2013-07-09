@@ -367,100 +367,7 @@ class EventgalleryController extends JControllerLegacy
 	
 
 
-	function uploadFileByAjax() {
-
-		$user = JFactory::getUser();
-
-		$path = JPATH_SITE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery';
-		//@mkdir($path, 0777);
-		@mkdir($path);
-		
-		
-		$folder = JRequest::getString('folder');
-		$folder=JFile::makeSafe($folder);
-		
-
-		$path=$path.DIRECTORY_SEPARATOR.$folder.DIRECTORY_SEPARATOR ;
-		//@mkdir($path, 0777);
-		@mkdir($path);
-
-
-		$fn = JRequest::getString('file', false);
-		$fn=JFile::makeSafe($fn);
-
-		$uploadedFiles = Array();
-
-		$ajaxMode = JRequest::getString('ajax',false);
-		echo $fn." done";
-
-		if ($fn) {
-
-			// AJAX call
-			file_put_contents(
-				$path. $fn,
-				file_get_contents('php://input')
-			);
-			#echo "$fn uploaded in folder $folder";
-			echo '<img alt="Done '.$fn.'" class="thumbnail" src="'.JURI::base().("../components/com_eventgallery/helpers/image.php?view=resizeimage&folder=".$folder."&file=".$fn."&option=com_eventgallery&width=100&height=50").'" />';
-			array_push($uploadedFiles, $fn);
-
-		}
-		else {
-
-			// form submit
-			$files = $_FILES['fileselect'];
-
-			foreach ($files['error'] as $id => $err) {
-				if ($err == UPLOAD_ERR_OK) {
-					$fn = $files['name'][$id];
-					$fn = str_replace('..','',$fn);
-					move_uploaded_file(
-						$files['tmp_name'][$id],
-						$path. $fn
-					);
-					array_push($uploadedFiles, $fn);
-				}
-			}
-
-		}
-
-		$db = JFactory::getDBO();
-		foreach($uploadedFiles as $uploadedFile) {
-			if (file_exists($path.$uploadedFile)) {
-			
-				
-				@list($width, $height, $type, $attr) = getimagesize($path.$uploadedFile);
-				
-				$query = "REPLACE into #__eventgallery_file set 
-							folder=".$db->Quote($folder).", 
-							file=".$db->Quote($uploadedFile).",
-							width=".$db->Quote($width).",
-							height=".$db->Quote($height).",
-							userid=".$db->Quote($user->id);
-
-				$db->setQuery($query);
-				$db->query();			
-			} 
-		}
-
-		if (!$ajaxMode) {
-			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_COMPLETE' );
-			//$this->setRedirect( 'index.php?option=com_eventgallery&task=upload', $msg );
-		} 
-
-	}
-	/**
-	 * function to provide the upload-View 
-	 * @return unknown_type
-	 */
-	function upload()
-	{
-		JRequest::setVar('hidemainmenu', 1);
-		$model = $this->getModel('event');	
-		$view = $this->getView('upload','html');
-		$view->setModel($model, true);
-		$view->display();
-	}
+	
 	
 	/**
 	 * function so remove every cache-entry
@@ -477,36 +384,6 @@ class EventgalleryController extends JControllerLegacy
 	
 
 	
-	function saveFileOrder()
-	{		
-		$model = $this->getModel('file');
-		$model->storeOrder();
-		$msg = JText::_( 'COM_EVENTGALLERY_EVENT_FILE_ORDER_STORED_SUCCESS' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&cid='.JRequest::getVar('folderid'), $msg );		
-	}
-	
-	function orderFileUp()
-	{
-		$model = $this->getModel('file');
-		$model->move(1);
-		
-		$file = & $model->getData();
-		
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&cid='.JRequest::getVar('folderid'), $msg );	
-	}
-	
-	function orderFileDown()
-	{
-		$model =$this->getModel('file');
-		
-		$model->move(-1);
-		
-		$file = $model->getData();
-		
-		#print_r($file);
-		
-		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&cid='.JRequest::getVar('folderid'), $msg );		
-	}
 }
 
 function rrmdir($dir) {

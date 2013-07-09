@@ -24,7 +24,8 @@ JHtml::_('formbehavior.chosen', 'select');
 <script type="text/javascript">
     Joomla.submitbutton = function(task)
     {
-        if (task == 'cancelEvent' || document.formvalidator.isValid(document.id('adminForm'))) {    
+        if (task == 'cancelEvent' || document.formvalidator.isValid(document.id('adminForm'))) {
+            <?php echo $this->form->getField('text')->save(); ?>
             Joomla.submitform(task, document.getElementById('adminForm'));
         }
         else {
