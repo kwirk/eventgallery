@@ -25,7 +25,7 @@ abstract class EventgalleryLibraryManagerMethod extends EventgalleryLibraryManag
     /**
      * @var array
      */
-    protected $_methods_active;
+    protected $_methods_published;
 
 
 
@@ -35,11 +35,11 @@ abstract class EventgalleryLibraryManagerMethod extends EventgalleryLibraryManag
     }
 
     /**
-     * @param bool $activeOnly
+     * @param bool $publishedOnly
      *
      * @return array
      */
-    public function getMethods($activeOnly = true)
+    public function getMethods($publishedOnly = true)
     {
 
         if ($this->_methods == null) {
@@ -53,21 +53,21 @@ abstract class EventgalleryLibraryManagerMethod extends EventgalleryLibraryManag
             $items = $db->loadObjectList();
 
             $this->_methods = array();
-            $this->_methods_active = array();
+            $this->_methods_published = array();
 
             foreach ($items as $item) {
                 /**
                  * @var EventgalleryLibraryInterfaceMethod $itemObject
                  */
                 $itemObject = new $item->classname($item);
-                if ($item->active == 1) {
-                    $this->_methods_active[$itemObject->getId()] = $itemObject;
+                if ($item->published == 1) {
+                    $this->_methods_published[$itemObject->getId()] = $itemObject;
                 }
                 $this->_methods[$itemObject->getId()] = $itemObject;
             }
         }
-        if ($activeOnly) {
-            return $this->_methods_active;
+        if ($publishedOnly) {
+            return $this->_methods_published;
         } else {
             return $this->_methods;
         }
@@ -94,14 +94,14 @@ abstract class EventgalleryLibraryManagerMethod extends EventgalleryLibraryManag
 
     /**
      * @param int  $methodid
-     * @param bool $activeOnly
+     * @param bool $publishedOnly
      *
      * @return EventgalleryLibraryInterfaceMethod
      */
-    public function getMethod($methodid, $activeOnly)
+    public function getMethod($methodid, $publishedOnly)
     {
 
-        $methods = $this->getMethods($activeOnly);
+        $methods = $this->getMethods($publishedOnly);
 
 
         if (isset($methods[$methodid])) {

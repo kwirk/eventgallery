@@ -59,7 +59,7 @@ class EventgalleryLibraryFactoryImagelineitem extends EventgalleryLibraryFactory
             'price' => $quantity * $imagetype->getPrice(),
             'taxrate' => $imagetype->getTaxrate(),
             'currency' => $imagetype->getCurrency(),
-            'typeid' => $imagetype->getId()
+            'imagetypeid' => $imagetype->getId()
         );
 
 

@@ -95,7 +95,7 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
     public function getImageType()
     {
         if ($this->_imagetype == null) {
-            $this->_imagetype = new EventgalleryLibraryImagetype($this->_lineitem->typeid);
+            $this->_imagetype = new EventgalleryLibraryImagetype($this->_lineitem->imagetypeid);
         }
 
         return $this->_imagetype;
@@ -114,7 +114,7 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
             throw new Exception("The selected image type is invalid for this line item");
         }
 
-        $this->_lineitem->typeid = $newImageType->getId();
+        $this->_lineitem->imagetypeid = $newImageType->getId();
         $this->_lineitem->singleprice = $newImageType->getPrice();
         $this->_store();
         $this->_imagetype = null;

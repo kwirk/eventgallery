@@ -50,6 +50,10 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
     protected function _loadImageTypeSet()
     {
 
+        if (null == $this->_imagetypeset_id) {
+            return;
+        }
+
         $this->_imagetypeset = NULL;
         $this->_imagetypes = NULL;
 
@@ -64,6 +68,8 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
         $query->order('its.default DESC');
         $db->setQuery($query);
         $this->_imagetypeset = $db->loadObject();
+
+
 
         $this->_imagetypeset_id = $this->_imagetypeset->id;
 
@@ -81,9 +87,9 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
 
         $query->select('t.*, tsta.default as defaultimagetype');
         $query->from(
-            '#__eventgallery_imagetypeset_imagetype_assignment tsta left join #__eventgallery_imagetype t on tsta.typeid=t.id'
+            '#__eventgallery_imagetypeset_imagetype_assignment tsta left join #__eventgallery_imagetype t on tsta.imagetypeid=t.id'
         );
-        $query->where('tsta.typesetid=' . $db->quote($this->_imagetypeset->id));
+        $query->where('tsta.imagetypesetid=' . $db->quote($this->_imagetypeset->id));
         $query->order('tsta.ordering');
         $db->setQuery($query);
         $dbtypes = $db->loadObjectList();
@@ -145,4 +151,11 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
         }
     }
 
+    public function getId() {
+        return $this->_imagetypeset->id;
+    }
+
+    public function isPublished() {
+        return $this->_imagetypeset->published==1;
+    }
 }

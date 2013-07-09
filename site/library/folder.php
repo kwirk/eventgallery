@@ -56,7 +56,15 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
         $folderObject = $db->loadObject();
         $this->_folder = $folderObject;
 
-        $this->_imagetypeset = new EventgalleryLibraryImagetypeset($this->_folder->typesetid);
+        if ($this->_folder->imagetypesetid == null) {
+            /**
+             * @var EventgalleryLibraryManagerImagetypeset $imagetypesetMgr
+             */
+            $imagetypesetMgr = EventgalleryLibraryManagerImagetypeset::getInstance();
+            $this->_imagetypeset = $imagetypesetMgr->getDefaultImageTypeSet();
+        } else {
+            $this->_imagetypeset = new EventgalleryLibraryImagetypeset($this->_folder->imagetypesetid);
+        }
 
     }
 

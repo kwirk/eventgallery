@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_folder` (
   `date` datetime NOT NULL,
   `published` tinyint(4) NOT NULL DEFAULT '1',
   `folder` varchar(125) NOT NULL,
-  `typesetid` int(11) DEFAULT NULL,
+  `imagetypesetid` int(11) DEFAULT NULL,
   `text` text,
   `userid` int(11) NOT NULL,
   `lastmodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_imagelineitem` (
   `folder` varchar(255) NOT NULL,
   `file` varchar(255) NOT NULL,
   `quantity` int(10) unsigned NOT NULL DEFAULT '1',
-  `typeid` int(11) DEFAULT NULL,
+  `imagetypeid` int(11) DEFAULT NULL,
   `taxrate` int(3) DEFAULT 0,
   `price` decimal(8,2) NOT NULL,
   `singleprice` decimal(8,2) NOT NULL,
@@ -116,7 +116,9 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_imagetypeset` (
   `name` varchar(45) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `note` text DEFAULT NULL,
-  `default` BOOLEAN NOT NULL DEFAULT FALSE,
+  `default` int(1) NOT NULL DEFAULT 0,
+  `ordering` int NULL DEFAULT NULL,
+  `published` int(1) NULL DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,
 
@@ -136,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_useraddress` (
   `city` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
   `zip` varchar(10) DEFAULT NULL,
-  `default` BOOLEAN NOT NULL DEFAULT FALSE,
+  `default` int(1) NOT NULL DEFAULT 0,
   `modified` timestamp NULL DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,
 
@@ -162,13 +164,13 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_staticaddress` (
 
 DROP TABLE IF EXISTS `#__eventgallery_imagetypeset_imagetype_assignment`;
 CREATE TABLE IF NOT EXISTS `#__eventgallery_imagetypeset_imagetype_assignment` (
-  `typesetid` int(11) NOT NULL,
-  `typeid` int(11) NOT NULL,
+  `imagetypesetid` int(11) NOT NULL,
+  `imagetypeid` int(11) NOT NULL,
   `default` int(1) NOT NULL DEFAULT 0,
   `ordering` int(11) NOT NULL DEFAULT 0,
   `modified` timestamp NULL DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`typesetid`,`typeid`)
+  PRIMARY KEY (`imagetypesetid`,`imagetypeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 
@@ -278,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_paymentmethod` (
   `taxrate` int(3) DEFAULT 0,
   `price` decimal(8,2) NOT NULL,
   `currency` varchar(3) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `published` tinyint(1) NOT NULL DEFAULT '0',
   `default` int(1) NOT NULL DEFAULT 0,
   `ordering` int(11) NOT NULL DEFAULT 0,
   `modified` timestamp NULL DEFAULT NULL,
@@ -303,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_shippingmethod` (
   `taxrate` int(3) DEFAULT 0,
   `price` decimal(8,2) NOT NULL,
   `currency` varchar(3) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `published` tinyint(1) NOT NULL DEFAULT '0',
   `default` int(1) NOT NULL DEFAULT 0,
   `ordering` int(11) NOT NULL DEFAULT 0,
   `modified` timestamp NULL DEFAULT NULL,
@@ -328,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_surcharge` (
   `taxrate` int(3) DEFAULT 0,
   `price` decimal(8,2) NOT NULL,
   `currency` varchar(3) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `published` tinyint(1) NOT NULL DEFAULT '0',
   `ordering` int(11) NOT NULL DEFAULT 0,
   `default` int(1) NOT NULL DEFAULT 0,
   `rule` int(11) DEFAULT NULL,
@@ -355,15 +357,15 @@ INSERT INTO `#__eventgallery_imagetype` (`id`, `type`, `isdigital`, `size`, `tax
 -- Daten für Tabelle `#__eventgallery_imagetypeset`
 --
 
-INSERT INTO `#__eventgallery_imagetypeset` (`id`, `name`, `description`, `note`, `default`, `modified`, `created`) VALUES
-(1, 'Fotos teuer', NULL, NULL, 0, '0000-00-00 00:00:00', NULL),
-(2, 'Fotos billig', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `#__eventgallery_imagetypeset`  (`id`, `name`, `description`, `note`, `default`, `published`, `modified`, `created`) VALUES
+(1, 'Fotos teuer', NULL, NULL, 0, 1, '0000-00-00 00:00:00', NULL),
+(2, 'Fotos billig', NULL, NULL, 1, 1, NULL, NULL);
 
 --
 -- Daten für Tabelle `#__eventgallery_imagetypeset_imagetype_assignment`
 --
 
-INSERT INTO `#__eventgallery_imagetypeset_imagetype_assignment` (`typesetid`, `typeid`, `default`, `ordering`, `modified`, `created`) VALUES
+INSERT INTO `#__eventgallery_imagetypeset_imagetype_assignment` (`imagetypesetid`, `imagetypeid`, `default`, `ordering`, `modified`, `created`) VALUES
 (1, 1, 0, 1, '0000-00-00 00:00:00', NULL),
 (1, 2, 1, 2, NULL, NULL),
 (1, 3, 0, 4, '0000-00-00 00:00:00', NULL),
@@ -376,7 +378,7 @@ INSERT INTO `#__eventgallery_imagetypeset_imagetype_assignment` (`typesetid`, `t
 -- Daten für Tabelle `#__eventgallery_paymentmethod`
 --
 
-INSERT INTO `#__eventgallery_paymentmethod` (`id`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `active`, `default`, `ordering`, `modified`, `created`, `data`) VALUES
+INSERT INTO `#__eventgallery_paymentmethod` (`id`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `published`, `default`, `ordering`, `modified`, `created`, `data`) VALUES
 (1, 'EventgalleryPluginsPaymentCod', 'Cash on Pickup', '{"en-GB":"Cash on pickup","de-DE":"Zahlung bei Abholung"}', '{"en-GB":"Pay when you pick up your order","de-DE":"Die Bezahlung erfolgt bei Abholung"}', 19, 0.00, 'EUR', '1', '0', '1', '0000-00-00 00:00:00', NULL, ''),
 (2, 'EventgalleryPluginsPaymentCod', 'COD', '{"en-GB":"Cash on Delivery","de-DE":"Nachnahme"}', '{"en-GB":"Pay per Cash on Delivery","de-DE":"Zahlung per Nachnahme"}', 19, 2.00, 'EUR', '1','0', '2',  '0000-00-00 00:00:00', NULL, ''),
 (3, 'EventgalleryPluginsPaymentPaypalPayment', 'Paypal', '{"en-GB":"Paypal","de-DE":"Paypal"}', '{"en-GB":"Bezahlung mit Paypal","de-DE":"Bezahlung mit Paypal"}', 19, 0.50, 'EUR', '1', '1', '3',  '0000-00-00 00:00:00', NULL, '{"receiver": { "email": "svenbluege-facilitator@gmail.com"}, "credentials": { "userid":"svenbluege-facilitator_api1.gmail.com", "password":"1372090428", "signature":"AJPnC-kx7R-Q9kRWBdP2GlSUumB6AxXvJxK5X6XYD9B0dr6yo0-0X8dI", "appid":"APP-80W284485P519543T"}, "endpoints" : {"api":"https://svcs.sandbox.paypal.com/AdaptivePayments/Pay", "webscr":"https://www.sandbox.paypal.com/cgi-bin/webscr" }}'),
@@ -388,7 +390,7 @@ INSERT INTO `#__eventgallery_paymentmethod` (`id`, `classname`, `name`, `display
 -- Daten für Tabelle `#__eventgallery_shippingmethod`
 --
 
-INSERT INTO `#__eventgallery_shippingmethod` (`id`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `active`, `default`, `ordering`, `modified`, `created`) VALUES
+INSERT INTO `#__eventgallery_shippingmethod` (`id`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `published`, `default`, `ordering`, `modified`, `created`) VALUES
 (1, 'EventgalleryPluginsShippingDhl', 'pickup', '{"en-GB":"Pick up","de-DE":"Abholung"}', '{"en-GB":"Pick up your order at a specific address","de-DE":"Selbstabholung an einer bestimmten Adresse"}', 19, 0.00, 'EUR', '1', '0', '1', '0000-00-00 00:00:00', NULL),
 (2, 'EventgalleryPluginsShippingDhl', 'Hermes', '{"en-GB":"Hermes","de-DE":"Hermes"}', '{"en-GB":"Shipping by Hermes","de-DE":"Versand mit Hermes"}', 19, 5.00, 'EUR','1', '1', '2',  '0000-00-00 00:00:00', NULL),
 (3, 'EventgalleryPluginsShippingDhl', 'DHL', '{"en-GB":"DHL","de-DE":"DHL"}', '{"en-GB":"Shipping by DHL","de-DE":"Versand mit DHL"}', 19, 6.00, 'EUR','1', '0', '3',  '0000-00-00 00:00:00', NULL),
@@ -399,7 +401,7 @@ INSERT INTO `#__eventgallery_shippingmethod` (`id`, `classname`, `name`, `displa
 -- Daten für Tabelle `#__eventgallery_surcharge`
 --
 
-INSERT INTO `#__eventgallery_surcharge` (`id`, `ordering`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `active`, `rule`, `modified`, `created`, `data`) VALUES
+INSERT INTO `#__eventgallery_surcharge` (`id`, `ordering`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `published`, `rule`, `modified`, `created`, `data`) VALUES
 (1, 1, 'EventgalleryPluginsSurchargeStandard', 'surcharge', '{"en-GB":"Surcharge 1","de-DE":"Auftragspauschale 1"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 2.00, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"maxAmount":10}}'),
 (2, 2, 'EventgalleryPluginsSurchargeStandard', 'surcharge', '{"en-GB":"Surcharge 2","de-DE":"Auftragspauschale 2"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 0.50, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"minAmount":10, "maxAmount":50}}'),
 (3, 3, 'EventgalleryPluginsSurchargeStandard', 'surcharge', '{"en-GB":"Surcharge 3","de-DE":"Auftragspauschale 3"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 0.00, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"minAmount":50, "maxAmount":100}}');

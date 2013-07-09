@@ -82,6 +82,16 @@
 			<option value="1">JYES</option>
 		</field>
 		
+		<field name="typesetid"
+               type="imageset"
+               label="COM_EVENTGALLERY_EVENTS_IMAGESET"
+               description="COM_EVENTGALLERY_EVENTS_IMAGESET_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_IMAGESET_PLACEHOLDER"
+               required="false"
+               validate=""
+               class="input-xlarge"
+                />
+		
 		<field name="text"
                type="editor"
                inputtype="text"
@@ -93,5 +103,6 @@
                class="input-xlarge"
                 />
                 
+         
     </fieldset>
 </form>

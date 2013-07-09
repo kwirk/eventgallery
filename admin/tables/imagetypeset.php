@@ -18,6 +18,8 @@ class TableImagetypeset extends JTable
     public $description;
     public $note;
     public $default;
+    public $published;
+    public $ordering;
     public $modified;
     public $created;
 
