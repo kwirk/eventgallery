@@ -301,9 +301,8 @@ INSERT INTO `#__eventgallery_imagetype` (`id`, `type`, `isdigital`, `size`, `tax
 --
 
 INSERT INTO `#__eventgallery_imagetypeset`  (`id`, `name`, `description`, `note`, `default`, `published`, `modified`, `created`) VALUES
-(1, 'Fotos teuer', NULL, NULL, 0, 1, '0000-00-00 00:00:00', NULL),
-(2, 'Fotos billig', NULL, NULL, 1, 1, NULL, NULL);
-
+(1, 'Cheap images', NULL, NULL, 0, 1, '0000-00-00 00:00:00', NULL),
+(2, 'Expencive images', NULL, NULL, 1, 1, NULL, NULL);
 --
 -- Daten für Tabelle `#__eventgallery_imagetypeset_imagetype_assignment`
 --

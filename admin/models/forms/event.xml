@@ -82,8 +82,8 @@
 			<option value="1">JYES</option>
 		</field>
 		
-		<field name="typesetid"
-               type="imageset"
+		<field name="imagetypesetid"
+               type="imagetypeset"
                label="COM_EVENTGALLERY_EVENTS_IMAGESET"
                description="COM_EVENTGALLERY_EVENTS_IMAGESET_DESCRIPTION"
                placeholder="COM_EVENTGALLERY_EVENTS_IMAGESET_PLACEHOLDER"

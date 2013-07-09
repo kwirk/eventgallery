@@ -151,11 +151,47 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
         }
     }
 
+    /**
+     * @return int
+     */
     public function getId() {
         return $this->_imagetypeset->id;
     }
 
+    /**
+     * @return bool
+     */
     public function isPublished() {
         return $this->_imagetypeset->published==1;
     }
+
+    /**
+     * @return bool
+     */
+    public function isDefault() {
+        return $this->_imagetypeset->default==1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName() {
+        return $this->_imagetypeset->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNote() {
+        return $this->_imagetypeset->note;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription() {
+        return $this->_imagetypeset->description;
+    }
+
+
 }
