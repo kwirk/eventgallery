@@ -73,31 +73,22 @@ class EventgalleryModelFile extends JModelAdmin
 
 
 
-    function setCaption($caption, $title) {
-        $cid = JRequest::getString('cid');
+    function setCaption($pks, $caption, $title) {
 
-
-        $row = $this->getTable('file');
-
-        $query = ' SELECT * FROM #__eventgallery_file '.
-            '  WHERE id = '.$this->_db->quote($cid);
-
-        $this->_db->setQuery( $query );
-        $data = $this->_db->loadObject();
-        $row->bind($data);
-        $row->caption = $caption;
-        $row->title = $title;
-        $row->id=$cid;
-        if (!$row->store()) {
-            $this->setError( $row->getErrorMsg() );
-        }
+        $this->setValue($pks, 'caption', $caption);
+        $this->setValue($pks, 'title', $title);
 
         return true;
 
-    }  
+    }
 
-    function allowComments($pks, $allowcomments)
-    {
+    /**
+     * @param $pks the primary keys value
+     * @param $key the name of the column you want to change
+     * @param $value the name you want to set the value to.
+     * @return bool success
+     */
+    protected function setValue($pks, $key, $value) {
         $table = $this->getTable();
         $pks = (array) $pks;
         $result = true;
@@ -108,7 +99,7 @@ class EventgalleryModelFile extends JModelAdmin
 
             if ($table->load($pk))
             {
-                $table->allowcomments= $allowcomments;
+                $table->$key= $value;
                 $table->store();
             }
             else
@@ -122,65 +113,25 @@ class EventgalleryModelFile extends JModelAdmin
 
 
         return $result;
+    }
+
+    public function allowComments($pks, $allowcomments)
+    {
+        return $this->setValue($pks, "allowcomments", $allowcomments);
     }
   
 
-    function isMainImageOnly($pks, $ismainimageonly)
+    public function isMainImageOnly($pks, $ismainimageonly)
     {
-        $table = $this->getTable();
-        $pks = (array) $pks;
-        $result = true;
-
-        foreach ($pks as $i => $pk)
-        {
-            $table->reset();
-
-            if ($table->load($pk))
-            {
-                $table->ismainimageonly= $ismainimageonly;
-                $table->store();
-            }
-            else
-            {
-                $this->setError($table->getError());
-                unset($pks[$i]);
-                $result = false;
-            }
-        }
-
-
-
-        return $result;
+        return $this->setValue($pks, "ismainimageonly", $ismainimageonly);
     }
 
 
-    function isMainImage($pks, $ismainimage)
+    public function isMainImage($pks, $ismainimage)
     {
-        $table = $this->getTable();
-        $pks = (array) $pks;
-        $result = true;
-
-        foreach ($pks as $i => $pk)
-        {
-            $table->reset();
-
-            if ($table->load($pk))
-            {
-                $table->ismainimage= $ismainimage;
-                $table->store();
-            }
-            else
-            {
-                $this->setError($table->getError());
-                unset($pks[$i]);
-                $result = false;
-            }
-        }
-
-
-
-        return $result;
+        return $this->setValue($pks, "ismainimage", $ismainimage);
     }
+
 
 
 

@@ -84,8 +84,10 @@ class EventgalleryControllerFiles extends JControllerAdmin
     function saveCaption() {
         $title = JRequest::getVar( 'title', '', 'post', 'string', JREQUEST_ALLOWHTML );
         $caption = JRequest::getVar( 'caption', '', 'post', 'string', JREQUEST_ALLOWHTML );
-        $model = $this->getModel('file');
-        $model->setCaption($caption, $title);
+        $cid = JRequest::getString('cid');
+
+        $model = $this->getModel();
+        $model->setCaption($cid, $caption, $title);
         echo "Done";
         die();
     }
