@@ -27,7 +27,7 @@
                 />
         
         <field name="displayname"
-               type="textarea"
+               type="localizabletext"               
                label="COM_EVENTGALLERY_METHOD_DISPLAYNAME"
                description="COM_EVENTGALLERY_METHOD_DISPLAYNAME_DESCRIPTION"
                placeholder="COM_EVENTGALLERY_METHOD_DISPLAYNAME_PLACEHOLDER"
@@ -36,7 +36,8 @@
                class="input-xlarge"
                 />
 	    <field name="description"
-               type="textarea"
+               type="localizabletext"
+               inputtype="textarea"
                label="COM_EVENTGALLERY_METHOD_DESCRIPTION"
                description="COM_EVENTGALLERY_METHOD_DESCRIPTION_DESCRIPTION"
                placeholder="COM_EVENTGALLERY_METHOD_DESCRIPTION_PLACEHOLDER"
