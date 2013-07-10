@@ -35,6 +35,11 @@ class EventgalleryController extends JControllerLegacy
 			$vName == 'orders');
 
 		JSubMenuHelper::addEntry(
+			JText::_('COM_EVENTGALLERY_SUBMENU_ORDERSTATUSES'),
+			'index.php?option=com_eventgallery&view=orderstatuses',
+			$vName == 'orderstatuses');
+
+		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_IMAGETYPESETS'),
 			'index.php?option=com_eventgallery&view=imagetypesets',
 			$vName == 'imagetypesets');

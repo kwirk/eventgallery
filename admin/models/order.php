@@ -30,6 +30,8 @@ class EventgalleryModelOrder extends JModelAdmin
      */
     public function getForm($data = array(), $loadData = true)
     {
+
+        return false;
         // Initialise variables.
         $app = JFactory::getApplication();
 
@@ -114,8 +116,9 @@ class EventgalleryModelOrder extends JModelAdmin
             $item->params = $registry->toArray();
         }
 
-        return $item;
 
+
+        return new EventgalleryLibraryOrder($item->id);
 
     }
 
@@ -132,11 +135,5 @@ class EventgalleryModelOrder extends JModelAdmin
         $value = JComponentHelper::getParams($this->option);
         $this->setState('params', $value);
     }
-
-
-
-
-
-
 
 }

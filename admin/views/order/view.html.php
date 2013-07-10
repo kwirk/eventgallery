@@ -29,7 +29,7 @@ class EventgalleryViewOrder extends JViewLegacy
      */
     public function display($tpl = null)
     {
-// Initialiase variables.
+        // Initialiase variables.
         $this->form = $this->get('Form');
         $this->item = $this->get('Item');
         $this->state = $this->get('State');
@@ -38,8 +38,15 @@ class EventgalleryViewOrder extends JViewLegacy
                 JError::raiseError(500, implode("\n", $errors));
                 return false;
             }
-        #$this->addToolbar();
+        $this->addToolbar();
         parent::display($tpl);
+    }
+
+    private function addToolbar() {
+
+        JToolBarHelper::title(  JText::_( 'COM_EVENTGALLERY_ORDER' ) );
+        JToolBarHelper::cancel( 'order.cancel' );
+
     }
 
 }

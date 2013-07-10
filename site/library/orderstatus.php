@@ -11,13 +11,25 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
+/**
+* types: 
+*   0   order
+*   1   shipping
+*   2   payment
+*/
 class EventgalleryLibraryOrderstatus extends EventgalleryLibraryDatabaseObject
 {
+
+
+    const TYPE_ORDER = 0;
+    const TYPE_SHIPPING = 1;
+    const TYPE_PAYMENT = 2;
 
     protected $_object = NULL;
     protected $_object_id = NULL;
     protected $_ls_displayname = NULL;
     protected $_ls_description = NULL;
+
 
     public function __construct($object)
     {
@@ -29,8 +41,10 @@ class EventgalleryLibraryOrderstatus extends EventgalleryLibraryDatabaseObject
             $this->_loadOrderStatus();
         }
 
-        $this->_ls_displayname = new EventgalleryLibraryDatabaseLocalizablestring($this->_object->displayname);
-        $this->_ls_description = new EventgalleryLibraryDatabaseLocalizablestring($this->_object->description);
+        if ($this->_object != null) {
+            $this->_ls_displayname = new EventgalleryLibraryDatabaseLocalizablestring($this->_object->displayname);
+            $this->_ls_description = new EventgalleryLibraryDatabaseLocalizablestring($this->_object->description);
+        }
 
         parent::__construct();
     }
@@ -73,6 +87,9 @@ class EventgalleryLibraryOrderstatus extends EventgalleryLibraryDatabaseObject
      */
     public function getDisplayName()
     {
+        if ($this->_ls_displayname == null) {
+            return "";
+        }
         return $this->_ls_displayname->get();
     }
 
@@ -81,6 +98,9 @@ class EventgalleryLibraryOrderstatus extends EventgalleryLibraryDatabaseObject
      */
     public function getDescription()
     {
+        if ($this->_ls_description == null) {
+            return "";
+        }
         return $this->_ls_description->get();
     }
 
@@ -90,6 +110,10 @@ class EventgalleryLibraryOrderstatus extends EventgalleryLibraryDatabaseObject
     public function isDefault()
     {
         return $this->_object->default == 1 ? true : false;
+    }
+
+    public function getType(){
+        return $this->_object->type;
     }
 
 }

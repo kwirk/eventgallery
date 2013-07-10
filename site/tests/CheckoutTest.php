@@ -80,6 +80,15 @@ class CheckoutTest extends PHPUnit_Framework_TestCase {
         $cart->setBillingAddress($address);
         $cart->setShippingAddress($address);
 
+        $message = "foo bar my message ist this. Can you send this?";
+        $cart->setMessage($message);
+
+        $email = "svenbluege+eventgallerytest@gmail.com";
+        $cart->setEMail($email);
+
+        $phone = "0049 12345 4567";
+        $cart->setPhone($phone);
+
         /**
          * @var EventgalleryLibraryManagerOrder $orderMgr
          */
@@ -100,6 +109,10 @@ class CheckoutTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('12345', $order->getBillingAddress()->getZip());
         $this->assertEquals('Footown', $order->getBillingAddress()->getCity());
         $this->assertEquals('Barland', $order->getBillingAddress()->getCountry());
+
+        $this->assertEquals($email, $order->getEMail());
+        $this->assertEquals($message, $order->getMessage());
+        $this->assertEquals($phone, $order->getPhone());
 
         // move to history
         $cart->setStatus(1);

@@ -19,13 +19,14 @@ class EventgalleryLibraryManagerOrderstatus extends EventgalleryLibraryManagerMa
 
     }
 
-    public static function getDefaultOrderStatus()
+    public static function getDefaultOrderStatus($typeid)
     {
 
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->select('s.*');
         $query->from('#__eventgallery_orderstatus s');
+        $query->where('type='.$db->quote($typeid));
         $query->where('s.default=1');
         $db->setQuery($query);
         $items = $db->loadObjectList();

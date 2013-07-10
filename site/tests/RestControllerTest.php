@@ -17,7 +17,8 @@ class Test extends PHPUnit_Framework_TestCase {
         JRequest::setVar('folder', 'test');
         JRequest::setVar('file', 'A_001_2013-03-17_IMG_1294.jpg');
         JRequest::setVar('quantity', '1');
-        JRequest::setVar('imagetypeid', '4');
+        // commented out since the types are not longer fixed
+        #JRequest::setVar('imagetypeid', '4');
         JRequest::setVar('methode', 'POST');
 
 

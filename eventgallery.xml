@@ -46,7 +46,7 @@
 	<administration>
 		<menu img="class:media">COM_EVENTGALLERY_MENU</menu>
 		<submenu>
-			<menu img="class:media"  link="option=com_eventgallery&amp;view=eventgallery">COM_EVENTGALLERY_MENU_EVENTS</menu>
+			<menu img="class:media"  link="option=com_eventgallery">COM_EVENTGALLERY_MENU_EVENTS</menu>
 			<menu img="class:article"  link="option=com_eventgallery&amp;view=comments">COM_EVENTGALLERY_MENU_COMMENTS</menu>
 			<menu img="class:article"  link="option=com_eventgallery&amp;view=orders">COM_EVENTGALLERY_MENU_ORDERS</menu>
 		</submenu>		

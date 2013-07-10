@@ -11,7 +11,7 @@
 defined('_JEXEC') or die();
 
 
-class EventgalleryModelOrders extends JModelList
+class EventgalleryModelOrderstatuses extends JModelList
 {
 
     protected $context = '';
@@ -33,7 +33,7 @@ class EventgalleryModelOrders extends JModelList
 		$query = $db->getQuery(true);
 		
 		$query->select('*');
-		$query->from('#__eventgallery_order');      
+		$query->from('#__eventgallery_orderstatus');
 
 		return $query;
 	}
@@ -46,7 +46,7 @@ class EventgalleryModelOrders extends JModelList
 
         $objects = array();
         foreach($result as $item) {
-           array_push($objects, new EventgalleryLibraryOrder($item->id));
+           array_push($objects, new EventgalleryLibraryOrderstatus($item->id));
         }
 
         return $objects;

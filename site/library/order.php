@@ -27,6 +27,10 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
      */
     protected $_lineitemcontainer_table = "Order";
 
+    protected $_orderstatus = NULL;
+    protected $_shippingstatus = NULL;
+    protected $_paymentstatus = NULL;
+
     public function __construct($orderid)
     {
         $this->_lineitemcontainer_id = $orderid;
@@ -71,24 +75,57 @@ class EventgalleryLibraryOrder extends EventgalleryLibraryLineitemcontainer
         }
         $this->_lineitemcontainer->orderstatusid = $orderStatus->getId();
         $this->_storeLineItemContainer();
+        $this->_paymentstatus = null;
     }
 
     /**
-     * @return int
+     * @return EventgalleryLibraryOrderstatus
+     */
+    public function getOrderStatus() {
+        if (null==$this->_orderstatus) {
+            $this->_orderstatus = new EventgalleryLibraryOrderstatus($this->_lineitemcontainer->orderstatusid);
+        }
+        return $this->_orderstatus;
+    }
+
+    /**
+     * @return EventgalleryLibraryOrderstatus
      */
     public function getPaymentStatus() {
-        return $this->_lineitemcontainer->paymentstatusid;
+        if (null == $this->_paymentstatus) {
+            $this->_paymentstatus = new EventgalleryLibraryOrderstatus($this->_lineitemcontainer->paymentstatusid);
+        }
+        return $this->_paymentstatus;
     }
 
     /**
-     * @param int $paymentstatus
+     * @param EventgalleryLibraryOrderstatus $paymentstatus
      */
     public function setPaymentStatus($paymentstatus) {
-        $this->_lineitemcontainer->paymentstatusid = $paymentstatus;
+        $this->_lineitemcontainer->paymentstatusid = $paymentstatus->getId();
         $this->_storeLineItemContainer();
+        $this->_paymentstatus = null;
     }
 
+    /**
+     * @return EventgalleryLibraryOrderstatus
+     */
+    public function getShippingStatus() {
+        if (null==$this->_shippingstatus) {
+            $this->_shippingstatus = new EventgalleryLibraryOrderstatus($this->_lineitemcontainer->shippingstatusid);
+        }
+        return $this->_shippingstatus;
+    }
 
+    /**
+     * @param EventgalleryLibraryOrderstatus $shippingstatus
+     */
+    public function setShippingStatus($shippingstatus) {
+        $this->_lineitemcontainer->shippingstatusid = $shippingstatus->getId();
+        $this->_storeLineItemContainer();
+        $this->_shippingstatus = null;
+
+    }
 
 
 }

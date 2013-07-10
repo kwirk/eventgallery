@@ -64,7 +64,9 @@ class EventgalleryLibraryFactoryOrder extends EventgalleryLibraryFactoryFactory
          * @var EventgalleryLibraryOrder $order
          */
         $order = new EventgalleryLibraryOrder($orderTable->id);
-        $order->setOrderStatus(EventgalleryLibraryManagerOrderstatus::getDefaultOrderStatus());
+        $order->setOrderStatus(EventgalleryLibraryManagerOrderstatus::getDefaultOrderStatus(EventgalleryLibraryOrderstatus::TYPE_ORDER));
+        $order->setPaymentStatus(EventgalleryLibraryManagerOrderstatus::getDefaultOrderStatus(EventgalleryLibraryOrderstatus::TYPE_PAYMENT));
+        $order->setShippingStatus(EventgalleryLibraryManagerOrderstatus::getDefaultOrderStatus(EventgalleryLibraryOrderstatus::TYPE_SHIPPING));
         $order->setDocumentNumber(EventgalleryLibraryDatabaseSequence::generateNewId());
 
         return $order;
