@@ -89,6 +89,8 @@ class CheckoutTest extends PHPUnit_Framework_TestCase {
         $phone = "0049 12345 4567";
         $cart->setPhone($phone);
 
+        $cartMgr->calculateCart();
+
         /**
          * @var EventgalleryLibraryManagerOrder $orderMgr
          */
@@ -113,6 +115,19 @@ class CheckoutTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($email, $order->getEMail());
         $this->assertEquals($message, $order->getMessage());
         $this->assertEquals($phone, $order->getPhone());
+
+        $total = $cart->getTotal();
+        $subtotal = $cart->getSubTotal();
+        $this->assertEquals($total, $order->getTotal());
+        $this->assertEquals($subtotal, $order->getSubTotal());
+
+        $this->assertEquals($cart->getShippingMethod()->getPrice(), $order->getShippingMethodServiceLineItem()->getPrice());
+        $this->assertEquals($cart->getPaymentMethod()->getPrice(), $order->getPaymentMethodServiceLineItem()->getPrice());
+        $this->assertEquals($cart->getSurcharge()->getPrice(), $order->getSurchargeServiceLineItem()->getPrice());
+
+        $manualTotal = $order->getSubTotal()+$order->getShippingMethodServiceLineItem()->getPrice()+$order->getSurchargeServiceLineItem()->getPrice()+$order->getPaymentMethodServiceLineItem()->getPrice();
+        $this->assertEquals($manualTotal, $order->getTotal());
+
 
         // move to history
         $cart->setStatus(1);
