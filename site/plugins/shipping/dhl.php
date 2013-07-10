@@ -37,4 +37,8 @@ class EventgalleryPluginsShippingDhl extends  EventgalleryLibraryMethodsShipping
 
         return false;
     }
+
+    static public  function getClassName() {
+        return "Shipping: DHL";
+    }
 }

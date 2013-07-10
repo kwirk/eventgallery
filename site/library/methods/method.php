@@ -46,6 +46,11 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
      */
     abstract protected function _loadMethodData();
 
+    static public  function getClassName() {
+        return "Abstract Method Class. Do overwrite this method.";
+    }
+
+
     /**
      * @return string the id
      */
@@ -144,4 +149,6 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
     public function onIncomingExternalRequest() {
 
     }
+
+
 }

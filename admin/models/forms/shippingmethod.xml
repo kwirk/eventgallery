@@ -16,11 +16,12 @@
                 />
                 
         <field name="classname"
-               type="text"
+               type="methodsclass"
+               superclass="EventgalleryLibraryMethodsShipping"
                label="COM_EVENTGALLERY_METHOD_CLASSNAME"
                description="COM_EVENTGALLERY_METHOD_CLASSNAME_DESCRIPTION"
                placeholder="COM_EVENTGALLERY_METHOD_CLASSNAME_PLACEHOLDER"
-               required="true"
+               required="false"
                validate=""
                class="input-xlarge"
                 />

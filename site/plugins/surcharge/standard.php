@@ -47,4 +47,8 @@ class EventgalleryPluginsSurchargeStandard extends  EventgalleryLibraryMethodsSu
 
         return true;
     }
+
+    static public  function getClassName() {
+        return "Surcharge: Standard";
+    }
 }

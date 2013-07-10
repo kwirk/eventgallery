@@ -33,7 +33,7 @@ JHtml::_('behavior.tooltip');
                 <th class="nowrap" width="1%">
                     
                 </th>
-                <th>
+                <th width="1%">
                     <?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ORDER' ); ?> 
                     <?php echo JHTML::_('grid.order',  $this->items, 'filesave.png', 'paymentmethods.saveorder' ); ?>   
                 </th>   
@@ -80,7 +80,7 @@ JHtml::_('behavior.tooltip');
                     </div>
                 </td>
                 <td>                  
-                        <?php echo $this->escape($item->getName()) ?>
+                        <?php echo $this->escape($item->getName()) ?><br>
                         <small><?php echo $this->escape($item->getDescription()) ?></small><br>
                 </td>
                 <td> 

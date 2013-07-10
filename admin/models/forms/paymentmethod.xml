@@ -16,11 +16,11 @@
                 />
                 
         <field name="classname"
-               type="text"
-               label="COM_EVENTGALLERY_METHOD_CLASSNAME"
+               type="methodsclass"
+               superclass="EventgalleryLibraryMethodsPayment"
                description="COM_EVENTGALLERY_METHOD_CLASSNAME_DESCRIPTION"
                placeholder="COM_EVENTGALLERY_METHOD_CLASSNAME_PLACEHOLDER"
-               required="true"
+               required="false"
                validate=""
                class="input-xlarge"
                 />

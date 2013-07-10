@@ -27,6 +27,10 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
        return true;
     }
 
+    static public  function getClassName() {
+        return "Payment: PayPal";
+    }
+
     protected function _getCredentials() {
 
         return array(

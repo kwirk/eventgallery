@@ -26,4 +26,8 @@ class EventgalleryPluginsPaymentCod extends  EventgalleryLibraryMethodsPayment
     {
        return true;
     }
+
+    static public  function getClassName() {
+        return "Payment: Cash on Delivery";
+    }
 }

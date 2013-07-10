@@ -37,4 +37,8 @@ class EventgalleryPluginsShippingEmail extends  EventgalleryLibraryMethodsShippi
 
         return true;
     }
+
+    static public  function getClassName() {
+        return "Shipping: EMail";
+    }
 }
