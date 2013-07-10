@@ -11,11 +11,13 @@ Front End
 Back End
 
 - Management Options
-	- Payment
-	- Shipping
-	- Surcharge
 	- Image Type / TypeSet
-	- Image Type Set assignment to Folder
 	- Orders
 	- Lineitems
 	- Dashboard
+
+- form fields
+	- localizable string
+	- plugin specific fields + save hocks
+	- image type selection incl. default setting
+	- class selector

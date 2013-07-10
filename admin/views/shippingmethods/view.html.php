@@ -15,7 +15,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 
-class EventgalleryViewImagetypesets extends JViewLegacy
+class EventgalleryViewShippingmethods extends JViewLegacy
 {    
 
     protected $items;
@@ -40,12 +40,12 @@ class EventgalleryViewImagetypesets extends JViewLegacy
     }
 
     protected function addToolbar() {
-        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_IMAGETYPESET' ), 'generic.png' );            
-        JToolBarHelper::addNew('imagetypeset.add');
-        JToolBarHelper::editList('imagetypeset.edit');
-        JToolBarHelper::publishList('imagetypesets.publish');
-        JToolBarHelper::unpublishList('imagetypesets.unpublish');
-        JToolBarHelper::deleteList('Remove all selected Events?','imagetypesets.delete','Remove');
+        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_SHIPPINGMETHODS' ), 'generic.png' );            
+        JToolBarHelper::addNew('shippingmethod.add');
+        JToolBarHelper::editList('shippingmethod.edit');
+        JToolBarHelper::publishList('shippingmethods.publish');
+        JToolBarHelper::unpublishList('shippingmethods.unpublish');
+        JToolBarHelper::deleteList('Remove all selected Events?','shippingmethods.delete','Remove');
     }
 
 }

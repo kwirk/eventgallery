@@ -44,6 +44,21 @@ class EventgalleryController extends JControllerLegacy
 			'index.php?option=com_eventgallery&view=imagetypes',
 			$vName == 'imagetypes');
 		
+		JSubMenuHelper::addEntry(
+			JText::_('COM_EVENTGALLERY_SUBMENU_SURCHARGES'),
+			'index.php?option=com_eventgallery&view=surcharges',
+			$vName == 'surcharges');
+
+		JSubMenuHelper::addEntry(
+			JText::_('COM_EVENTGALLERY_SUBMENU_SHIPPINGMETHODS'),
+			'index.php?option=com_eventgallery&view=shippingmethods',
+			$vName == 'shippingmethods');
+
+		JSubMenuHelper::addEntry(
+			JText::_('COM_EVENTGALLERY_SUBMENU_PAYMENTMETHODS'),
+			'index.php?option=com_eventgallery&view=paymentmethods',
+			$vName == 'paymentmethods');
+
 		/*
 		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_CLEAR_CACHE'),

@@ -15,7 +15,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 
-class EventgalleryViewImagetypeset extends JViewLegacy
+class EventgalleryViewShippingmethod extends JViewLegacy
 {
 	protected $state;
 
@@ -46,15 +46,15 @@ class EventgalleryViewImagetypeset extends JViewLegacy
 	private function addToolbar() {
 		$isNew		= ($this->item->id < 1);
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
-		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_IMAGETYPESETS' ).': <small>[ ' . $text.' ]</small>' );
+		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_SHIPPINGMETHOD' ).': <small>[ ' . $text.' ]</small>' );
 		
 		
 		if (!$isNew)  {			
-			JToolBarHelper::apply('imagetypeset.apply');			
+			JToolBarHelper::apply('shippingmethod.apply');			
 		}
 
-		JToolBarHelper::save('imagetypeset.save');
-		JToolBarHelper::cancel( 'imagetypeset.cancel' );
+		JToolBarHelper::save('shippingmethod.save');
+		JToolBarHelper::cancel( 'shippingmethod.cancel' );
 
 	}
 

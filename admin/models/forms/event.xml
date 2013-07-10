@@ -84,9 +84,9 @@
 		
 		<field name="imagetypesetid"
                type="imagetypeset"
-               label="COM_EVENTGALLERY_EVENTS_IMAGESET"
-               description="COM_EVENTGALLERY_EVENTS_IMAGESET_DESCRIPTION"
-               placeholder="COM_EVENTGALLERY_EVENTS_IMAGESET_PLACEHOLDER"
+               label="COM_EVENTGALLERY_EVENTS_IMAGETYPESET"
+               description="COM_EVENTGALLERY_EVENTS_IMAGETYPESET_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_EVENTS_IMAGETYPESET_PLACEHOLDER"
                required="false"
                validate=""
                class="input-xlarge"

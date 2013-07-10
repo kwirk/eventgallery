@@ -15,7 +15,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 
-class EventgalleryViewImagetypesets extends JViewLegacy
+class EventgalleryViewSurcharges extends JViewLegacy
 {    
 
     protected $items;
@@ -40,12 +40,12 @@ class EventgalleryViewImagetypesets extends JViewLegacy
     }
 
     protected function addToolbar() {
-        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_IMAGETYPESET' ), 'generic.png' );            
-        JToolBarHelper::addNew('imagetypeset.add');
-        JToolBarHelper::editList('imagetypeset.edit');
-        JToolBarHelper::publishList('imagetypesets.publish');
-        JToolBarHelper::unpublishList('imagetypesets.unpublish');
-        JToolBarHelper::deleteList('Remove all selected Events?','imagetypesets.delete','Remove');
+        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_SURCHARGES' ), 'generic.png' );            
+        JToolBarHelper::addNew('surcharge.add');
+        JToolBarHelper::editList('surcharge.edit');
+        JToolBarHelper::publishList('surcharges.publish');
+        JToolBarHelper::unpublishList('surcharges.unpublish');
+        JToolBarHelper::deleteList('Remove all selected Events?','surcharges.delete','Remove');
     }
 
 }

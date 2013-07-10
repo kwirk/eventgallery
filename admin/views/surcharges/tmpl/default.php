@@ -16,7 +16,7 @@ JHtml::_('behavior.tooltip');
 
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_eventgallery&view=imagetypes'); ?>"
+<form action="<?php echo JRoute::_('index.php?option=com_eventgallery&view=surcharges'); ?>"
       method="post" name="adminForm" id="adminForm">
 
     <div class="btn-group pull-right hidden-phone">
@@ -34,18 +34,22 @@ JHtml::_('behavior.tooltip');
                     
                 </th>
                 <th>
-                    <?php echo JText::_( 'COM_EVENTGALLERY_IMAGETYPESET_NAME' ); ?>
+                    <?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ORDER' ); ?> 
+                    <?php echo JHTML::_('grid.order',  $this->items, 'filesave.png', 'surcharges.saveorder' ); ?>   
+                </th>   
+                <th>
+                    <?php echo JText::_( 'COM_EVENTGALLERY_METHOD_NAME' ); ?>
                 </th>
 
                 <th>
-                    <?php echo JText::_( 'COM_EVENTGALLERY_IMAGETYPESET_PRICING' ); ?>                     
+                    <?php echo JText::_( 'COM_EVENTGALLERY_METHOD_PRICING' ); ?>                     
                 </th>               
             </tr>           
         </thead>
 
 
         <tbody>
-        <?php foreach ($this->items as $i => $item) :
+        <?php $n=count($this->items); foreach ($this->items as $i => $item) :
         /**
          * @var EventgalleryLibraryOrder $item;
          */
@@ -57,15 +61,27 @@ JHtml::_('behavior.tooltip');
                 </td>
                 <td>
                 	<div class="btn-group">
-                        <?php echo JHtml::_('jgrid.published', $item->isPublished(), $i, 'imagetypes.'); ?>
+                        <?php echo JHtml::_('jgrid.published', $item->isPublished(), $i, 'surcharges.'); ?>
+                          <?php IF ($item->isDefault()): ?>
+                            <a href="#" class="btn btn-micro active"><i class="icon-star"></i></a>
+                        <?php ELSE:?>
+                            <a href="#" onclick="return listItemTask('cb<?php echo $i; ?>','surcharges.default')" class="btn btn-micro"><i class="icon-star-empty"></i></a>
+                        <?php ENDIF ?>
                         <a class="btn btn-micro" href="<?php echo
-                            JRoute::_('index.php?option=com_eventgallery&task=imagetype.edit&id='.$item->getId()); ?>">
+                            JRoute::_('index.php?option=com_eventgallery&task=surcharge.edit&id='.$item->getId()); ?>">
                         <i class="icon-edit"></i></a>
                     </div>
                 </td>
+                <td class="order nowrap">
+                    <div class="input-prepend">
+                        <span class="add-on"><?php echo $this->pagination->orderUpIcon( $i, true, 'surcharges.orderup', 'JLIB_HTML_MOVE_UP', true); ?></span>
+                        <span class="add-on"><?php echo $this->pagination->orderDownIcon( $i, $n, true, 'surcharges.orderdown', 'JLIB_HTML_MOVE_UP', true ); ?></span>
+                        <input class="width-40 text-area-order" type="text" name="order[]" size="3"  value="<?php echo $item->getOrdering(); ?>" />
+                    </div>
+                </td>
                 <td>                  
-                        <?php echo $this->escape($item->getName()) ?>  <?php IF ($item->isDigital()): ?><i class="icon-mail"></i><?php ENDIF ?> <br>
-                        <small><?php echo $this->escape($item->getNote()) ?></small><br>
+                        <?php echo $this->escape($item->getName()) ?>
+                        <small><?php echo $this->escape($item->getDescription()) ?></small><br>
                 </td>
                 <td> 
                      <?php echo $this->escape($item->getPrice()) ?>

@@ -24,7 +24,7 @@ JHtml::_('formbehavior.chosen', 'select');
 <script type="text/javascript">
     Joomla.submitbutton = function(task)
     {
-        if (task == 'cancelEvent' || document.formvalidator.isValid(document.id('adminForm'))) {
+        if (task == 'imagetype.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
             
             Joomla.submitform(task, document.getElementById('adminForm'));
         }
@@ -38,7 +38,6 @@ JHtml::_('formbehavior.chosen', 'select');
 
 <div class="col100">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_DETAILS' ); ?></legend>
 
         <?php foreach ($this->form->getFieldset() as $field): ?>
             <div class="control-group">

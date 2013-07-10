@@ -40,7 +40,7 @@ class EventgalleryViewImagetypes extends JViewLegacy
     }
 
     protected function addToolbar() {
-        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ), 'generic.png' );            
+        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_IMAGETYPES' ), 'generic.png' );            
         JToolBarHelper::addNew('imagetype.add');
         JToolBarHelper::editList('imagetype.edit');
         JToolBarHelper::publishList('imagetypes.publish');

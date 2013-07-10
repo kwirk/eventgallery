@@ -59,11 +59,13 @@ abstract class EventgalleryLibraryManagerMethod extends EventgalleryLibraryManag
                 /**
                  * @var EventgalleryLibraryInterfaceMethod $itemObject
                  */
-                $itemObject = new $item->classname($item);
-                if ($item->published == 1) {
-                    $this->_methods_published[$itemObject->getId()] = $itemObject;
+                if (class_exists($item->classname)) {
+                    $itemObject = new $item->classname($item);
+                    if ($item->published == 1) {
+                        $this->_methods_published[$itemObject->getId()] = $itemObject;
+                    }
+                    $this->_methods[$itemObject->getId()] = $itemObject;
                 }
-                $this->_methods[$itemObject->getId()] = $itemObject;
             }
         }
         if ($publishedOnly) {

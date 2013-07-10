@@ -18,8 +18,6 @@ class EventgalleryViewDocumentation extends JViewLegacy
 		$document->addStyleSheet($css);	
 
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_SUBMENU_DOCUMENTATION' ) );				
-		JToolBarHelper::cancel('cancelEvent', 'Close');
-
 
 		parent::display($tpl);
 	}

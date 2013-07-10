@@ -78,6 +78,10 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
         return $this->_object->name;
     }
 
+    public function isPublished() {
+        return $this->_object->published==1;
+    }
+
     /**
      * @return string display name
      */
@@ -114,7 +118,6 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
         return $this->_data;
     }
 
-
     /**
      * returns the amount of tax for this item
      *
@@ -128,6 +131,10 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
      */
     public function getTaxrate() {
         return $this->_object->taxrate;
+    }
+
+    public function getOrdering() {
+        return $this->_object->ordering;
     }
 
     public function processOnOrderSubmit($lineitemcontainer) {

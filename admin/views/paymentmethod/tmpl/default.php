@@ -24,8 +24,8 @@ JHtml::_('formbehavior.chosen', 'select');
 <script type="text/javascript">
     Joomla.submitbutton = function(task)
     {
-        if (task == 'event.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
-            <?php echo $this->form->getField('text')->save(); ?>
+        if (task == 'surcharge.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+            
             Joomla.submitform(task, document.getElementById('adminForm'));
         }
         else {
@@ -38,7 +38,6 @@ JHtml::_('formbehavior.chosen', 'select');
 
 <div class="col100">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_DETAILS' ); ?></legend>
 
         <?php foreach ($this->form->getFieldset() as $field): ?>
             <div class="control-group">
@@ -58,7 +57,6 @@ JHtml::_('formbehavior.chosen', 'select');
 
 <?php echo JHtml::_('form.token'); ?>
 <input type="hidden" name="option" value="com_eventgallery" />
-<input type="hidden" name="oldfolder" value="<?php echo $this->item->folder; ?>" />
 <input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
 <input type="hidden" name="task" value="" />
 </form>
