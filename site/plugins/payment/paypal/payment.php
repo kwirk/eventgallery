@@ -161,7 +161,7 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
 
 
 
-                $order->setPaymentStatus(1);
+                $order->setPaymentStatus(new EventgallerEventgalleryLibraryOrderstatus(EventgalleryLibraryOrderstatus::TYPE_PAYMENT_PAYED));
                 $order->getPaymentMethodServiceLineItem()->setData('ipn_response', JRequest::getString('ipn', json_encode($myPost)));
             }
 

@@ -60,6 +60,7 @@ JHtml::_('behavior.tooltip');
                     <?php IF ($item->getType()==EventgalleryLibraryOrderstatus::TYPE_ORDER) echo JText::_('COM_EVENTGALLERY_ORDERSTATUS_TYPE_ORDER'); ?>
                     <?php IF ($item->getType()==EventgalleryLibraryOrderstatus::TYPE_SHIPPING) echo JText::_('COM_EVENTGALLERY_ORDERSTATUS_TYPE_SHIPPING'); ?>
                     <?php IF ($item->getType()==EventgalleryLibraryOrderstatus::TYPE_PAYMENT) echo JText::_('COM_EVENTGALLERY_ORDERSTATUS_TYPE_PAYMENT'); ?>
+
                 </td>              
                 <td>
                 	<div class="btn-group">                        
@@ -74,7 +75,11 @@ JHtml::_('behavior.tooltip');
                     </div>
                 </td>               
                 <td>                  
-                    <?php echo $this->escape($item->getDisplayName()) ?><br>
+                    <?php echo $this->escape($item->getDisplayName()) ?>
+                    <?php IF ($item->isSystemManaged()): ?>
+                        <i title="<?php echo JText::_('COM_EVENTGALLERY_ORDERSTATUS_SYSTEMMANAGED') ?>" class="icon-locked"></i>
+                    <?php ENDIF ?>
+                    <br>
                     <small><?php echo $this->escape($item->getDescription()) ?></small><br>
                 </td>
                 

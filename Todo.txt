@@ -19,3 +19,11 @@ Back End
 - form fields
 	- plugin specific fields + save hocks
 	- image type selection incl. default setting
+
+- add delete hooks to clear foreign key issues
+	- image types
+	- image type sets
+	- order status types
+	- payment methodes
+	- shipping methodes
+	- surcharges

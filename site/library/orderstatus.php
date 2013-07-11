@@ -25,6 +25,10 @@ class EventgalleryLibraryOrderstatus extends EventgalleryLibraryDatabaseObject
     const TYPE_SHIPPING = 1;
     const TYPE_PAYMENT = 2;
 
+    const TYPE_PAYMENT_PAYED = 9;
+    const TYPE_SHIPPED_SHIPPED = 7;
+
+
     protected $_object = NULL;
     protected $_object_id = NULL;
     protected $_ls_displayname = NULL;
@@ -110,6 +114,15 @@ class EventgalleryLibraryOrderstatus extends EventgalleryLibraryDatabaseObject
     public function isDefault()
     {
         return $this->_object->default == 1 ? true : false;
+    }
+
+    /**
+     * Do change the main attributes of a system managed order status.
+     *
+     * @return bool
+     */
+    public function isSystemManaged() {
+        return $this->_object->systemmanaged ==1? true: false;
     }
 
     public function getType(){

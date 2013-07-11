@@ -39,16 +39,31 @@ JHtml::_('formbehavior.chosen', 'select');
 <div class="col100">
 	<fieldset class="adminform">
 
-        <?php foreach ($this->form->getFieldset() as $field): ?>
-            <div class="control-group">
-                <?php if (!$field->hidden): ?>
-                    <?php echo $field->label; ?>
-                <?php endif; ?>
+
+            <div class="control-group"><?php echo $this->form->getLabel('name'); ?>
                 <div class="controls">
-                    <?php echo $field->input; ?>
+                    <?php echo $this->form->getInput('name'); ?>
                 </div>
             </div>
-        <?php endforeach; ?>
+            <?php IF ($this->item->id == 0): ?>
+                <div class="control-group"><?php echo $this->form->getLabel('type'); ?>
+                    <div class="controls">
+                        <?php echo $this->form->getInput('type'); ?>
+                    </div>
+                </div>
+            <?php ENDIF ?>
+            <div class="control-group"><?php echo $this->form->getLabel('displayname'); ?>
+                <div class="controls">
+                    <?php echo $this->form->getInput('displayname'); ?>
+                </div>
+            </div>
+            <div class="control-group"><?php echo $this->form->getLabel('description'); ?>
+                <div class="controls">
+                    <?php echo $this->form->getInput('description'); ?>
+                </div>
+            </div>
+
+        <?php echo $this->form->getInput('id'); ?>
 
     </fieldset>
 </div>

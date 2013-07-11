@@ -39,6 +39,22 @@ class EventgalleryModelOrderstatus extends JModelAdmin
         if (empty($form)) {
             return false;
         }
+
+
+
+        if ( $form->getValue('id')!=null ) {
+            $orderstatus = new EventgalleryLibraryOrderstatus($form->getValue('id'));
+            if ($orderstatus->isSystemManaged()) {
+                $form->setFieldAttribute('name', 'required', 'false');
+                $form->setFieldAttribute('name', 'disabled', 'true');
+            }
+        }
+
+        // the name field is required if we create a new order status
+        if( !isset($data['id'])) {
+            $form->setFieldAttribute('name', 'required', 'true');
+        }
+
         return $form;
     }
 
@@ -56,6 +72,11 @@ class EventgalleryModelOrderstatus extends JModelAdmin
                 $app = JFactory::getApplication();
                 $data->set('id', $app->input->get('id'));
             }
+        } else {
+            if (isset($data['id']) ) {
+                $orderstatus = new EventgalleryLibraryOrderstatus($data['id']);
+                $data['name'] = $orderstatus->getName();
+            }
         }
 
         $this->preprocessData('com_eventgallery.orderstatus', $data);
@@ -67,6 +88,16 @@ class EventgalleryModelOrderstatus extends JModelAdmin
 
         $id = $pks[0];
         $orderStatus = new EventgalleryLibraryOrderstatus($id);
+
+        if ($orderStatus->isSystemManaged()) {
+            JFactory::getApplication()->enqueueMessage(JText::_('COM_EVENTGALLERY_ORDERSTATUS_EDIT_SYSTEMMANAGED_ERROR'), 'error');
+            return false;
+        }
+
+        if (!$orderStatus->getType()==EventgalleryLibraryOrderstatus::TYPE_ORDER) {
+            JFactory::getApplication()->enqueueMessage(JText::_('COM_EVENTGALLERY_ORDERSTATUS_SETDEFAULT_FOR_NONORDER_ERROR'), 'error');
+            return false;
+        }
 
         if ($value==1) {
 
@@ -94,13 +125,18 @@ class EventgalleryModelOrderstatus extends JModelAdmin
 
     }
 
+    public function delete(&$pks) {
 
+        $newPks = array();
 
+        foreach($pks as $pk) {
+            $orderstatus = new EventgalleryLibraryOrderstatus($pk);
+            if (!$orderstatus->isSystemManaged()) {
+                $newPks[] = $pk;
+            }
+        }
 
-
-   
-
-
-
+        return parent::delete($newPks);
+    }
 
 }

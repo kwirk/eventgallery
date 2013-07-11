@@ -10,12 +10,13 @@
                label="COM_EVENTGALLERY_ORDERSTATUS_NAME"
                description="COM_EVENTGALLERY_ORDERSTATUS_NAME_DESCRIPTION"
                placeholder="COM_EVENTGALLERY_ORDERSTATUS_NAME_PLACEHOLDER"
-               required="true"
+               required="false"
                validate=""
                class="input-xlarge"
                 />
-        <field name="type" type="combo" class="btn-group" default="0" label="COM_EVENTGALLERY_ORDERSTATUS_TYPE" description="COM_EVENTGALLERY_ORDERSTATUS_TYPE_DESCRIPTION">
-		  <option value="0">COM_EVENTGALLERY_ORDERSTATUS_TYPE_PAYMENT</option>
+
+        <field name="type" type="list" default="0" label="COM_EVENTGALLERY_ORDERSTATUS_TYPE" description="COM_EVENTGALLERY_ORDERSTATUS_TYPE_DESCRIPTION">
+		  <option value="0">COM_EVENTGALLERY_ORDERSTATUS_TYPE_ORDER</option>
 		  <option value="1">COM_EVENTGALLERY_ORDERSTATUS_TYPE_SHIPPING</option>
 		  <option value="2">COM_EVENTGALLERY_ORDERSTATUS_TYPE_PAYMENT</option>
 		</field>
@@ -39,11 +40,5 @@
                validate=""
                class="input-xlarge"
                 /> 
-                
-         <field name="default" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_ORDERSTATUS_DEFAULT" description="COM_EVENTGALLERY_ORDERSTATUS_DEFAULT_DESCRIPTION">
-			<option value="0">JNO</option>
-			<option value="1">JYES</option>
-		</field>
-         
     </fieldset>
 </form>
