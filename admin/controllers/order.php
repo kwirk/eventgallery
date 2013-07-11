@@ -10,6 +10,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+jimport( 'joomla.application.component.controllerform' );
+
 class EventgalleryControllerOrder extends JControllerForm
 {
     protected $view_list = 'orders';

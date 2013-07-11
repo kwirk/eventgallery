@@ -85,12 +85,12 @@ defined('_JEXEC') or die('Restricted access');
                         <?php echo JHtml::_('jgrid.published', $row->published, $i, 'events.'); ?>
 
                         <?php IF ($row->cartable==1): ?>
-                        <a style="color: green" class="btn btn-micro active" href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','events.notcartable')">
-                            <i class="icon-cart"></i>
+                        <a style="color: green" class="btn btn-micro active jgrid" href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','events.notcartable')">
+                            <span class="state icon-16-checkin"><i class="icon-cart"></i></span>
                         </a>
                         <?php ELSE:?>
-                            <a class="btn btn-micro" href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','events.cartable')">
-                                <i class="icon-cart"></i>
+                            <a class="btn btn-micro jgrid" href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','events.cartable')">
+                                <span class="state icon-16-checkin"><i class="icon-cart"></i></span>
                             </a>
                         <?php ENDIF ?>
 
@@ -104,11 +104,9 @@ defined('_JEXEC') or die('Restricted access');
                             </a>
                         <?php ENDIF ?>
                         <a href="<?php echo $editLink; ?>" id="files_<?php echo $row->id?>" class="btn btn-micro jgrid">
-                            <span class="state icon-16-edit "><i class="icon-edit"></i>	<span class="text"></span></span>
+                            <span class="state icon-16-config"><i class="icon-edit"></i>	<span class="text"></span></span>
                         </a>
-
-                        <?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_CARTABLE' ); ?>
-                        <?php echo $row->cartable==1?JText::_( 'COM_EVENTGALLERY_EVENT_CARTABLE' ):JText::_( 'COM_EVENTGALLERY_EVENT_NOT_CARTABLE' ); ?>
+                        
 					</div>				
 				</td>
 				<td>

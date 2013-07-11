@@ -12,7 +12,6 @@ defined('_JEXEC') or die();
 
 jimport( 'joomla.application.component.modellist' );
 
-
 class EventgalleryModelComments extends JModelList
 {
 

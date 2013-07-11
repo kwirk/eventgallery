@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-jimport( 'joomla.application.component.model' );
+jimport( 'joomla.application.component.modeladmin' );
 jimport('joomla.html.pagination');
 
 class EventgalleryModelEvent extends JModelAdmin

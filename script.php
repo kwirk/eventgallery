@@ -23,24 +23,33 @@ class com_eventgalleryInstallerScript
         function preflight( $type, $parent ) {
 
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/models' );
+                JFolder::delete( JPATH_ROOT . '/administrator/components/com_eventgallery/models' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/library' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/views' );
+                JFolder::delete( JPATH_ROOT . '/administrator/components/com_eventgallery/views' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/helpers' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/controllers' );
+                JFolder::delete( JPATH_ROOT . '/administrator/components/com_eventgallery/controllers' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/media' );
+                JFolder::delete( JPATH_ROOT . '/administrator/components/com_eventgallery/media' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/tests' );
                 JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/language' );
+                $filename = JPATH_ROOT . '/language/en-GB/en-GB.com_eventgallery.ini';
+                if ( JFile::exists( $filename )) {
+                  JFile::delete( $filename );
+                  echo "removed $filename<br>";
+                }
                 $filename = JPATH_ROOT . '/language/de-DE/de-DE.com_eventgallery.ini';
                 if ( JFile::exists( $filename )) {
                   JFile::delete( $filename );
                   echo "removed $filename<br>";
                 }
-                $filename = JPATH_ROOT . '/administrator/language/de-DE/de-DE.com_eventgallery.ini';
+                $filename = JPATH_ROOT . '/administrator/language/en-GB/en-GB.com_eventgallery.ini';
                 if ( JFile::exists( $filename )) {
                   JFile::delete( $filename );
                   echo "removed $filename<br>";
                 }
-                $filename = JPATH_ROOT . '/administrator/language/de-DE/de-DE.com_eventgallery.sys.ini';
+                $filename = JPATH_ROOT . '/administrator/language/en-GB/en-GB.com_eventgallery.sys.ini';
 
                 if ( JFile::exists( $filename )) {
                   JFile::delete( $filename );

@@ -11,8 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-jimport( 'joomla.application.component.model' );
-jimport('joomla.html.pagination');
+jimport( 'joomla.application.component.modellist' );
 
 class EventgalleryModelFiles extends JModelList
 {

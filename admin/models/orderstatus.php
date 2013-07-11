@@ -10,7 +10,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-jimport('joomla.application.component.modellist');
+jimport( 'joomla.application.component.modeladmin' );
 
 class EventgalleryModelOrderstatus extends JModelAdmin
 {
@@ -127,7 +127,7 @@ class EventgalleryModelOrderstatus extends JModelAdmin
 
     public function delete(&$pks) {
 
-        $newPks = array();
+            $newPks = array();
 
         foreach($pks as $pk) {
             $orderstatus = new EventgalleryLibraryOrderstatus($pk);
