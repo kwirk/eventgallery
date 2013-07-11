@@ -129,4 +129,10 @@ class EventgalleryLibraryOrderstatus extends EventgalleryLibraryDatabaseObject
         return $this->_object->type;
     }
 
+    public function getOrdering(){
+        return $this->_object->ordering;
+    }
+
+
+
 }

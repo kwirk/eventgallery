@@ -35,6 +35,8 @@ class EventgalleryModelOrderstatuses extends JModelList
 		
 		$query->select('*');
 		$query->from('#__eventgallery_orderstatus');
+		$query->order('type');
+		$query->order('ordering');
 
 		return $query;
 	}

@@ -35,7 +35,11 @@ JHtml::_('behavior.tooltip');
                 </th>              
                 <th class="nowrap" width="1%">
                     
-                </th>              
+                </th>     
+                 <th width="1%">
+                    <?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_ORDER' ); ?> 
+                    <?php echo JHTML::_('grid.order',  $this->items, 'filesave.png', 'orderstatuses.saveorder' ); ?>   
+                </th>            
                 <th>
                     <?php echo JText::_( 'COM_EVENTGALLERY_ORDERSTATUSES_DETAIS' ); ?>
                 </th>
@@ -73,7 +77,14 @@ JHtml::_('behavior.tooltip');
                             JRoute::_('index.php?option=com_eventgallery&task=orderstatus.edit&id='.$item->getId()); ?>">
                         <i class="icon-edit"></i></a>
                     </div>
-                </td>               
+                </td>         
+                <td class="order nowrap">
+                    <div class="input-prepend">
+                        <span class="add-on"><?php echo $this->pagination->orderUpIcon( $i, true, 'orderstatuses.orderup', 'JLIB_HTML_MOVE_UP', true); ?></span>
+                        <span class="add-on"><?php echo $this->pagination->orderDownIcon( $i, $n, true, 'orderstatuses.orderdown', 'JLIB_HTML_MOVE_UP', true ); ?></span>
+                        <input class="width-40 text-area-order" type="text" name="order[]" size="3"  value="<?php echo $item->getOrdering(); ?>" />
+                    </div>
+                </td>      
                 <td>                  
                     <?php echo $this->escape($item->getDisplayName()) ?>
                     <?php IF ($item->isSystemManaged()): ?>

@@ -259,6 +259,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_orderstatus` (
   `default` int(1) NOT NULL DEFAULT 0,
   `systemmanaged` int(1) NOT NULL DEFAULT 0,
   `type` int(2) NOT NULL DEFAULT 0,
+  `ordering` int(11) NOT NULL DEFAULT 0,
   `displayname` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
@@ -413,16 +414,16 @@ INSERT INTO `#__eventgallery_surcharge` (`id`, `ordering`, `classname`, `name`, 
 -- Daten für Tabelle `#__eventgallery_orderstatus`
 --
 
-INSERT INTO `#__eventgallery_orderstatus` (`id`, `type`, `systemmanaged`, `name`, `default`, `displayname`, `description`, `modified`, `created`) VALUES
-(1, '0', '0', 'new', 1, '{"en-GB":"New","de-DE":"Neu"}', '{"en-GB":"New","de-DE":"Neu"}', '0000-00-00 00:00:00', NULL),
-(2, '0', '0', 'refused', 0, '{"en-GB":"Refused","de-DE":"Abgelehnt"}', '{"en-GB":"Refused by merchant","de-DE":"Vom Anbieter abgelehnt"}', NULL, NULL),
-(3, '0', '0', 'canceled', 0, '{"en-GB":"Canceled","de-DE":"Storniert"}', '{"en-GB":"Canceled by customer","de-DE":"Durch Nutzer storniert"}', '0000-00-00 00:00:00', NULL),
-(4, '0', '0', 'in progress', 0, '{"en-GB":"In progress","de-DE":"In Bearbeitung"}', '{"en-GB":"In progress","de-DE":"In Bearbeitung"}', NULL, NULL),
-(5, '0', '0', 'completed', 0, '{"en-GB":"Completed","de-DE":"Abgeschlossen"}', '{"en-GB":"Order is completed","de-DE":"Die Bestellung ist abgeschlossen."}', '0000-00-00 00:00:00', NULL),
-(6, '1', '1', 'not shipped', 1, '{"en-GB":"Not Shipped","de-DE":"Noch nicht versendet"}', '{"en-GB":"Shipping of the order id pending.","de-DE":"Die Bestellung wurde noch nicht verschickt."}', NULL, NULL),
-(7, '1', '1', 'shipped', 0, '{"en-GB":"Shipped","de-DE":"Versendet"}', '{"en-GB":"Die Bestellung wurde versendet.","de-DE":"Die Bestellung wurde versandt."}', NULL, NULL),
-(8, '2', '1', 'not payed', 1, '{"en-GB":"Not payed","de-DE":"Nicht bezahlt"}', '{"en-GB":"The order is not payed yet.","de-DE":"Die Bestellung wurde noch nicht bezahlt"}', NULL, NULL),
-(9, '2', '1', 'payed', 0, '{"en-GB":"Payed","de-DE":"Bezahlt"}', '{"en-GB":"The order is payed.","de-DE":"Die Bestellung wurde bezahlt."}', NULL, NULL);
+INSERT INTO `#__eventgallery_orderstatus` (`id`, `ordering`, `type`, `systemmanaged`, `name`, `default`, `displayname`, `description`, `modified`, `created`) VALUES
+(1, 1, '0', '0', 'new', 1, '{"en-GB":"New","de-DE":"Neu"}', '{"en-GB":"New","de-DE":"Neu"}', '0000-00-00 00:00:00', NULL),
+(2, 2, '0', '0', 'refused', 0, '{"en-GB":"Refused","de-DE":"Abgelehnt"}', '{"en-GB":"Refused by merchant","de-DE":"Vom Anbieter abgelehnt"}', NULL, NULL),
+(3, 3, '0', '0', 'canceled', 0, '{"en-GB":"Canceled","de-DE":"Storniert"}', '{"en-GB":"Canceled by customer","de-DE":"Durch Nutzer storniert"}', '0000-00-00 00:00:00', NULL),
+(4, 4, '0', '0', 'in progress', 0, '{"en-GB":"In progress","de-DE":"In Bearbeitung"}', '{"en-GB":"In progress","de-DE":"In Bearbeitung"}', NULL, NULL),
+(5, 5, '0', '0', 'completed', 0, '{"en-GB":"Completed","de-DE":"Abgeschlossen"}', '{"en-GB":"Order is completed","de-DE":"Die Bestellung ist abgeschlossen."}', '0000-00-00 00:00:00', NULL),
+(6, 6, '1', '1', 'not shipped', 1, '{"en-GB":"Not Shipped","de-DE":"Noch nicht versendet"}', '{"en-GB":"Shipping of the order id pending.","de-DE":"Die Bestellung wurde noch nicht verschickt."}', NULL, NULL),
+(7, 7, '1', '1', 'shipped', 0, '{"en-GB":"Shipped","de-DE":"Versendet"}', '{"en-GB":"Die Bestellung wurde versendet.","de-DE":"Die Bestellung wurde versandt."}', NULL, NULL),
+(8, 8, '2', '1', 'not payed', 1, '{"en-GB":"Not payed","de-DE":"Nicht bezahlt"}', '{"en-GB":"The order is not payed yet.","de-DE":"Die Bestellung wurde noch nicht bezahlt"}', NULL, NULL),
+(9, 9, '2', '1', 'payed', 0, '{"en-GB":"Payed","de-DE":"Bezahlt"}', '{"en-GB":"The order is payed.","de-DE":"Die Bestellung wurde bezahlt."}', NULL, NULL);
 
 
 
