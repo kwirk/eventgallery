@@ -14,14 +14,14 @@ defined('_JEXEC') or die('Restricted access');
 
 <div class="basic-information">
     <p><strong><?php echo JText::_('COM_EVENTGALLERY_CHECKOUT_USERDATA_EMAIL_LABEL') ?></strong><br />
-    <?php echo $this->lineitemcontainer->getEMail() ?></p>
-    <?php IF (strlen($this->lineitemcontainer->getPhone()>0)):?>
+    <?php echo $this->escape($this->lineitemcontainer->getEMail()) ?></p>
+    <?php IF (strlen($this->lineitemcontainer->getPhone())>0):?>
     <p><strong><?php echo JText::_('COM_EVENTGALLERY_CHECKOUT_USERDATA_PHONE_LABEL') ?></strong><br />
-    <?php echo $this->lineitemcontainer->getPhone() ?></p>
+    <?php echo $this->escape($this->lineitemcontainer->getPhone()) ?></p>
     <?php ENDIF; ?>
-    <?php IF (strlen($this->lineitemcontainer->getMessage()>0)):?>
+    <?php IF (strlen($this->lineitemcontainer->getMessage())>0):?>
     <p><strong><?php echo JText::_('COM_EVENTGALLERY_CHECKOUT_USERDATA_MESSAGE_LABEL') ?></strong><br />
-    <?php echo $this->lineitemcontainer->getMessage() ?></p>
+    <?php echo $this->escape($this->lineitemcontainer->getMessage()) ?></p>
     <?php ENDIF; ?>
 </div>
 
