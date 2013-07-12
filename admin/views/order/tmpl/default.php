@@ -36,14 +36,73 @@ JHtml::_('formbehavior.chosen', 'select');
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventgallery&layout=edit&id='.$this->item->getId()); ?>" method="POST" name="adminForm" id="adminForm">
 
-    <div class="col100">
-        <?php echo $this->item->getId(); ?>
+<h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_STATUS')?></h3>
+    <div class="span12">
+        <fieldset class="adminform">
+
+            <?php foreach ($this->form->getFieldset() as $field): ?>
+                <div class="control-group">
+                    <?php if (!$field->hidden): ?>
+                        <?php echo $field->label; ?>
+                    <?php endif; ?>
+                    <div class="controls">
+                        <?php echo $field->input; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+        </fieldset>
+    </div>
+<h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_DATA')?></h3>    
+    <div class="span12">
+        <?php $this->lineitemcontainer = $this->item; echo $this->loadTemplate('basicinformation');?>
+        <hr>
+    </div>
+    <div class="span6">
+        <div class="billingaddress">
+            <?php $this->address = $this->item->getBillingAddress(); echo $this->loadTemplate('address');?>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="shippingaddress">
+            <?php $this->address = $this->item->getShippingAddress(); echo $this->loadTemplate('address');?>
+        </div>
     </div>
 
-    <div class="clr"></div>
+    <div class="span12">
+        <hr>
+        <?php $this->lineitemcontainer = $this->item; echo $this->loadTemplate('summary');?>
+        <hr>
+        <?php $this->lineitemcontainer = $this->item; echo $this->loadTemplate('total');?>
+        <hr>
+    </div>
+
 
     <?php echo JHtml::_('form.token'); ?>
     <input type="hidden" name="option" value="com_eventgallery" />
     <input type="hidden" name="id" value="<?php echo $this->item->getId(); ?>" />
     <input type="hidden" name="task" value="" />
+
 </form>
+
+<h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_RAW_DATA')?></h3>
+
+<pre class="span12">
+<?php
+    foreach($this->item->getLineitems() as $item) {
+        echo $this->item->getDocumentNumber();
+        echo "\t";
+        echo $item->getQuantity();
+        echo "\t";
+        echo $item->getFolderName();
+        echo "|";
+        echo $item->getFileName();
+        echo "\n";
+    }
+?>
+</pre>
+
+<h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_SERVICELINEITEM_RAW_DATA')?></h3>
+<div class="span12">
+<?php echo $this->loadTemplate('servicelineitemdata'); ?>
+</div>

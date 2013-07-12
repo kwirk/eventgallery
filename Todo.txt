@@ -12,8 +12,7 @@ Back End
 
 - Management Options
 	- Image Type / TypeSet -> default selection
-	- Orders
-	- Lineitems
+	- Orders (sorting/filtering/edit)
 	- Dashboard
 
 - form fields
@@ -27,3 +26,5 @@ Back End
 	- payment methodes
 	- shipping methodes
 	- surcharges
+
+- escape for output

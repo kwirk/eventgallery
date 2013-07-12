@@ -97,11 +97,29 @@ JHtml::_('behavior.tooltip');
                 </td>
                 <td>
                     <?php echo $item->getTotalCurrency() ?> <?php echo $item->getTotal() ?><br>
-                    <small>
+                    <small>                        
                         <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SUBTOTAL' ); ?>  <?php echo $item->getSubTotalCurrency() ?> <?php echo $item->getSubTotal() ?><br>
-                        <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SURCHARGE' ); ?> <?php echo $item->getSurchargeServiceLineItem()->getCurrency() ?> <?php echo $item->getSurchargeServiceLineItem()->getPrice() ?><br>
-                        <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_PAYMENT' ); ?>   <?php echo $item->getPaymentMethodServiceLineItem()->getCurrency() ?> <?php echo $item->getPaymentMethodServiceLineItem()->getPrice() ?><br>
-                        <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SHIPPING' ); ?>  <?php echo $item->getShippingMethodServiceLineItem()->getCurrency() ?> <?php echo $item->getShippingMethodServiceLineItem()->getPrice() ?><br>
+                        
+                        <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SURCHARGE' ); ?> 
+                        <?php IF ($item->getSurchargeServiceLineItem()): ?>
+                            <?php echo $item->getSurchargeServiceLineItem()->getCurrency() ?> <?php echo $item->getSurchargeServiceLineItem()->getPrice() ?>
+                        <?php ELSE: ?>
+                            -
+                        <?php ENDIF ?><br>
+
+                        <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_PAYMENT' ); ?> 
+                        <?php IF ($item->getPaymentMethodServiceLineItem()): ?>
+                          <?php echo $item->getPaymentMethodServiceLineItem()->getCurrency() ?> <?php echo $item->getPaymentMethodServiceLineItem()->getPrice() ?>
+                        <?php ELSE: ?>
+                            -
+                        <?php ENDIF ?><br>
+
+                        <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SHIPPING' ); ?>  
+                        <?php IF ($item->getShippingMethodServiceLineItem()): ?>
+                            <?php echo $item->getShippingMethodServiceLineItem()->getCurrency() ?> <?php echo $item->getShippingMethodServiceLineItem()->getPrice() ?>
+                        <?php ELSE: ?>
+                            -                            
+                        <?php ENDIF ?>
                     </small>
                 </td>
             </tr>

@@ -145,7 +145,7 @@ class CheckoutTest extends PHPUnit_Framework_TestCase {
         // CREATE
         $cart = $cartMgr->getCart();
         $this->assertEmpty($cart->getLineItems());
-        $lineitem = $cart->addItem("test","A_001_2013-03-17_IMG_1294.jpg","1");
+        $cart->addItem("test","A_001_2013-03-17_IMG_1294.jpg","1");
         $this->assertNotEmpty($cart->getLineItems());
 
         /**

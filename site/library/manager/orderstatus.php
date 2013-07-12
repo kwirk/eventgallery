@@ -19,6 +19,41 @@ class EventgalleryLibraryManagerOrderstatus extends EventgalleryLibraryManagerMa
 
     }
 
+    /**
+     * Returns all orderstatuses of the given type ordered.
+     *
+     * @param $typeid
+     * @return array|null
+     */
+    public static function getOrderStatuses($typeid) {
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $query->select('s.*');
+        $query->from('#__eventgallery_orderstatus s');
+        $query->where('type='.$db->quote($typeid));
+        $query->order('ordering');
+        $db->setQuery($query);
+        $items = $db->loadObjectList();
+
+        if (count($items) == 0) {
+            return NULL;
+        }
+
+        $orderstatuses = array();
+        foreach($items as $item) {
+            $orderstatuses[] = new EventgalleryLibraryOrderstatus($item);
+        }
+
+
+        return $orderstatuses;
+    }
+
+    /**
+     * returns the default order status for the given type
+     *
+     * @param $typeid
+     * @return EventgalleryLibraryOrderstatus|null
+     */
     public static function getDefaultOrderStatus($typeid)
     {
 
@@ -27,7 +62,8 @@ class EventgalleryLibraryManagerOrderstatus extends EventgalleryLibraryManagerMa
         $query->select('s.*');
         $query->from('#__eventgallery_orderstatus s');
         $query->where('type='.$db->quote($typeid));
-        $query->where('s.default=1');
+        $query->order('`default` DESC');
+        $query->order('ordering');
         $db->setQuery($query);
         $items = $db->loadObjectList();
 

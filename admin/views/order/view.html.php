@@ -45,7 +45,11 @@ class EventgalleryViewOrder extends JViewLegacy
     private function addToolbar() {
 
         JToolBarHelper::title(  JText::_( 'COM_EVENTGALLERY_ORDER' ) );
-        JToolBarHelper::cancel( 'order.cancel' );
+
+        JToolBarHelper::apply('order.apply');
+        JToolBarHelper::save('order.save');
+        JToolBarHelper::cancel( 'order.cancel' , JText::_( 'JTOOLBAR_CLOSE' ));
+
 
     }
 
