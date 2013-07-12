@@ -52,23 +52,28 @@ JHtml::_('formbehavior.chosen', 'select');
             <?php endforeach; ?>
 
         </fieldset>
-    </div>
-<h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_DATA')?></h3>    
-    <div class="span12">
-        <?php $this->lineitemcontainer = $this->item; echo $this->loadTemplate('basicinformation');?>
         <hr>
     </div>
-    <div class="span6">
-        <div class="billingaddress">
-            <?php $this->address = $this->item->getBillingAddress(); echo $this->loadTemplate('address');?>
+<h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_DATA')?></h3>
+    <div class="span12">
+        <div class="span4">
+            <h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_GENERAL_INFORMATION')?></h3>
+            <?php $this->lineitemcontainer = $this->item; echo $this->loadTemplate('basicinformation');?>
         </div>
-    </div>
-    <div class="span6">
-        <div class="shippingaddress">
-            <?php $this->address = $this->item->getShippingAddress(); echo $this->loadTemplate('address');?>
+        <div class="span4">
+            <h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_ADDRESS_BILLING')?></h3>
+            <div class="billingaddress">
+                <?php $this->address = $this->item->getBillingAddress(); echo $this->loadTemplate('address');?>
+            </div>
         </div>
-    </div>
+        <div class="span4">
+            <h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_ADDRESS_SHIPPING')?></h3>
+            <div class="shippingaddress">
+                <?php $this->address = $this->item->getShippingAddress(); echo $this->loadTemplate('address');?>
+            </div>
+        </div>
 
+    </div>
     <div class="span12">
         <hr>
         <?php $this->lineitemcontainer = $this->item; echo $this->loadTemplate('summary');?>
