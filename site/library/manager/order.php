@@ -49,7 +49,9 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryManagerManager
 
         $lineitemcontainer->getShippingMethod()->processOnOrderSubmit($lineitemcontainer);
         $lineitemcontainer->getPaymentMethod()->processOnOrderSubmit($lineitemcontainer);
-        $lineitemcontainer->getSurcharge()->processOnOrderSubmit($lineitemcontainer);
+        if ($lineitemcontainer->getSurcharge()) {
+            $lineitemcontainer->getSurcharge()->processOnOrderSubmit($lineitemcontainer);
+        }
 
     }
 

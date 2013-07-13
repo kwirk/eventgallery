@@ -73,11 +73,17 @@ class EventgalleryLibraryServicelineitem extends EventgalleryLibraryLineitem
     }
 
     function getDisplayName() {
-        return $this->getMethod()->getDisplayName();
+        if ($this->getMethod())  {
+            return $this->getMethod()->getDisplayName();
+        }
+        return "undefined";
     }
 
     function getDescription() {
-        return $this->getMethod()->getDescription();
+        if ($this->getMethod()) {
+            return $this->getMethod()->getDescription();
+        }
+        return "undefined";
     }
 
 

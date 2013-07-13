@@ -121,12 +121,15 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
     }
 
     /**
+     * This method will return the imagetype with the given id.
+     *
      * @param int $imagetypeid
      *
      * @return EventgalleryLibraryImagetype
      */
     public function getImageType($imagetypeid)
     {
+
         if (isset($this->_imagetypes[$imagetypeid])) {
             return $this->_imagetypes[$imagetypeid];
         }

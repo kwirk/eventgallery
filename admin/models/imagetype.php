@@ -63,6 +63,24 @@ class EventgalleryModelImagetype extends JModelAdmin
         return $data;
     }
 
+    public function delete(&$pks) {
+        if (!parent::delete($pks)) {
+            return false;
+        }
+
+
+        foreach($pks as $pk) {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->delete('#__eventgallery_imagetypeset_imagetype_assignment');
+            $query->where('imagetypeid = '.$db->quote($pk));
+            $db->setQuery($query);
+            $db->execute();
+        }
+
+        return true;
+
+    }
 
 
 

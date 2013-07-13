@@ -55,6 +55,11 @@ JHtml::_('behavior.tooltip');
                  <td>
                     <div class="btn-group">
                         <?php echo JHtml::_('jgrid.published', $item->isPublished(), $i, 'imagetypesets.'); ?>
+                        <?php IF ($item->isDefault()): ?>
+                            <a href="#" class="btn btn-micro active"><i class="icon-star"></i></a>
+                        <?php ELSE:?>
+                            <a href="#" onclick="return listItemTask('cb<?php echo $i; ?>','imagetypesets.default')" class="btn btn-micro"><i class="icon-star-empty"></i></a>
+                        <?php ENDIF ?>
                         <a class="btn btn-micro" href="<?php echo
                             JRoute::_('index.php?option=com_eventgallery&task=imagetypeset.edit&id='.$item->getId()); ?>">
                         <i class="icon-edit"></i></a>

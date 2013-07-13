@@ -56,14 +56,18 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
         $folderObject = $db->loadObject();
         $this->_folder = $folderObject;
 
+        /**
+         * @var EventgalleryLibraryManagerImagetypeset $imagetypesetMgr
+         */
+        $imagetypesetMgr = EventgalleryLibraryManagerImagetypeset::getInstance();
+
         if ($this->_folder->imagetypesetid == null) {
-            /**
-             * @var EventgalleryLibraryManagerImagetypeset $imagetypesetMgr
-             */
-            $imagetypesetMgr = EventgalleryLibraryManagerImagetypeset::getInstance();
-            $this->_imagetypeset = $imagetypesetMgr->getDefaultImageTypeSet();
+            $this->_imagetypeset = $imagetypesetMgr->getDefaultImageTypeSet(true);
         } else {
             $this->_imagetypeset = new EventgalleryLibraryImagetypeset($this->_folder->imagetypesetid);
+            if (!$this->_imagetypeset->isPublished()) {
+                $this->_imagetypeset = $imagetypesetMgr->getDefaultImageTypeSet(true);
+            }
         }
 
     }

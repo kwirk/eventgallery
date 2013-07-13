@@ -75,6 +75,9 @@ class EventgalleryModelImagetypeset extends JModelAdmin
         }
 
         $id = $data['id'];
+        if ($id==0) {
+            $id = $this->getState('imagetypeset.id');
+        }
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->delete('#__eventgallery_imagetypeset_imagetype_assignment');
@@ -94,6 +97,52 @@ class EventgalleryModelImagetypeset extends JModelAdmin
         $db->execute();
 
         return true;
+    }
+
+    public function delete(&$pks) {
+        if (!parent::delete($pks)) {
+            return false;
+        }
+
+
+        foreach($pks as $pk) {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->update('#__eventgallery_folder');
+            $query->set('imagetypesetid = null');
+            $query->where('imagetypesetid = '.$db->quote($pk));
+            $db->setQuery($query);
+            $db->execute();
+        }
+
+        return true;
+
+    }
+
+    public function setDefault($pks, $value) {
+
+        $id = $pks[0];
+        if ($value==1) {
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->update('#__eventgallery_imagetypeset');
+            $query->set('`default` = 0');
+            $db->setQuery($query);
+            $db->execute();
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->update('#__eventgallery_imagetypeset');
+            $query->set('`default` = 1');
+            $query->where('id='.$db->quote($id));
+
+            $db->setQuery($query);
+            $db->execute();
+
+        }
+        return true;
+
     }
 
 

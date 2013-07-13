@@ -111,7 +111,7 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
         $newImageType = $this->getFile()->getImageTypeSet()->getImageType($imagetypeid);
         /* @var $newImageType EventgalleryLibraryImagetype */
         if ($newImageType == null) {
-            throw new Exception("The selected image type is invalid for this line item");
+            $newImageType = $this->getFile()->getImageTypeSet()->getDefaultImageType();
         }
 
         $this->_lineitem->imagetypeid = $newImageType->getId();

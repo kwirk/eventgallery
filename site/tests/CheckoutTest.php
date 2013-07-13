@@ -123,9 +123,13 @@ class CheckoutTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals($cart->getShippingMethod()->getPrice(), $order->getShippingMethodServiceLineItem()->getPrice());
         $this->assertEquals($cart->getPaymentMethod()->getPrice(), $order->getPaymentMethodServiceLineItem()->getPrice());
-        $this->assertEquals($cart->getSurcharge()->getPrice(), $order->getSurchargeServiceLineItem()->getPrice());
+        if ($cart->getSurcharge()) {
+            $this->assertEquals($cart->getSurcharge()->getPrice(), $order->getSurchargeServiceLineItem()->getPrice());
+            $manualTotal = $order->getSubTotal()+$order->getShippingMethodServiceLineItem()->getPrice()+$order->getSurchargeServiceLineItem()->getPrice()+$order->getPaymentMethodServiceLineItem()->getPrice();
+        } else {
+            $manualTotal = $order->getSubTotal()+$order->getShippingMethodServiceLineItem()->getPrice()+$order->getPaymentMethodServiceLineItem()->getPrice();
+        }
 
-        $manualTotal = $order->getSubTotal()+$order->getShippingMethodServiceLineItem()->getPrice()+$order->getSurchargeServiceLineItem()->getPrice()+$order->getPaymentMethodServiceLineItem()->getPrice();
         $this->assertEquals($manualTotal, $order->getTotal());
 
 

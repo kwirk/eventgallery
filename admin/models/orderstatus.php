@@ -127,7 +127,7 @@ class EventgalleryModelOrderstatus extends JModelAdmin
 
     public function delete(&$pks) {
 
-            $newPks = array();
+        $newPks = array();
 
         foreach($pks as $pk) {
             $orderstatus = new EventgalleryLibraryOrderstatus($pk);
@@ -136,7 +136,41 @@ class EventgalleryModelOrderstatus extends JModelAdmin
             }
         }
 
-        return parent::delete($newPks);
+
+        if (!parent::delete($newPks)) {
+            return false;
+        }
+
+
+        foreach($newPks as $pk) {
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->update('#__eventgallery_order');
+            $query->set('orderstatusid = null');
+            $query->where('orderstatusid = '.$db->quote($pk));
+            $db->setQuery($query);
+            $db->execute();
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->update('#__eventgallery_order');
+            $query->set('paymentstatusid = null');
+            $query->where('paymentstatusid = '.$db->quote($pk));
+            $db->setQuery($query);
+            $db->execute();
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->update('#__eventgallery_order');
+            $query->set('shippingstatusid = null');
+            $query->where('shippingstatusid = '.$db->quote($pk));
+            $db->setQuery($query);
+            $db->execute();
+        }
+
+        return true;
     }
+
 
 }

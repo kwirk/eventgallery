@@ -90,8 +90,10 @@ JHtml::_('behavior.tooltip');
                         <?php IF (strlen($item->getPhone())>0):?>
                             <a href="tel:<?php echo $this->escape($item->getPhone()) ?>"><?php echo $this->escape($item->getPhone()) ?></a><br>
                         <?php ENDIF ?>
-                        <?php echo $this->escape($item->getBillingAddress()->getFirstName()) ?>
-                        <?php echo $this->escape($item->getBillingAddress()->getLastName()) ?><br>
+                        <?php IF ($item->getBillingAddress()): ?>
+                            <?php echo $this->escape($item->getBillingAddress()->getFirstName()) ?>
+                            <?php echo $this->escape($item->getBillingAddress()->getLastName()) ?><br>
+                        <?php ENDIF ?>
 
                     </p>
                 </td>

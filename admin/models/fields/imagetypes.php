@@ -22,15 +22,21 @@ class JFormFieldImagetypes extends JFormField
         $imagetypes = $imagetypeMgr->getImageTypes(false);
 
         $id = $this->form->getField('id')->value;
-        $imagetypeset = new EventgalleryLibraryImagetypeset($id);
+
+        $imagetypeset = null;
+        if ($id!=0) {
+            $imagetypeset = new EventgalleryLibraryImagetypeset($id);
+        }
 
         $return  = '<select multiple name='.$this->name.' id='.$this->id.'>';
         foreach($imagetypes as $imagetype) {
             /**
              * @var EventgalleryLibraryImagetype $imagetype
              */
-            $imagetypeset->getImageType($imagetype->getId())!=null?$selected='selected="selected"':$selected ='';
-
+            $selected = "";
+            if ($imagetypeset != null) {
+                $imagetypeset->getImageType($imagetype->getId())!=null?$selected='selected="selected"':$selected ='';
+            }
             $return .= '<option '.$selected.' value="'.$imagetype->getId().'">'.$imagetype->getName().'</option>';
         }
         $return .= "</select>";
