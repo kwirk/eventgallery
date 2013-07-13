@@ -15,8 +15,7 @@ defined('_JEXEC') or die('Restricted access');
     <div class="subtotal">
         <div class="subtotal-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_SUBTOTAL') ?></div>
 		<span class="subtotal">
-			<?php echo $this->lineitemcontainer->getSubTotalCurrency(); ?>
-            <?php printf("%.2f", $this->lineitemcontainer->getSubTotal()); ?>
+            <?php echo $this->lineitemcontainer->getSubTotal(); ?>
 		</span>
     </div>
     <?php IF ($this->lineitemcontainer->getSurcharge() != NULL): ?>
@@ -24,7 +23,6 @@ defined('_JEXEC') or die('Restricted access');
         <div class="surcharge">
             <div class="surcharge-headline"><?php echo $this->lineitemcontainer->getSurcharge()->getDisplayName(); ?></div>
 		<span class="surcharge">
-			<?php echo $this->lineitemcontainer->getSurcharge()->getCurrency(); ?>
             <?php echo $this->lineitemcontainer->getSurcharge()->getPrice(); ?>
 		</span>
         </div>
@@ -39,7 +37,6 @@ defined('_JEXEC') or die('Restricted access');
                 <?php ENDIF ?>
             </div>
 		<span class="surcharge">
-			<?php echo $this->lineitemcontainer->getShippingMethod()->getCurrency(); ?>
             <?php echo $this->lineitemcontainer->getShippingMethod()->getPrice(); ?>
 		</span>
         </div>
@@ -54,7 +51,6 @@ defined('_JEXEC') or die('Restricted access');
                 <?php ENDIF ?>
             </div>
 		<span class="surcharge">
-			<?php echo $this->lineitemcontainer->getPaymentMethod()->getCurrency(); ?>
             <?php echo $this->lineitemcontainer->getPaymentMethod()->getPrice(); ?>
 		</span>
         </div>
@@ -62,11 +58,10 @@ defined('_JEXEC') or die('Restricted access');
     <div class="total ">
         <div class="total-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL') ?></div>
 		<span class="total">
-			<?php echo $this->lineitemcontainer->getTotalCurrency(); ?>
-            <?php printf("%.2f", $this->lineitemcontainer->getTotal()); ?>
+            <?php echo $this->lineitemcontainer->getTotal(); ?>
 		</span>
 		<span class="vat">
-			<?php echo JText::sprintf('COM_EVENTGALLERY_CART_VAT_HINT_WITH_PLACEHOLDER', $this->lineitemcontainer->getTaxCurrency(), $this->lineitemcontainer->getTax()) ?>
+			<?php echo JText::sprintf('COM_EVENTGALLERY_CART_VAT_HINT_WITH_PLACEHOLDER', $this->lineitemcontainer->getTax()) ?>
 		</span>
     </div>
 </div>

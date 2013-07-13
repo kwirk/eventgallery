@@ -98,27 +98,27 @@ JHtml::_('behavior.tooltip');
                     </p>
                 </td>
                 <td>
-                    <?php echo $item->getTotalCurrency() ?> <?php echo $item->getTotal() ?><br>
+                    <?php echo $item->getTotal() ?><br>
                     <small>                        
-                        <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SUBTOTAL' ); ?>  <?php echo $item->getSubTotalCurrency() ?> <?php echo $item->getSubTotal() ?><br>
+                        <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SUBTOTAL' ); ?> <?php echo $item->getSubTotal() ?><br>
                         
                         <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SURCHARGE' ); ?> 
                         <?php IF ($item->getSurchargeServiceLineItem()): ?>
-                            <?php echo $item->getSurchargeServiceLineItem()->getCurrency() ?> <?php echo $item->getSurchargeServiceLineItem()->getPrice() ?>
+                            <?php echo $item->getSurchargeServiceLineItem()->getPrice() ?>
                         <?php ELSE: ?>
                             -
                         <?php ENDIF ?><br>
 
                         <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_PAYMENT' ); ?> 
                         <?php IF ($item->getPaymentMethodServiceLineItem()): ?>
-                          <?php echo $item->getPaymentMethodServiceLineItem()->getCurrency() ?> <?php echo $item->getPaymentMethodServiceLineItem()->getPrice() ?>
+                          <?php echo $item->getPaymentMethodServiceLineItem()->getPrice() ?>
                         <?php ELSE: ?>
                             -
                         <?php ENDIF ?><br>
 
                         <?php echo JText::_( 'COM_EVENTGALLERY_ORDERS_SHIPPING' ); ?>  
                         <?php IF ($item->getShippingMethodServiceLineItem()): ?>
-                            <?php echo $item->getShippingMethodServiceLineItem()->getCurrency() ?> <?php echo $item->getShippingMethodServiceLineItem()->getPrice() ?>
+                            <?php echo $item->getShippingMethodServiceLineItem()->getPrice() ?>
                         <?php ELSE: ?>
                             -                            
                         <?php ENDIF ?>

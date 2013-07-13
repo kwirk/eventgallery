@@ -69,7 +69,7 @@ JHtml::_('behavior.tooltip');
                 </td>
                 <td> 
                      <?php echo $this->escape($item->getPrice()) ?>
-                     <?php echo $this->escape($item->getCurrency()) ?><br>
+                     <br>
                      <?php echo JText::_('COM_EVENTGALLERY_TAXRATE') ?>:<?php echo $this->escape($item->getTaxRate()) ?>
                 </td>
             </tr>

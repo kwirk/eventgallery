@@ -310,12 +310,12 @@ class EventgalleryLibraryManagerCart extends EventgalleryLibraryManagerManager
         $subtotalCurrency = "";
 
         foreach ($cart->getLineItems() as $lineitem) {
-            $subtotal += $lineitem->getPrice();
-            $subtotalCurrency = $lineitem->getCurrency();
+            $subtotal += $lineitem->getPrice()->getAmount();
+            $subtotalCurrency = $lineitem->getPrice()->getCurrency();
         }
 
-        $cart->setSubTotal($subtotal);
-        $cart->setSubTotalCurrency($subtotalCurrency);
+        $cart->setSubTotal(new EventgalleryLibraryCommonMoney($subtotal, $subtotalCurrency));
+
 
 
         /**
@@ -329,17 +329,16 @@ class EventgalleryLibraryManagerCart extends EventgalleryLibraryManagerManager
          */
         $total = $subtotal;
         if ($cart->getSurcharge() != NULL) {
-            $total += $cart->getSurcharge()->getPrice();
+            $total += $cart->getSurcharge()->getPrice()->getAmount();
         }
         if ($cart->getShippingMethod() != NULL) {
-            $total += $cart->getShippingMethod()->getPrice();
+            $total += $cart->getShippingMethod()->getPrice()->getAmount();
         }
         if ($cart->getPaymentMethod() != NULL) {
-            $total += $cart->getPaymentMethod()->getPrice();
+            $total += $cart->getPaymentMethod()->getPrice()->getAmount();
         }
 
-        $cart->setTotal($total);
-        $cart->setTotalCurrency($subtotalCurrency);
+        $cart->setTotal(new EventgalleryLibraryCommonMoney($total, $subtotalCurrency));
 
     }
 

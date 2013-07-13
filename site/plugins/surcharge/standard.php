@@ -32,7 +32,7 @@ class EventgalleryPluginsSurchargeStandard extends  EventgalleryLibraryMethodsSu
         // if the minimum amount is not defined skip this
         if (isset($this->getData()->rules->minAmount)) {
             // if the subtotal is not high enough
-            if ($cart->getSubTotal()<$this->getData()->rules->minAmount ) {
+            if ($cart->getSubTotal()->getAmount()<$this->getData()->rules->minAmount ) {
                 return false;
             }
         }
@@ -40,7 +40,7 @@ class EventgalleryPluginsSurchargeStandard extends  EventgalleryLibraryMethodsSu
         // if the maximum amount is not defined skip this
         if (isset($this->getData()->rules->maxAmount)) {
             // if the subtotal is too high
-            if ($cart->getSubTotal()>$this->getData()->rules->maxAmount ) {
+            if ($cart->getSubTotal()->getAmount()>$this->getData()->rules->maxAmount ) {
                 return false;
             }
         }

@@ -28,16 +28,9 @@ interface EventgalleryLibraryInterfaceMethod
     /**
      * Returns the price of the method
      *
-     * @return float the price value
+     * @return EventgalleryLibraryCommonMoney the price value
      */
     public function getPrice();
-
-    /**
-     * Returns the currency of the price of the method
-     *
-     * @return string the currency
-     */
-    public function getCurrency();
 
     /**
      * Returns the name of the method

@@ -85,8 +85,7 @@ JHtml::_('behavior.tooltip');
                         <small><?php echo $this->escape($item->getDescription()) ?></small><br>
                 </td>
                 <td> 
-                     <?php echo $this->escape($item->getPrice()) ?>
-                     <?php echo $this->escape($item->getCurrency()) ?><br>
+                     <?php echo $this->escape($item->getPrice()) ?><br>
                      <?php echo JText::_('COM_EVENTGALLERY_TAXRATE') ?>:<?php echo $this->escape($item->getTaxRate()) ?>
                 </td>
             </tr>

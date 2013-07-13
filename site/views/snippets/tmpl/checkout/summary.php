@@ -49,7 +49,6 @@ defined('_JEXEC') or die('Restricted access');
                     </div>
                
                     <span class="price">
-                        <?php echo $lineitem->getCurrency(); ?>
                         <?php echo $lineitem->getPrice(); ?>
                     </span>
                 
@@ -59,7 +58,7 @@ defined('_JEXEC') or die('Restricted access');
                         <p class="imagetype-details"> 
                             <span class="displayname"><?php echo $lineitem->getImageType()->getDisplayName() ?></span>
                             <span class="description"><?php echo $lineitem->getImageType()->getDescription() ?></span>
-                            <span class="singleprice"><?php echo JText::sprintf('COM_EVENTGALLERY_LINEITEM_PRICE_PER_ITEM_WITH_PLACEHOLDER', $lineitem->getImageType()->getCurrency(), $lineitem->getImageType()->getPrice()) ?></span>
+                            <span class="singleprice"><?php echo JText::sprintf('COM_EVENTGALLERY_LINEITEM_PRICE_PER_ITEM_WITH_PLACEHOLDER', $lineitem->getImageType()->getPrice()) ?></span>
                         </p>
                     </div>
 

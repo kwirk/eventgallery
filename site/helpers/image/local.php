@@ -17,7 +17,8 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 		protected $_blank_script_path = 'components/com_eventgallery/helpers/blank.php';
 
 		// constructor
-	    public function __construct($photo) {		    
+    /** @noinspection PhpUndefinedClassInspection */
+    public function __construct($photo) {
 	    	foreach((array)$photo as $key=>$value) {
 	    		if (substr($key,1,1)!='*') {
 	    			$this->$key = $value;

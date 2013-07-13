@@ -43,10 +43,10 @@ class EventgalleryLibraryFactoryServicelineitem extends EventgalleryLibraryFacto
         $item = array(
             'lineitemcontainerid' => $lineitemcontainerid,
             'quantity' => $quantity,
-            'singleprice' => $method->getPrice(),
-            'price' => $quantity * $method->getPrice(),
+            'singleprice' => $method->getPrice()->getAmount(),
+            'price' => $quantity * $method->getPrice()->getAmount(),
             'taxrate' => $method->getTaxrate(),
-            'currency' => $method->getCurrency(),
+            'currency' => $method->getPrice()->getCurrency(),
             'methodid' => $method->getId(),
             'type' => $method->getTypeCode(),
             'name' => $method->getName()

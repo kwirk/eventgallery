@@ -28,11 +28,11 @@ class CheckoutTest extends PHPUnit_Framework_TestCase {
         $lineitems = array_values($cart->getLineItems());
         $lineitem = $lineitems[0];
 
-        $oldPrice = $lineitem->getPrice();
+        $oldPrice = $lineitem->getPrice()->getAmount();
         $lineitem->setQuantity(10);
         $cartMgr->calculateCart();
         $newPrice = $oldPrice*10;
-        $this->assertEquals($newPrice, $cart->getSubTotal());
+        $this->assertEquals($newPrice, $cart->getSubTotal()->getAmount());
 
         // clone line item
         $newLineitem = $cart->cloneLineItem($lineitem->getId());
@@ -116,21 +116,21 @@ class CheckoutTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($message, $order->getMessage());
         $this->assertEquals($phone, $order->getPhone());
 
-        $total = $cart->getTotal();
-        $subtotal = $cart->getSubTotal();
-        $this->assertEquals($total, $order->getTotal());
-        $this->assertEquals($subtotal, $order->getSubTotal());
+        $total = $cart->getTotal()->getAmount();
+        $subtotal = $cart->getSubTotal()->getAmount();
+        $this->assertEquals($total, $order->getTotal()->getAmount());
+        $this->assertEquals($subtotal, $order->getSubTotal()->getAmount());
 
-        $this->assertEquals($cart->getShippingMethod()->getPrice(), $order->getShippingMethodServiceLineItem()->getPrice());
-        $this->assertEquals($cart->getPaymentMethod()->getPrice(), $order->getPaymentMethodServiceLineItem()->getPrice());
+        $this->assertEquals($cart->getShippingMethod()->getPrice()->getAmount(), $order->getShippingMethodServiceLineItem()->getPrice()->getAmount());
+        $this->assertEquals($cart->getPaymentMethod()->getPrice()->getAmount(), $order->getPaymentMethodServiceLineItem()->getPrice()->getAmount());
         if ($cart->getSurcharge()) {
-            $this->assertEquals($cart->getSurcharge()->getPrice(), $order->getSurchargeServiceLineItem()->getPrice());
-            $manualTotal = $order->getSubTotal()+$order->getShippingMethodServiceLineItem()->getPrice()+$order->getSurchargeServiceLineItem()->getPrice()+$order->getPaymentMethodServiceLineItem()->getPrice();
+            $this->assertEquals($cart->getSurcharge()->getPrice()->getAmount(), $order->getSurchargeServiceLineItem()->getPrice()->getAmount());
+            $manualTotal = $order->getSubTotal()->getAmount()+$order->getShippingMethodServiceLineItem()->getPrice()->getAmount()+$order->getSurchargeServiceLineItem()->getPrice()->getAmount()+$order->getPaymentMethodServiceLineItem()->getPrice()->getAmount();
         } else {
-            $manualTotal = $order->getSubTotal()+$order->getShippingMethodServiceLineItem()->getPrice()+$order->getPaymentMethodServiceLineItem()->getPrice();
+            $manualTotal = $order->getSubTotal()->getAmount()+$order->getShippingMethodServiceLineItem()->getPrice()->getAmount()+$order->getPaymentMethodServiceLineItem()->getPrice()->getAmount();
         }
 
-        $this->assertEquals($manualTotal, $order->getTotal());
+        $this->assertEquals($manualTotal, $order->getTotal()->getAmount());
 
 
         // move to history

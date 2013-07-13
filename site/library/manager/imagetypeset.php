@@ -60,6 +60,7 @@ class EventgalleryLibraryManagerImagetypeset extends  EventgalleryLibraryManager
     /**
      * Returns the default image type set
      *
+     * @param bool $publishedOnly returns only  published imagetypeset
      * @return EventgalleryLibraryImagetypeset
      */
     public function getDefaultImageTypeSet($publishedOnly) {

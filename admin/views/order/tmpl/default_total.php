@@ -22,28 +22,24 @@ defined('_JEXEC') or die('Restricted access');
     <div class="subtotal">
         <strong>
              <span class="name"><?php echo JText::_('COM_EVENTGALLERY_ORDER_SUBTOTAL') ?>	</span>
-			<?php echo $this->lineitemcontainer->getSubTotalCurrency(); ?>
-            <?php printf("%.2f", $this->lineitemcontainer->getSubTotal()); ?>
+            <?php $this->lineitemcontainer->getSubTotal(); ?>
         </strong>
     </div>
     <?php IF ($this->lineitemcontainer->getSurchargeServiceLineItem() != NULL): ?>
         <div class="surcharge">
             <span class="name"><?php echo $this->lineitemcontainer->getSurchargeServiceLineItem()->getDisplayName(); ?>	</span>
-			<?php echo $this->lineitemcontainer->getSurchargeServiceLineItem()->getCurrency(); ?>
             <?php echo $this->lineitemcontainer->getSurchargeServiceLineItem()->getPrice(); ?>		
         </div>
     <?php ENDIF ?>
     <?php IF ($this->lineitemcontainer->getShippingMethodServiceLineItem() != NULL): ?>
         <div class="surcharge">
              <span class="name"><?php echo $this->lineitemcontainer->getShippingMethodServiceLineItem()->getDisplayName(); ?></span>
-			<?php echo $this->lineitemcontainer->getShippingMethodServiceLineItem()->getCurrency(); ?>
             <?php echo $this->lineitemcontainer->getShippingMethodServiceLineItem()->getPrice(); ?>
         </div>
     <?php ENDIF ?>
     <?php IF ($this->lineitemcontainer->getPaymentMethodServiceLineItem() != NULL): ?>
          <div class="surcharge">
              <span class="name"><?php echo $this->lineitemcontainer->getPaymentMethodServiceLineItem()->getDisplayName(); ?></span>
-            <?php echo $this->lineitemcontainer->getPaymentMethodServiceLineItem()->getCurrency(); ?>
             <?php echo $this->lineitemcontainer->getPaymentMethodServiceLineItem()->getPrice(); ?>
 		
         </div>
@@ -51,10 +47,10 @@ defined('_JEXEC') or die('Restricted access');
     <div class="total">
         <strong>
              <span class="name"><?php echo JText::_('COM_EVENTGALLERY_ORDER_TOTAL') ?> </span>
-            <?php echo $this->lineitemcontainer->getTotalCurrency(); ?> <?php printf("%.2f", $this->lineitemcontainer->getTotal()); ?>
+            <?php echo $this->lineitemcontainer->getTotal(); ?>
 		</strong><br />
         <small>
-			<?php echo JText::sprintf('COM_EVENTGALLERY_ORDER_VAT_HINT_WITH_PLACEHOLDER', $this->lineitemcontainer->getTaxCurrency(), $this->lineitemcontainer->getTax()) ?>
+			<?php echo JText::sprintf('COM_EVENTGALLERY_ORDER_VAT_HINT_WITH_PLACEHOLDER', $this->lineitemcontainer->getTax()) ?>
 		</small>
     </div>
     

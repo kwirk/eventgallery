@@ -55,10 +55,10 @@ class EventgalleryLibraryFactoryImagelineitem extends EventgalleryLibraryFactory
             'folder' => $file->getFolderName(),
             'file' => $file->getFileName(),
             'quantity' => $quantity,
-            'singleprice' => $imagetype->getPrice(),
-            'price' => $quantity * $imagetype->getPrice(),
+            'singleprice' => $imagetype->getPrice()->getAmount(),
+            'price' => $quantity * $imagetype->getPrice()->getAmount(),
             'taxrate' => $imagetype->getTaxrate(),
-            'currency' => $imagetype->getCurrency(),
+            'currency' => $imagetype->getPrice()->getCurrency(),
             'imagetypeid' => $imagetype->getId()
         );
 

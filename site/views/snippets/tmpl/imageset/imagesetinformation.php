@@ -47,7 +47,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
             <td>
                 <input name="currentimagetype" value="<?php echo $imageType->getId(); ?>" type="radio" <?php echo $checked ?> >
             </td>
-            <td class="price"><?php echo $imageType->getCurrency(); ?> <?php echo $imageType->getPrice(); ?> <strong>*</strong></td>
+            <td class="price"><?php echo $imageType->getPrice(); ?> <strong>*</strong></td>
             <td class="description"><?php echo $imageType->getDescription(); ?></td>
         </tr>
         <?php ENDFOREACH ?>    

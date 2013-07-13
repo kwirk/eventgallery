@@ -60,19 +60,11 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
     }
 
     /**
-     * @return float the price value
+     * @return EventgalleryLibraryCommonMoney the price value
      */
     public function getPrice()
     {
-        return $this->_object->price;
-    }
-
-    /**
-     * @return string the currency
-     */
-    public function getCurrency()
-    {
-        return $this->_object->currency;
+        return new EventgalleryLibraryCommonMoney($this->_object->price, $this->_object->currency);
     }
 
     /**

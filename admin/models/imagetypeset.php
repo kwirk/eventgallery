@@ -88,7 +88,7 @@ class EventgalleryModelImagetypeset extends JModelAdmin
         $query->where('imagetypesetid = '.$db->quote($id));
         $db->setQuery($query);
         $db->execute();
-        
+
         if (count($data['imagetypes'])>0) {
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);

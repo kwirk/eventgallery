@@ -78,8 +78,7 @@ JHtml::_('behavior.tooltip');
                         <?php IF ($imagetype->getId()==$item->getDefaultImageType()->getId()):?>
                             <i class="icon-star"></i>
                         <?php ENDIF ?>
-                        (<?php echo $imagetype->getPrice() ?>
-                        <?php echo $imagetype->getCurrency() ?>)
+                        (<?php echo $imagetype->getPrice() ?>)
 
                         <br>
                     <?php ENDFOREACH ?>

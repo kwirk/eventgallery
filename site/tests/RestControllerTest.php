@@ -56,8 +56,11 @@ class Test extends PHPUnit_Framework_TestCase {
         $this->assertNotEmpty($cart->getLineItems());
         $lineitems = $cart->getLineItems();
 
-
-        JRequest::setVar('lineitemid', $lineitems[0]->getId());
+        /**
+         * @var EventgalleryLibraryLineitem $lineitem
+         */
+        $lineitem = $lineitems[0];
+        JRequest::setVar('lineitemid', $lineitem->getId());
         $controller->removeFromCart();
 
         $this->assertEmpty($cart->getLineItems());

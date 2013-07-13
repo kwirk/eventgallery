@@ -59,7 +59,7 @@ class RestController extends JControllerLegacy
                 'folder' => $lineitem->getfolderName(),
                 'count' => $lineitem->getQuantity(),
                 'singleprice' => $lineitem->getSinglePrice(),
-                'price' => $lineitem->getPrice(),
+                'price' => $lineitem->getPrice()->getAmount(),
                 'lineitemid' => $lineitem->getId(),
                 'typeid' => $lineitem->getImageType()->getId(),
                 'imagetag' => $lineitem->getMiniCartThumb()

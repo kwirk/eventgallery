@@ -238,20 +238,13 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     }
 
     /**
-     * @return float
+     * @return EventgalleryLibraryCommonMoney
      */
     public function getSubTotal()
     {
-        return $this->_lineitemcontainer->subtotal;
+        return new EventgalleryLibraryCommonMoney($this->_lineitemcontainer->subtotal, $this->_lineitemcontainer->subtotalcurrency);
     }
 
-    /**
-     * @return string
-     */
-    public function getSubTotalCurrency()
-    {
-        return $this->_lineitemcontainer->subtotalcurrency;
-    }
 
     /**
      * @return EventgalleryLibraryServicelineitem|null
@@ -323,14 +316,7 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     }
 
     /**
-     * @return string
-     */
-    public function getTaxCurrency() {
-        return $this->getTotalCurrency();
-    }
-
-    /**
-     * returns float the tax amount
+     * returns EventgalleryLibraryCommonMoney the tax amount
      */
     public function getTax() {
         $tax = 0;
@@ -354,24 +340,15 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
             $tax += $this->getSurchargeServiceLineItem()->getTax();
         }
 
-        return $tax;
+        return new EventgalleryLibraryCommonMoney($tax, $this->_lineitemcontainer->subtotalcurrency);
     }
 
     /**
-     * @return float
+     * @return EventgalleryLibraryCommonMoney
      */
     public function getTotal()
     {
-
-        return $this->_lineitemcontainer->total;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTotalCurrency()
-    {
-        return $this->_lineitemcontainer->totalcurrency;
+        return new EventgalleryLibraryCommonMoney($this->_lineitemcontainer->total, $this->_lineitemcontainer->totalcurrency);
     }
 
     /**
@@ -491,38 +468,24 @@ abstract class EventgalleryLibraryLineitemcontainer extends EventgalleryLibraryD
     }
 
     /**
-     * @param float $price
+     * @param EventgalleryLibraryCommonMoney $price
      */
     public function setSubTotal($price)
     {
-        $this->_lineitemcontainer->subtotal = $price;
+    	
+        $this->_lineitemcontainer->subtotal = $price->getAmount();
+        $this->_lineitemcontainer->subtotalcurrency = $price->getCurrency();
         $this->_storeLineItemContainer();
     }
 
-    /**
-     * @param string $currency
-     */
-    public function setSubTotalCurrency($currency)
-    {
-        $this->_lineitemcontainer->subtotalcurrency = $currency;
-        $this->_storeLineItemContainer();
-    }
 
     /**
-     * @param float $price
+     * @param EventgalleryLibraryCommonMoney $price
      */
     public function setTotal($price)
     {
-        $this->_lineitemcontainer->total = $price;
-        $this->_storeLineItemContainer();
-    }
-
-    /**
-     * @param string $currency
-     */
-    public function setTotalCurrency($currency)
-    {
-        $this->_lineitemcontainer->totalcurrency = $currency;
+        $this->_lineitemcontainer->total = $price->getAmount();
+        $this->_lineitemcontainer->totalcurrency = $price->getCurrency();
         $this->_storeLineItemContainer();
     }
 

@@ -112,7 +112,7 @@ $order = $this->order;
                     <?php echo $lineitem->getQuantity(); ?>
                 </td>
                 <td>
-                    <?php echo $lineitem->getCurrency().' '.$lineitem->getPrice().' ( '.$lineitem->getCurrency().' '.$lineitem->getSinglePrice() .')';?>
+                    <?php echo $lineitem->getPrice().' ('.$lineitem->getSinglePrice() .')';?>
                 </td>
                 <td>
                     <?php echo $lineitem->getImageType()->getDisplayName(); ?>
@@ -136,7 +136,7 @@ $order = $this->order;
                 <?php echo JText::_('COM_EVENTGALLERY_CART_SUBTOTAL') ?>
             </td>
             <td>
-                <?php echo $order->getSubTotalCurrency().' '. sprintf("%0.2f", $order->getSubTotal()); ?>
+                <?php echo $order->getSubTotal(); ?>
             </td>
         </tr>
         <?php IF ($order->getSurcharge() != NULL): ?>
@@ -145,7 +145,6 @@ $order = $this->order;
                 <?php echo $order->getSurcharge()->getDisplayName(); ?>
             </td>
             <td>
-                <?php echo $order->getSurcharge()->getCurrency(); ?>
                 <?php echo $order->getSurcharge()->getPrice(); ?>
             </td>
         </tr>
@@ -157,7 +156,6 @@ $order = $this->order;
                 <?php echo $order->getShippingMethod()->getDisplayName(); ?>:
             </td>
             <td>
-                <?php echo $order->getShippingMethod()->getCurrency(); ?>
                 <?php echo $order->getShippingMethod()->getPrice(); ?>
             </td>
         </tr>
@@ -169,7 +167,6 @@ $order = $this->order;
                 <?php echo $order->getPaymentMethod()->getDisplayName(); ?>:
             </td>
             <td>
-                <?php echo $order->getPaymentMethod()->getCurrency(); ?>
                 <?php echo $order->getPaymentMethod()->getPrice(); ?>
             </td>
         </tr>
@@ -181,13 +178,13 @@ $order = $this->order;
                 <?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL') ?>:    
             </td>
             <td>
-                <?php echo $order->getTotalCurrency().' '.sprintf("%0.2f", $order->getTotal()); ?>
+                <?php echo $order->getTotal(); ?>
             </td>
         </tr>
         
         <tr class="total">
             <td colspan="2">
-               <?php echo JText::sprintf('COM_EVENTGALLERY_CART_VAT_HINT_WITH_PLACEHOLDER', $this->order->getTaxCurrency(), $this->order->getTax()) ?>  
+               <?php echo JText::sprintf('COM_EVENTGALLERY_CART_VAT_HINT_WITH_PLACEHOLDER', $this->order->getTax()) ?>  
             </td>
         </tr>
 

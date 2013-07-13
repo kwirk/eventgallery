@@ -30,7 +30,6 @@ defined('_JEXEC') or die('Restricted access');
                             </div>
                        
                             <span class="price eventgallery-hide-on-quantity-change">
-                                <?php echo $lineitem->getCurrency(); ?>
                                 <?php echo $lineitem->getPrice(); ?>
                             </span>
                         
@@ -45,14 +44,14 @@ defined('_JEXEC') or die('Restricted access');
                                         $selected = $lineitem->getImageType()->getId() == $imageType->getId()
                                             ? 'selected="selected"' : '';
                                         echo '<option ' . $selected . ' value="' . $imageType->getId() . '">'
-                                            . $imageType->getDisplayName() . ' (' . $imageType->getCurrency() . ' '
+                                            . $imageType->getDisplayName() . ' ( '
                                             . $imageType->getPrice() . ')' . '</option>';
                                     }
                                     ?>
                                 </select>
                                 <p class="imagetype-details eventgallery-hide-on-imagetype-change"> 
                                     <span class="description"><?php echo $lineitem->getImageType()->getDescription() ?></span>
-                                    <span class="singleprice"><?php echo JText::sprintf('COM_EVENTGALLERY_LINEITEM_PRICE_PER_ITEM_WITH_PLACEHOLDER', $lineitem->getImageType()->getCurrency(), $lineitem->getImageType()->getPrice()) ?></span>
+                                    <span class="singleprice"><?php echo JText::sprintf('COM_EVENTGALLERY_LINEITEM_PRICE_PER_ITEM_WITH_PLACEHOLDER', $lineitem->getImageType()->getPrice()) ?></span>
                                 </p>
 
 

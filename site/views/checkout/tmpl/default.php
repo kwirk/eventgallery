@@ -38,14 +38,11 @@ defined('_JEXEC') or die('Restricted access');
 						<td class="imagetype">							
 							<?php echo $lineitem->getImageType()->getDisplayName().
 								' ('.
-								$lineitem->getImageType()->getCurrency().
-								' '.
 								$lineitem->getImageType()->getPrice()
 								.')'; 
 							?>							
 						</td>
 						<td class="price">								
-							<?php echo $lineitem->getCurrency(); ?>
 							<?php echo $lineitem->getPrice(); ?>
 						</td>
 					</tr>
@@ -57,32 +54,28 @@ defined('_JEXEC') or die('Restricted access');
 			<div class="subtotal">
 				<div class="subtotal-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_SUBTOTAL')?></div>
 				<span class="subtotal">
-					<?php echo $this->cart->getSubTotalCurrency(); ?>
-					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+					<?php echo $this->cart->getSubTotal(); ?>
 				</span>													
 			</div>
 
 			<div class="surcharge">
 				<div class="surcharge-headline">Shipping</div>
 				<span class="surcharge">
-					<?php echo $this->cart->getSubTotalCurrency(); ?>
-					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+					<?php echo $this->cart->getSubTotal(); ?>
 				</span>													
 			</div>
 
 			<div class="surcharge">
 				<div class="surcharge-headline">Payment</div>
 				<span class="surcharge">
-					<?php echo $this->cart->getSubTotalCurrency(); ?>
-					<?php printf("%.2f", $this->cart->getSubTotal()); ?>
+					<?php echo $this->cart->getSubTotal(); ?>
 				</span>													
 			</div>
 			
 			<div class="total">
 				<div class="total-headline"><?php echo JText::_('COM_EVENTGALLERY_CART_TOTAL')?></div>
 				<span class="total">
-					<?php echo $this->cart->getTotalCurrency(); ?>
-					<?php printf("%.2f", $this->cart->getTotal()); ?>
+					<?php echo $this->cart->getTotal(); ?>
 				</span>
 				<span class="vat">
 					<?php echo JText::_('COM_EVENTGALLERY_CART_VAT_HINT')?>

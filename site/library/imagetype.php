@@ -59,24 +59,18 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
         return $this->_imagetype->id;
     }
 
-
+	/**
+	* @return int
+	*/
     public function getTaxrate() {
         return $this->_imagetype->taxrate;
     }
     /**
-     * @return string the price value of the image type
+     * @return EventgalleryLibraryCommonMoney the price value of the image type
      */
     public function getPrice()
     {
-        return $this->_imagetype->price;
-    }
-
-    /**
-     * @return string the currency of the image type
-     */
-    public function getCurrency()
-    {
-        return $this->_imagetype->currency;
+        return new EventgalleryLibraryCommonMoney($this->_imagetype->price, $this->_imagetype->currency);
     }
 
     /**
@@ -124,6 +118,10 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
      */
     public function isPublished() {
         return $this->_imagetype->published==1;
+    }
+
+    public function getSize() {
+        return $this->_imagetype->size;
     }
 
 

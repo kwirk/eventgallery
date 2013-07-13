@@ -115,7 +115,8 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
         }
 
         $this->_lineitem->imagetypeid = $newImageType->getId();
-        $this->_lineitem->singleprice = $newImageType->getPrice();
+        $this->_lineitem->singleprice = $newImageType->getPrice()->getAmount();
+        $this->_lineitem->currency = $newImageType->getPrice()->getCurrency();
         $this->_store();
         $this->_imagetype = null;
     }

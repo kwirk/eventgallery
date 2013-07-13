@@ -45,7 +45,7 @@ $currentMethod
                 ?>
                 <option <?php echo $selected; ?>
                     value="<?php echo $method->getId(); ?>"><?php echo $method->getDisplayName(); ?>
-                    (<?php echo $method->getCurrency(); ?> <?php echo $method->getPrice(); ?>)
+                    (<?php echo $method->getPrice(); ?>)
                 </option>
             <?php ENDFOREACH ?>
         </select>

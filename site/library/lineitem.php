@@ -99,20 +99,12 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     }
 
     /**
-     * @return string
-     */
-    public function getCurrency()
-    {
-        return $this->_lineitem->currency;
-    }
-
-    /**
      * returns the amount of tax
      *
      * @return float
      */
     public function getTax() {
-        return $this->getPrice()*$this->getTaxrate()/100;
+        return $this->getPrice()->getAmount()*$this->getTaxrate()/100;
     }
 
     /**
@@ -123,11 +115,11 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     }
 
     /**
-     * @return float
+     * @return EventgalleryLibraryCommonMoney
      */
     public function getPrice()
     {
-        return $this->_lineitem->price;
+        return new EventgalleryLibraryCommonMoney($this->_lineitem->price, $this->_lineitem->currency);
     }
 
     /**
@@ -139,11 +131,11 @@ class EventgalleryLibraryLineitem extends EventgalleryLibraryDatabaseObject
     }
 
     /**
-     * @return float
+     * @return EventgalleryLibraryCommonMoney
      */
     public function getSinglePrice()
     {
-        return $this->_lineitem->singleprice;
+        return new EventgalleryLibraryCommonMoney($this->_lineitem->singleprice, $this->_lineitem->currency);
     }
 
     /**

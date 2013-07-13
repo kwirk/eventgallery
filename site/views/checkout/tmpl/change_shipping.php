@@ -52,7 +52,7 @@ $currentMethod
                 ?>
                 <option <?php echo $selected; ?> <?php echo $disabled; ?>
                     value="<?php echo $method->getId(); ?>"><?php echo $method->getDisplayName(); ?>
-                    (<?php echo $method->getCurrency(); ?> <?php echo $method->getPrice(); ?>)
+                    (<?php echo $method->getPrice(); ?>)
                 </option>
             <?php ENDFOREACH ?>
         </select>

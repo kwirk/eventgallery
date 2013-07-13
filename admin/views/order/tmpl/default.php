@@ -99,6 +99,8 @@ JHtml::_('formbehavior.chosen', 'select');
         echo "\t";
         echo $item->getQuantity();
         echo "\t";
+        if ($item->getImageType() ) echo  $item->getImageType()->getSize();
+        echo "\t";
         echo $item->getFolderName();
         echo "|";
         echo $item->getFileName();
