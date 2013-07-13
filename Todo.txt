@@ -11,7 +11,6 @@ Front End
 Back End
 
 - Management Options
-	- Image Type / TypeSet -> default selection
 	- Orders (sorting/filtering/edit, filter for null in status ids)
 	- Dashboard
 

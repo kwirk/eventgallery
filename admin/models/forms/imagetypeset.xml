@@ -48,7 +48,17 @@
                required="false"
                validate=""
                class="input-xlarge"
-                />              
+                />    
+        <field name="imagetypesdefault"
+               type="imagetypesdefault"
+               multiple="false"
+               label="COM_EVENTGALLERY_IMAGETYPESET_IMAGETYPES_DEFAULT"
+               description="COM_EVENTGALLERY_IMAGETYPESET_IMAGETYPES_DEFAULT_DESCRIPTION"
+               placeholder="COM_EVENTGALLERY_IMAGETYPESET_IMAGETYPES_DEFAULT_PLACEHOLDER"
+               required="false"
+               validate=""
+               class="input-xlarge"
+                />                 
                 
          
     </fieldset>

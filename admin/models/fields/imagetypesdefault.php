@@ -5,11 +5,11 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.form.formfield');
 
 // The class name must always be the same as the filename (in camel case)
-class JFormFieldImagetypes extends JFormField
+class JFormFieldImagetypesdefault extends JFormField
 {
 
     //The field class must know its own type through the variable $type.
-    protected $type = 'imagetypes';
+    protected $type = 'imagetypesdefault';
 
 
     public function getInput()
@@ -32,22 +32,19 @@ class JFormFieldImagetypes extends JFormField
          * @var EventgalleryLibraryImagetype $imagetype
          */
 
-        $return  = '<select multiple name="'.$this->name.'" id="'.$this->id.'">';
-        if ($imagetypeset != null) {
-            foreach($imagetypeset->getImageTypes() as $imagetype) {
-                $return .= '<option selected="selected" value="'.$imagetype->getId().'">'.$imagetype->getName().'</option>';
-            }
+        $return = '<select name="'.$this->name.'" id="'.$this->id.'">';
+        $defaultid = -1;
+        if ($imagetypeset != null){
+            $defaultid = $imagetypeset->getDefaultImageType()->getId();
         }
 
         foreach($imagetypes as $imagetype) {
 
+            $imagetype->getId()==$defaultid?$selected='selected="selected"':$selected='';
 
-            if ($imagetypeset != null && $imagetypeset->getImageType($imagetype->getId())!=null){
-                continue;
-            }
-            $return .= '<option value="'.$imagetype->getId().'">'.$imagetype->getName().'</option>';
+            $return .= '<option '.$selected.' value="'.$imagetype->getId().'">'.$imagetype->getName().'</option>';
         }
-        $return .= "</select>";        
+        $return .= "</select>";
 
         return $return;
 
