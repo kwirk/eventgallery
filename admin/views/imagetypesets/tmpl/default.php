@@ -44,7 +44,7 @@ JHtml::_('behavior.tooltip');
         <tbody>
         <?php foreach ($this->items as $i => $item) :
         /**
-         * @var EventgalleryLibraryOrder $item;
+         * @var EventgalleryLibraryImagetypeset $item;
          */
         ?>
 
@@ -75,6 +75,9 @@ JHtml::_('behavior.tooltip');
                         <a href="<?php echo JRoute::_('index.php?option=com_eventgallery&task=imagetype.edit&id='.$imagetype->getId()); ?>">
                             <?php echo $imagetype->getName() ?>                            
                         </a>
+                        <?php IF ($imagetype->getId()==$item->getDefaultImageType()->getId()):?>
+                            <i class="icon-star"></i>
+                        <?php ENDIF ?>
                         (<?php echo $imagetype->getPrice() ?>
                         <?php echo $imagetype->getCurrency() ?>)
 

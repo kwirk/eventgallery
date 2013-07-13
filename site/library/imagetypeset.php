@@ -145,7 +145,11 @@ class EventgalleryLibraryImagetypeset extends EventgalleryLibraryDatabaseObject
     {
         if ($this->_defaultimagetype_id == NULL) {
             $result = array_values($this->_imagetypes);
-            return $result[0];
+            if (isset($result[0])) {
+                return $result[0];
+            } else {
+                return null;
+            }
         } else {
             return $this->getImageType($this->_defaultimagetype_id);
         }

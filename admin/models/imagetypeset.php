@@ -81,43 +81,45 @@ class EventgalleryModelImagetypeset extends JModelAdmin
 
         $default_imagetypeid = $data['imagetypesdefault'];
 
+
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->delete('#__eventgallery_imagetypeset_imagetype_assignment');
         $query->where('imagetypesetid = '.$db->quote($id));
         $db->setQuery($query);
         $db->execute();
+        
+        if (count($data['imagetypes'])>0) {
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->insert('#__eventgallery_imagetypeset_imagetype_assignment');
+            $query->columns('imagetypesetid, imagetypeid, ordering');
+            foreach($data['imagetypes'] as $i=>$imagetypeid) {
 
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
-        $query->insert('#__eventgallery_imagetypeset_imagetype_assignment');
-        $query->columns('imagetypesetid, imagetypeid, ordering');
-        foreach($data['imagetypes'] as $i=>$imagetypeid) {
+                $query->values($db->quote($id).','.$db->quote($imagetypeid).','.$i);
+            }
+            $db->setQuery($query);
+            $db->execute();
 
-            $query->values($db->quote($id).','.$db->quote($imagetypeid).','.$i);
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->update('#__eventgallery_imagetypeset_imagetype_assignment');
+            $query->set('`default` = 0');
+            $query->where('imagetypesetid = '.$db->quote($id));
+
+            $db->setQuery($query);
+            $db->execute();
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true);
+            $query->update('#__eventgallery_imagetypeset_imagetype_assignment');
+            $query->set('`default` = 1');
+            $query->where('imagetypeid='.$db->quote($default_imagetypeid));
+            $query->where('imagetypesetid = '.$db->quote($id));
+            $db->setQuery($query);
+            $db->execute();
+
         }
-        $db->setQuery($query);
-        $db->execute();
-
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
-        $query->update('#__eventgallery_imagetypeset_imagetype_assignment');
-        $query->set('`default` = 0');
-        $query->where('imagetypesetid = '.$db->quote($id));
-
-        $db->setQuery($query);
-        $db->execute();
-
-        $db = JFactory::getDBO();
-        $query = $db->getQuery(true);
-        $query->update('#__eventgallery_imagetypeset_imagetype_assignment');
-        $query->set('`default` = 1');
-        $query->where('imagetypeid='.$db->quote($default_imagetypeid));
-        $query->where('imagetypesetid = '.$db->quote($id));
-        $db->setQuery($query);
-        $db->execute();
-
-
         return true;
     }
 

@@ -34,7 +34,7 @@ class JFormFieldImagetypesdefault extends JFormField
 
         $return = '<select name="'.$this->name.'" id="'.$this->id.'">';
         $defaultid = -1;
-        if ($imagetypeset != null){
+        if ($imagetypeset != null && $imagetypeset->getDefaultImageType()){
             $defaultid = $imagetypeset->getDefaultImageType()->getId();
         }
 
