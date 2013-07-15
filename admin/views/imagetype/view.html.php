@@ -40,6 +40,8 @@ class EventgalleryViewImagetype extends JViewLegacy
 		}
 
 		$this->addToolbar();
+		EventgalleryHelpersEventgallery::addSubmenu('imagetype');      
+        $this->sidebar = JHtmlSidebar::render();
 		return parent::display($tpl);
 	}
 
@@ -47,14 +49,14 @@ class EventgalleryViewImagetype extends JViewLegacy
 		$isNew		= ($this->item->id < 1);
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_IMAGETYPE' ).': <small>[ ' . $text.' ]</small>' );
-		
-		
-		if (!$isNew)  {			
-			JToolBarHelper::apply('imagetype.apply');			
-		}
 
+		JToolBarHelper::apply('imagetype.apply');			
 		JToolBarHelper::save('imagetype.save');
-		JToolBarHelper::cancel( 'imagetype.cancel' );
+		if ($isNew)  {			
+			JToolBarHelper::cancel( 'imagetype.cancel' );
+		} else {
+			JToolBarHelper::cancel( 'imagetype.cancel', JText::_( 'JTOOLBAR_CLOSE' ) );
+		}
 
 	}
 

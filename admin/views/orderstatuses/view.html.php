@@ -35,7 +35,9 @@ class EventgalleryViewOrderstatuses extends JViewLegacy
             JError::raiseError(500, implode("\n", $errors));
             return false;
         }
+        EventgalleryHelpersEventgallery::addSubmenu('orderstatuses');      
         $this->addToolbar();
+        $this->sidebar = JHtmlSidebar::render();
         return parent::display($tpl);
     }
 

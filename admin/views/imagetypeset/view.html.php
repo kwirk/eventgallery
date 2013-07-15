@@ -40,6 +40,8 @@ class EventgalleryViewImagetypeset extends JViewLegacy
 		}
 
 		$this->addToolbar();
+		EventgalleryHelpersEventgallery::addSubmenu('imagetypeset');      
+        $this->sidebar = JHtmlSidebar::render();
 		return parent::display($tpl);
 	}
 
@@ -48,13 +50,13 @@ class EventgalleryViewImagetypeset extends JViewLegacy
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_IMAGETYPESETS' ).': <small>[ ' . $text.' ]</small>' );
 		
-		
-		if (!$isNew)  {			
-			JToolBarHelper::apply('imagetypeset.apply');			
-		}
-
+		JToolBarHelper::apply('imagetypeset.apply');			
 		JToolBarHelper::save('imagetypeset.save');
-		JToolBarHelper::cancel( 'imagetypeset.cancel' );
+		if ($isNew)  {			
+			JToolBarHelper::cancel( 'imagetypeset.cancel' );
+		} else {
+			JToolBarHelper::cancel( 'imagetypeset.cancel', JText::_( 'JTOOLBAR_CLOSE' ) );
+		}
 
 	}
 

@@ -16,6 +16,10 @@ jimport( 'joomla.html.pagination');
 class EventgalleryViewComments extends JViewLegacy
 {
 
+	protected $items;
+	protected $paginations;
+	protected $filer;
+
 	function display($tpl = null)
 	{
 		
@@ -32,15 +36,15 @@ class EventgalleryViewComments extends JViewLegacy
 		$model = $this->getModel();		
 		
 		
-		$filter = $app->getUserStateFromRequest('com_eventgallery.comments.filter','filter');       
-		$model->setState('com_eventgallery.comments.filter',$filter);
+		$this->filter = $app->getUserStateFromRequest('com_eventgallery.comments.filter','filter');       
+		$model->setState('com_eventgallery.comments.filter',$this->filter);
 				   
-		$pageNav = $model->getPagination();		
-		$items = $model->getItems();
+		$this->pagination = $model->getPagination();		
+		$this->items = $model->getItems();
 		
-		$this->assignRef('items',		$items);
-		$this->assignRef('pageNav', $pageNav);
-		$this->assignRef('filter', $filter);
+
+		EventgalleryHelpersEventgallery::addSubmenu('comments');		
+		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
 	}

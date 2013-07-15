@@ -10,6 +10,11 @@
 
 defined('_JEXEC') or die('Restricted access'); 
 
+$document = JFactory::getDocument();    
+$css=JURI::base().'administrator/components/com_eventgallery/media/css/manual.css';
+$document->addStyleSheet($css); 
+
+
 ?>
 
 <form method="POST" name="adminForm" id="adminForm">
@@ -138,24 +143,32 @@ div#documentation {font-size:16px;}
 }
 
 </style>
-
-<div id="documentation">
-<?php
-	 require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/markdown.php';
-   require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/MarkdownExtra.php';
-
-
-   use \Michelf\MarkdownExtra;
-	 $my_html = MarkdownExtra::defaultTransform(file_get_contents(JPATH_COMPONENT."/doc/readme.md"));;
-
-	 //fix links
-	 $search  = '<img src="img/';
-	 $replace = '<img src="'.JURI::base().'components/com_eventgallery/doc/img/';
-	 $my_html = str_replace($search, $replace, $my_html);
-	
+<?php if (!empty( $this->sidebar)) : ?>
+  <div id="j-sidebar-container" class="span2">
+    <?php echo $this->sidebar; ?>
+  </div>
+  <div id="j-main-container" class="span10">
+<?php else : ?>
+  <div id="j-main-container">
+<?php endif;?>    
+  <div id="documentation">
+  <?php
+  	 require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/markdown.php';
+     require_once JPATH_COMPONENT.'/helpers/php_markdown_extra/MarkdownExtra.php';
 
 
-	 echo $my_html;
-?>
+     use \Michelf\MarkdownExtra;
+  	 $my_html = MarkdownExtra::defaultTransform(file_get_contents(JPATH_COMPONENT."/doc/readme.md"));;
+
+  	 //fix links
+  	 $search  = '<img src="img/';
+  	 $replace = '<img src="'.JURI::base().'components/com_eventgallery/doc/img/';
+  	 $my_html = str_replace($search, $replace, $my_html);
+  	
+
+
+  	 echo $my_html;
+  ?>
+  </div>
 </div>
 

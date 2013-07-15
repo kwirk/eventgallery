@@ -23,10 +23,15 @@ class EventgalleryViewUpload extends JViewLegacy
 
 		$this->item		= $this->get('Item');
 
+		$this->addToolbar();
+		EventgalleryHelpersEventgallery::addSubmenu('events');		
+		$this->sidebar = JHtmlSidebar::render();
+		parent::display($tpl);
+	}
+
+	protected function addToolbar() {
 		JToolBarHelper::title(   JText::_( 'Event' ).': <small><small>[ upload ]</small></small>' );
 		JToolBarHelper::cancel( 'upload.cancel', 'Close' );
-
-		parent::display($tpl);
 	}
 }
 

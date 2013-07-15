@@ -39,12 +39,14 @@ class EventgalleryViewOrder extends JViewLegacy
                 return false;
             }
         $this->addToolbar();
+        EventgalleryHelpersEventgallery::addSubmenu('order');      
+        $this->sidebar = JHtmlSidebar::render();
         return parent::display($tpl);
     }
 
     private function addToolbar() {
 
-        JToolBarHelper::title(  JText::_( 'COM_EVENTGALLERY_ORDER' ) );
+        JToolBarHelper::title(  JText::_( 'COM_EVENTGALLERY_ORDER' ) .' '. $this->item->getDocumentNumber());
 
         JToolBarHelper::apply('order.apply');
         JToolBarHelper::save('order.save');

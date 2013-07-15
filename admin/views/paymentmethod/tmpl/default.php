@@ -36,27 +36,34 @@ JHtml::_('formbehavior.chosen', 'select');
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventgallery&layout=edit&id='.(int) $this->item->id); ?>" method="POST" name="adminForm" id="adminForm">
 
-<div class="col100">
-	<fieldset class="adminform">
-
-        <?php foreach ($this->form->getFieldset() as $field): ?>
-            <div class="control-group">
-                <?php if (!$field->hidden): ?>
-                    <?php echo $field->label; ?>
-                <?php endif; ?>
-                <div class="controls">
-                    <?php echo $field->input; ?>
+<?php if (!empty( $this->sidebar)) : ?>
+    <div id="j-sidebar-container" class="span2">
+        <?php echo $this->sidebar; ?>
+    </div>
+    <div id="j-main-container" class="span10">
+<?php else : ?>
+    <div id="j-main-container">
+<?php endif;?>
+    	<fieldset class="adminform form-horizontal">
+            
+            <?php foreach ($this->form->getFieldset() as $field): ?>
+                <div class="control-group">
+                    <?php if (!$field->hidden): ?>
+                        <div class="control-label"><?php echo $field->label; ?></div>
+                    <?php endif; ?>
+                    <div class="controls">
+                        <?php echo $field->input; ?>
+                    </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
 
-    </fieldset>
-</div>
+         </fieldset>
+    </div>
 
-<div class="clr"></div>
+    <div class="clr"></div>
 
-<?php echo JHtml::_('form.token'); ?>
-<input type="hidden" name="option" value="com_eventgallery" />
-<input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
-<input type="hidden" name="task" value="" />
+    <?php echo JHtml::_('form.token'); ?>
+    <input type="hidden" name="option" value="com_eventgallery" />
+    <input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
+    <input type="hidden" name="task" value="" />
 </form>

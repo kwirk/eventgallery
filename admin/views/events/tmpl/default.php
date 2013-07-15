@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
 <?php endif;?>
 		<div id="filter-bar" class="btn-toolbar">
 			<div class="btn-group pull-right hidden-phone">
-				<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC'); ?></label>
+				<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
 				<?php echo $this->pagination->getLimitBox(); ?>
 			</div>
 		</div>
@@ -158,6 +158,9 @@ defined('_JEXEC') or die('Restricted access');
 		}
 		?>
 		</table>
+		<div class="pagination pagination-toolbar">
+			<?php echo $this->pagination->getPagesLinks(); ?>
+		</div>
 	</div>
 
 	<input type="hidden" name="option" value="com_eventgallery" />
@@ -165,11 +168,5 @@ defined('_JEXEC') or die('Restricted access');
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="limitstart" value="<?php echo $this->pagination->limitstart; ?>" />
     <?php echo JHtml::_('form.token'); ?>
-	<div class="pagination pagination-toolbar">
-		<?php echo $this->pagination->getPagesLinks(); ?>
-	</div>
-
-
-		
+	
 </form>
-<br>

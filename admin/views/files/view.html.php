@@ -38,7 +38,8 @@ class EventgalleryViewFiles extends JViewLegacy
         }
 
         $this->addToolbar();
-
+        EventgalleryHelpersEventgallery::addSubmenu('files');      
+        $this->sidebar = JHtmlSidebar::render();
         return parent::display($tpl);
 	}
 

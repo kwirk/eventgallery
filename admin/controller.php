@@ -17,73 +17,6 @@ class EventgalleryController extends JControllerLegacy
 	
 	protected $default_view = 'events';
 
-	public static function addSubmenu($vName)
-	{
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTS'),
-			'index.php?option=com_eventgallery',
-			$vName == 'events' || $vName==''
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_COMMENTS'),
-			'index.php?option=com_eventgallery&view=comments',
-			$vName == 'comments');
-
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_ORDERS'),
-			'index.php?option=com_eventgallery&view=orders',
-			$vName == 'orders');
-
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_ORDERSTATUSES'),
-			'index.php?option=com_eventgallery&view=orderstatuses',
-			$vName == 'orderstatuses');
-
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_IMAGETYPESETS'),
-			'index.php?option=com_eventgallery&view=imagetypesets',
-			$vName == 'imagetypesets');
-
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_IMAGETYPES'),
-			'index.php?option=com_eventgallery&view=imagetypes',
-			$vName == 'imagetypes');
-		
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_SURCHARGES'),
-			'index.php?option=com_eventgallery&view=surcharges',
-			$vName == 'surcharges');
-
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_SHIPPINGMETHODS'),
-			'index.php?option=com_eventgallery&view=shippingmethods',
-			$vName == 'shippingmethods');
-
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_PAYMENTMETHODS'),
-			'index.php?option=com_eventgallery&view=paymentmethods',
-			$vName == 'paymentmethods');
-
-		/*
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_CLEAR_CACHE'),
-			'index.php?option=com_eventgallery&task=clearCache',
-			$vName == 'clearCache'
-		);
-		
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_SYNC_DATABASE'),
-			'index.php?option=com_eventgallery&task=refreshDatabase',
-			$vName == 'refreshDatabase'
-		);*/
-
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION'),
-			'index.php?option=com_eventgallery&view=documentation',
-			$vName == 'documentation'
-		);
-	}
-
 
     /**
      * constructor (registers additional tasks to methods)
@@ -91,13 +24,7 @@ class EventgalleryController extends JControllerLegacy
      */
 	function __construct()
 	{
-		parent::__construct();
-
-		// Register Extra tasks
-		$this->registerTask( 'newFolder'  , 'editEvent' );
-		$this->registerTask( 'edit'  , 	'editEvent' );
-		$this->registerTask( 'applyEvent', 'saveEvent');
-		
+		parent::__construct();	
 	}
 	/*
 	 * Standard display method
@@ -110,8 +37,6 @@ class EventgalleryController extends JControllerLegacy
 	 */
 	public function display($cachable = false, $urlparams = false)
 	{
-
-		EventgalleryController::addSubmenu(JRequest::getCmd('view', 'events'));
 		parent::display($cachable, $urlparams);
 	}
 
@@ -123,7 +48,7 @@ class EventgalleryController extends JControllerLegacy
 	function comments()
 	{
 		
-		EventgalleryController::addSubmenu(JRequest::getCmd('view', 'comments'));
+		EventgalleryHelpersEventgallery::addSubmenu(JRequest::getCmd('view', 'comments'));
 		$view = $this->getView('comments','html');
 		$view->setModel($this->getModel('comments'),true);
 		$view->display();

@@ -36,6 +36,8 @@ class EventgalleryViewShippingmethods extends JViewLegacy
             return false;
         }
         $this->addToolbar();
+        EventgalleryHelpersEventgallery::addSubmenu('shippingmethods');      
+        $this->sidebar = JHtmlSidebar::render();
         return parent::display($tpl);
     }
 

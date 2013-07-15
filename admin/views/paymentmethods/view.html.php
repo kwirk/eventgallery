@@ -36,6 +36,8 @@ class EventgalleryViewPaymentmethods extends JViewLegacy
             return false;
         }
         $this->addToolbar();
+        EventgalleryHelpersEventgallery::addSubmenu('paymentmethods');      
+        $this->sidebar = JHtmlSidebar::render();
         return parent::display($tpl);
     }
 

@@ -168,7 +168,6 @@ defined('_JEXEC') or die('Restricted access');
 		<div class="pagination pagination-toolbar">
 			<?php echo $this->pagination->getPagesLinks(); ?>
 		</div>	
-
 	</div>
 </form>
 

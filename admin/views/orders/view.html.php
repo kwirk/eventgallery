@@ -40,6 +40,8 @@ class EventgalleryViewOrders extends JViewLegacy
         }
 
         $this->addToolbar();
+        EventgalleryHelpersEventgallery::addSubmenu('orders');      
+        $this->sidebar = JHtmlSidebar::render();
 
         return parent::display($tpl);
     }

@@ -36,6 +36,8 @@ class EventgalleryViewImagetypes extends JViewLegacy
             return false;
         }
         $this->addToolbar();
+        EventgalleryHelpersEventgallery::addSubmenu('imagetypes');      
+        $this->sidebar = JHtmlSidebar::render();
         return parent::display($tpl);
     }
 

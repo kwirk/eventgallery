@@ -16,9 +16,30 @@ jimport( 'joomla.html.pagination');
 /** @noinspection PhpUndefinedClassInspection */
 class EventgalleryViewEvents extends JViewLegacy
 {
+
+	protected $items;
+	protected $pagination;
+
 	function display($tpl = null)
-	{		
+	{				
+		// Get data from the model
 		
+		$model = $this->getModel();		
+		$pagination = $model->getPagination();		
+		$items = $model->getItems();
+
+
+		$this->items =$items;
+		$this->pagination = $pagination;
+
+		EventgalleryHelpersEventgallery::addSubmenu('events');		
+		$this->sidebar = JHtmlSidebar::render();
+		$this->addToolbar();
+		parent::display($tpl);
+	}
+
+	protected function addToolbar() {
+
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ), 'generic.png' );
 		//JToolBarHelper::deleteList();
 		JToolBarHelper::addNew('event.add');
@@ -39,19 +60,6 @@ class EventgalleryViewEvents extends JViewLegacy
 		$bar->appendButton('Confirm', 'COM_EVENTGALLERY_CLEAR_CACHE_ALERT', 'trash', 'COM_EVENTGALLERY_SUBMENU_CLEAR_CACHE',  'clearCache', false);
 		$bar->appendButton('Confirm', 'COM_EVENTGALLERY_SYNC_DATABASE_SYNC_ALERT', 'checkin', 'COM_EVENTGALLERY_SUBMENU_SYNC_DATABASE',  'refreshDatabase', false);
 		
-		// Get data from the model
-		
-		$model = $this->getModel();		
-		$pagination = $model->getPagination();		
-		$items = $model->getItems();
-		
-		$ordering = true;
-		$this->assignRef('ordering', $ordering);
-
-		$this->assignRef('items',		$items);
-		$this->assignRef('pagination', $pagination);
-
-		parent::display($tpl);
 	}
 }
 

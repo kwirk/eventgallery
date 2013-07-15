@@ -40,6 +40,8 @@ class EventgalleryViewOrderstatus extends JViewLegacy
 		}
 
 		$this->addToolbar();
+		EventgalleryHelpersEventgallery::addSubmenu('orderstatus');      
+        $this->sidebar = JHtmlSidebar::render();
 		return parent::display($tpl);
 	}
 
@@ -47,14 +49,15 @@ class EventgalleryViewOrderstatus extends JViewLegacy
 		$isNew		= ($this->item->id < 1);
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_ORDERSTATUS' ).': <small>[ ' . $text.' ]</small>' );
-		
-		
-		if (!$isNew)  {			
-			JToolBarHelper::apply('orderstatus.apply');			
+				
+		JToolBarHelper::apply('orderstatus.apply');			
+		JToolBarHelper::save('orderstatus.save');
+		if ($isNew)  {			
+			JToolBarHelper::cancel( 'orderstatus.cancel' );
+		} else {
+			JToolBarHelper::cancel( 'orderstatus.cancel', JText::_( 'JTOOLBAR_CLOSE' ) );
 		}
 
-		JToolBarHelper::save('orderstatus.save');
-		JToolBarHelper::cancel( 'orderstatus.cancel' );
 
 	}
 

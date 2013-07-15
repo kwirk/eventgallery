@@ -12,14 +12,15 @@ class EventgalleryViewDocumentation extends JViewLegacy
 {
 	function display($tpl = null)
 	{		
-		$document = JFactory::getDocument();	
-	
-	    $css=JURI::base().'administrator/components/com_eventgallery/media/css/manual.css';
-		$document->addStyleSheet($css);	
-
-		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_SUBMENU_DOCUMENTATION' ) );				
+		EventgalleryHelpersEventgallery::addSubmenu('documentation');		
+		$this->sidebar = JHtmlSidebar::render();
+		$this->addToolbar();
 
 		parent::display($tpl);
+	}
+
+	protected function addToolbar() {
+		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_SUBMENU_DOCUMENTATION' ) );
 	}
 }
 

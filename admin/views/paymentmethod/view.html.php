@@ -40,6 +40,8 @@ class EventgalleryViewPaymentmethod extends JViewLegacy
 		}
 
 		$this->addToolbar();
+		EventgalleryHelpersEventgallery::addSubmenu('paymentmethod');      
+        $this->sidebar = JHtmlSidebar::render();
 		return parent::display($tpl);
 	}
 
@@ -48,13 +50,13 @@ class EventgalleryViewPaymentmethod extends JViewLegacy
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_PAYMENTMETHOD' ).': <small>[ ' . $text.' ]</small>' );
 		
-		
-		if (!$isNew)  {			
-			JToolBarHelper::apply('paymentmethod.apply');			
-		}
-
+		JToolBarHelper::apply('paymentmethod.apply');			
 		JToolBarHelper::save('paymentmethod.save');
-		JToolBarHelper::cancel( 'paymentmethod.cancel' );
+		if ($isNew)  {			
+			JToolBarHelper::cancel( 'paymentmethod.cancel' );
+		} else {
+			JToolBarHelper::cancel( 'paymentmethod.cancel', JText::_( 'JTOOLBAR_CLOSE' ) );
+		}
 
 	}
 

@@ -34,7 +34,8 @@ class EventgalleryViewComment extends JViewLegacy
 			JToolBarHelper::cancel( 'cancelComment', 'Close' );
 		}
 		$this->assignRef('comment',		$comment);
-
+		EventgalleryHelpersEventgallery::addSubmenu('comment');      
+        $this->sidebar = JHtmlSidebar::render();
 		parent::display($tpl);
 	}
 }

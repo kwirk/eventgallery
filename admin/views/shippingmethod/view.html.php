@@ -40,6 +40,8 @@ class EventgalleryViewShippingmethod extends JViewLegacy
 		}
 
 		$this->addToolbar();
+		EventgalleryHelpersEventgallery::addSubmenu('shippingmethod');      
+        $this->sidebar = JHtmlSidebar::render();
 		return parent::display($tpl);
 	}
 
@@ -49,12 +51,14 @@ class EventgalleryViewShippingmethod extends JViewLegacy
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_SHIPPINGMETHOD' ).': <small>[ ' . $text.' ]</small>' );
 		
 		
-		if (!$isNew)  {			
-			JToolBarHelper::apply('shippingmethod.apply');			
+		JToolBarHelper::apply('shippingmethod.apply');			
+		JToolBarHelper::save('shippingmethod.save');
+		if ($isNew)  {			
+			JToolBarHelper::cancel( 'shippingmethod.cancel' );
+		} else {
+			JToolBarHelper::cancel( 'shippingmethod.cancel', JText::_( 'JTOOLBAR_CLOSE' ) );
 		}
 
-		JToolBarHelper::save('shippingmethod.save');
-		JToolBarHelper::cancel( 'shippingmethod.cancel' );
 
 	}
 

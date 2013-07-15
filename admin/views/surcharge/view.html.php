@@ -40,6 +40,8 @@ class EventgalleryViewSurcharge extends JViewLegacy
 		}
 
 		$this->addToolbar();
+		EventgalleryHelpersEventgallery::addSubmenu('surcharge');      
+        $this->sidebar = JHtmlSidebar::render();
 		return parent::display($tpl);
 	}
 
@@ -49,12 +51,14 @@ class EventgalleryViewSurcharge extends JViewLegacy
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_SURCHARGE' ).': <small>[ ' . $text.' ]</small>' );
 		
 		
-		if (!$isNew)  {			
-			JToolBarHelper::apply('surcharge.apply');			
+		JToolBarHelper::apply('surcharge.apply');			
+		JToolBarHelper::save('surcharge.save');
+		if ($isNew)  {			
+			JToolBarHelper::cancel( 'surcharge.cancel' );
+		} else {
+			JToolBarHelper::cancel( 'surcharge.cancel', JText::_( 'JTOOLBAR_CLOSE' ) );
 		}
 
-		JToolBarHelper::save('surcharge.save');
-		JToolBarHelper::cancel( 'surcharge.cancel' );
 
 	}
 

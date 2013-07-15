@@ -21,6 +21,7 @@ JTable::addIncludePath(
 );
 
 JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT_SITE);
+JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT);
 
 // Execute the task.
 $controller	= JControllerLegacy::getInstance('Eventgallery');

@@ -36,6 +36,8 @@ class EventgalleryViewSurcharges extends JViewLegacy
             return false;
         }
         $this->addToolbar();
+        EventgalleryHelpersEventgallery::addSubmenu('surcharges');      
+        $this->sidebar = JHtmlSidebar::render();
         return parent::display($tpl);
     }
 

@@ -40,6 +40,8 @@ class EventgalleryViewEvent extends JViewLegacy
 		}
 
 		$this->addToolbar();
+		EventgalleryHelpersEventgallery::addSubmenu('event');      
+        $this->sidebar = JHtmlSidebar::render();
 		return parent::display($tpl);
 	}
 
@@ -47,14 +49,15 @@ class EventgalleryViewEvent extends JViewLegacy
 		$isNew		= ($this->item->id < 1);
 		$text = $isNew ? JText::_( 'New' ) : JText::_( 'Edit' );
 		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTS' ).': <small><small>[ ' . $text.' ]</small></small>' );
-		
-		
-		if (!$isNew)  {			
-			JToolBarHelper::apply('event.apply');			
+			
+		JToolBarHelper::apply('event.apply');			
+		JToolBarHelper::save('event.save');
+		if ($isNew)  {			
+			JToolBarHelper::cancel( 'event.cancel' );
+		} else {
+			JToolBarHelper::cancel( 'event.cancel', JText::_( 'JTOOLBAR_CLOSE' ) );
 		}
 
-		JToolBarHelper::save('event.save');
-		JToolBarHelper::cancel( 'event.cancel' );
 
 	}
 
