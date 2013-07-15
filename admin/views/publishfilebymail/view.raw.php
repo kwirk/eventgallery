@@ -39,4 +39,4 @@ class EventgalleryViewPublishFileByMail extends JViewLegacy
 		parent::display();
 	}
 }
-?>
+

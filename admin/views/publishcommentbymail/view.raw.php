@@ -38,4 +38,4 @@ class EventgalleryViewPublishCommentByMail extends JViewLegacy
 		parent::display();
 	}
 }
-?>
+

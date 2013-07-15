@@ -24,13 +24,13 @@ class TableStaticaddress extends JTable
     public $zip;
     public $modified;
     public $created;
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
+
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
+
 	function __construct( &$db ) {
 		parent::__construct('#__eventgallery_staticaddress', 'id', $db);
 	}
 }
-?>

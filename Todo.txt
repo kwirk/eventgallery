@@ -1,7 +1,7 @@
 Front End
 
 - User-Management
-- Order Tracking
+- Order Tracking (per User oder per email+password)
 - AGB
 - Impressum
 - licence key per payment/shipping method
@@ -17,3 +17,11 @@ Back End
 - form fields
 	- plugin specific fields + save hocks
 	- image type selection incl. default setting
+
+- Order Details
+	- anzeige des Status unab. von der Select-Box
+	- 
+
+
+System
+	- get paypal application if

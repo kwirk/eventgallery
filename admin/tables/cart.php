@@ -32,11 +32,11 @@ class TableCart extends JTable
     public $modified;
     public $created;
 
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
+
 	function __construct( &$db ) {
 		parent::__construct('#__eventgallery_cart', 'id', $db);
 	}

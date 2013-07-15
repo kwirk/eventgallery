@@ -25,13 +25,12 @@ class TableComment extends JTable
 	var $published = null;
 	var $lastmodified = null;
 
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
+
 	function TableComment($db) {
 		parent::__construct('#__eventgallery_comment', 'id', $db);
 	}
 }
-?>

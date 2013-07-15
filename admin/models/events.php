@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 
 jimport( 'joomla.application.component.modellist' );
 
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryModelEvents extends JModelList
 {
 

@@ -14,6 +14,7 @@ defined('_JEXEC') or die();
 jimport( 'joomla.application.component.modeladmin' );
 jimport('joomla.html.pagination');
 
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryModelEvent extends JModelAdmin
 {
 

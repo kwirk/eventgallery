@@ -24,7 +24,6 @@ class EventgalleryControllerUpload extends JControllerForm
 
 	/**
 	 * function to provide the upload-View 
-	 * @return unknown_type
 	 */
 	function upload()
 	{
@@ -108,7 +107,7 @@ class EventgalleryControllerUpload extends JControllerForm
 
 		if (!$ajaxMode) {
 			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_COMPLETE' );
-			//$this->setRedirect( 'index.php?option=com_eventgallery&task=upload', $msg );
+			$this->setRedirect( 'index.php?option=com_eventgallery&task=upload', $msg );
 		} 
 
 	}

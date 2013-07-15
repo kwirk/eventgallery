@@ -47,13 +47,12 @@ class TableOrder extends JTable
 
 
 
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
+
 	function __construct( &$db ) {
 		parent::__construct('#__eventgallery_order', 'id', $db);
 	}
 }
-?>

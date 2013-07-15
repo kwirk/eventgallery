@@ -37,7 +37,6 @@ class EventgalleryModelMethod extends JModelAdmin
     public function getForm($data = array(), $loadData = true)
     {
         // Initialise variables.
-        $app = JFactory::getApplication();
 
         // Get the form.
         $form = $this->loadForm($this->form_name, $this->form_source, array('control' => 'jform', 'load_data' => $loadData));

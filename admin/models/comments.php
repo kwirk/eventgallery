@@ -17,10 +17,7 @@ class EventgalleryModelComments extends JModelList
 
 	function __construct()
 	{
-	    parent::__construct();	    
-	    
-	    $app = JFactory::getApplication();
-	    
+	    parent::__construct();
 	}
 
 	/**

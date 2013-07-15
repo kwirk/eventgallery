@@ -71,7 +71,11 @@ JHtml::_('behavior.tooltip');
                     
                 </td>
                 <td>
-                    <?php FOREACH($item->getImageTypes() as $imagetype):?>
+                    <?php FOREACH($item->getImageTypes() as $imagetype):
+                        /**
+                         * @var EventgalleryLibraryImagetype $imagetype
+                         */
+                          ?>
                         <a href="<?php echo JRoute::_('index.php?option=com_eventgallery&task=imagetype.edit&id='.$imagetype->getId()); ?>">
                             <?php echo $imagetype->getName() ?>                            
                         </a>

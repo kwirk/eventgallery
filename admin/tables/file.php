@@ -26,13 +26,12 @@ class TableFile extends JTable
 	var $ismainimage = null;
 	var $ismainimageonly = null;
 
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
+
 	function TableFile($db) {
 		parent::__construct('#__eventgallery_file', 'id', $db);
 	}
 }
-?>

@@ -54,7 +54,7 @@ class EventgalleryModelOrder extends JModelAdmin
             // Prime some default values.
             if ($this->getState('order.id') == 0) {
                 $app = JFactory::getApplication();
-                $data->set('id', JRequest::getVar('id', $app->getUserState('com_eventgallery.orders.filter.category_id')));
+                $data['id']= JRequest::getVar('id', $app->getUserState('com_eventgallery.orders.filter.category_id'));
             }
         }
         return $data;
@@ -62,7 +62,7 @@ class EventgalleryModelOrder extends JModelAdmin
 
     /**
      * @param string $pk
-     * @return bool|mixed|object
+     * @return bool|mixed|EventgalleryLibraryOrder
      */
     public function getItem($pk = null)
     {

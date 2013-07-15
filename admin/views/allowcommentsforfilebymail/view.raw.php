@@ -39,4 +39,4 @@ class EventgalleryViewAllowCommentsForFileByMail extends JViewLegacy
 		parent::display();
 	}
 }
-?>
+

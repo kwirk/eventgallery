@@ -47,7 +47,7 @@ JHtml::_('behavior.tooltip');
         <tbody>
         <?php foreach ($this->items as $i => $item) :
         /**
-         * @var EventgalleryLibraryOrder $item;
+         * @var EventgalleryLibraryImagetype $item;
          */
         ?>
 

@@ -13,6 +13,7 @@ jimport( 'joomla.application.component.view');
 jimport( 'joomla.html.pagination');
 
 
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryViewEvents extends JViewLegacy
 {
 	function display($tpl = null)
@@ -53,4 +54,4 @@ class EventgalleryViewEvents extends JViewLegacy
 		parent::display($tpl);
 	}
 }
-?>
+

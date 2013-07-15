@@ -28,8 +28,9 @@ class EventgalleryModelFile extends JModelAdmin
     /**
      * Method to delete record(s)
      *
-     * @access	public
-     * @return	boolean	True on success
+     * @access    public
+     * @param array $pks
+     * @return    boolean    True on success
      */
 
     function delete(&$pks)
@@ -83,9 +84,9 @@ class EventgalleryModelFile extends JModelAdmin
     }
 
     /**
-     * @param $pks the primary keys value
-     * @param $key the name of the column you want to change
-     * @param $value the name you want to set the value to.
+     * @param array $pks the primary keys value
+     * @param string $key the name of the column you want to change
+     * @param string $value the name you want to set the value to.
      * @return bool success
      */
     protected function setValue($pks, $key, $value) {

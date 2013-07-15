@@ -13,10 +13,11 @@ jimport( 'joomla.application.component.view' );
 
 class EventgalleryViewComment extends JViewLegacy
 {
-	/**
-	 * display method of Hello view
-	 * @return void
-	 **/
+    /**
+     * display method of Hello view
+     * @param null $tpl
+     * @return void
+     */
 	function display($tpl = null)
 	{
 		//get the hello

@@ -19,6 +19,9 @@ namespace Michelf;
 
 class Markdown {
 
+    public $ref_attr;
+    public $mode;
+
 	### Version ###
 
 	const  MARKDOWNLIB_VERSION  =  "1.3";
@@ -1524,7 +1527,8 @@ class Markdown {
 # one.
 #
 
-class _MarkdownExtra_TmpImpl extends \Michelf\Markdown {
+class _MarkdownExtra_TmpImpl extends Markdown
+{
 
 	### Configuration Variables ###
 

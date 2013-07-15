@@ -25,13 +25,12 @@ class TableImagetype extends JTable
 
     /**
      * Constructor
-     *
-     * @param object Database connector object
+     * @param JDatabaseDriver $db
      */
+
     function __construct(&$db)
     {
         parent::__construct('#__eventgallery_imagetype', 'id', $db);
     }
 }
 
-?>

@@ -33,6 +33,10 @@ class EventgalleryControllerOrder extends JControllerForm
 
         $app   = JFactory::getApplication();
         $lang  = JFactory::getLanguage();
+        /**
+         * @var EventgalleryModelOrder $model
+         * @var JTable $table
+         */
         $model = $this->getModel();
         $table = $model->getTable();
         $data  = $this->input->post->get('jform', array(), 'array');
@@ -139,7 +143,11 @@ class EventgalleryControllerOrder extends JControllerForm
             {
                 if ($errors[$i] instanceof Exception)
                 {
-                    $app->enqueueMessage($errors[$i]->getMessage(), 'warning');
+                    /**
+                     * @var Exception $exception
+                     */
+                    $exception = $errors[$i];
+                    $app->enqueueMessage($exception->getMessage(), 'warning');
                 }
                 else
                 {
@@ -271,6 +279,10 @@ class EventgalleryControllerOrder extends JControllerForm
     public function edit($key = null, $urlVar = null)
     {
         $app   = JFactory::getApplication();
+        /**
+         * @var EventgalleryModelOrder $model
+         * @var JTable $table
+         */
         $model = $this->getModel();
         $table = $model->getTable();
         $cid   = $this->input->post->get('cid', array(), 'array');
@@ -289,7 +301,7 @@ class EventgalleryControllerOrder extends JControllerForm
         }
 
         // Get the previous record id (if any) and the current record id.
-        $recordId =  (count($cid) ? $cid[0] : $this->input->getVar($urlVar));
+        $recordId =  (count($cid) ? $cid[0] : $this->input->getString($urlVar));
         $checkin = property_exists($table, 'checked_out');
 
         // Access check.

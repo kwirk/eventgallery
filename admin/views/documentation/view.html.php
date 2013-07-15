@@ -22,4 +22,4 @@ class EventgalleryViewDocumentation extends JViewLegacy
 		parent::display($tpl);
 	}
 }
-?>
+

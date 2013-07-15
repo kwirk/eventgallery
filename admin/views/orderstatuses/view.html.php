@@ -36,7 +36,7 @@ class EventgalleryViewOrderstatuses extends JViewLegacy
             return false;
         }
         $this->addToolbar();
-        parent::display($tpl);
+        return parent::display($tpl);
     }
 
     protected function addToolbar() {

@@ -27,4 +27,3 @@ $controller	= JControllerLegacy::getInstance('Eventgallery');
 $controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();
 
-?>

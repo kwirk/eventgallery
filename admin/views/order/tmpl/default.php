@@ -95,6 +95,9 @@ JHtml::_('formbehavior.chosen', 'select');
 <pre class="span12">
 <?php
     foreach($this->item->getLineitems() as $item) {
+        /**
+         * @var EventgalleryLibraryImagelineitem $item
+         */
         echo $this->item->getDocumentNumber();
         echo "\t";
         echo $item->getQuantity();

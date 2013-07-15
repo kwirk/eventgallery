@@ -16,6 +16,12 @@ class EventgalleryControllerOrders extends JControllerAdmin
     /**
      * Proxy for getModel.
      */
+    /**
+     * @param string $name
+     * @param string $prefix
+     * @param array $config
+     * @return EventgalleryModelOrder object
+     */
     public function getModel($name = 'Order', $prefix ='EventgalleryModel', $config = array('ignore_request' => true))
     {
         $model = parent::getModel($name, $prefix, $config);

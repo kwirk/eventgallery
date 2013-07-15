@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.controller');
 jimport('joomla.filesystem.file');
 
-
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryController extends JControllerLegacy
 {
 	
@@ -83,12 +83,12 @@ class EventgalleryController extends JControllerLegacy
 			$vName == 'documentation'
 		);
 	}
-	
-	
-	/**
-	 * constructor (registers additional tasks to methods)
-	 * @return void
-	 */
+
+
+    /**
+     * constructor (registers additional tasks to methods)
+     * @return \EventgalleryController
+     */
 	function __construct()
 	{
 		parent::__construct();
@@ -101,12 +101,15 @@ class EventgalleryController extends JControllerLegacy
 	}
 	/*
 	 * Standard display method
+	 *
+	 * @param   boolean  $cachable   If true, the view output will be cached
+	 * @param   array    $urlparams  An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}.
+	 *
+	 * @return  JControllerLegacy  A JControllerLegacy object to support chaining.
+
 	 */
 	public function display($cachable = false, $urlparams = false)
 	{
-		
-		$viewname = JRequest::getString('view', 'events');
-		$viewLayout = JRequest::getString('layout', 'default');
 
 		EventgalleryController::addSubmenu(JRequest::getCmd('view', 'events'));
 		parent::display($cachable, $urlparams);
@@ -146,6 +149,7 @@ class EventgalleryController extends JControllerLegacy
 		
 		JRequest::setVar( 'view', 'comment' );
 		$model = $this->getModel('comment');
+        $post = JRequest::get('post');
 
 		if ($model->store($post)) {
 			$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_SAVED_SUCCESS' );
@@ -159,7 +163,7 @@ class EventgalleryController extends JControllerLegacy
 	/**
 	 * function to remode a comment
 	 * 
-	 * @return unknown_type
+	 * @return void
 	 */
 	function removeComment()
 	{
@@ -176,7 +180,6 @@ class EventgalleryController extends JControllerLegacy
 
 	/**
 	 * function to cancel editing of a comment
-	 * @return unknown_type
 	 */
 	function cancelComment()
 	{
@@ -197,7 +200,6 @@ class EventgalleryController extends JControllerLegacy
 	
 	/**
 	 * function to unpublish a comment
-	 * @return unknown_type
 	 */
 	function Commentunpublish()
 	{
@@ -211,7 +213,6 @@ class EventgalleryController extends JControllerLegacy
 	/**
 	 * function to refresh the database-content. It syncs the content 
 	 * of the filesystem with content of the database
-	 * @return unknown_type
 	 */
 	function refreshDatabase()
 	{
@@ -261,7 +262,6 @@ class EventgalleryController extends JControllerLegacy
 			#Versuchen wir, ein paar Infos zu erraten
 			
 			$date = "";
-			$description = "";
 			$temp = array();
 
 			if (preg_match("/[0-9]{4}-[0-9]{2}-[0-9]{2}/",$folder, $temp))
@@ -270,7 +270,6 @@ class EventgalleryController extends JControllerLegacy
 				$description = str_replace($temp[0],'',$folder);
 			}
 			else {
-				$temp = $folder;
 				$description = $folder;
 			}
 
@@ -336,7 +335,6 @@ class EventgalleryController extends JControllerLegacy
 	/**
 	 * function to publish a file. This is uses for links in emails
 	 * 
-	 * @return unknown_type
 	 */
 	function publishFileByMail()
 	{
@@ -351,7 +349,6 @@ class EventgalleryController extends JControllerLegacy
 	/**
 	 * function to unpublish a file. This is uses for links in emails
 	 * 
-	 * @return unknown_type
 	 */
 	function unpublishFileByMail()
 	{
@@ -365,8 +362,7 @@ class EventgalleryController extends JControllerLegacy
 	/**
 	 * function to unpublish a comment. This is uses for links in emails
 	 * 
-	 * @return unknown_type
-	 */	
+	 */
 	function unpublishCommentByMail()
 	{
 		$model = $this->getModel('comment');
@@ -381,7 +377,6 @@ class EventgalleryController extends JControllerLegacy
 	
 	/**
 	 * function to disallow comments for a file
-	 * @return unknown_type
 	 */
 	function disallowCommentsForFileByMail()
 	{
@@ -401,7 +396,6 @@ class EventgalleryController extends JControllerLegacy
 	
 	/**
 	 * function so remove every cache-entry
-	 * @return unknown_type
 	 */
 	function clearCache()
 	{
@@ -425,4 +419,3 @@ function rrmdir($dir) {
     }
     rmdir($dir);
 }
-?>

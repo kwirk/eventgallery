@@ -12,13 +12,12 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableOrderstatus extends JTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
+
 	function __construct( &$db ) {
 		parent::__construct('#__eventgallery_orderstatus', 'id', $db);
 	}
 }
-?>

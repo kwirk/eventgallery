@@ -24,4 +24,4 @@ class TableEvent extends JTable
         parent::__construct('#__eventgallery_folder', 'id', $db);
     }
 }
-?>
+

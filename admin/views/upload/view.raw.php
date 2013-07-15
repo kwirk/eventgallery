@@ -13,6 +13,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryViewUpload extends JViewLegacy
 {
     protected $item;
@@ -22,4 +23,4 @@ class EventgalleryViewUpload extends JViewLegacy
 		echo "RAW";
 	}
 }
-?>
+

@@ -28,13 +28,12 @@ class TableUseraddress extends JTable
 
     public $userid;
 
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
+
 	function __construct( &$db ) {
 		parent::__construct('#__eventgallery_useraddress', 'id', $db);
 	}
 }
-?>

@@ -53,7 +53,6 @@ class EventgalleryControllerFiles extends JControllerAdmin
     /**
      * function to publish a single file/multiple files
      *
-     * @return unknown_type
      */
     function publish()
     {

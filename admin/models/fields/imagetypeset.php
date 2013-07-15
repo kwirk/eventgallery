@@ -22,7 +22,7 @@ class JFormFieldImagetypeset extends JFormField
         $imagetypesets = $imagetypesetMgr->getImageTypeSets(true);
 
         if ($this->value == null) {
-            $this->value = $imagetypesetMgr->getDefaultImageTypeSet()->getId();
+            $this->value = $imagetypesetMgr->getDefaultImageTypeSet(false)->getId();
         }
 
         $return  = '<select name='.$this->name.' id='.$this->id.'>';

@@ -14,7 +14,7 @@ jimport( 'joomla.application.component.view');
 jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
-
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryViewEvent extends JViewLegacy
 {
 	protected $state;
@@ -40,7 +40,7 @@ class EventgalleryViewEvent extends JViewLegacy
 		}
 
 		$this->addToolbar();
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 
 	private function addToolbar() {

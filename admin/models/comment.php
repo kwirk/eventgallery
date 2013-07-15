@@ -11,15 +11,19 @@ defined('_JEXEC') or die();
 
 jimport('joomla.application.component.model');
 
-
+/** @noinspection PhpUndefinedClassInspection */
 class EventgalleryModelComment extends JModelLegacy
 {
-	/**
-	 * Constructor that retrieves the ID from the request
-	 *
-	 * @access	public
-	 * @return	void
-	 */
+
+    protected $_id;
+    protected $_data;
+
+    /**
+     * Constructor that retrieves the ID from the request
+     *
+     * @access    public
+     * @return \EventgalleryModelComment
+     */
 	function __construct()
 	{
 		parent::__construct();
@@ -59,7 +63,10 @@ class EventgalleryModelComment extends JModelLegacy
 
 	function store()
 	{
-		$row = $this->getTable('comment');
+        /**
+         * @var JTable $row
+         */
+        $row = $this->getTable('comment');
 
 		$data = JRequest::get( 'post' );
 
@@ -74,7 +81,7 @@ class EventgalleryModelComment extends JModelLegacy
 		}
 		
 		if (!$row->store()) {
-			$this->setError( $row->getErrorMsg() );
+			$this->setError( $this->_db->getErrorMsg() );
 			return false;
 		}
 
@@ -86,13 +93,16 @@ class EventgalleryModelComment extends JModelLegacy
 	{
 		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
+        /**
+         * @var JTable $row
+         */
 		$row = $this->getTable('comment');
 
 		if (count( $cids ))
 		{
 			foreach($cids as $cid) {
 				if (!$row->delete( $cid )) {
-					$this->setError( $row->getErrorMsg() );
+					$this->setError( $this->_db->getErrorMsg() );
 					return false;
 				}
 			}						
@@ -102,13 +112,17 @@ class EventgalleryModelComment extends JModelLegacy
 
 	function publish($visible)
 	{
-		
+        /**
+         * @var JTable $row
+         */
 		$cids = JRequest::getVar( 'cid', array(0), '', 'array' );
 		if (count( $cids ))
 		{
 			foreach($cids as $cid) {
-				
-				$row = $this->getTable('comment');
+                /**
+                 * @var TableComment $row
+                 */
+                $row = $this->getTable('comment');
 
 		        $query = ' SELECT * FROM #__eventgallery_comment '.
 							'  WHERE id = '.$cid;
@@ -118,7 +132,7 @@ class EventgalleryModelComment extends JModelLegacy
 				$row->published = $visible;
 				$row->id=$cid;
 				if (!$row->store()) {
-					$this->setError( $row->getErrorMsg() );			
+					$this->setError( $this->_db->getErrorMsg() );
 				}
 			}
 		}
@@ -126,4 +140,3 @@ class EventgalleryModelComment extends JModelLegacy
 	}			
 
 }
-?>

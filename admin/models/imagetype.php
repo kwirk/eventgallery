@@ -31,7 +31,6 @@ class EventgalleryModelImagetype extends JModelAdmin
     public function getForm($data = array(), $loadData = true)
     {
         // Initialise variables.
-        $app = JFactory::getApplication();
 
         // Get the form.
         $form = $this->loadForm('com_eventgallery.imagetype', 'imagetype', array('control' => 'jform', 'load_data' => $loadData));

@@ -51,7 +51,7 @@ JHtml::_('behavior.tooltip');
         <tbody>
         <?php $n = count($this->items); foreach ($this->items as $i => $item) :
         /**
-         * @var EventgalleryLibraryOrder $item;
+         * @var EventgalleryLibraryMethodsShipping $item;
          */
         ?>
 

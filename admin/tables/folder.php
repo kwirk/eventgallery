@@ -27,15 +27,13 @@ class TableFolder extends JTable
     public $cartable = null;
     public $typesetid;
 
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
 	function TableFolder($db) {
 		parent::__construct('#__eventgallery_folder', 'id', $db);
 	}	
 	
 
 }
-?>

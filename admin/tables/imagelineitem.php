@@ -12,13 +12,11 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableImagelineitem extends JTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
-	function __construct( &$db ) {
+    /**
+     * Constructor
+     * @param JDatabaseDriver $db
+     */
+    function __construct( &$db ) {
 		parent::__construct('#__eventgallery_imagelineitem', 'id', $db);
 	}
 }
-?>
