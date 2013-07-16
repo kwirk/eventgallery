@@ -12,11 +12,11 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-<h1><?php echo $this->item->folder?></h1>
   
 
 <form id="upload" action="<?php echo JRoute::_("index.php?option=com_eventgallery&task=upload.uploadFileByAjax&folder=".$this->item->folder."&format=raw&",false); ?>" method="POST" enctype="multipart/form-data">
 <fieldset>  
+	<legend><?php echo $this->item->folder?></legend>
 	<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="30000000" />  
 	<div>  
 	    <label for="fileselect"><?php echo JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_FILES_TO_UPLOAD' ); ?>:</label>  
@@ -37,6 +37,7 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="option" value="com_eventgallery" />
 <input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
 <input type="hidden" name="task" value="" />
+<?php echo JHtml::_('form.token'); ?>
 
 </form>
 

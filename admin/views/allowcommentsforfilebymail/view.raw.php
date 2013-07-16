@@ -14,7 +14,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 
-class EventgalleryViewAllowCommentsForFileByMail extends JViewLegacy
+class EventgalleryViewAllowCommentsForFileByMail extends EventgalleryLibraryCommonView
 {
 	function display($tpl = null)
 	{		

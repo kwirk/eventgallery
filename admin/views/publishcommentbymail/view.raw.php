@@ -13,7 +13,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 
-class EventgalleryViewPublishCommentByMail extends JViewLegacy
+class EventgalleryViewPublishCommentByMail extends EventgalleryLibraryCommonView
 {
 	function display($tpl = null)
 	{		

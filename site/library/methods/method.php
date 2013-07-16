@@ -142,5 +142,14 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
 
     }
 
+    public function onPrepareAdminForm($form) {
+        return $form;
+    }
+
+
+    public function onSaveAdminForm($validData) {
+        return true;
+    }
+
 
 }

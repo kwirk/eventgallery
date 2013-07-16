@@ -119,4 +119,20 @@ interface EventgalleryLibraryInterfaceMethod
      */
     public function onIncomingExternalRequest();
 
+    /**
+     * Call this method if you want to prepare the form to edit this method
+     *
+     * @param JForm $form
+     * @return JForm
+     */
+    public function onPrepareAdminForm($form);
+
+    /**
+     * Once the editing is done any the data has to be saved, call this method
+     *
+     * @param array $validData
+     * @return boolean
+     */
+    public function onSaveAdminForm($validData);
+
 }

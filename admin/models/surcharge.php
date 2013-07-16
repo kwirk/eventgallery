@@ -20,5 +20,6 @@ class EventgalleryModelSurcharge extends EventgalleryModelMethod
     protected $table_name = '#__eventgallery_surcharge';
     protected $form_name = 'com_eventgallery.surcharge';
     protected $form_source ='surcharge';
+    protected $manager_classname = 'EventgalleryLibraryManagerSurcharge';
 
 }

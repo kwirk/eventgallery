@@ -13,7 +13,7 @@ jimport( 'joomla.application.component.view' );
 jimport( 'joomla.html.pagination');
 
 
-class EventgalleryViewComments extends JViewLegacy
+class EventgalleryViewComments extends EventgalleryLibraryCommonView
 {
 
 	protected $items;

@@ -14,7 +14,7 @@ jimport( 'joomla.html.html');
 
 
 /** @noinspection PhpUndefinedClassInspection */
-class EventgalleryViewUpload extends JViewLegacy
+class EventgalleryViewUpload extends EventgalleryLibraryCommonView
 {
     protected $item;
 

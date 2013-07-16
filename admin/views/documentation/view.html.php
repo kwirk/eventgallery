@@ -8,7 +8,7 @@
  */
 defined('_JEXEC') or die;
 
-class EventgalleryViewDocumentation extends JViewLegacy
+class EventgalleryViewDocumentation extends EventgalleryLibraryCommonView
 {
 	function display($tpl = null)
 	{		

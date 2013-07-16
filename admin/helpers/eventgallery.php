@@ -34,22 +34,22 @@ class EventgalleryHelpersEventgallery
             '#',
             false);
 
-		JHtmlSidebar::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_ORDERSTATUSES'),
-			'index.php?option=com_eventgallery&view=orderstatuses',
-			$vName == 'orderstatuses' || $vName == 'orderstatuse');
+        JHtmlSidebar::addEntry(
+            JText::_('COM_EVENTGALLERY_SUBMENU_IMAGETYPES'),
+            'index.php?option=com_eventgallery&view=imagetypes',
+            $vName == 'imagetypes' || $vName == 'imagetype');       
 
-		JHtmlSidebar::addEntry(
+        JHtmlSidebar::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_IMAGETYPESETS'),
 			'index.php?option=com_eventgallery&view=imagetypesets',
 			$vName == 'imagetypesets' || $vName == 'imagetypeset');
 
-		JHtmlSidebar::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_IMAGETYPES'),
-			'index.php?option=com_eventgallery&view=imagetypes',
-			$vName == 'imagetypes' || $vName == 'imagetype');
-		
-		JHtmlSidebar::addEntry(
+ 		JHtmlSidebar::addEntry(
+			JText::_('COM_EVENTGALLERY_SUBMENU_ORDERSTATUSES'),
+			'index.php?option=com_eventgallery&view=orderstatuses',
+			$vName == 'orderstatuses' || $vName == 'orderstatuse');
+
+        JHtmlSidebar::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_SURCHARGES'),
 			'index.php?option=com_eventgallery&view=surcharges',
 			$vName == 'surcharges' || $vName == 'surcharge');

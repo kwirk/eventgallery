@@ -15,7 +15,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 /** @noinspection PhpUndefinedClassInspection */
-class EventgalleryViewEvent extends JViewLegacy
+class EventgalleryViewEvent extends EventgalleryLibraryCommonView
 {
 	protected $state;
 

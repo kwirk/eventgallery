@@ -18,5 +18,6 @@ class EventgalleryModelShippingmethod extends EventgalleryModelMethod
     protected $table_name = '#__eventgallery_shippingmethod';
     protected $form_name = 'com_eventgallery.shippingmethod';
     protected $form_source ='shippingmethod';
+    protected $manager_classname = 'EventgalleryLibraryManagerShipping';
 
 }

@@ -15,6 +15,7 @@ $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
 $document->addStyleSheet($css);     
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('formbehavior.chosen', 'select');
@@ -44,20 +45,7 @@ JHtml::_('formbehavior.chosen', 'select');
 <?php else : ?>
     <div id="j-main-container">
 <?php endif;?>
-    	<fieldset class="adminform form-horizontal">
-            
-            <?php foreach ($this->form->getFieldset() as $field): ?>
-                <div class="control-group">
-                    <?php if (!$field->hidden): ?>
-                        <div class="control-label"><?php echo $field->label; ?></div>
-                    <?php endif; ?>
-                    <div class="controls">
-                        <?php echo $field->input; ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-
-         </fieldset>
+    	<?php echo $this->loadSnippet('formfields'); ?>
     </div>
 
     <div class="clr"></div>

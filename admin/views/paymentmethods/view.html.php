@@ -15,7 +15,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 
-class EventgalleryViewPaymentmethods extends JViewLegacy
+class EventgalleryViewPaymentmethods extends EventgalleryLibraryCommonView
 {    
 
     protected $items;

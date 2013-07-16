@@ -120,6 +120,9 @@ class EventgalleryLibraryImagetype extends EventgalleryLibraryDatabaseObject
         return $this->_imagetype->published==1;
     }
 
+    /**
+     * @return string
+     */
     public function getSize() {
         return $this->_imagetype->size;
     }

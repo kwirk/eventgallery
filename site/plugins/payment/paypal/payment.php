@@ -174,4 +174,38 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
 
 
     }
+
+    public function onPrepareAdminForm($form) {
+
+        /**
+         * disable the default data field
+         */
+        $form->setFieldAttribute('data', 'required', 'false');
+        $form->setFieldAttribute('data', 'disabled', 'true');
+
+
+        $field = $obj = new SimpleXMLElement('
+            <fieldset name="paypal" label="Paypal" description="Paypal Details">
+                 <field name="paypal"
+                       type="text"
+                       inputtype="text"
+                       label="COM_EVENTGALLERY_EVENTS_FOLDERNAME"
+                       description="COM_EVENTGALLERY_EVENTS_FOLDERNAME_DESCRIPTION"
+                       placeholder="COM_EVENTGALLERY_EVENTS_FOLDERNAME_PLACEHOLDER"
+                       required="false"
+                       default="foobar"
+                       validate=""
+                       class="input-xlarge"
+                        />
+            </fieldset>
+        ');
+        $form->setField($field);
+
+
+        return $form;
+    }
+
+    public function onSaveAdminForm($data) {
+        return true;
+    }
 }

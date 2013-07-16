@@ -18,5 +18,6 @@ class EventgalleryModelPaymentmethod extends EventgalleryModelMethod
     protected $table_name = '#__eventgallery_paymentmethod';
     protected $form_name = 'com_eventgallery.paymentmethod';
     protected $form_source ='paymentmethod';
+    protected $manager_classname = 'EventgalleryLibraryManagerPayment';
 
 }

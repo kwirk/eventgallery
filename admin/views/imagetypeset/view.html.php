@@ -15,7 +15,7 @@ jimport( 'joomla.html.pagination');
 jimport( 'joomla.html.html');
 
 
-class EventgalleryViewImagetypeset extends JViewLegacy
+class EventgalleryViewImagetypeset extends EventgalleryLibraryCommonView
 {
 	protected $state;
 

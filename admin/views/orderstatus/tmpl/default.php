@@ -45,7 +45,8 @@ JHtml::_('formbehavior.chosen', 'select');
     <div id="j-main-container">
     <?php endif;?>
     	<fieldset class="adminform form-horizontal">
-
+                <legend><?php echo JText::_('COM_EVENTGALLERY_ORDER_ORDERSTATUS_LABEL') ?></legend>
+               
 
                 <div class="control-group"><div class="control-label"><?php echo $this->form->getLabel('name'); ?></div>
                     <div class="controls">

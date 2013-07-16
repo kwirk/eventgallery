@@ -1,7 +1,7 @@
 Front End
 
 - User-Management
-- Order Tracking (per User oder per email+password)
+- Order Tracking (per User oder per email+password oder Captcha)
 - AGB
 - Impressum
 - licence key per payment/shipping method
@@ -24,4 +24,4 @@ Back End
 
 
 System
-	- get paypal application if
+	- get paypal application id

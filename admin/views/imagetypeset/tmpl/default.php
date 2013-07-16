@@ -43,21 +43,8 @@ JHtml::_('formbehavior.chosen', 'select');
     <div id="j-main-container" class="span10">
 <?php else : ?>
     <div id="j-main-container">
-    <?php endif;?>
-    	<fieldset class="adminform form-horizontal">
-            
-            <?php foreach ($this->form->getFieldset() as $field): ?>
-                <div class="control-group">
-                    <?php if (!$field->hidden): ?>
-                        <div class="control-label"><?php echo $field->label; ?></div>
-                    <?php endif; ?>
-                    <div class="controls">
-                        <?php echo $field->input; ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-
-         </fieldset>
+<?php endif;?>
+    	<?php echo $this->loadSnippet('formfields'); ?>
     </div>
 
     <div class="clr"></div>

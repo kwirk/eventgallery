@@ -12,13 +12,7 @@ defined('_JEXEC') or die();
 jimport( 'joomla.application.component.view' );
 jimport( 'joomla.html.pagination');
 
-/**
- * Hellos View
- *
- * @package    Joomla.Tutorials
- * @subpackage Components
- */
-class EventgalleryViewOrders extends JViewLegacy
+class EventgalleryViewOrders extends EventgalleryLibraryCommonView
 {
 
     protected $items;

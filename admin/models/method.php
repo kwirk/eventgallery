@@ -19,6 +19,7 @@ class EventgalleryModelMethod extends JModelAdmin
     protected $table_name = null;
     protected $form_name = null;
     protected $form_source = null;
+    protected $manager_classname = null;
 
 
 
@@ -39,11 +40,30 @@ class EventgalleryModelMethod extends JModelAdmin
         // Initialise variables.
 
         // Get the form.
+        /**
+         * @var JForm $form
+         */
         $form = $this->loadForm($this->form_name, $this->form_source, array('control' => 'jform', 'load_data' => $loadData));
 
         if (empty($form)) {
             return false;
         }
+
+        if ($form->getValue('id')!=0 || isset($data['id'])) {
+            /**
+             * @var EventgalleryLibraryManagerMethod $methodMgr
+             * @var EventgalleryLibraryInterfaceMethod $method
+             */
+            $classname = $this->manager_classname;
+            $methodMgr = $classname::getInstance();
+            $id = $form->getValue('id');
+            if (isset($data['id'])) {
+                $id = $data['id'];
+            }
+            $method = $methodMgr->getMethod($id, false);
+            $form = $method->onPrepareAdminForm($form);
+        }
+
         return $form;
     }
 
@@ -92,6 +112,22 @@ class EventgalleryModelMethod extends JModelAdmin
         }
         return true;
 
+    }
+
+    public function save($data) {
+        $success = parent::save($data);
+        if (isset($data['id'])) {
+            /**
+             * @var EventgalleryLibraryManagerMethod $methodMgr
+             * @var EventgalleryLibraryInterfaceMethod $method
+             */
+            $classname = $this->manager_classname;
+            $methodMgr = $classname::getInstance();
+            $method = $methodMgr->getMethod($data['id'], false);
+            $success &= $method->onSaveAdminForm($data);
+        }
+
+        return $success;
     }
 
 
