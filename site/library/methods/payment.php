@@ -14,21 +14,9 @@ defined('_JEXEC') or die();
 abstract class EventgalleryLibraryMethodsPayment extends EventgalleryLibraryMethodsMethod
 {
 
-    /**
-     * Load the image type by id
-     */
-    protected function _loadMethodData()
-    {
-        $db = JFactory::getDBO();
+    protected $_methodtablename = '#__eventgallery_paymentmethod';
+    protected $_methodtable = 'Paymentmethod';
 
-        $query = $db->getQuery(true);
-        $query->select('p.*');
-        $query->from('#__eventgallery_paymentmethod p');
-        $query->where('p.id=' . $db->Quote($this->_object_id));
-
-        $db->setQuery($query);
-        $this->_object = $db->loadObject();
-    }
 
     public function getTypeCode() {
         return EventgalleryLibraryServicelineitem::TYPE_PAYMENTMETHOD;

@@ -14,21 +14,8 @@ defined('_JEXEC') or die();
 abstract class EventgalleryLibraryMethodsSurcharge extends EventgalleryLibraryMethodsMethod
 {
 
-    /**
-     * Load the image type by id
-     */
-    protected function _loadMethodData()
-    {
-        $db = JFactory::getDBO();
-
-        $query = $db->getQuery(true);
-        $query->select('s.*');
-        $query->from('#__eventgallery_surcharge s');
-        $query->where('s.id=' . $db->Quote($this->_object_id));
-
-        $db->setQuery($query);
-        $this->_object = $db->loadObject();
-    }
+    protected $_methodtablename = '__eventgallery_surcharge';
+    protected $_methodtable = 'Surcharge';
 
     public function getTypeCode() {
         return EventgalleryLibraryServicelineitem::TYPE_SURCHARGE;

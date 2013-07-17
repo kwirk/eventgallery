@@ -24,6 +24,14 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
     protected $_data = null;
     protected $_ls_displayname = null;
     protected $_ls_description = null;
+    /**
+     * name of the sql table like #__foobar
+     */
+    protected $_methodtablename = null;
+    /**
+     * the name of the Table Class
+     */
+    protected $_methodtable = null;
 
     public function __construct($object)
     {
@@ -44,7 +52,18 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
     /**
      * Load the image type by id
      */
-    abstract protected function _loadMethodData();
+    protected function _loadMethodData()
+    {
+        $db = JFactory::getDBO();
+
+        $query = $db->getQuery(true);
+        $query->select('*');
+        $query->from($this->_methodtablename);
+        $query->where('id=' . $db->Quote($this->_object_id));
+
+        $db->setQuery($query);
+        $this->_object = $db->loadObject();
+    }
 
     static public  function getClassName() {
         return "Abstract Method Class. Do overwrite this method.";
@@ -116,6 +135,19 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
     }
 
     /**
+     * sets a new data object
+     *
+     * @param stdClass $data
+     */
+    public function setData(stdClass $data) {
+
+        $this->_object->data = json_encode($data);
+
+        $this->_storeMethod();
+        $this->_data = null;
+    }
+
+    /**
      * returns the amount of tax for this item
      *
      * @return float
@@ -151,5 +183,10 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
         return true;
     }
 
+    protected function _storeMethod()
+    {
+        $data = $this->_object;
+        $this->store((array)$data, $this->_methodtable);
+    }
 
 }

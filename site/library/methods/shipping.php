@@ -14,21 +14,9 @@ defined('_JEXEC') or die();
 abstract class EventgalleryLibraryMethodsShipping extends EventgalleryLibraryMethodsMethod
 {
 
-    /**
-     * Load the image type by id
-     */
-    protected function _loadMethodData()
-    {
-        $db = JFactory::getDBO();
+    protected $_methodtablename = '__eventgallery_shippingmethod';
+    protected $_methodtable = 'Shippingmethod';
 
-        $query = $db->getQuery(true);
-        $query->select('s.*');
-        $query->from('#__eventgallery_shippingmethod s');
-        $query->where('s.id=' . $db->Quote($this->_object_id));
-
-        $db->setQuery($query);
-        $this->_object = $db->loadObject();
-    }
 
     public function getTypeCode() {
         return EventgalleryLibraryServicelineitem::TYPE_SHIPINGMETHOD;

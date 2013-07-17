@@ -61,7 +61,9 @@ class EventgalleryModelMethod extends JModelAdmin
                 $id = $data['id'];
             }
             $method = $methodMgr->getMethod($id, false);
-            $form = $method->onPrepareAdminForm($form);
+            if ($method) {
+                $form = $method->onPrepareAdminForm($form);
+            }
         }
 
         return $form;
@@ -124,7 +126,9 @@ class EventgalleryModelMethod extends JModelAdmin
             $classname = $this->manager_classname;
             $methodMgr = $classname::getInstance();
             $method = $methodMgr->getMethod($data['id'], false);
-            $success &= $method->onSaveAdminForm($data);
+            if ($method) {
+                $success &= $method->onSaveAdminForm($data);
+            }
         }
 
         return $success;

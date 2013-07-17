@@ -68,6 +68,11 @@ interface EventgalleryLibraryInterfaceMethod
     public function getData();
 
     /**
+     * @param stdClass $data
+     */
+    public function setData(stdClass $data);
+
+    /**
      * calculates the included tax.
      *
      *

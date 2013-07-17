@@ -15,8 +15,7 @@ Back End
 	- Dashboard
 
 - form fields
-	- plugin specific fields + save hocks
-	- image type selection incl. default setting
+	- image type selection
 
 - Order Details
 	- anzeige des Status unab. von der Select-Box

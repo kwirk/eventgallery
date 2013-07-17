@@ -53,7 +53,8 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
     public function processOnOrderSubmit($lineitemcontainer) {
 
 
-        $endPoint = $this->getData()->endpoints->api;
+
+        $endPoint = $this->getData()->options->productionmode==1?'https://svcs.paypal.com/AdaptivePayments/Pay':'https://svcs.sandbox.paypal.com/AdaptivePayments/Pay';
 
         $credentials = $this->_getCredentials();
 
@@ -78,13 +79,14 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
 
 
         $paypal = new EventgalleryPluginsPaymentPaypalVendorPaypal();
-        $response = $paypal -> request('Pay', $endPoint, $credentials,
+        $response = $paypal->request('Pay', $endPoint, $credentials,
             $requestParams
         );
 
         if( $response instanceof stdClass && $response->responseEnvelope->ack == 'Success') {
             $app = JFactory::getApplication();
-            $app->redirect($this->getData()->endpoints->webscr.'?cmd=_ap-payment&paykey='.$response->payKey);
+            $webscr = $this->getData()->options->productionmode==1?'https://www.paypal.com/cgi-bin/webscr':'https://www.sandbox.paypal.com/cgi-bin/webscr';
+            $app->redirect($webscr.'?cmd=_ap-payment&paykey='.$response->payKey);
             return true;
         } else {
             return new Exception("payment failed");
@@ -178,34 +180,88 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
     public function onPrepareAdminForm($form) {
 
         /**
+         * add the language files
+         */
+
+        $language = JFactory::getLanguage();
+        $language->load('com_eventgallery' , __DIR__ , $language->getTag(), true);
+
+        /**
          * disable the default data field
          */
         $form->setFieldAttribute('data', 'required', 'false');
         $form->setFieldAttribute('data', 'disabled', 'true');
 
-
-        $field = $obj = new SimpleXMLElement('
+        $field = new SimpleXMLElement('
             <fieldset name="paypal" label="Paypal" description="Paypal Details">
-                 <field name="paypal"
-                       type="text"
-                       inputtype="text"
-                       label="COM_EVENTGALLERY_EVENTS_FOLDERNAME"
-                       description="COM_EVENTGALLERY_EVENTS_FOLDERNAME_DESCRIPTION"
-                       placeholder="COM_EVENTGALLERY_EVENTS_FOLDERNAME_PLACEHOLDER"
-                       required="false"
-                       default="foobar"
-                       validate=""
-                       class="input-xlarge"
-                        />
+                <field name="paypal_receiver_email"
+                   type="text"
+                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_RECEIVER_EMAIL_LABEL"
+                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_RECEIVER_EMAIL_DESC"
+                   required="true"                   
+                   class="input-xlarge"
+                />
+                <field name="paypal_credentials_userid"
+                   type="text"
+                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_USERID_LABEL"
+                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_USERID_DESC"
+                   required="true"                   
+                   class="input-xlarge"
+                />
+                <field name="paypal_credentials_password"
+                   type="text"
+                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_PASSWORD_LABEL"
+                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_PASSWORD_DESC"
+                   required="true"                   
+                   class="input-xlarge"
+                />
+                <field name="paypal_credentials_signature"
+                   type="text"
+                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_SIGNATURE_LABEL"
+                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_SIGNATURE_DESC"
+                   required="true"                   
+                   class="input-xlarge"
+                />
+                <field name="paypal_credentials_appid"
+                   type="text"
+                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_APPID_LABEL"
+                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_APPID_DESC"
+                   required="true"                   
+                   class="input-xlarge"
+                />
+                <field name="paypal_options_productionmode" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_PRODUCTIONMODE_LABEL" description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_PRODUCTIONMODE_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
         ');
         $form->setField($field);
 
+        if (isset($this->getData()->receiver->email)) {         $form->setValue("paypal_receiver_email", null, $this->getData()->receiver->email); }
+        if (isset($this->getData()->credentials->userid)) {     $form->setValue("paypal_credentials_userid", null, $this->getData()->credentials->userid); }
+        if (isset($this->getData()->credentials->password)) {   $form->setValue("paypal_credentials_password", null, $this->getData()->credentials->password); }
+        if (isset($this->getData()->credentials->signature)) {  $form->setValue("paypal_credentials_signature", null, $this->getData()->credentials->signature); }
+        if (isset($this->getData()->credentials->appid)) {      $form->setValue("paypal_credentials_appid", null, $this->getData()->credentials->appid); }
+        if (isset($this->getData()->options->productionmode)) { $form->setValue("paypal_options_productionmode", null, $this->getData()->options->productionmode); }
 
         return $form;
-    }
+    }    
 
     public function onSaveAdminForm($data) {
+
+        $object = new stdClass();
+
+        $object->receiver = array("email"=>$data['paypal_receiver_email']);
+        $object->credentials = array(
+            "userid"=>$data['paypal_credentials_userid'],
+            "password"=>$data['paypal_credentials_password'],
+            "signature"=>$data['paypal_credentials_signature'],
+            "appid"=>$data['paypal_credentials_appid'],
+        );
+        $object->options = array("productionmode"=>$data['paypal_options_productionmode']);
+
+        $this->setData($object);
+
         return true;
     }
 }
