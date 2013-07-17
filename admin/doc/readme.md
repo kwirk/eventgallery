@@ -431,6 +431,12 @@ With each new version it might be necessary to add new translation keys to your 
 	Mail: svenbluege(at)gmail.com
 	Web: http://www.svenbluege.de
 
+## 2.6.5
+	- Bug Fixes
+		- the second row of images on an events list just loaded after you scroll on the 
+		  page. This is fixed now.
+
+
 ## 2.6.4
 
 	- New Features

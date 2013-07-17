@@ -301,9 +301,10 @@
 			$$(this.options.eventgallerySelector).setStyle('min-height', this.options.rowHeight*this.images.length);
 			
 			this.processList();
-			this.options.initComplete();
 			
 			$$(this.options.eventgallerySelector).setStyle('min-height','0px');
+			
+			this.options.initComplete();
 		},
 		/*calculated the with of an element*/
 		getRowWidth: function() {
