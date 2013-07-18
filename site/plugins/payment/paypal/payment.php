@@ -193,7 +193,7 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
         $form->setFieldAttribute('data', 'disabled', 'true');
 
         $field = new SimpleXMLElement('
-            <fieldset name="paypal" label="Paypal" description="Paypal Details">
+            <fieldset name="paypal" label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_LABEL" description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_DESC">
                 <field name="paypal_receiver_email"
                    type="text"
                    label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_RECEIVER_EMAIL_LABEL"

@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
 abstract class EventgalleryLibraryMethodsSurcharge extends EventgalleryLibraryMethodsMethod
 {
 
-    protected $_methodtablename = '__eventgallery_surcharge';
+    protected $_methodtablename = '#__eventgallery_surcharge';
     protected $_methodtable = 'Surcharge';
 
     public function getTypeCode() {

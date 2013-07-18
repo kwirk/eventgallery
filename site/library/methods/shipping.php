@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
 abstract class EventgalleryLibraryMethodsShipping extends EventgalleryLibraryMethodsMethod
 {
 
-    protected $_methodtablename = '__eventgallery_shippingmethod';
+    protected $_methodtablename = '#__eventgallery_shippingmethod';
     protected $_methodtable = 'Shippingmethod';
 
 
