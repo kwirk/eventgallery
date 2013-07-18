@@ -10,17 +10,8 @@ Front End
 
 Back End
 
-- Management Options
-	- Orders (sorting/filtering/edit, filter for null in status ids)
-	- Dashboard
-
 - form fields
 	- image type selection
-
-- Order Details
-	- anzeige des Status unab. von der Select-Box
-	- 
-
 
 System
 	- get paypal application id

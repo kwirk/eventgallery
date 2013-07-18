@@ -41,9 +41,93 @@ class EventgalleryViewOrders extends EventgalleryLibraryCommonView
     }
 
      protected function addToolbar() {
-        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_ORDERS' ), 'generic.png' );            
-        
+        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_ORDERS' ), 'generic.png' );
         JToolBarHelper::deleteList('Remove all selected Events?','orders.delete','Remove');
+
+         // Build the active state filter options.
+         $options = array();
+
+         /**
+          * @var EventgalleryLibraryManagerOrderstatus $orderstatusMgr
+          * @var EventgalleryLibraryOrderstatus $orderstatus
+          */
+         $orderstatusMgr  = EventgalleryLibraryManagerOrderstatus::getInstance();
+
+         /**
+          * ORDER
+          */
+         $orderstatuses = $orderstatusMgr->getOrderStatuses(EventgalleryLibraryOrderstatus::TYPE_ORDER);
+
+         foreach($orderstatuses as $orderstatus) {
+
+             $options[] = JHtml::_('select.option', $orderstatus->getId(), $orderstatus->getDisplayName());
+         }
+
+         $options[] = JHtml::_('select.option', '*', 'JALL');
+
+         JHtmlSidebar::addFilter(
+             JText::_('COM_EVENTGALLERY_ORDER_ORDERSTATUS'),
+             'filter_orderstatus',
+             JHtml::_('select.options', $options, 'value', 'text', $this->state->get('filter.orderstatus'), true)
+         );
+
+         /**
+          * PAYMENT
+          */
+         $orderstatuses = $orderstatusMgr->getOrderStatuses(EventgalleryLibraryOrderstatus::TYPE_PAYMENT);
+         $options = array();
+         foreach($orderstatuses as $orderstatus) {
+
+             $options[] = JHtml::_('select.option', $orderstatus->getId(), $orderstatus->getDisplayName());
+         }
+
+
+         $options[] = JHtml::_('select.option', '*', 'JALL');
+
+         JHtmlSidebar::addFilter(
+             JText::_('COM_EVENTGALLERY_ORDER_PAYMENTSTATUS'),
+             'filter_paymentstatus',
+             JHtml::_('select.options', $options, 'value', 'text', $this->state->get('filter.paymentstatus'), true)
+         );
+
+         /**
+          * SHIPPING
+          */
+         $orderstatuses = $orderstatusMgr->getOrderStatuses(EventgalleryLibraryOrderstatus::TYPE_SHIPPING);
+         $options = array();
+         foreach($orderstatuses as $orderstatus) {
+
+             $options[] = JHtml::_('select.option', $orderstatus->getId(), $orderstatus->getDisplayName());
+         }
+
+
+         $options[] = JHtml::_('select.option', '*', 'JALL');
+
+         JHtmlSidebar::addFilter(
+             JText::_('COM_EVENTGALLERY_ORDER_SHIPPINGSTATUS'),
+             'filter_shippingstatus',
+             JHtml::_('select.options', $options, 'value', 'text', $this->state->get('filter.shippingstatus'), true)
+         );
+
     }
+
+    /**
+     * Returns an array of fields the table can be sorted by
+     *
+     * @return  array  Array containing the field name to sort by as the key and display text as value
+     *
+     * @since   3.0
+     */
+    protected function getSortFields()
+    {
+        return array(
+            'documentno' => JText::_('JGRID_HEADING_ID'),
+            'orderstatusid' => JText::_('COM_EVENTGALLERY_ORDER_ORDERSTATUS'),
+            'paymentstatusid' => JText::_('COM_EVENTGALLERY_ORDER_PAYMENTSTATUS'),
+            'shippingstatusid' => JText::_('COM_EVENTGALLERY_ORDER_SHIPPINGSTATUS'),
+            'total' => JText::_('COM_EVENTGALLERY_ORDER_TOTAL')
+        );
+    }
+
 
 }
