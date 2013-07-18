@@ -23,10 +23,14 @@ class JFormFieldOrderstatustypes extends JFormField
         $statuses = $orderstatusMgr->getOrderStatuses($this->currentOrderstatusId);
 
         if ($this->value == null) {
-            $this->value = $orderstatusMgr->getDefaultOrderStatus($this->currentOrderstatusId);
+            $this->value = $orderstatusMgr->getDefaultOrderStatus($this->currentOrderstatusId)->getId();
         }
 
-        $return  = '<select name='.$this->name.' id='.$this->id.'>';
+
+        $currentorderstatus = new EventgalleryLibraryOrderstatus($this->value);
+
+        $return = "";
+        $return .= '<select name='.$this->name.' id='.$this->id.'>';
         foreach($statuses as $orderstatus) {
             /**
              * @var EventgalleryLibraryOrderstatus $orderstatus
@@ -37,6 +41,7 @@ class JFormFieldOrderstatustypes extends JFormField
             $return .= '<option '.$selected.' value="'.$orderstatus->getId().'">'.$orderstatus->getDisplayName().'</option>';
         }
         $return .= "</select>";
+        $return .= "<br><small>".$currentorderstatus->getDisplayName()."</small>";
         return $return;
 
     }
