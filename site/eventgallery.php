@@ -40,8 +40,9 @@ if ($controller = JFactory::getApplication()->input->get('controller')) {
 
 
 $view = JFactory::getApplication()->input->get('view', 'null');
-if (strcmp('rest', $view) == 0 || strcmp('cart', $view) == 0 || strcmp('checkout', $view) == 0) {
-    require_once(JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . ucfirst($view) . '.php');
+$controllerFile = JPATH_COMPONENT . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . ucfirst($view) . '.php';
+if (file_exists($controllerFile)) {
+    require_once($controllerFile);
     $classname = ucfirst($view) . 'Controller' . $controller;
 } else {
     // Create the controller

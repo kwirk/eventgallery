@@ -17,17 +17,17 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 
-<?php echo $this->address->getFirstName(); ?> <?php echo $this->address->getLastName(); ?> <br/>
-<?php echo $this->address->getAddress1(); ?><br/>
+<?php echo $this->escape($this->address->getFirstName()); ?> <?php echo $this->escape($this->address->getLastName()) ?> <br/>
+<?php echo $this->escape($this->address->getAddress1()); ?><br/>
 <?php IF (strlen($this->address->getAddress2())>0):?>
-    <?php echo $this->address->getAddress2(); ?><br/>
+    <?php echo $this->escape($this->address->getAddress2()); ?><br/>
 <?php ENDIF; ?>
 <?php IF (strlen($this->address->getAddress3())>0):?>
-    <?php echo $this->address->getAddress3(); ?><br/>
+    <?php echo $this->escape($this->address->getAddress3()); ?><br/>
 <?php ENDIF; ?>
-<?php echo $this->address->getZip(); ?> <?php echo $this->address->getCity(); ?>
+<?php echo $this->escape($this->address->getZip()); ?> <?php echo $this->escape($this->address->getCity()); ?>
 <?php IF (strlen($this->address->getCountry())>0):?>
-    <br/><?php echo $this->address->getCountry(); ?>
+    <br/><?php echo $this->escape($this->address->getCountry()); ?>
 <?php ENDIF; ?>
 <?php IF (isset($this->edit) && $this->edit == true) :?>
     <br/>

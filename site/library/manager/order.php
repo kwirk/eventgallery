@@ -70,5 +70,18 @@ class EventgalleryLibraryManagerOrder extends EventgalleryLibraryManagerManager
 
     }
 
+    /**
+     * @param string $documentNo
+     * @return EventgalleryLibraryOrder|null
+     */
+    public function getOrderByDocumentNo($documentNo) {
+        /**
+         * @var EventgalleryLibraryFactoryOrder $orderFactory
+         */
+        $orderFactory = EventgalleryLibraryFactoryOrder::getInstance();
+        $order = $orderFactory->getOrdersByDocumentNumber($documentNo);
+        return $order;
+    }
+
 
 }

@@ -27,13 +27,13 @@ class JFormFieldhtml5text extends JFormField
 
             $readonly = ((string)$this->element['readonly'] == 'true') ? ' readonly="readonly"' : '';
             $disabled = ((string)$this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
-
+            $required = $this->required ? ' required="required" aria-required="true"' : '';
             // Initialize JavaScript field attributes.
             $onchange = $this->element['onchange'] ? ' onchange="' . (string)$this->element['onchange'] . '"' : '';
 
             return '<input placeholder="' . $placeholder . '" type="' . $inputtype . '" name="' . $this->name . '" id="'
             . $this->id . '"' . ' value="'
-            . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly
+            . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly. $required
             . $onchange . $maxLength . '/>';
         }
     }

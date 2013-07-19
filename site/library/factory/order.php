@@ -91,6 +91,35 @@ class EventgalleryLibraryFactoryOrder extends EventgalleryLibraryFactoryFactory
         return $orders;
     }
 
+    /**
+     * @param string $documentNo
+     * @return EventgalleryLibraryOrder
+     */
+    public function getOrdersByDocumentNumber($documentNo)
+    {
+        if ($documentNo<0) {
+            return null;
+        }
+
+        $db = JFactory::getDBO();
+
+        $query = $db->getQuery(true);
+        $query->select('id');
+        $query->from("#__eventgallery_order");
+        $query->where("documentno=".$db->quote($documentNo));
+
+
+        $db->setQuery($query);
+        $row = $db->loadObject();
+
+        if ($row == null) {
+            return null;
+        }
+
+        $order = new EventgalleryLibraryOrder($row->id);
+
+        return $order;
+    }
 
 
 }
