@@ -1,7 +1,6 @@
 Front End
 
-- User-Management
-- Order Tracking (per User oder per email+password oder Captcha)
+- User-Management, Order List
 - AGB
 - Impressum
 - licence key per payment/shipping method
