@@ -43,7 +43,9 @@ defined('_JEXEC') or die('Restricted access');
         <?php ELSE: ?>
             
 
-            <?php $fieldset= array_values($this->form->getFieldsets())[0]; ?>
+            <?php
+                $fieldsets =  array_values($this->form->getFieldsets());
+                $fieldset= $fieldsets[0]; ?>
             <legend><?php echo JText::_($fieldset->label); ?></legend>
                 <?php IF (strlen(JText::_($fieldset->description))>0): ?>
                 <div><?php echo JText::_($fieldset->description); ?></div>
