@@ -172,7 +172,7 @@ defined('_JEXEC') or die('Restricted access');
            title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_ZOOM') ?>"><i class="icon-zoom-in"></i></a>
 
         
-        <?php IF ($this->model->folder->cartable == 1): ?>
+        <?php IF ($this->model->folder->cartable == 1  && $this->params->get('use_cart', '1')==1): ?>
             <a href="#" class="btn btn-primary button-add2cart imagetypeselection-show"
                title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART') ?>"
                data-id="folder=<?php echo $this->model->file->folder . "&file=" . $this->model->file->file ?>"><i
@@ -195,7 +195,7 @@ defined('_JEXEC') or die('Restricted access');
     </div>
 
 
-    <?php IF ($this->model->folder->cartable == 1): ?>
+    <?php IF ($this->model->folder->cartable == 1  && $this->params->get('use_cart', '1')==1): ?>
         <?php $this->set('file', $this->model->file) ?>
         <?php echo $this->loadSnippet('imageset/imagesetselectionsingle'); ?>
     <?php ENDIF ?>

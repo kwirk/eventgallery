@@ -71,7 +71,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php  echo  $this->loadSnippet("cart"); ?>
 
-<?php IF ($this->folder->cartable == 1): ?>
+<?php IF ($this->folder->cartable == 1 && $this->params->get('use_cart', '1')==1): ?>
     <?php echo $this->loadSnippet('imageset/imagesetselectionajax'); ?>
 <?php ENDIF ?>
 

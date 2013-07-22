@@ -89,7 +89,7 @@ echo $this->loadSnippet('cart');
         <?php echo $this->folder->text; ?>
     </div>
 
-    <?php IF ($this->folder->cartable == 1): ?>
+    <?php IF ($this->folder->cartable == 1  && $this->params->get('use_cart', '1')==1): ?>
         <?php echo $this->loadSnippet('imageset/imagesetselection'); ?>
     <?php ENDIF ?>
 
