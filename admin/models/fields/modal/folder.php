@@ -10,7 +10,8 @@
 
 defined('JPATH_BASE') or die;
 
-jimport('joomla.form.formfield');
+jimport('joomla.form.helper');
+JFormHelper::loadFieldClass('list');
 
 /**
  * Supports a modal folder picker.

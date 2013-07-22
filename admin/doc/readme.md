@@ -431,6 +431,10 @@ With each new version it might be necessary to add new translation keys to your 
 	Mail: svenbluege(at)gmail.com
 	Web: http://www.svenbluege.de
 
+## 2.6.6
+	- Bug Fixes
+		- Fixed an issue with the folder selection form field which throwed a exception like "Class 'JFormFieldList' not found".
+
 ## 2.6.5
 	- Bug Fixes
 		- the second row of images on an events list just loaded after you scroll on the 
