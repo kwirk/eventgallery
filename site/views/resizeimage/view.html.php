@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 
 jimport( 'joomla.application.component.view');
 require_once JPATH_BASE.'/components/com_eventgallery/helpers/vendors/class.jpeg_icc.php';	
+/* Load the required PEL files for handling JPEG images. */
+require_once JPATH_BASE.'/components/com_eventgallery/helpers/vendors/pel/PelJpeg.php';
 
 
 class EventgalleryViewResizeimage extends JViewLegacy
@@ -100,6 +102,8 @@ class EventgalleryViewResizeimage extends JViewLegacy
 		#echo "<br>".$image_thumb_file."<br>";
 
 		$debug = false;
+		$input_jpeg = null;
+
 		if ($debug || !file_exists($image_thumb_file))
 		{
 		 	
@@ -110,7 +114,12 @@ class EventgalleryViewResizeimage extends JViewLegacy
 					echo "Error opening $image_file!"; exit;
 				}
 			} else if(strtolower($ext) == "jpg") {
-				if (!$im_original = imagecreatefromjpeg($image_file)) {
+				$input_jpeg = new PelJpeg($image_file);
+
+				/* The input image is already loaded, so we can reuse the bytes stored
+				 * in $input_jpeg when creating the Image resource. */
+				
+				if (!$im_original = ImageCreateFromString($input_jpeg->getBytes())) {
 					echo "Error opening $image_file!"; exit;
 				}
 			} else if(strtolower($ext) == "png") {
@@ -191,7 +200,7 @@ class EventgalleryViewResizeimage extends JViewLegacy
 		                                 );
 	        	}
 
-	            $divisor = array_sum(array_map('array_sum', $sharpenMatrix));
+	           $divisor = array_sum(array_map('array_sum', $sharpenMatrix));
 	            $offset = 0;
 	            
 	            if (function_exists('imageconvolution'))
@@ -202,15 +211,34 @@ class EventgalleryViewResizeimage extends JViewLegacy
         	}
 
 			$image_quality = $params->get('image_quality',85);
-            $writeSuccess = imagejpeg($im_output,$image_thumb_file, $image_quality);     
+			if ($input_jpeg != null) {
+				/* We want the raw JPEG data from $scaled. Luckily, one can create a
+				 * PelJpeg object from an image resource directly: */
+				$output_jpeg = new PelJpeg($im_output);
+
+				/* Retrieve the original Exif data in $jpeg (if any). */
+				$exif = $input_jpeg->getExif();
+
+				/* If no Exif data was present, then $exif is null. */
+				if ($exif != null)
+				  $output_jpeg->setExif($exif);
+
+				/* We can now save the scaled image. */
+				$writeSuccess = $output_jpeg->saveFile($image_thumb_file);
+			} else {
+
+	            $writeSuccess = imagejpeg($im_output,$image_thumb_file, $image_quality);     
+	            if (!$writeSuccess) {
+	            	die("Unable to write to file $image_thumb_file");
+	            }
+	        }
             
-            if (!$writeSuccess) {
-            	die("Unable to write to file $image_thumb_file");
-            }
             
             $time = time() + 315360000;
             touch($image_thumb_file, $time);
 
+            // save exif
+            
             // add the ICC profile
             try {
 	            $o = new JPEG_ICC();
@@ -222,6 +250,8 @@ class EventgalleryViewResizeimage extends JViewLegacy
 
 		}
 		
+		
+
 		if (!$debug)
 		{
 			header("Last-Modified: $last_modified");
