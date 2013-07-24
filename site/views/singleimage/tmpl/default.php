@@ -10,7 +10,11 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
+
+include 'components/com_eventgallery/views/social.php';
+
 ?>
+
 
 
 <script type="text/javascript">
@@ -106,10 +110,11 @@ defined('_JEXEC') or die('Restricted access');
 
 </script>
 
-<?php include 'components/com_eventgallery/views/cart.php'; ?>
+
 
 <div id="singleimage">
 	
+
 	<?php IF($this->params->get('show_date',1)==1):?>
 		<h4 class="date">
 			<?php echo JHTML::date($this->model->folder->date) ?>
@@ -153,6 +158,10 @@ defined('_JEXEC') or die('Restricted access');
 
 		<?php IF ($this->model->folder->cartable==1 && $this->params->get('show_cart_connector', 0)==1):?>
 			<a rel="<?php echo $this->params->get('cart_connector_link_rel', 'nofollow')?>" href="<?php echo EventgalleryHelpersCartconnector::getLink($this->model->file->folder, $this->model->file->file); ?>" class="btn button-cart-connector" title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR')?>" data-folder="<?php echo $this->model->file->folder ?>" data-file="<?php echo $this->model->file->file; ?>"><i class="icon-cart-connector-small"></i></a>
+		<?php ENDIF ?>
+
+		<?php IF ($this->params->get('use_social_media_button', 1)==1):?>			
+			<a class="btn social-share-button" rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->model->file->folder.'&file='.$this->model->file->file.'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="icon-social-share-button-small"></i></a>
 		<?php ENDIF ?>
 
 		<?php IF (isset($this->model->file->hits) && $this->params->get('show_imagehits',1)==1): ?>		

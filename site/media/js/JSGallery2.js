@@ -16,6 +16,7 @@ var JSGallery2 = new Class({
 		'maxOpacity': 0.8,			//maximum opacity before cursor reaches prev/next control, then it will be set to 1 instantly.
 		'next_image': 'next_image.png',
 		'prev_image': 'prev_image.png',
+		'showSocialMediaButton': true,
 		'showCartButton' : true,
 		'showCartConnector' : false,
 		'cartConnectorLinkRel': '',
@@ -196,6 +197,29 @@ var JSGallery2 = new Class({
 			this.bigImage.getParent().grab(this.cartConnectorLink);
 		}
 
+		if (this.options.showSocialMediaButton) {
+
+			this.socialmediabutton = new Element('a', {
+			    href: '#',
+			    rel: 'sharingbutton',
+			    'class': 'social-share-button',
+			    html: '<i class="big"></i>',
+			    id: 'ajax-social-media-button',
+			    styles: {
+			    	'font-size': '59px',
+			    	'right': '0px', 
+			    	'z-index': 999,
+			    	'position' : 'absolute',
+			    	'display' : 'block',
+			    	'left': '10px', 
+			    	'top': '10px'
+			    }
+			});		
+			
+			this.bigImage.getParent().grab(this.socialmediabutton);
+
+		}
+
 		this.bigImage.addEvents({
 			'mousemove': this.mouseOverHandler.bind(this),
 			'mouseleave': this.mouseLeaveHandler.bind(this)
@@ -368,6 +392,10 @@ var JSGallery2 = new Class({
 			this.cartConnectorLink.set('data-folder', source.getAttribute('data-folder'));
 			this.cartConnectorLink.set('data-file', source.getAttribute('data-file'));
 			this.cartConnectorLink.set('href', decodeURIComponent(source.getAttribute('data-cart-connector-link')) );
+		}
+
+		if (this.options.showSocialMediaButton) {
+			this.socialmediabutton.set('href', decodeURIComponent(source.getAttribute('data-social-sharing-link')) );
 		}
 		
 		$(document.body).fireEvent('updatecartlinks');
