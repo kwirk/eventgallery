@@ -311,16 +311,12 @@ class EventgalleryController extends JControllerLegacy
 			# Füge alle Dateien eines Verzeichnisses in die DB ein.
 			foreach($files as $file)
 			{
-				@list($width, $height, $type, $attr) = getimagesize($maindir.$folder.DIRECTORY_SEPARATOR.$file);
-
 				
-				$query = "insert IGNORE into #__eventgallery_file set folder='$folder', file='$file', width='$width', height='$height', published=1";
+				$query = "insert IGNORE into #__eventgallery_file set folder='$folder', file='$file', published=1";
 				$db->setQuery($query);
 				$db->query();
 				
-				$query = "update #__eventgallery_file set width='$width', height='$height' where folder='$folder' and file='$file'";
-				$db->setQuery($query);
-				$db->query();
+				$this->updateMetadata($maindir.$folder.DIRECTORY_SEPARATOR.$file, $folder, $file);				
 			}
 		}
 		
@@ -689,17 +685,16 @@ class EventgalleryController extends JControllerLegacy
 			if (file_exists($path.$uploadedFile)) {
 			
 				
-				@list($width, $height, $type, $attr) = getimagesize($path.$uploadedFile);
+
 				
 				$query = "REPLACE into #__eventgallery_file set 
 							folder=".$db->Quote($folder).", 
 							file=".$db->Quote($uploadedFile).",
-							width=".$db->Quote($width).",
-							height=".$db->Quote($height).",
-							userid=".$db->Quote($user->id);
+							userid=".$db->Quote($user->id);				
 
 				$db->setQuery($query);
 				$db->query();			
+				$this->updateMetadata($path.$uploadedFile, $folder, $uploadedFile);
 			} 
 		}
 
@@ -786,6 +781,59 @@ class EventgalleryController extends JControllerLegacy
 		#print_r($file);
 		
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=files&cid='.JRequest::getVar('folderid'), $msg );		
+	}
+
+	/**
+	* upaded meta information
+	*/
+	private function updateMetadata($path, $foldername, $filename) {
+
+        require_once(JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'vendors'.DIRECTORY_SEPARATOR.'pel'.DIRECTORY_SEPARATOR.'PelJpeg.php');
+        require_once(JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'vendors'.DIRECTORY_SEPARATOR.'pel'.DIRECTORY_SEPARATOR.'PelTiff.php');
+
+		@list($width, $height, $type, $attr) = getimagesize($path);
+		$input_jpeg = new PelJpeg($path);
+
+		$app1 = $input_jpeg->getExif();
+
+        if ($app1) {
+            $tiff = $app1->getTiff();
+            $ifd0 = $tiff->getIfd();
+            $exifData = $ifd0->getSubIfd(PelIfd::EXIF);
+
+
+            $exif = array();
+            if ($data = $exifData->getEntry(PelTag::APERTURE_VALUE)) {
+                $exif['fstop'] = $data->getText(true);
+            }
+            if ($data = $exifData->getEntry(PelTag::FOCAL_LENGTH)) {
+                $exif['focallength'] = $data->getText();
+            }
+            if ($data = $ifd0->getEntry(PelTag::MODEL)) {
+                $exif['model'] = $data->getText();
+            }
+            if ($data = $exifData->getEntry(PelTag::ISO_SPEED_RATINGS)) {
+                $exif['iso'] = $data->getText();
+            }
+
+
+        }
+
+        $exifJson = json_encode($exif);
+
+		$db = JFactory::getDBO();
+
+		$query = $db->getQuery(true);
+        $query->update("#__eventgallery_file");
+        $query->set("width=".$db->quote($width));
+        $query->set("height=".$db->quote($height));
+        $query->set("exif=".$db->quote($exifJson));
+        $query->where('folder='.$db->quote($foldername));
+        $query->where('file='.$db->quote($filename));
+        $db->setQuery($query);
+        $db->execute();
+		
+		
 	}
 }
 

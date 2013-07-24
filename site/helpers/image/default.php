@@ -20,39 +20,37 @@ abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersIma
 	    	return str_replace("::", "", $this->getLightBoxTitle());
 	    }
 
-	    /**
-	    *  returns a title with the following format:
-	    * 
-	    *   <span class="img-caption img-caption-part1">Foo</span>[::<span class="img-caption img-caption-part1">Bar</span>][::<span class="img-exif">EXIF</span>]
-	    * 
-	    *  :: is the separator for the lightbox to split in title and caption.
-	    */
+	       /**
+    *  returns a title with the following format:
+    * 
+    *   <span class="img-caption img-caption-part1">Foo</span>[::<span class="img-caption img-caption-part1">Bar</span>][::<span class="img-exif">EXIF</span>]
+    * 
+    *  :: is the separator for the lightbox to split in title and caption.
+    */
 
-	    public function getLightBoxTitle() {
+    public function getLightBoxTitle() {
 
-	    	$app	 = JFactory::getApplication();	   		
-			$params	 = $app->getParams();
+    	$app	 = JFactory::getApplication();	   		
+		$params	 = $app->getParams();
 
-			$showExif = $params->get('show_exif','1')=='1';
+		$showExif = $params->get('show_exif','1')=='1';
 
-			$caption = "";
+		$caption = "";
 
-			if (isset($this->title) && strlen($this->title)>0) {	
-				$caption .= '<span class="img-caption img-caption-part1">'.$this->title.'</span>';
+		if (isset($this->caption) && strlen($this->caption)>0) {
+			$caption .= '<span class="img-caption img-caption-part1">'.$this->caption.'</span>';			
+		}
+
+		if ($showExif && isset($this->exif) && strlen($this->exif->model)>0 && strlen($this->exif->focallength)>0 && strlen($this->exif->fstop)>0) {
+			$exif = '<span class="img-exif">'.$this->exif->model.", ".$this->exif->focallength.", ".$this->exif->fstop.", ISO ".$this->exif->iso."</span>";				
+			if (!strpos($caption, "::")) {
+				$caption .= "::";
 			}
+			$caption .= $exif;
+		}			
 
-			if (isset($this->caption) && strlen($this->caption)>0) {
-
-				if (strlen($caption)>0) {
-					$caption .= "::";
-				}
-				$caption .= '<span class="img-caption img-caption-part2">'.$this->caption.'</span>';
-				
-			}
-			
-
-	    	return $caption;
-	    }
+    	return $caption;
+    }
 
 	    /**
 	    * checks if the image has a title to show.
