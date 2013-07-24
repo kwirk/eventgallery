@@ -41,7 +41,7 @@ abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersIma
 			$caption .= '<span class="img-caption img-caption-part1">'.$this->caption.'</span>';			
 		}
 
-		if ($showExif && isset($this->exif) && strlen($this->exif->model)>0 && strlen($this->exif->focallength)>0 && strlen($this->exif->fstop)>0) {
+		if ($showExif && isset($this->exif) && isset($this->exif->model)>0 && isset($this->exif->focallength)>0 && isset($this->exif->fstop)>0) {
 			$exif = '<span class="img-exif">'.$this->exif->model.", ".$this->exif->focallength.", ".$this->exif->fstop.", ISO ".$this->exif->iso."</span>";				
 			if (!strpos($caption, "::")) {
 				$caption .= "::";

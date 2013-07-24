@@ -33,7 +33,13 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 				$this->_blank_script_path = "components/com_eventgallery/media/images/blank.gif";
 			}
 
-			$this->exif = json_decode($photo->exif);
+			
+			if (isset($photo->exif) ){
+				$this->exif = json_decode($photo->exif);
+			}
+			else {
+				$this->exif = new stdClass();
+			}
 
 
 	    }
