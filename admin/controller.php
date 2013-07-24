@@ -319,15 +319,15 @@ class EventgalleryController extends JControllerLegacy
 
 
 				$this->updateMetadata($maindir.$folder.DIRECTORY_SEPARATOR.$file, $folder, $file);				
-				#echo memory_get_usage();
-				#echo "<br>";
+				echo memory_get_usage();
+				echo "<br>";
 			}
 		}
 		
 		
 		
 		$msg = JText::_( 'COM_EVENTGALLERY_SYNC_DATABASE_SYNC_DONE' );
-		$this->setRedirect( 'index.php?option=com_eventgallery', $msg );	
+		#$this->setRedirect( 'index.php?option=com_eventgallery', $msg );	
 	
 	}
 	
@@ -793,8 +793,22 @@ class EventgalleryController extends JControllerLegacy
 	*/
 	private function updateMetadata($path, $foldername, $filename) {
 
-        require_once(JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'vendors'.DIRECTORY_SEPARATOR.'pel'.DIRECTORY_SEPARATOR.'PelJpeg.php');
-        require_once(JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'vendors'.DIRECTORY_SEPARATOR.'pel'.DIRECTORY_SEPARATOR.'PelTiff.php');
+		$Toolkit_Dir = JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'vendors'.DIRECTORY_SEPARATOR.'PHP_JPEG_Metadata_Toolkit_1.12'.DIRECTORY_SEPARATOR;
+        
+
+// Change: Allow this example file to be easily relocatable - as of version 1.11
+        
+
+        // Hide any unknown EXIF tags
+        $GLOBALS['HIDE_UNKNOWN_TAGS'] = TRUE;
+
+        #require_once $Toolkit_Dir . 'Toolkit_Version.php';          // Change: added as of version 1.11
+        require_once $Toolkit_Dir . 'JPEG.php';                     // Change: Allow this example file to be easily relocatable - as of version 1.11
+        require_once $Toolkit_Dir . 'JFIF.php';
+        require_once $Toolkit_Dir . 'PictureInfo.php';
+        require_once $Toolkit_Dir . 'XMP.php';
+        require_once $Toolkit_Dir . 'Photoshop_IRB.php';
+        require_once $Toolkit_Dir . 'EXIF.php';
 
 		@list($width, $height, $type, $attr) = getimagesize($path);			
 
@@ -804,33 +818,29 @@ class EventgalleryController extends JControllerLegacy
 		$ext = substr($filename, -3);
 		if(strtolower($ext) == "jpg") {
 			// this will save us a lot of memory but costs a lot of time too.
-			$img = imagecreatefromjpeg($path);
-			$input_jpeg = new PelJpeg($img);
+			$Exif_array = get_EXIF_JPEG( $path);
 			
-			$app1 = $input_jpeg->getExif();
 
-
-	        if ($app1) {
-	            $tiff = $app1->getTiff();
-	            $ifd0 = $tiff->getIfd();
-	            $exifData = $ifd0->getSubIfd(PelIfd::EXIF);
+print_r($Exif_array[0]);
+			print_r($Exif_array[0]['34665']['Data'][0]['37386']['Data'][0]['Numerator']);
+			
 
 
 	            
-	            if ($data = $exifData->getEntry(PelTag::APERTURE_VALUE)) {
-	                $exif['fstop'] = $data->getText(true);
-	            }
-	            if ($data = $exifData->getEntry(PelTag::FOCAL_LENGTH)) {
-	                $exif['focallength'] = $data->getText();
-	            }
-	            if ($data = $ifd0->getEntry(PelTag::MODEL)) {
-	                $exif['model'] = $data->getText();
-	            }
-	            if ($data = $exifData->getEntry(PelTag::ISO_SPEED_RATINGS)) {
-	                $exif['iso'] = $data->getText();
-	            }
-	        }
+	                $exif['fstop'] = $Exif_array[0]['34665']['Data'][0]['33437']['Data'][0]['Numerator']/$Exif_array[0]['34665']['Data'][0]['33437']['Data'][0]['Denominator'];
+	            
+                $exif['focallength'] = $Exif_array[0]['34665']['Data'][0]['37386']['Data'][0]['Numerator'];
+	            
+	            
+	                $exif['model'] = $Exif_array[0]['272']['Text Value'];
+	            
+	            
+	                $exif['iso'] = $Exif_array[0]['34665']['Data'][0]['34855']['Data'][0];
+	            
+	        
 	    }
+
+
 
         $exifJson = json_encode($exif);
 
