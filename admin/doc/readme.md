@@ -435,6 +435,15 @@ With each new version it might be necessary to add new translation keys to your 
 	Mail: svenbluege(at)gmail.com
 	Web: http://www.svenbluege.de
 
+
+## 2.6.7
+
+	- New Features
+		- Social Media Sharing Buttons. Currently as a AddThis integration but this might change.
+		- Exif support for local images. Just sync your database to read the information from the files to the database.
+		- Thumbs contain the original exif information. This will help to have the necessary metadata available once those images appear somewhere else.
+
+
 ## 2.6.6
 	- Bug Fixes
 		- Fixed an issue with the folder selection form field which throwed a exception like "Class 'JFormFieldList' not found".
