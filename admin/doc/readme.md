@@ -292,6 +292,10 @@ There are only a few things globally manageable.
 
 	Defines if we show a link for each image which can direct the user to a product detail page. This will cause conflicts with the internal cart buttons so you should disable to internal cart feature or do some css magic to align both buttons in the right way.
 
+- show social sharing button
+
+	You can enable your vitors to post links to images in social media.
+
 - external cart link
 
 	Defines a pattern for an external link. You can use the following placeholder: ${folder},${file} and ${fileBase} like this: http://www.foo.bar?category=${folder}&amp;sku=${fileBase}
