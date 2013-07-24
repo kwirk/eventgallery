@@ -316,9 +316,14 @@ class EventgalleryController extends JControllerLegacy
 				$db->setQuery($query);
 				$db->query();
 				
+
+
 				$this->updateMetadata($maindir.$folder.DIRECTORY_SEPARATOR.$file, $folder, $file);				
+				#echo memory_get_usage();
+				#echo "<br>";
 			}
 		}
+		
 		
 		
 		$msg = JText::_( 'COM_EVENTGALLERY_SYNC_DATABASE_SYNC_DONE' );
@@ -791,33 +796,41 @@ class EventgalleryController extends JControllerLegacy
         require_once(JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'vendors'.DIRECTORY_SEPARATOR.'pel'.DIRECTORY_SEPARATOR.'PelJpeg.php');
         require_once(JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'vendors'.DIRECTORY_SEPARATOR.'pel'.DIRECTORY_SEPARATOR.'PelTiff.php');
 
-		@list($width, $height, $type, $attr) = getimagesize($path);
-		$input_jpeg = new PelJpeg($path);
+		@list($width, $height, $type, $attr) = getimagesize($path);			
 
-		$app1 = $input_jpeg->getExif();
+		$exif = array();
 
-        if ($app1) {
-            $tiff = $app1->getTiff();
-            $ifd0 = $tiff->getIfd();
-            $exifData = $ifd0->getSubIfd(PelIfd::EXIF);
-
-
-            $exif = array();
-            if ($data = $exifData->getEntry(PelTag::APERTURE_VALUE)) {
-                $exif['fstop'] = $data->getText(true);
-            }
-            if ($data = $exifData->getEntry(PelTag::FOCAL_LENGTH)) {
-                $exif['focallength'] = $data->getText();
-            }
-            if ($data = $ifd0->getEntry(PelTag::MODEL)) {
-                $exif['model'] = $data->getText();
-            }
-            if ($data = $exifData->getEntry(PelTag::ISO_SPEED_RATINGS)) {
-                $exif['iso'] = $data->getText();
-            }
+		
+		$ext = substr($filename, -3);
+		if(strtolower($ext) == "jpg") {
+			// this will save us a lot of memory but costs a lot of time too.
+			$img = imagecreatefromjpeg($path);
+			$input_jpeg = new PelJpeg($img);
+			
+			$app1 = $input_jpeg->getExif();
 
 
-        }
+	        if ($app1) {
+	            $tiff = $app1->getTiff();
+	            $ifd0 = $tiff->getIfd();
+	            $exifData = $ifd0->getSubIfd(PelIfd::EXIF);
+
+
+	            
+	            if ($data = $exifData->getEntry(PelTag::APERTURE_VALUE)) {
+	                $exif['fstop'] = $data->getText(true);
+	            }
+	            if ($data = $exifData->getEntry(PelTag::FOCAL_LENGTH)) {
+	                $exif['focallength'] = $data->getText();
+	            }
+	            if ($data = $ifd0->getEntry(PelTag::MODEL)) {
+	                $exif['model'] = $data->getText();
+	            }
+	            if ($data = $exifData->getEntry(PelTag::ISO_SPEED_RATINGS)) {
+	                $exif['iso'] = $data->getText();
+	            }
+	        }
+	    }
 
         $exifJson = json_encode($exif);
 
@@ -832,8 +845,7 @@ class EventgalleryController extends JControllerLegacy
         $query->where('file='.$db->quote($filename));
         $db->setQuery($query);
         $db->execute();
-		
-		
+
 	}
 }
 
