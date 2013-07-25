@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 jimport( 'joomla.application.component.view');
 require_once JPATH_BASE.'/components/com_eventgallery/helpers/vendors/class.jpeg_icc.php';	
 /* Load the required PEL files for handling JPEG images. */
-require_once JPATH_BASE.'/components/com_eventgallery/helpers/vendors/pel/PelJpeg.php';
+require_once JPATH_BASE.'/components/com_eventgallery/helpers/vendors/pel/src/PelJpeg.php';
 
 
 class EventgalleryViewResizeimage extends JViewLegacy
