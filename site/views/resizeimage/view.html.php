@@ -212,6 +212,7 @@ class EventgalleryViewResizeimage extends JViewLegacy
 
 			$image_quality = $params->get('image_quality',85);
 			if ($input_jpeg != null) {
+				Pel::setJPEGQuality($image_quality);
 				/* We want the raw JPEG data from $scaled. Luckily, one can create a
 				 * PelJpeg object from an image resource directly: */
 				$output_jpeg = new PelJpeg($im_output);

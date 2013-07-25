@@ -795,6 +795,9 @@ class EventgalleryController extends JControllerLegacy
         require_once($libPath.'PelTiff.php');
 
         @list($width, $height, $type, $attr) = getimagesize($path);
+        $exif = array();
+
+        try {
         $input_jpeg = new PelJpeg($path);
 
         $app1 = $input_jpeg->getExif();
@@ -805,7 +808,7 @@ class EventgalleryController extends JControllerLegacy
             $exifData = $ifd0->getSubIfd(PelIfd::EXIF);
 
 
-            $exif = array();
+        
             if ($exifData) {
                 if ($data = $exifData->getEntry(PelTag::APERTURE_VALUE)) {
                     $value = $data->getValue();
@@ -824,6 +827,9 @@ class EventgalleryController extends JControllerLegacy
             }
 
 
+        }
+        } catch (Exception $e) {
+            
         }
 
         $exifJson = json_encode($exif);
