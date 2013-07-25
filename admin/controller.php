@@ -813,7 +813,7 @@ class EventgalleryController extends JControllerLegacy
                 }
                 if ($data = $exifData->getEntry(PelTag::FOCAL_LENGTH)) {
                     $value = $data->getValue();
-                    $exif['focallength'] = $value[0];
+                    $exif['focallength'] = sprintf('%.0f',$value[0]/$value[1]);
                 }
                 if ($data = $ifd0->getEntry(PelTag::MODEL)) {
                     $exif['model'] = $data->getText();
