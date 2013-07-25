@@ -224,7 +224,8 @@ class EventgalleryViewResizeimage extends JViewLegacy
 				  $output_jpeg->setExif($exif);
 
 				/* We can now save the scaled image. */
-				$writeSuccess = $output_jpeg->saveFile($image_thumb_file);
+				$writeSuccess = true;
+				$output_jpeg->saveFile($image_thumb_file);
 			} else {
 
 	            $writeSuccess = imagejpeg($im_output,$image_thumb_file, $image_quality);     
