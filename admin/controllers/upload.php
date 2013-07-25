@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 
 jimport( 'joomla.application.component.controllerform' );
 
+require_once(__DIR__.'/../controller.php');
+
 class EventgalleryControllerUpload extends JControllerForm
 {
 
@@ -104,10 +106,13 @@ class EventgalleryControllerUpload extends JControllerForm
 			} 
 		}
 
+		 
 		if (!$ajaxMode) {
 			$msg = JText::_( 'COM_EVENTGALLERY_EVENT_UPLOAD_COMPLETE' );
 			$this->setRedirect( 'index.php?option=com_eventgallery&task=upload', $msg );
-		} 
+		}
+
+		die();
 
 	}
 	
