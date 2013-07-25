@@ -17,6 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 		addthis:title="<?php echo $this->escape($this->model->file->title).$this->model->file->file ?>" 
 		addthis:url="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&format=raw&folder='.$this->model->file->folder.'&file='.$this->model->file->file, true, -1) ?>"
 	 >
+<a href="#" style="float: left" class="social-share-button" rel="sharingbutton-close"><i class="big"></i></a>	 
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>
