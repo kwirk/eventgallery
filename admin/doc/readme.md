@@ -439,14 +439,22 @@ With each new version it might be necessary to add new translation keys to your 
 ## 2.6.7
 
 	- New Features
-		- Social Media Sharing Buttons. Currently as a AddThis integration but this might change.
-		- Exif support for local images. Just sync your database to read the information from the files to the database.
-		- Thumbs contain the original exif information. This will help to have the necessary metadata available once those images appear somewhere else.
+		- Social Media Sharing Buttons. Currently as a AddThis integration but this might 
+		  change. You can specify your addThis ID and have some kind of additional 
+		  analytics. The links which can be shared for an image direct the user to a mini
+		  page which presents the image. With a click on this image the user gets 
+		  redirected to the event.
+		- EXIF support for local images. Just sync your database to read the information 
+		  from the files to the database. Once you did this, EXIF information will show up
+		  for each image.
+		- Thumbs contain now the original EXI information. This will help to have the 
+		  necessary meta data available once those images appear somewhere else.
 
 
 ## 2.6.6
 	- Bug Fixes
-		- Fixed an issue with the folder selection form field which throwed a exception like "Class 'JFormFieldList' not found".
+		- Fixed an issue with the folder selection form field which throw an 
+		  exception like "Class 'JFormFieldList' not found".
 
 ## 2.6.5
 	- Bug Fixes
