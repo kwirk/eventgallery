@@ -806,19 +806,21 @@ class EventgalleryController extends JControllerLegacy
 
 
             $exif = array();
-            if ($data = $exifData->getEntry(PelTag::APERTURE_VALUE)) {
-                $value = $data->getValue();
-                $exif['fstop'] = sprintf('%.01f',pow(2, $value[0]/$value[1]/2));
-            }
-            if ($data = $exifData->getEntry(PelTag::FOCAL_LENGTH)) {
-                $value = $data->getValue();
-                $exif['focallength'] = $value[0];
-            }
-            if ($data = $ifd0->getEntry(PelTag::MODEL)) {
-                $exif['model'] = $data->getText();
-            }
-            if ($data = $exifData->getEntry(PelTag::ISO_SPEED_RATINGS)) {
-                $exif['iso'] = $data->getText();
+            if ($exifData) {
+                if ($data = $exifData->getEntry(PelTag::APERTURE_VALUE)) {
+                    $value = $data->getValue();
+                    $exif['fstop'] = sprintf('%.01f',pow(2, $value[0]/$value[1]/2));
+                }
+                if ($data = $exifData->getEntry(PelTag::FOCAL_LENGTH)) {
+                    $value = $data->getValue();
+                    $exif['focallength'] = $value[0];
+                }
+                if ($data = $ifd0->getEntry(PelTag::MODEL)) {
+                    $exif['model'] = $data->getText();
+                }
+                if ($data = $exifData->getEntry(PelTag::ISO_SPEED_RATINGS)) {
+                    $exif['iso'] = $data->getText();
+                }
             }
 
 
