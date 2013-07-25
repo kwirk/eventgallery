@@ -10,29 +10,33 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
+
+$title = "";
+if (strlen($this->model->folder->description)>0) {
+	$title .= $this->model->folder->description;
+} else {
+	$title .= $this->model->file->folder;
+}
+
+$title .= ' - ';
+
+if (strlen($this->model->file->title)>0) {
+	$title .= $this->model->file->title;
+} else {
+	$title .= $this->model->file->file;
+}
+
 ?><html>
-	<head>
-		<title><?php 
-			if (strlen($this->model->folder->description)>0) {
-				echo $this->model->folder->description;
-			} else {
-				echo $this->model->file->folder;
-			}
+	<head prefix="og: http://ogp.me/ns#">
+		<meta property="og:image" content="<?php echo  $this->model->file->getImageUrl(400, 400, false) ?>"/>
+		<meta property="og:url" content="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&format=raw&folder='.$this->model->file->folder.'&file='.$this->model->file->file, null, -1)?>"/>
+		<meta property="og:title" content="<?php echo $title ?>"/>
 
-			echo ' - ';
-
-			if (strlen($this->model->file->title)>0) {
-				echo $this->model->file->title;
-			} else {
-				echo $this->model->file->file;
-			}
-		?></title>
+		<title><?php echo $title ?></title>
 	</head>
 	<body>
 		<a href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=event&folder='.$this->model->file->folder)?>">
-		<img src="<?php echo  $this->model->file->getImageUrl(null, null, true) ?>">
+		<img rel="image_src" src="<?php echo  $this->model->file->getImageUrl(600, 600, false) ?>">
 		</a>
 	</body>
 </html>
-		
-		
