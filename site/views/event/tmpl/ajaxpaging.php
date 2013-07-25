@@ -38,6 +38,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
                 'next_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>',
                 'zoom_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
                 'titleTarget': 'bigImageDescription',
+                'showSocialMediaButton': <?php echo $this->params->get('use_social_sharing_button', 0)==1?'true':'false'?>,
                 'showCartButton': <?php echo $this->folder->cartable==1?'true':'false'; ?>,
                 'showCartConnector': <?php echo $this->params->get('show_cart_connector', 0)==1&&$this->folder->cartable==1?'true':'false'; ?>,
 				'cartConnectorLinkRel' : '<?php echo $this->params->get('cart_connector_link_rel', 'nofollow')?>',
@@ -70,6 +71,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 
 <?php  echo  $this->loadSnippet("cart"); ?>
+<?php  echo  $this->loadSnippet("social"); ?>
+
 
 <?php IF ($this->folder->cartable == 1 && $this->params->get('use_cart', '1')==1): ?>
     <?php echo $this->loadSnippet('imageset/imagesetselectionajax'); ?>
@@ -122,9 +125,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
                                rel="<?php echo $entry->getImageUrl(50, 50, false, false); ?>"
                                data-folder="<?php echo $entry->folder; ?>"
                                data-file="<?php echo $entry->file; ?>"
-                               data-cart-connector-link="<?php echo rawurlencode(
-                                   EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file)
-                               ); ?>"
+                               <?php IF ($this->params->get('show_cart_connector', 0)==1):?>
+							       data-cart-connector-link="<?php echo rawurlencode(EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file));?>"
+							   <?php ENDIF ?>
                                data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
                                data-width="<?php echo $entry->width; ?>"
                                data-height="<?php echo $entry->height; ?>"
@@ -137,6 +140,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
                                    . " $this->entriesCount" ?>
 										<br /><?php echo rawurlencode($entry->getTitle()); ?>"
                                data-title="<?php echo rawurlencode($entry->getLightBoxTitle()); ?>"
+                           	   <?php IF ($this->params->get('use_social_sharing_button', 0)==1):?>
+							    	data-social-sharing-link="<?php echo rawurlencode(JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->folder.'&file='.$this->entry->file.'&format=raw') ); ?>"
+							   <?php ENDIF ?>
                                 >
                                 <?php echo $entry->getThumbImgTag(
                                     $this->params->get('event_ajax_list_thumbnail_size', 75),

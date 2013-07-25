@@ -12,6 +12,8 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
+<?php echo $this->loadSnippet('social'); ?>
+
 
 <script type="text/javascript">
 
@@ -186,6 +188,10 @@ defined('_JEXEC') or die('Restricted access');
                data-folder="<?php echo $this->model->file->folder ?>"
                data-file="<?php echo $this->model->file->file; ?>"><i class="icon-cart-connector-small"></i></a>
         <?php ENDIF ?>
+
+		<?php IF ($this->params->get('use_social_sharing_button', 0)==1):?>			
+			<a class="btn social-share-button" rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->model->file->folder.'&file='.$this->model->file->file.'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="icon-social-share-button-small"></i></a>
+		<?php ENDIF ?>
 
         <?php IF (isset($this->model->file->hits) && $this->params->get('show_imagehits', 1) == 1): ?>
             <div class="btn singleimage-hits"><?php echo JText::_(

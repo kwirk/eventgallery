@@ -1231,3 +1231,63 @@ EventGalleryMediabox.scanPage = function () {
 };
 window.addEvent("domready", EventGalleryMediabox.scanPage);
 
+
+
+window.addEvent("domready", function() {
+
+	$(document.body).addEvent('click:relay(a[rel=sharingbutton-close])', function(e) {
+		e.preventDefault();
+		var myDiv = $(e.target).getParent('.social-sharing-toolbox');
+		var myFx = new Fx.Tween(myDiv, {
+		    property: 'opacity',
+		    onComplete : function() {myDiv.dispose();}
+		});
+		myFx.start(0);
+		
+	});
+		
+	$(document.body).addEvent('click:relay(a[rel=sharingbutton])', function(e) {
+
+		e.preventDefault();
+
+		var link = $(e.target);
+		if (!link.getAttribute('href')) {
+			link = link.getParent('a');	
+		}
+	
+			var targetPos = $(e.target).getPosition();
+			myDiv = new Element('div', {
+		    href: '#',
+		    'class': 'social-sharing-toolbox',
+		    html: 'Loading',
+		    id: '',
+		    styles: {
+		    	'opacity': '1 !important',
+		    	'position': 'absolute',    	
+		    	'top': targetPos.y-10,
+		    	'left': targetPos.x-10,
+		    	'opacity': 0
+		    }
+		});		
+		
+		
+		$$('body')[0].grab(myDiv);
+		myDiv.fade('in');
+		myDiv.set('load', {evalScripts: true});			
+		myDiv.load(link.getAttribute('href'));
+		
+		myDiv.addEvent('mouseleave', function(){ 
+			var myFx = new Fx.Tween(myDiv, {
+			    property: 'opacity',
+			    onComplete : function() {myDiv.dispose();}
+			});
+			myFx.start(0);
+			
+		}.bind(this) 
+
+		);
+
+
+	}); 
+
+});

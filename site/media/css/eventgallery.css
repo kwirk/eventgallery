@@ -212,6 +212,12 @@
     right: 10px;
 }
 
+#event .thumbnail .img .social-share-button {
+    position: absolute;
+    top: 4px;
+    left: 10px;
+}
+
 #event .thumbnail .img img {
     /*width:100%;
     height: auto;
@@ -253,6 +259,13 @@
     bottom: 12px;
     right: 12px;
 }
+
+.thumbnails .thumbnail-container .social-share-button {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+}
+
 
 /* Event - Ajaxpaging */
 
@@ -552,7 +565,8 @@ a.button-removeFromCart i.loading {
 .button-cart-connector i.big,
 .button-cart i.big,
 .button-alreadyInCart i.big,
-.button-removeFromCart i.big {
+.button-removeFromCart i.big,
+.social-share-button i.big {
     background: transparent url(../images/cart/buttons.png) no-repeat;
     width: 35px;
     height: 30px;
@@ -567,13 +581,15 @@ a.button-removeFromCart i.loading {
 .button-cart-connector:hover i.big,
 .button-cart:hover i.big,
 .button-removeFromCart:hover i.big,
-.button-alreadyInCart:hover	 i.big {
+.button-alreadyInCart:hover	 i.big,
+.social-share-button:hover i.big {
     opacity: 1 !important;
 }
 
 div.thumbnail-container:hover .button-add2cart i.big,
 div.thumbnail-container:hover .button-cart-connector i.big,
 div.thumbnail-container:hover .button-alreadyInCart i.big,
+div.thumbnail-container:hover .social-share-button i.big,
 div.cart-item:hover .button-removeFromCart i.big,
 div.img:hover .button-add2cart i.big,
 div.img:hover .button-cart-connector i.big,
@@ -584,6 +600,10 @@ div.img:hover .button-alreadyInCart i.big {
 .button-add2cart i.big,
 .button-cart-connector i.big, {
     background-position: -0px 0px;
+}
+
+.social-share-button i.big {
+    background-position: -105px 0px;
 }
 
 .button-cart i.big {
@@ -600,6 +620,7 @@ div.img:hover .button-alreadyInCart i.big {
 
 .button-add2cart i.icon-cart-small,
 .button-cart i.icon-cart-small,
+.social-share-button i.icon-social-share-button-small,
 .button-cart-connector  i.icon-cart-connector-small,
 .button-alreadyInCart i.icon-cart-small,
 .button-removeFromCart i.icon-cart-small {
@@ -617,6 +638,11 @@ div.img:hover .button-alreadyInCart i.big {
 .button-cart  i.icon-cart-small,
 .button-alreadyInCart i.icon-cart-small {
     background-position: -37px -30px;
+}
+
+.social-share-button i.icon-social-share-button-small
+{
+    background-position: -59px -30px;
 }
 
 .button-removeFromCart i.icon-cart-small {
@@ -837,6 +863,15 @@ div.img:hover .button-alreadyInCart i.big {
     float: left;
     width: 49%;
     margin-bottom: 20px;    
+}
+
+.social-sharing-toolbox {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #EEEEEE;
+    -webkit-box-shadow:  0px 1px 2px 0px rgba(0, 0, 0, 0.5);       
+    box-shadow:  0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }
 
 /* bootstrap additions for joomla 2.5*/

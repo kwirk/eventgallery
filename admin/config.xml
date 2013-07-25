@@ -55,6 +55,7 @@
 			<option value="1">JYES</option>
 		</field>	
 		
+		
 		<field 	name="cart_connector_link" 
 				type="text" 
 				default="http://mydomain.com/${folder}/${fileBase}" 
@@ -78,6 +79,19 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+</fieldset>
+
+<fieldset name="social" label="COM_EVENTGALLERY_EVENTS_OPTIONS_SOCIAL_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_SOCIAL_DESC">
+		<field name="use_social_sharing_button" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_BUTTON_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_BUTTON_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field 	name="social_sharing_addthis_pubid" 
+				type="text" 
+				default="" 
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_ADDTHIS_ID_LABEL" 
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_ADDTHIS_ID_DESCRIPTION" />
 </fieldset>
 
 <fieldset name="accesscontrol" label="Permissions">

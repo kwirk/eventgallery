@@ -21,6 +21,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 */
 
 echo $this->loadSnippet('cart');
+echo $this->loadSnippet('social');
 
 ?>
 
@@ -114,7 +115,9 @@ echo $this->loadSnippet('cart');
                     ); ?>" class="button-cart-connector"
                     title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR') ?>"
                     data-folder="<?php echo $this->entry->folder ?>" data-file="<?php echo $this->entry->file; ?>"><i
-                            class="big"></i></a><?php ENDIF ?></div>
+                            class="big"></i></a><?php ENDIF 
+        			?><?php IF ($this->params->get('use_social_sharing_button', 0)==1):?><a rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->folder.'&file='.$this->entry->file.'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="big"></i></a><?php ENDIF 
+			    ?></div>
         <?php endforeach ?>
         <div style="clear: both"></div>
     </div>

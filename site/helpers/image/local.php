@@ -15,6 +15,7 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 
 		protected $_image_script_path = 'components/com_eventgallery/helpers/image.php';
 		protected $_blank_script_path = 'components/com_eventgallery/helpers/blank.php';
+		public $exif;
 
 		// constructor
     /** @noinspection PhpUndefinedClassInspection */
@@ -45,6 +46,14 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
                 $this->_image_script_path = "index.php";
                 $this->_blank_script_path = "components/com_eventgallery/media/images/blank.gif";
             }
+
+			
+			if (isset($photo->exif) ){
+				$this->exif = json_decode($photo->exif);
+			}
+			else {
+				$this->exif = new stdClass();
+			}
 
 
 	    }
