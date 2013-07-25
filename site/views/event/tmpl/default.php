@@ -114,7 +114,7 @@ include 'components/com_eventgallery/views/social.php';
 						<?php IF ($this->folder->cartable==1 && $this->params->get('show_cart_connector', 0)==1):?>
 							<a rel="<?php echo $this->params->get('cart_connector_link_rel', 'nofollow')?>" href="<?php echo EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file); ?>" class="button-cart-connector" title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR')?>" data-folder="<?php echo $this->entry->folder ?>" data-file="<?php echo $this->entry->file; ?>"><i class="big"></i></a>
 						<?php ENDIF ?>
-						<?php IF ($this->params->get('use_social_sharing_button', 1)==1):?>
+						<?php IF ($this->params->get('use_social_sharing_button', 0)==1):?>
 							<a rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->folder.'&file='.$this->entry->file.'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="big"></i></a>
 						<?php ENDIF ?>
 					</div>

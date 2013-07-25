@@ -1235,15 +1235,27 @@ window.addEvent("domready", function() {
 		    	'opacity': '1 !important',
 		    	'position': 'absolute',    	
 		    	'top': targetPos.y,
-		    	'left': targetPos.x
+		    	'left': targetPos.x,
+		    	'opacity': 0
 		    }
 		});		
 		
 		
 		$$('body')[0].grab(myDiv);
+		myDiv.fade('in');
 		myDiv.set('load', {evalScripts: true});			
 		myDiv.load(link.getAttribute('href'));
-		myDiv.addEvent('mouseleave', function(){ myDiv.dispose()}.bind(this) );
+		
+		myDiv.addEvent('mouseleave', function(){ 
+			var myFx = new Fx.Tween(myDiv, {
+			    property: 'opacity',
+			    onComplete : function() {myDiv.dispose();}
+			});
+			myFx.start(0);
+			
+		}.bind(this) 
+
+		);
 
 
 	}); 

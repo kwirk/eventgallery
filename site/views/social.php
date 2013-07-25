@@ -8,11 +8,11 @@
  */
 defined('_JEXEC') or die('Restricted access'); ?>
 
-<?php IF ($this->params->get('use_social_sharing_button', 1)==1):?>			    
+<?php IF ($this->params->get('use_social_sharing_button', 0)==1):?>			    
 	<script type="text/javascript">
 		var addthis_config = {
 			"data_track_addressbar":false
 		};
 	</script>
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=<?php echo $this->params->get('use_social_sharing_button') ?>"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=<?php echo $this->params->get('social_sharing_addthis_pubid') ?>"></script>
 <?php ENDIF ?>
