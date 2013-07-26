@@ -450,6 +450,8 @@ With each new version it might be necessary to add new translation keys to your 
 		- Thumbs contain now the original EXI information. This will help to have the 
 		  necessary meta data available once those images appear somewhere else.
 
+	- Bug Fixes
+		- fixed usage of wrong configuration set once the current menu item is not given
 
 ## 2.6.6
 	- Bug Fixes

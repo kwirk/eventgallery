@@ -28,7 +28,7 @@ class EventgalleryViewSingleImage extends JViewLegacy
 		/* Default Page fallback*/		
 		$active	= $app->getMenu()->getActive();
 		if (null == $active) {
-			$params = $app->getMenu()->getDefault()->params;
+			$params->merge($app->getMenu()->getDefault()->params);
 		}
 
 		$this->assign('params', $params);

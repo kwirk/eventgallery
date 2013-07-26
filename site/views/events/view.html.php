@@ -32,7 +32,7 @@ class EventgalleryViewEvents extends JViewLegacy
 		/* Default Page fallback*/		
 		$active	= $app->getMenu()->getActive();
 		if (null == $active) {
-			$params = $app->getMenu()->getDefault()->params;
+			$params->merge($app->getMenu()->getDefault()->params);
 		}
 
 		$entriesPerPage = $params->get('max_events_per_page', 12);
