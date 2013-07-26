@@ -14,6 +14,7 @@ class EventgalleryHelpersEventgallery
 	
 	public static function addSubmenu($vName = 'events')
 	{
+
 		JHtmlSidebar::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTS'),
 			'index.php?option=com_eventgallery',

@@ -84,9 +84,11 @@ class EventgalleryModelMethod extends JModelAdmin
                 $data->set('id', $app->input->get('id'));
             }
         }
-
-        $this->preprocessData($this->form_source, $data);
-
+		
+		if (method_exists($this, 'preprocessData')){
+        	$this->preprocessData($this->form_source, $data);
+		}
+		
         return $data;
     }
 

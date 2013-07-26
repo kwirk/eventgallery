@@ -23,6 +23,14 @@ JTable::addIncludePath(
 JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT_SITE);
 JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT);
 
+$version =  new JVersion();
+if (!$version->isCompatible('3.0')) {
+    require_once(JPATH_COMPONENT.'/helpers/legacy_layout.php');
+    require_once(JPATH_COMPONENT.'/helpers/legacy_base.php');
+    require_once(JPATH_COMPONENT.'/helpers/legacy_file.php');
+    require_once(JPATH_COMPONENT.'/helpers/legacy_sidebar.php');
+}
+
 // Execute the task.
 $controller	= JControllerLegacy::getInstance('Eventgallery');
 $controller->execute(JFactory::getApplication()->input->get('task'));

@@ -57,8 +57,10 @@ class EventgalleryModelImagetype extends JModelAdmin
             }
         }
 
-        $this->preprocessData('com_eventgallery.imagetype', $data);
-
+		if (method_exists($this, 'preprocessData')) {
+        	$this->preprocessData('com_eventgallery.imagetype', $data);
+		}
+		
         return $data;
     }
 

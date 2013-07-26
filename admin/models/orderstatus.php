@@ -78,8 +78,10 @@ class EventgalleryModelOrderstatus extends JModelAdmin
             }
         }
 
-        $this->preprocessData('com_eventgallery.orderstatus', $data);
-
+		if (method_exists($this, 'preprocessData')) {
+        	$this->preprocessData('com_eventgallery.orderstatus', $data);
+		}
+		
         return $data;
     }
 
