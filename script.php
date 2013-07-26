@@ -14,50 +14,47 @@ defined('_JEXEC') or die;
 //for example: com_contentInstallerScript for com_content.
 class com_eventgalleryInstallerScript
 {
-        /*
-         * $parent is the class calling this method.
-         * $type is the type of change (install, update or discover_install, not uninstall).
-         * preflight runs before anything else and while the extracted files are in the uploaded temp folder.
-         * If preflight returns false, Joomla will abort the update and undo everything already done.
-         */
-        function preflight( $type, $parent ) {
+    /*
+    * $parent is the class calling this method.
+    * $type is the type of change (install, update or discover_install, not uninstall).
+    * preflight runs before anything else and while the extracted files are in the uploaded temp folder.
+    * If preflight returns false, Joomla will abort the update and undo everything already done.
+    */
+    function preflight( $type, $parent ) {
 
-                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/models' );
-                JFolder::delete( JPATH_ROOT . '/administrator/components/com_eventgallery/models' );
-                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/library' );
-                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/views' );
-                JFolder::delete( JPATH_ROOT . '/administrator/components/com_eventgallery/views' );
-                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/helpers' );
-                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/controllers' );
-                JFolder::delete( JPATH_ROOT . '/administrator/components/com_eventgallery/controllers' );
-                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/media' );
-                JFolder::delete( JPATH_ROOT . '/administrator/components/com_eventgallery/media' );
-                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/tests' );
-                JFolder::delete( JPATH_ROOT . '/components/com_eventgallery/language' );
-                $filename = JPATH_ROOT . '/language/en-GB/en-GB.com_eventgallery.ini';
-                if ( JFile::exists( $filename )) {
-                  JFile::delete( $filename );
-                  echo "removed $filename<br>";
-                }
-                $filename = JPATH_ROOT . '/language/de-DE/de-DE.com_eventgallery.ini';
-                if ( JFile::exists( $filename )) {
-                  JFile::delete( $filename );
-                  echo "removed $filename<br>";
-                }
-                $filename = JPATH_ROOT . '/administrator/language/en-GB/en-GB.com_eventgallery.ini';
-                if ( JFile::exists( $filename )) {
-                  JFile::delete( $filename );
-                  echo "removed $filename<br>";
-                }
-                $filename = JPATH_ROOT . '/administrator/language/en-GB/en-GB.com_eventgallery.sys.ini';
+        $folders = array(  
+            JPATH_ROOT . '/administrator/components/com_eventgallery/controllers',
+            JPATH_ROOT . '/administrator/components/com_eventgallery/media',
+            JPATH_ROOT . '/administrator/components/com_eventgallery/models',
+            JPATH_ROOT . '/administrator/components/com_eventgallery/views',
+            JPATH_ROOT . '/components/com_eventgallery/controllers',
+            JPATH_ROOT . '/components/com_eventgallery/helpers',
+            JPATH_ROOT . '/components/com_eventgallery/language',
+            JPATH_ROOT . '/components/com_eventgallery/library',
+            JPATH_ROOT . '/components/com_eventgallery/media',
+            JPATH_ROOT . '/components/com_eventgallery/models',
+            JPATH_ROOT . '/components/com_eventgallery/tests',
+            JPATH_ROOT . '/components/com_eventgallery/views'
+        );
 
-                if ( JFile::exists( $filename )) {
-                  JFile::delete( $filename );
-                  echo "removed $filename<br>";
-                }
-                
+        $files = array(
+            JPATH_ROOT . '/language/en-GB/en-GB.com_eventgallery.ini',
+            JPATH_ROOT . '/language/de-DE/de-DE.com_eventgallery.ini',
+            JPATH_ROOT . '/administrator/language/en-GB/en-GB.com_eventgallery.ini',
+            JPATH_ROOT . '/administrator/language/en-GB/en-GB.com_eventgallery.sys.ini'
+        );
+
+        foreach($folders as $folder) {
+            if (JFolder::exists($folder)) {
+                JFolder::delete($folder);
+            }
         }
- 
-       
+
+        foreach($files as $file) {
+            if (JFolder::exists($file)) {
+                JFolder::delete($file);
+            }
+        }
+    }   
     
 }
