@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die('Restricted access'); 
 
-$document = JFactory::getDocument();    
+$document = JFactory::getDocument();
 $css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
 $document->addStyleSheet($css);     
 

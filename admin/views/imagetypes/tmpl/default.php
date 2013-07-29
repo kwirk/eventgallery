@@ -12,7 +12,14 @@ defined('_JEXEC') or die('Restricted access');
 
 
 JHtml::_('behavior.tooltip');
-
+$document = JFactory::getDocument();
+$version =  new JVersion();
+if ($version->isCompatible('3.0')) {
+ 
+} else {
+    $css=JURI::base().'components/com_eventgallery/media/css/legacy.css';
+    $document->addStyleSheet($css);
+}
 
 ?>
 

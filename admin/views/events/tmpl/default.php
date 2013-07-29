@@ -9,6 +9,14 @@
  */
 
 defined('_JEXEC') or die('Restricted access'); 
+$document = JFactory::getDocument();
+$version =  new JVersion();
+if ($version->isCompatible('3.0')) {
+
+} else {
+    $css=JURI::base().'components/com_eventgallery/media/css/legacy.css';
+    $document->addStyleSheet($css);
+}
 ?>
 <form action="index.php" method="post" id="adminForm" name="adminForm">
 <?php if (!empty( $this->sidebar)) : ?>
@@ -86,25 +94,25 @@ defined('_JEXEC') or die('Restricted access');
 
                         <?php IF ($row->cartable==1): ?>
                         <a style="color: green" class="btn btn-micro active jgrid" href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','events.notcartable')">
-                            <span class="state icon-16-checkin"><i class="icon-cart"></i></span>
+                            <span class="state"><i class="icon-cart"></i></span>
                         </a>
                         <?php ELSE:?>
                             <a class="btn btn-micro jgrid" href="javascript:void(0);" onclick="return listItemTask('cb<?php echo $i;?>','events.cartable')">
-                                <span class="state icon-16-checkin"><i class="icon-cart"></i></span>
+                                <span class="state"><i class="icon-cart"></i></span>
                             </a>
                         <?php ENDIF ?>
 
                         <?php IF (strpos($row->folder,'@')=== false): ?>
 						<?php /*the following mix of jgrid and btn is for being compatible with joomla 2.5 and 3.0*/ ?>
                             <a href="<?php echo $uploadLink; ?>" id="upload_<?php echo $row->id?>" class="btn btn-micro jgrid">
-                                <span class="state icon-16-newcategory "><i class="icon-upload"></i>	<span class="text"></span></span>
+                                <span class="state "><i class="icon-upload"></i>	<span class="text"></span></span>
                             </a>
                             <a href="<?php echo $filesLink; ?>" id="files_<?php echo $row->id?>" class="btn btn-micro jgrid">
-                                <span class="state icon-16-module "><i class="icon-folder-2"></i>	<span class="text"></span></span>
+                                <span class="state"><i class="icon-folder-2"></i>	<span class="text"></span></span>
                             </a>
                         <?php ENDIF ?>
                         <a href="<?php echo $editLink; ?>" id="files_<?php echo $row->id?>" class="btn btn-micro jgrid">
-                            <span class="state icon-16-config"><i class="icon-edit"></i>	<span class="text"></span></span>
+                            <span class="state"><i class="icon-edit"></i>	<span class="text"></span></span>
                         </a>
                         
 					</div>				

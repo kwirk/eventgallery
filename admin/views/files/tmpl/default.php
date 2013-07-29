@@ -9,11 +9,17 @@
  */
 
 defined('_JEXEC') or die('Restricted access'); 
-
+$document = JFactory::getDocument();
+$version =  new JVersion();
+if ($version->isCompatible('3.0')) {
+	
+} else {
+    $css=JURI::base().'components/com_eventgallery/media/css/legacy.css';
+    $document->addStyleSheet($css);
+}
 ?>
 
 <?php
-	$document = JFactory::getDocument();		
 	$css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
 	$document->addStyleSheet($css);		
 

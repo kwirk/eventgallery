@@ -23,7 +23,7 @@ class EventgalleryControllerMethod extends JControllerForm
 	 * @return	void
 	 * @since	1.6
 	 */
-	protected function postSaveHook(JModelLegacy $model, $validData = array())
+	protected function postSaveHook($model, $validData = array())
 	{
         if ($validData['default']==1) {
             $ids = array($validData['id']);

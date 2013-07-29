@@ -19,7 +19,10 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 $version =  new JVersion();
 if ($version->isCompatible('3.0')) {
-	JHtml::_('formbehavior.chosen', 'select');
+    JHtml::_('formbehavior.chosen', 'select');    
+} else {
+    $css=JURI::base().'components/com_eventgallery/media/css/legacy.css';
+    $document->addStyleSheet($css);
 }
 
 ?>

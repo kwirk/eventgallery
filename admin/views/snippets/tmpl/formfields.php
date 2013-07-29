@@ -10,6 +10,13 @@
 
 defined('_JEXEC') or die('Restricted access'); 
 
+$version =  new JVersion();
+if ($version->isCompatible('3.0')) {
+    $j3 = true;
+} else {
+    $j3 = false;
+}
+
 ?>
 
 <div class="adminform form-horizontal">
@@ -18,9 +25,9 @@ defined('_JEXEC') or die('Restricted access');
         <?php IF (count($this->form->getFieldsets())>1): ?>
 
 
-            <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+            <?php echo $j3?JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')):''; ?>
             <?php foreach($this->form->getFieldsets() as $fieldset): ?>
-                <?php echo JHtml::_('bootstrap.addTab', 'myTab', $fieldset->name, JText::_($fieldset->label, true)); ?>            
+                <?php echo $j3?JHtml::_('bootstrap.addTab', 'myTab', $fieldset->name, JText::_($fieldset->label, true)):''; ?>            
                 <?php IF (strlen(JText::_($fieldset->description))>0): ?>
                     <div><?php echo JText::_($fieldset->description); ?></div>
                     <hr>
@@ -35,9 +42,9 @@ defined('_JEXEC') or die('Restricted access');
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <?php echo JHtml::_('bootstrap.endTab'); ?>
+                <?php echo $j3?JHtml::_('bootstrap.endTab'):''; ?>
             <?php endforeach ?>
-            <?php echo JHtml::_('bootstrap.endTabSet'); ?>
+            <?php echo $j3?JHtml::_('bootstrap.endTabSet'):''; ?>
 
 
         <?php ELSE: ?>
