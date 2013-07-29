@@ -32,11 +32,53 @@
 			<option value="1">JYES</option>
 		</field>
 		
-		<field 	name="social_sharing_addthis_pubid" 
+		<field 	name="social_sharing_facebook_appid" 
 				type="text" 
 				default="" 
-				label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_ADDTHIS_ID_LABEL" 
-				description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_ADDTHIS_ID_DESCRIPTION" />
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_APPDID" 
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_APPIC_DESCRIPTION" />
+				
+		<field name="use_social_sharing_facebook" type="radio" class="btn-group" default="0" 
+		            label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_LABEL" 
+		      description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="use_social_sharing_google" type="radio" class="btn-group" default="0" 
+		            label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_GOOGLE_LABEL" 
+		      description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_GOOGLE_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="use_social_sharing_twitter" type="radio" class="btn-group" default="0" 
+		            label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_TWITTER_LABEL" 
+		      description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_TWITTER_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="use_social_sharing_pinterest" type="radio" class="btn-group" default="0" 
+		            label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_PINTEREST_LABEL" 
+		      description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_PINTEREST_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="use_social_sharing_email" type="radio" class="btn-group" default="0" 
+		            label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_EMAIL_LABEL" 
+		      description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_EMAIL_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		
+		<field name="use_social_sharing_download" type="radio" class="btn-group" default="0" 
+		            label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_DOWNLOAD_LABEL" 
+		      description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_DOWNLOAD_DESCRIPTION">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 		
 		<field 	name="cart_connector_link" 
 				type="text" 
