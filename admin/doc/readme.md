@@ -296,6 +296,10 @@ There are only a few things globally manageable.
 
 	You can enable your vitors to post links to images in social media.
 
+- Facebook App Id
+
+	Specify a App Id for your Facebook application which is responsible for sharing the links to your images.
+
 - external cart link
 
 	Defines a pattern for an external link. You can use the following placeholder: ${folder},${file} and ${fileBase} like this: http://www.foo.bar?category=${folder}&amp;sku=${fileBase}
@@ -439,11 +443,11 @@ With each new version it might be necessary to add new translation keys to your 
 ## 2.6.7
 
 	- New Features
-		- Social Media Sharing Buttons. Currently as a AddThis integration but this might 
-		  change. You can specify your addThis ID and have some kind of additional 
-		  analytics. The links which can be shared for an image direct the user to a mini
-		  page which presents the image. With a click on this image the user gets 
-		  redirected to the event.
+		- Social Media Sharing Buttons. The links which can be shared for an image direct 
+		  the user to a mini page which presents the image. With a click on this image 
+		  the user gets redirected to the event. Facebook need to read the original image
+		  so don't put any restrictions on the image folder if you want to use the sharing
+		  options.
 		- EXIF support for local images. Just sync your database to read the information 
 		  from the files to the database. Once you did this, EXIF information will show up
 		  for each image.

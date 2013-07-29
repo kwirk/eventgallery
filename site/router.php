@@ -48,12 +48,22 @@ function EventgalleryBuildRoute(&$query)
 	     
 	    } else {
 	    	$result = preg_replace("/\.(.{3,4}$)/i", "-\\1", $query['file']);
-    		$segments[] = $result."/";
+    		
+    		if (isset($query['format'])) {
+    			$segments[] = $result;
+    		} else {
+    			$segments[] = $result."/";
+    		}
     	
 	    }
 	    unset( $query['file'] );
 	    
 	};	
+
+	if (isset($query['format'])) {
+		$segments[] = 	$query['format'];
+		unset($query['format']);
+	}
 	
 	return $segments;
 }
@@ -94,6 +104,10 @@ function EventgalleryParseRoute($segments)
 		$result = str_replace(":","-",str_replace("/","",$segments[2]));
 		$result = preg_replace("/-(.{3,4}$)/i", ".\\1", $result);
 		$vars['file']	= $result;
+	}
+
+	if (isset($segments[3])) {
+		$vars['format'] = $segments[3];
 	}
 
 	return $vars;

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php 
 
 /**
@@ -28,10 +29,11 @@ if (strlen($this->model->file->title)>0) {
 
 ?><html>
 	<head prefix="og: http://ogp.me/ns#">
-		<meta property="og:image" content="<?php echo  $this->model->file->getImageUrl(400, 400, false) ?>"/>
+		
+		<meta property="og:image" content="<?php echo  JURI::base().'images/eventgallery/'.$this->model->file->folder.'/'.$this->model->file->file ?>"/>
 		<meta property="og:url" content="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&format=raw&folder='.$this->model->file->folder.'&file='.$this->model->file->file, null, -1)?>"/>
 		<meta property="og:title" content="<?php echo $title ?>"/>
-
+		<link rel="image_src" type="image/jpeg" href="<?php echo  JURI::base().'images/eventgallery/'.$this->model->file->folder.'/'.$this->model->file->file ?>"/>
 		<title><?php echo $title ?></title>
 	</head>
 	<body>
