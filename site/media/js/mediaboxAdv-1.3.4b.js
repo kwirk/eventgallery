@@ -1235,6 +1235,7 @@ window.addEvent("domready", EventGalleryMediabox.scanPage);
 
 window.addEvent("domready", function() {
 
+
 	$(document.body).addEvent('click:relay(a[rel=sharingbutton-close])', function(e) {
 		e.preventDefault();
 		var myDiv = $(e.target).getParent('.social-sharing-toolbox');
@@ -1242,10 +1243,11 @@ window.addEvent("domready", function() {
 		    property: 'opacity',
 		    onComplete : function() {myDiv.dispose();}
 		});
-		myFx.start(0);
+		myFx.start(0);		
+	});	
 		
-	});
-		
+	
+			
 	$(document.body).addEvent('click:relay(a[rel=sharingbutton])', function(e) {
 
 		e.preventDefault();
@@ -1255,8 +1257,8 @@ window.addEvent("domready", function() {
 			link = link.getParent('a');	
 		}
 	
-			var targetPos = $(e.target).getPosition();
-			myDiv = new Element('div', {
+		var targetPos = $(e.target).getPosition();
+		var myDiv = new Element('div', {
 		    href: '#',
 		    'class': 'social-sharing-toolbox',
 		    html: 'Loading',
@@ -1269,25 +1271,31 @@ window.addEvent("domready", function() {
 		    	'opacity': 0
 		    }
 		});		
-		
+	
 		
 		$$('body')[0].grab(myDiv);
+		
 		myDiv.fade('in');
 		myDiv.set('load', {evalScripts: true});			
 		myDiv.load(link.getAttribute('href'));
-		
-		myDiv.addEvent('mouseleave', function(){ 
+
+		var timer;
+					
+		var closeFunction = function(){			
 			var myFx = new Fx.Tween(myDiv, {
 			    property: 'opacity',
 			    onComplete : function() {myDiv.dispose();}
 			});
 			myFx.start(0);
-			
-		}.bind(this) 
-
-		);
-
-
+		};			
+		
+		myDiv.addEvent('mouseleave', function(){
+			timer = window.setTimeout(closeFunction, 1000);
+		}.bind(this));
+		
+		myDiv.addEvent('mouseenter', function() {
+			window.clearTimeout(timer);			
+		}.bind(this));
 	}); 
 
 });
