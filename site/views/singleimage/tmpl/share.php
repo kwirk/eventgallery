@@ -15,7 +15,7 @@ $title = "";
 $description = $this->model->folder->description;;
 $subject = $this->model->folder->description." "; 
 $link =  JRoute::_('index.php?option=com_eventgallery&view=singleimage&format=raw&folder='.$this->model->file->folder.'&file='.$this->model->file->file, true, -1);
-$image = $this->model->file->getImageUrl(500,500);
+$image = $this->model->file->getImageUrl(500,500, false);
 $twitter = $description;
 
 ?>
@@ -44,7 +44,7 @@ $twitter = $description;
 	<?php IF ($this->params->get('use_social_sharing_pinterest', 0)==1):?>			    
 		<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($link)?>&media=<?php echo urlencode($image)?>&description=<?php echo $description?>"
 			onclick="javascript:window.open(this.href,
-		  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes');return false;"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/interest.png' ?>" alt="Pinterest" title="Pinterest"></Twitter>
+		  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes');return false;"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/interest.png' ?>" alt="Pinterest" title="Pinterest"></a>
 	<?php ENDIF ?>
 
 	<?php IF ($this->params->get('use_social_sharing_email', 0)==1):?>			    
