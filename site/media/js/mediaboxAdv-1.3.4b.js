@@ -1260,7 +1260,7 @@ window.addEvent("domready", function() {
 		myDiv.set('load', {evalScripts: true});			
 		myDiv.load(link.getAttribute('href'));
 
-		var timer;
+		var timer = null;
 					
 		var closeFunction = function(){			
 			var myFx = new Fx.Tween(myDiv, {
@@ -1268,7 +1268,7 @@ window.addEvent("domready", function() {
 			    onComplete : function() {myDiv.dispose();}
 			});
 			myFx.start(0);
-		};			
+		}
 		
 		myDiv.addEvent('mouseleave', function(){
 			timer = window.setTimeout(closeFunction, 1000);
