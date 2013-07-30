@@ -106,8 +106,8 @@ function EventgalleryParseRoute($segments)
 		$vars['file']	= $result;
 	}
 
-	if (isset($segments[3])) {
-		$vars['format'] = $segments[3];
+	if ($segments[count($segments)-1]=='raw') {
+		$vars['format'] = 'raw';
 	}
 
 	return $vars;
