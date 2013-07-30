@@ -28,13 +28,13 @@ class JFormFieldlocalizabletext extends JFormField
             $lt = new stdClass();
         }
         foreach($langs as $tag=>$lang) {
-            $result .= '<div class="input-prepend">';
+            $result .= '<div class="input-prepend" style="display:block; margin-bottom:10px">';
             $result .= '<span class="add-on">'.$tag .'</span>';
             $value = isset($lt->$tag)===true?$lt->$tag:'';
             if ($inputtype == 'textarea'){
-                $result .= '<textarea data-tag="'.$tag.'" type="text" '.$class.'>'.$value.'</textarea><br>';
+                $result .= '<textarea data-tag="'.$tag.'" type="text" '.$class.'>'.$value.'</textarea>';
             } else {
-                $result .= '<input data-tag="'.$tag.'" type="text" value="'.$value.'" '.$class.'><br>';
+                $result .= '<input data-tag="'.$tag.'" type="text" value="'.$value.'" '.$class.'>';
             }
             $result .= '</div>';
         }

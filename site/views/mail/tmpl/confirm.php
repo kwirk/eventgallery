@@ -15,6 +15,14 @@ defined('_JEXEC') or die('Restricted access');
  *
  */
 $order = $this->order;
+
+
+$disclaimerObject = new EventgalleryLibraryDatabaseLocalizablestring($this->params->get('checkout_disclaimer',''));
+$merchantAddressObject = new EventgalleryLibraryDatabaseLocalizablestring($this->params->get('checkout_merchantaddress',''));
+
+$disclaimer = strlen($disclaimerObject->get())>0?$disclaimerObject->get():JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_DISCLAIMER');
+$merchantAddress = strlen($merchantAddressObject->get())>0?$merchantAddressObject->get():JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_MERCHANTADDRESS');
+
 ?>
 <style type="text/css">
 
@@ -216,13 +224,11 @@ $order = $this->order;
     
     
     <div class="widerruf">
-        <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_DISCLAIMER') ?>
-       
+        <?php echo $disclaimer ?>
     </div>
     
     <div class="contact">
-        <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_MERCENTADDRESS') ?>
-        
+        <?php echo $merchantAddress ?>
     </div>
     
 </div>

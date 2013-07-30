@@ -74,12 +74,27 @@
 		
 </fieldset>
 
-<fieldset name="checkout" label="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_DESC">
+<fieldset addfieldpath="/administrator/components/com_eventgallery/models/fields" name="checkout" label="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_DESC">
 		<field name="use_terms_conditions_checkbox" type="radio" class="btn-group" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USETERMCONDITIONS_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USETERMCONDITIONS_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		
+		<field name="checkout_disclaimer" 
+			type="localizabletext"
+			inputtype="textarea"
+		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_DISCLAIMER"
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_DISCLAIMER_DESCRIPTION" />
+            
+        <field name="checkout_merchantaddress" 
+			type="localizabletext"
+			inputtype="textarea"
+		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_MERCHANTADDRESS"
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_MERCHANTADDRESS_DESCRIPTION" />    
+		
 </fieldset>
+
+
 
 <fieldset name="social" label="COM_EVENTGALLERY_EVENTS_OPTIONS_SOCIAL_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_SOCIAL_DESC">
 		<field name="use_social_sharing_button" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_BUTTON_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_BUTTON_DESCRIPTION">

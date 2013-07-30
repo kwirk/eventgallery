@@ -29,6 +29,7 @@ class CheckoutController extends JControllerLegacy
 
         $view = $this->getView('Mail', 'html', 'EventgalleryView', array('layout'=>'confirm'));
         $view->set('order', $order);
+        $view->set('params', $params);
         $body = $view->loadTemplate();
 
         $mailer = JFactory::getMailer();
