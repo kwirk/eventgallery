@@ -39,7 +39,7 @@ class EventgalleryControllerOrder extends JControllerForm
          */
         $model = $this->getModel();
         $table = $model->getTable();
-        $data  = $this->input->post->get('jform', array(), 'array');
+        $data  = $app->input->post->get('jform', array(), 'array');
         $checkin = property_exists($table, 'checked_out');
         $context = "$this->option.edit.$this->context";
         $task = $this->getTask();
@@ -56,7 +56,7 @@ class EventgalleryControllerOrder extends JControllerForm
             $urlVar = $key;
         }
 
-        $recordId = $this->input->getString($urlVar);
+        $recordId = $app->input->getString($urlVar);
 
         if (!$this->checkEditId($context, $recordId))
         {
@@ -285,7 +285,7 @@ class EventgalleryControllerOrder extends JControllerForm
          */
         $model = $this->getModel();
         $table = $model->getTable();
-        $cid   = $this->input->post->get('cid', array(), 'array');
+        $cid   = $app->input->post->get('cid', array(), 'array');
         $context = "$this->option.edit.$this->context";
 
         // Determine the name of the primary key for the data.
@@ -301,7 +301,7 @@ class EventgalleryControllerOrder extends JControllerForm
         }
 
         // Get the previous record id (if any) and the current record id.
-        $recordId =  (count($cid) ? $cid[0] : $this->input->getString($urlVar));
+        $recordId =  (count($cid) ? $cid[0] : $app->input->getString($urlVar));
         $checkin = property_exists($table, 'checked_out');
 
         // Access check.

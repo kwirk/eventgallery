@@ -192,16 +192,20 @@
     background-position: -288px -120px;
 }
 
+.icon-cart {
+    background-position: -360px -120px;
+}
+
 .icon-list {
     background-position: -360px -48px;
     font-size: 0px;
 }
 
-.icon-forward {
+.icon-arrow-right {
     background-position: -336px -72px;
 }
 
-.icon-fast-forward {
+.icon-arrow-last {
     background-position: -360px -72px;
 }
 
@@ -213,11 +217,11 @@
     background-position: -192px -72px;
 }
 
-.icon-fast-backward {
+.icon-arrow-first {
     background-position: -216px -72px;
 }
 
-.icon-backward {
+.icon-arrow-left {
     background-position: -240px -72px;
 }
 

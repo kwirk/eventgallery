@@ -42,11 +42,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
 
     public function getLightBoxTitle()
     {
-        /**
-         * @var JSite $app
-         */
-        $app = JFactory::getApplication();
-        $params = $app->getParams();
+        $params = JComponentHelper::getParams('com_eventgallery');
 
         $showExif = $params->get('show_exif', '1') == '1';
 

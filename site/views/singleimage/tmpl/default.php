@@ -14,7 +14,6 @@ defined('_JEXEC') or die('Restricted access');
 
 <?php echo $this->loadSnippet('social'); ?>
 
-
 <script type="text/javascript">
 
 
@@ -135,7 +134,7 @@ defined('_JEXEC') or die('Restricted access');
                 "index.php?option=com_eventgallery&view=singleimage&folder=" . $this->model->firstFile->folder
                 . "&file=" . $this->model->firstFile->file
             ) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_START') ?>"><i
-                    class="icon-fast-backward"></i></a>
+                    class="icon-arrow-first"></i></a>
         <?php ENDIF ?>
 
         <?php IF ($this->model->prevFile && $this->model->prevFile != $this->model->file): ?>
@@ -143,7 +142,7 @@ defined('_JEXEC') or die('Restricted access');
                 "index.php?option=com_eventgallery&view=singleimage&folder=" . $this->model->prevFile->folder . "&file="
                 . $this->model->prevFile->file
             ) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_PREV') ?>"><i
-                    class="icon-backward"></i></a>
+                    class="icon-arrow-left"></i></a>
         <?php ENDIF ?>
 
         <?php IF ($this->model->nextFile && $this->model->nextFile != $this->model->file): ?>
@@ -151,7 +150,7 @@ defined('_JEXEC') or die('Restricted access');
                 "index.php?option=com_eventgallery&view=singleimage&folder=" . $this->model->nextFile->folder . "&file="
                 . $this->model->nextFile->file
             ) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_NEXT') ?>"><i
-                    class="icon-forward"></i></a>
+                    class="icon-arrow-right"></i></a>
         <?php ENDIF ?>
 
         <?php IF ($this->model->lastFile && $this->model->lastFile != $this->model->file): ?>
@@ -159,7 +158,7 @@ defined('_JEXEC') or die('Restricted access');
                 "index.php?option=com_eventgallery&view=singleimage&folder=" . $this->model->lastFile->folder . "&file="
                 . $this->model->lastFile->file
             ) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_END') ?>"><i
-                    class="icon-fast-forward"></i></a>
+                    class="icon-arrow-last"></i></a>
         <?php ENDIF ?>
 
         <?php IF ($this->model->file->allowcomments == 1 && $this->use_comments == 1): ?>
