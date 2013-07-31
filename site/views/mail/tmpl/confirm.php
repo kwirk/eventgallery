@@ -18,10 +18,10 @@ $order = $this->order;
 
 
 $disclaimerObject = new EventgalleryLibraryDatabaseLocalizablestring($this->params->get('checkout_disclaimer',''));
-$merchantAddressObject = new EventgalleryLibraryDatabaseLocalizablestring($this->params->get('checkout_merchantaddress',''));
+$mercentAddressObject = new EventgalleryLibraryDatabaseLocalizablestring($this->params->get('checkout_mercentaddress',''));
 
 $disclaimer = strlen($disclaimerObject->get())>0?$disclaimerObject->get():JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_DISCLAIMER');
-$merchantAddress = strlen($merchantAddressObject->get())>0?$merchantAddressObject->get():JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_MERCHANTADDRESS');
+$mercentAddress = strlen($mercentAddressObject->get())>0?$mercentAddressObject->get():JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_DISCLAIMER');
 
 ?>
 <style type="text/css">
@@ -228,7 +228,7 @@ $merchantAddress = strlen($merchantAddressObject->get())>0?$merchantAddressObjec
     </div>
     
     <div class="contact">
-        <?php echo $merchantAddress ?>
+        <?php echo $mercentAddress ?>
     </div>
     
 </div>

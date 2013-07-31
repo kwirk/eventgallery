@@ -454,20 +454,29 @@ var EventgalleryCart = new Class({
             $$(this.options.buttonDownSelector).setStyle('display', this.options.buttonShowType);
         }.bind(this));
 
+
+        $(document.body).removeEvents('click:relay(.eventgallery-add2cart)');
         $(document.body).addEvent('click:relay(.eventgallery-add2cart)', function (e) {
-            this.add2cart(e)
+            this.add2cart(e);
         }.bind(this));
 
+        $(document.body).removeEvents('click:relay(.eventgallery-add-all)');
         $(document.body).addEvent('click:relay(.eventgallery-add-all)', function (e) {
             this.addAll2cart(e)
         }.bind(this));
 
+        $(document.body).removeEvents('click:relay(.eventgallery-removeFromCart)');
         $(document.body).addEvent('click:relay(.eventgallery-removeFromCart)', function (e) {
             this.removeFromCart(e)
         }.bind(this));
 
         $(document.body).addEvent('updatecartlinks', function (e) {
             this.populateCart(true);
+        }.bind(this));
+
+        $(document.body).addEvent('updatecart', function (e) {
+            this.cart = e.cart;
+            this.populateCart(false);
         }.bind(this));
 
         this.updateCart();
@@ -480,6 +489,7 @@ var EventgalleryCart = new Class({
 
         var multiline = false;
         var y = -1;
+
         $$(this.options.cartItemSelector).each(function (item) {
             var posY = item.getPosition().y;
             if (y < 0) {
@@ -488,6 +498,8 @@ var EventgalleryCart = new Class({
                 multiline = true;
             }
         }.bind(this));
+
+        console.log(multiline);
 
         if (multiline) {
             // prevent showing the wrong button. Basically this is an inital action if a second row is created.
@@ -585,8 +597,15 @@ var EventgalleryCart = new Class({
             },
             onComplete: function (response) {
                 if (response !== undefined) {
-                    this.cart = response;
-                    this.populateCart();
+                    $(document.body).fireEvent('updatecart',
+                        {
+                            target: null,
+                            cart: response,
+                            stop: function(){},
+                            preventDefault: function(){},
+                            stopPropagation: function(){}
+                        }
+                    );
                 }
             }.bind(this)
         }).send();
@@ -671,8 +690,15 @@ var EventgalleryCart = new Class({
                 data: data,
                 onComplete: function (response) {
                     if (response !== undefined) {
-                        this.cart = response;
-                        this.populateCart();
+                        $(document.body).fireEvent('updatecart',
+                            {
+                                target: null,
+                                cart: response,
+                                stop: function(){},
+                                preventDefault: function(){},
+                                stopPropagation: function(){}
+                            }
+                        );
                     }
                     iconElement.removeClass('loading');
 

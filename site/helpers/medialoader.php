@@ -38,6 +38,12 @@ class EventgalleryHelpersMedialoader
         $js = JURI::base() . 'components/com_eventgallery/media/js/mediaboxAdv-1.3.4b.js?v=' . $version;;
         $document->addScript($js);
 
+        $joomlaVersion =  new JVersion();
+        if (!$joomlaVersion->isCompatible('3.0')) {
+            $css = JURI::base() . 'components/com_eventgallery/media/css/legacy.css?v=' . $version;;
+            $document->addStyleSheet($css);
+        }
+
 
         $js = JURI::base() . 'components/com_eventgallery/media/js/JSGallery2.js?v=' . $version;;
         $document->addScript($js);

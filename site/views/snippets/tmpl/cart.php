@@ -17,67 +17,68 @@ $myApp = JFactory::getApplication();
  * @var JRegistry $myParams
  */
 $myParams = $myApp->getParams();
-$use_cart = !(strcmp('0', $myParams->get('use_cart', '1')) == 0);
+$use_cart = $myParams->get('use_cart', '1') == 1;
+$use_cart_inside_component = $myParams->get('use_cart_inside_component', '1') == 1;
+
 ?>
 
 <?php IF ($use_cart): ?>
 
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        window.addEvent("domready", function () {
+    <?php IF ($use_cart_inside_component): ?>
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            window.addEvent("domready", function () {
 
-            var options = {
-                buttonShowType: 'inline',
-                emptyCartSelector: '.eventgallery-cart-empty',
-                cartSelector: '.eventgallery-ajaxcart',
-                cartItemContainerSelector: '.cart-items-container',
-                cartItemsSelector: '.eventgallery-ajaxcart .cart-items',
-                cartCountSelector: '.itemscount',
-                buttonDownSelector: '.toggle-down',
-                buttonUpSelector: '.toggle-up',
-                'removeUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=removefromcart&format=raw", true); ?>".replace(/&amp;/g, '&'),
-                'add2cartUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=add2cart&format=raw", true); ?>".replace(/&amp;/g, '&'),
-                'removeLinkTitle': "<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_REMOVE')?>",
-                'getCartUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&')
-            };
+                var options = {
+                    buttonShowType: 'inline',
+                    emptyCartSelector: '.eventgallery-cart-empty',
+                    cartSelector: '.eventgallery-ajaxcart-internal',
+                    cartItemContainerSelector: '.eventgallery-ajaxcart-internal .cart-items-container',
+                    cartItemsSelector: '.eventgallery-ajaxcart-internal .cart-items',
+                    cartItemSelector: '.eventgallery-ajaxcart-internal .cart-items .cart-item',
+                    cartCountSelector: '.eventgallery-ajaxcart-internal .itemscount',
+                    buttonDownSelector: '.eventgallery-ajaxcart-internal .toggle-down',
+                    buttonUpSelector: '.eventgallery-ajaxcart-internal .toggle-up',
+                    'removeUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=removefromcart&format=raw", true); ?>".replace(/&amp;/g, '&'),
+                    'add2cartUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=add2cart&format=raw", true); ?>".replace(/&amp;/g, '&'),
+                    'removeLinkTitle': "<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_REMOVE')?>",
+                    'getCartUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&')
+                };
 
-           var eventgalleryCart = new EventgalleryCart(options);
+               var eventgalleryCart = new EventgalleryCart(options);
 
-        });
-        /* ]]> */
-    </script>
+            });
+            /* ]]> */
+        </script>
 
-    <div class="eventgallery-ajaxcart well">
+        <div class="eventgallery-ajaxcart-internal eventgallery-ajaxcart well">
 
-        <h2><?php echo JText::_('COM_EVENTGALLERY_CART') ?></h2>
+            <h2><?php echo JText::_('COM_EVENTGALLERY_CART') ?></h2>
 
-        <div class="cart-items-container">
-            <div class="cart-items"></div>
-        </div>
-
-        <div class="cart-summary btn-group">
-            <button class="btn"><span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS') ?>
-            </button>
-            <button class="btn toggle-down" href="#"><?php echo JText::_(
-                    'COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN'
-                ) ?></button>
-            <button class="btn toggle-up" href="#"><?php echo JText::_(
-                    'COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP'
-                ) ?></button>
-            <button onclick="document.location.href='<?php echo JRoute::_(
-                "index.php?option=com_eventgallery&view=cart"
-            ); ?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART') ?></button>
-            <button class="btn" data-rel="lightbo2" data-href="#mb_cart-help">?</button>
-        </div>
-        <div style="display:none">
-            <div id="mb_cart-help">
-                <h2><?php echo JText::_('COM_EVENTGALLERY_CART_HELP_HEADLINE') ?></h2>
-                <?php echo JText::_('COM_EVENTGALLERY_CART_HELP_TEXT') ?>
+            <div class="cart-items-container">
+                <div class="cart-items"></div>
             </div>
-        </div>
-        <div style="clear:both"></div>
 
-    </div>
+            <div class="cart-summary btn-group">
+                <button class="btn"><span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS') ?>
+                </button>
+                <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN') ?>" class="btn toggle-down" href="#"><i class="icon-arrow-down"></i></button>
+                <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_UP') ?>" class="btn toggle-up" href="#"><i class="icon-arrow-up"></i></button>
+                <button onclick="document.location.href='<?php echo JRoute::_(
+                    "index.php?option=com_eventgallery&view=cart"
+                ); ?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART') ?></button>
+                <button class="btn" data-rel="lightbo2" data-href="#mb_cart-help">?</button>
+            </div>
+            <div style="display:none">
+                <div id="mb_cart-help">
+                    <h2><?php echo JText::_('COM_EVENTGALLERY_CART_HELP_HEADLINE') ?></h2>
+                    <?php echo JText::_('COM_EVENTGALLERY_CART_HELP_TEXT') ?>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+
+        </div>
+    <?php ENDIF; ?>
 
 <?php ELSE: ?>
     <style type="text/css">
