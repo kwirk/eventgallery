@@ -8,7 +8,7 @@
  */
 defined('_JEXEC') or die;
 
-class OrdersController extends JControllerLegacy
+class OrderController extends JControllerLegacy
 {
     public function display($cachable = false, $urlparams = array())
     {
@@ -17,7 +17,6 @@ class OrdersController extends JControllerLegacy
             $this->setRedirect(
                 JRoute::_('index.php?option=com_eventgallery&view=trackorder', false)
             );
-
             return;
         }
         parent::display(false, $urlparams);

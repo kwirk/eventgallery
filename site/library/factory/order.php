@@ -33,7 +33,13 @@ class EventgalleryLibraryFactoryOrder extends EventgalleryLibraryFactoryFactory
         $db->setQuery($query);
         $db->execute();
 
+
+        $user = JFactory::getUser();
+
         $data['id'] = $uuid;
+        if (!$user->guest) {
+            $data['userid'] = $user->id;
+        }
 
         /**
          * @var TableOrder $orderTable

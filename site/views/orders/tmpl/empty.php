@@ -12,4 +12,6 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-You have no Orders
+<div class="well">
+	<?php echo JText::_('COM_EVENTGALLERY_ORDERS_EMPTY'); ?>
+</div>

@@ -12,39 +12,47 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 
-class OrdersViewOrders extends EventgalleryLibraryCommonView
+class OrderViewOrder extends EventgalleryLibraryCommonView
 {
     /**
      * @var JRegistry
      */
     protected $params;
-
+    protected $state;
+    protected $item;
 
     /**
      * @var JDocument
      */
     public $document;
-    protected $items;
-    protected $pagination;
-    protected $state;
-    /**
-     * Display the view
-     */
-    public function display($tpl = null)
+
+    function display($tpl = NULL)
     {
-        
+
+        /**
+         * @var JSite $app
+         */
         $app = JFactory::getApplication();
         $this->state = $this->get('State');
+        $this->item = $this->get('Item');
         $this->params = $app->getParams();
-        $this->items = $this->get('Items');
-        $this->pagination = $this->get('Pagination');
-  
-        if (count($this->items)==0) {
-            $this->setLayout("empty");
+
+
+        $user = JFactory::getUser();
+        if ($user->guest) {
+            $app->redirect(
+                JRoute::_('index.php?option=com_eventgallery&view=trackorder', false)
+            );
         }
 
+        /**
+         * @var JPathway $pathway
+         */
         $pathway = $app->getPathWay();
-        $pathway->addItem(JText::_('COM_EVENTGALLERY_ORDERS_PATH'));
+        $pathway->addItem(JText::_('COM_EVENTGALLERY_ORDERS_PATH'), JRoute::_('index.php?option=com_eventgallery&view=orders'));
+
+        $pathway = $app->getPathWay();
+        $pathway->addItem(JText::_('COM_EVENTGALLERY_ORDER_PATH').' '.$this->item->getDocumentNumber());
 
         $this->_prepareDocument();
 
@@ -71,7 +79,7 @@ class OrdersViewOrders extends EventgalleryLibraryCommonView
 
         $title = $this->params->get('page_title', '');
 
-        $title .= " - " . JText::_('COM_EVENTGALLERY_ORDERS_PATH');
+        $title .= " - " . JText::_('COM_EVENTGALLERY_TRACKORDER_PATH');
 
 
         // Check for empty title and add site name if param is set

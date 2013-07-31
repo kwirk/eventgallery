@@ -876,3 +876,34 @@ div.img:hover .button-alreadyInCart i.big {
     box-shadow:  0px 1px 2px 0px rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
+
+.eventgallery-track-my-order .form,
+.eventgallery-track-my-order .signin
+{
+    float: left;
+    width:50%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 20px;
+    min-width: 350px;
+}
+
+.eventgallery-track-my-order .signin {
+    min-width: 250px;
+}
+
+.eventgallery-track-my-order .desc {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 1000px) {
+
+    .eventgallery-track-my-order .form,
+    .eventgallery-track-my-order .signin
+    {
+        width:100%;
+    }
+
+}
+

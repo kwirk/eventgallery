@@ -19,7 +19,7 @@
                description="COM_EVENTGALLERY_CHECKOUT_SHIPPINGFORM_ADDRESS1_DESCRIPTION"
                class="input-xlarge shipping-address"
                required="true"/>
-        <field name="shipping_address2"
+        <!--<field name="shipping_address2"
                type="html5text"
                label="COM_EVENTGALLERY_CHECKOUT_SHIPPINGFORM_ADDRESS2_LABEL"
                description="COM_EVENTGALLERY_CHECKOUT_SHIPPINGFORM_ADDRESS2_DESCRIPTION"
@@ -30,7 +30,7 @@
                label="COM_EVENTGALLERY_CHECKOUT_SHIPPINGFORM_ADDRESS3_LABEL"
                description="COM_EVENTGALLERY_CHECKOUT_SHIPPINGFORM_ADDRESS3_DESCRIPTION"
                class="input-xlarge shipping-address"
-               required="false"/>
+               required="false"/>-->
         <field name="shipping_city"
                type="html5text"
                label="COM_EVENTGALLERY_CHECKOUT_SHIPPINGFORM_CITY_LABEL"

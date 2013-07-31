@@ -13,30 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-<style type="text/css">
-    .track-my-order .form,
-    .track-my-order .signin
-    {
-        float: left;
-        width:50%;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        padding: 20px;
-        min-width: 350px;
-    }
-
-    .track-my-order .signin {
-        min-width: 250px;
-    }
-
-    .track-my-order .desc {
-        margin-bottom: 20px;
-    }
-
-
-</style>
-<div class="track-my-order">
+<div class="eventgallery-track-my-order">
     <div class="form">
       <?php echo $this->loadTemplate('trackingform')?>
     </div>

@@ -1,13 +1,10 @@
 Front End
 
-- User-Management, Order List
 - AGB
 - Impressum
 - licence key per payment/shipping method
-- reduce the number of input fields for an address (-a2, -a3, - lastname)
 - Addressen: Länder pflegbar machen
 - add documentation
-
 
 Back End
 
