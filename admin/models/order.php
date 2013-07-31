@@ -7,350 +7,197 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
-defined('_JEXEC') or die('Restricted access');
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die();
 
-jimport( 'joomla.application.component.controllerform' );
+jimport( 'joomla.application.component.modeladmin');
 
-class EventgalleryControllerOrder extends JControllerForm
+class EventgalleryModelOrder extends JModelAdmin
 {
-    protected $view_list = 'orders';
+    protected $text_prefix = 'COM_EVENTGALLERY';
+
+    public function getTable($type = 'order', $prefix = 'Table', $config = array())
+    {
+        return JTable::getInstance($type, $prefix, $config);
+    }
 
     /**
-     * Method to save a record.
+     * Method to get the record form.
      *
-     * @param   string  $key     The name of the primary key of the URL variable.
-     * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
+     * @param array $data An optional array of data for the form to interogate.
+     * @param boolean $loadData True if the form is to load its own data (default case), false if not.
+     * @return JForm A JForm object on success, false on failure
+     */
+    public function getForm($data = array(), $loadData = true)
+    {
+
+        // Get the form.
+        $form = $this->loadForm('com_eventgallery.order', 'order', array('control' => 'jform', 'load_data' => $loadData));
+        if (empty($form)) {
+            return false;
+        }
+               
+        return $form;
+    }
+
+    /**
+     * Method to get the data that should be injected in the form.
      *
-     * @return  boolean  True if successful, false otherwise.
+     * @return mixed The data for the form.
+     */
+    protected function loadFormData()
+    {// Check the session for previously entered form data.
+        $data = JFactory::getApplication()->getUserState('com_eventgallery.edit.order.data', array());
+        if (empty($data)) {
+
+            $data = $this->getItem()->_getInternalDataObject();
+            // Prime some default values.
+            if ($this->getState('order.id') == 0) {
+                $app = JFactory::getApplication();
+                $data['id']= JRequest::getVar('id', $app->getUserState('com_eventgallery.orders.filter.category_id'));
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @param string $pk
+     * @return bool|mixed|EventgalleryLibraryOrder
+     */
+    public function getItem($pk = null)
+    {
+        $pk = (!empty($pk)) ? $pk : $this->getState($this->getName() . '.id');
+        $table = $this->getTable();
+
+        if ($pk > 0)
+        {
+            // Attempt to load the row.
+            $return = $table->load($pk);
+
+            // Check for a table object error.
+            if ($return === false && $table->getError())
+            {
+                $this->setError($table->getError());
+                return false;
+            }
+        }
+
+        // Convert to the JObject before adding other data.
+        $properties = $table->getProperties(1);
+        $item = JArrayHelper::toObject($properties, 'JObject');
+
+        if (property_exists($item, 'params'))
+        {
+            $registry = new JRegistry;
+            $registry->loadString($item->params);
+            $item->params = $registry->toArray();
+        }
+
+
+
+        return new EventgalleryLibraryOrder($item->id);
+
+    }
+
+    protected function populateState()
+    {
+        $table = $this->getTable();
+        $key = $table->getKeyName();
+
+        // Get the pk of the record from the request.
+        $pk = JFactory::getApplication()->input->getString($key);
+        $this->setState($this->getName() . '.id', $pk);
+
+        // Load the parameters.
+        $value = JComponentHelper::getParams($this->option);
+        $this->setState('params', $value);
+    }
+
+    /**
+     * Method to save the form data.
+     *
+     * @param   array  $data  The form data.
+     *
+     * @return  boolean  True on success, False on error.
      *
      * @since   12.2
      */
-    public function save($key = null, $urlVar = null)
+    public function save($data)
     {
-        // Check for request forgeries.
-        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        #$dispatcher = JEventDispatcher::getInstance();
+        $table = $this->getTable();
 
-        $app   = JFactory::getApplication();
-        $lang  = JFactory::getLanguage();
-        /**
-         * @var EventgalleryModelOrder $model
-         * @var JTable $table
-         */
-        $model = $this->getModel();
-        $table = $model->getTable();
-        $data  = $app->input->post->get('jform', array(), 'array');
-        $checkin = property_exists($table, 'checked_out');
-        $context = "$this->option.edit.$this->context";
-        $task = $this->getTask();
+        $key = $table->getKeyName();
+        $pk = (!empty($data[$key])) ? $data[$key] : $this->getState($this->getName() . '.id');
+        $isNew = true;
 
-        // Determine the name of the primary key for the data.
-        if (empty($key))
+        // Include the content plugins for the on save events.
+        JPluginHelper::importPlugin('content');
+
+        // Allow an exception to be thrown.
+        try
         {
-            $key = $table->getKeyName();
-        }
-
-        // To avoid data collisions the urlVar may be different from the primary key.
-        if (empty($urlVar))
-        {
-            $urlVar = $key;
-        }
-
-        $recordId = $app->input->getString($urlVar);
-
-        if (!$this->checkEditId($context, $recordId))
-        {
-            // Somehow the person just went to the form and tried to save it. We don't allow that.
-            $this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $recordId));
-            $this->setMessage($this->getError(), 'error');
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_list
-                    . $this->getRedirectToListAppend(), false
-                )
-            );
-
-            return false;
-        }
-
-        // Populate the row id from the session.
-        $data[$key] = $recordId;
-
-        // The save2copy task needs to be handled slightly differently.
-        if ($task == 'save2copy')
-        {
-            // Check-in the original row.
-            if ($checkin && $model->checkin($data[$key]) === false)
+            // Load the row if saving an existing record.
+            if ($pk > 0)
             {
-                // Check-in failed. Go back to the item and display a notice.
-                $this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()));
-                $this->setMessage($this->getError(), 'error');
+                $table->load($pk);
+                $isNew = false;
+            }
 
-                $this->setRedirect(
-                    JRoute::_(
-                        'index.php?option=' . $this->option . '&view=' . $this->view_item
-                        . $this->getRedirectToItemAppend($recordId, $urlVar), false
-                    )
-                );
-
+            // Bind the data.
+            if (!$table->bind($data))
+            {
+                $this->setError($table->getError());
                 return false;
             }
 
-            // Reset the ID and then treat the request as for Apply.
-            $data[$key] = 0;
-            $task = 'apply';
-        }
+            // Prepare the row for saving
+            $this->prepareTable($table);
 
-        // Access check.
-        if (!$this->allowSave($data, $key))
-        {
-            $this->setError(JText::_('JLIB_APPLICATION_ERROR_SAVE_NOT_PERMITTED'));
-            $this->setMessage($this->getError(), 'error');
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_list
-                    . $this->getRedirectToListAppend(), false
-                )
-            );
-
-            return false;
-        }
-
-        // Validate the posted data.
-        // Sometimes the form needs some posted data, such as for plugins and modules.
-        $form = $model->getForm($data, false);
-
-        if (!$form)
-        {
-            $app->enqueueMessage($model->getError(), 'error');
-
-            return false;
-        }
-
-        // Test whether the data is valid.
-        $validData = $model->validate($form, $data);
-
-        // Check for validation errors.
-        if ($validData === false)
-        {
-            // Get the validation messages.
-            $errors = $model->getErrors();
-
-            // Push up to three validation messages out to the user.
-            for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++)
+            // Check the data.
+            if (!$table->check())
             {
-                if ($errors[$i] instanceof Exception)
-                {
-                    /**
-                     * @var Exception $exception
-                     */
-                    $exception = $errors[$i];
-                    $app->enqueueMessage($exception->getMessage(), 'warning');
-                }
-                else
-                {
-                    $app->enqueueMessage($errors[$i], 'warning');
-                }
+                $this->setError($table->getError());
+                return false;
             }
 
-            // Save the data in the session.
-            $app->setUserState($context . '.data', $data);
+            // Trigger the onContentBeforeSave event.
+            # $result = $dispatcher->trigger($this->event_before_save, array($this->option . '.' . $this->name, $table, $isNew));
+            if (in_array(false, $result, true))
+            {
+                $this->setError($table->getError());
+                return false;
+            }
 
-            // Redirect back to the edit screen.
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_item
-                    . $this->getRedirectToItemAppend($recordId, $urlVar), false
-                )
-            );
+            // Store the data.
+            if (!$table->store())
+            {
+                $this->setError($table->getError());
+                return false;
+            }
+
+            // Clean the cache.
+            $this->cleanCache();
+
+            // Trigger the onContentAfterSave event.
+            #$dispatcher->trigger($this->event_after_save, array($this->option . '.' . $this->name, $table, $isNew));
+        }
+        catch (Exception $e)
+        {
+            $this->setError($e->getMessage());
 
             return false;
         }
 
-        if (!isset($validData['metadata']['tags']))
+        $pkName = $table->getKeyName();
+
+        if (isset($table->$pkName))
         {
-            $validData['metadata']['tags'] = null;
+            $this->setState($this->getName() . '.id', $table->$pkName);
         }
-
-        // Attempt to save the data.
-        if (!$model->save($validData))
-        {
-            // Save the data in the session.
-            $app->setUserState($context . '.data', $validData);
-
-            // Redirect back to the edit screen.
-            $this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
-            $this->setMessage($this->getError(), 'error');
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_item
-                    . $this->getRedirectToItemAppend($recordId, $urlVar), false
-                )
-            );
-
-            return false;
-        }
-
-        // Save succeeded, so check-in the record.
-        if ($checkin && $model->checkin($validData[$key]) === false)
-        {
-            // Save the data in the session.
-            $app->setUserState($context . '.data', $validData);
-
-            // Check-in failed, so go back to the record and display a notice.
-            $this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKIN_FAILED', $model->getError()));
-            $this->setMessage($this->getError(), 'error');
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_item
-                    . $this->getRedirectToItemAppend($recordId, $urlVar), false
-                )
-            );
-
-            return false;
-        }
-
-        $this->setMessage(
-            JText::_(
-                ($lang->hasKey($this->text_prefix . ($recordId == 0 && $app->isSite() ? '_SUBMIT' : '') . '_SAVE_SUCCESS')
-                    ? $this->text_prefix
-                    : 'JLIB_APPLICATION') . ($recordId == 0 && $app->isSite() ? '_SUBMIT' : '') . '_SAVE_SUCCESS'
-            )
-        );
-
-        // Redirect the user and adjust session state based on the chosen task.
-        switch ($task)
-        {
-            case 'apply':
-                // Set the record data in the session.
-                $recordId = $model->getState($this->context . '.id');
-                $this->holdEditId($context, $recordId);
-                $app->setUserState($context . '.data', null);
-                $model->checkout($recordId);
-
-                // Redirect back to the edit screen.
-                $this->setRedirect(
-                    JRoute::_(
-                        'index.php?option=' . $this->option . '&view=' . $this->view_item
-                        . $this->getRedirectToItemAppend($recordId, $urlVar), false
-                    )
-                );
-                break;
-
-            case 'save2new':
-                // Clear the record id and data from the session.
-                $this->releaseEditId($context, $recordId);
-                $app->setUserState($context . '.data', null);
-
-                // Redirect back to the edit screen.
-                $this->setRedirect(
-                    JRoute::_(
-                        'index.php?option=' . $this->option . '&view=' . $this->view_item
-                        . $this->getRedirectToItemAppend(null, $urlVar), false
-                    )
-                );
-                break;
-
-            default:
-                // Clear the record id and data from the session.
-                $this->releaseEditId($context, $recordId);
-                $app->setUserState($context . '.data', null);
-
-                // Redirect to the list screen.
-                $this->setRedirect(
-                    JRoute::_(
-                        'index.php?option=' . $this->option . '&view=' . $this->view_list
-                        . $this->getRedirectToListAppend(), false
-                    )
-                );
-                break;
-        }
-
-        // Invoke the postSave method to allow for the child class to access the model.
-        $this->postSaveHook($model, $validData);
+        $this->setState($this->getName() . '.new', $isNew);
 
         return true;
-    }
-
-    public function edit($key = null, $urlVar = null)
-    {
-        $app   = JFactory::getApplication();
-        /**
-         * @var EventgalleryModelOrder $model
-         * @var JTable $table
-         */
-        $model = $this->getModel();
-        $table = $model->getTable();
-        $cid   = $app->input->post->get('cid', array(), 'array');
-        $context = "$this->option.edit.$this->context";
-
-        // Determine the name of the primary key for the data.
-        if (empty($key))
-        {
-            $key = $table->getKeyName();
-        }
-
-        // To avoid data collisions the urlVar may be different from the primary key.
-        if (empty($urlVar))
-        {
-            $urlVar = $key;
-        }
-
-        // Get the previous record id (if any) and the current record id.
-        $recordId =  (count($cid) ? $cid[0] : $app->input->getString($urlVar));
-        $checkin = property_exists($table, 'checked_out');
-
-        // Access check.
-        if (!$this->allowEdit(array($key => $recordId), $key))
-        {
-            $this->setError(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'));
-            $this->setMessage($this->getError(), 'error');
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_list
-                    . $this->getRedirectToListAppend(), false
-                )
-            );
-
-            return false;
-        }
-
-        // Attempt to check-out the new record for editing and redirect.
-        if ($checkin && !$model->checkout($recordId))
-        {
-            // Check-out failed, display a notice but allow the user to see the record.
-            $this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_CHECKOUT_FAILED', $model->getError()));
-            $this->setMessage($this->getError(), 'error');
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_item
-                    . $this->getRedirectToItemAppend($recordId, $urlVar), false
-                )
-            );
-
-            return false;
-        }
-        else
-        {
-            // Check-out succeeded, push the new record id into the session.
-            $this->holdEditId($context, $recordId);
-            $app->setUserState($context . '.data', null);
-
-            $this->setRedirect(
-                JRoute::_(
-                    'index.php?option=' . $this->option . '&view=' . $this->view_item
-                    . $this->getRedirectToItemAppend($recordId, $urlVar), false
-                )
-            );
-
-            return true;
-        }
     }
 
 }
