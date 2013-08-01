@@ -28,14 +28,15 @@ class EventgalleryLibraryCommonMoney
     public function __construct($amount, $currency)
     {
         $this->_amount=$amount;
-        $this->_currency=$currency;
+        #$this->_currency=$currency;
+        $this->_currency = JComponentHelper::getParams('com_eventgallery')->get('currency_symbol', 'EUR');
     }
 
 
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString() {        
         return $this->getCurrency().' '.sprintf("%.2f",$this->getAmount());
     }
 

@@ -73,7 +73,7 @@
                validate=""
                class="input-xlarge"
                 />         
-         <field name="currency"
+         <!--<field name="currency"
                type="text"
                label="COM_EVENTGALLERY_METHOD_CURRENCY"
                description="COM_EVENTGALLERY_METHOD_CURRENCY_DESCRIPTION"
@@ -81,7 +81,7 @@
                required="true"
                validate=""
                class="input-xlarge"
-                /> 
+                /> -->
          <field name="default" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_METHOD_DEFAULT" description="COM_EVENTGALLERY_METHOD_DEFAULT_DESCRIPTION">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>

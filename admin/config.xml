@@ -59,8 +59,7 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>	
-		
-	
+			
 		<field 	name="cart_connector_link" 
 				type="text" 
 				default="http://mydomain.com/${folder}/${fileBase}" 
@@ -80,6 +79,12 @@
 </fieldset>
 
 <fieldset addfieldpath="/administrator/components/com_eventgallery/models/fields" name="checkout" label="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_DESC">
+		<field name="currency_symbol" 
+			default="EUR"
+			type="text"
+		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_CURRENCYSYMBOL"
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_CURRENCYSYMBOL_DESCRIPTION" />
+		
 		<field name="use_terms_conditions_checkbox" type="radio" class="btn-group" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USETERMCONDITIONS_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USETERMCONDITIONS_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
