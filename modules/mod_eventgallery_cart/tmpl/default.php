@@ -38,18 +38,22 @@ defined('_JEXEC') or die;
 
     <div class="eventgallery-ajaxcart eventgallery-ajaxcart-module">
 
+        <div>
+            <span class="itemscount">0</span> <?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS') ?>
+        </div>
+
         <div class="cart-items-container">
             <div class="cart-items"></div>
         </div>
 
         <div class="cart-summary btn-group">
-            <button class="btn"><span class="itemscount">0</span> <?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS') ?>
+
             </button>
             <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN') ?>" class="btn toggle-down" href="#"><i class="icon-arrow-down"></i></button>
             <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_UP') ?>" class="btn toggle-up" href="#"><i class="icon-arrow-up"></i></button>
             <button onclick="document.location.href='<?php echo JRoute::_(
-                "index.php?option=MOD_eventgallery&view=cart"
-            ); ?>'" class="btn btn-primary"><?php echo JText::_('MOD_EVENTGALLERY_CART_BUTTON_CART') ?></button>
+                "index.php?option=com_eventgallery&view=cart"
+            ); ?>'" title="<?php echo JText::_('MOD_EVENTGALLERY_CART_BUTTON_CART') ?>" class="btn btn-primary"><i class="icon-cart"></i></button>
             <button class="btn" data-rel="lightbo2" data-href="#mb_cart-help-module">?</button>
         </div>
         <div style="display:none">
