@@ -499,8 +499,6 @@ var EventgalleryCart = new Class({
             }
         }.bind(this));
 
-        console.log(multiline);
-
         if (multiline) {
             // prevent showing the wrong button. Basically this is an inital action if a second row is created.
 

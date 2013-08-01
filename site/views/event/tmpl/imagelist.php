@@ -124,3 +124,4 @@ echo $this->loadSnippet('social');
 </div>
 <div style="clear:both"></div>
 
+<?php echo $this->loadSnippet('footer_disclaimer'); ?>

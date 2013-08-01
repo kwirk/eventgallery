@@ -230,3 +230,5 @@ defined('_JEXEC') or die('Restricted access');
     <?php echo $this->loadTemplate('comments'); ?>
 
 </div>
+
+<?php echo $this->loadSnippet('footer_disclaimer'); ?>

@@ -97,3 +97,4 @@ $cache = JFactory::getCache('com_eventgallery');
 	
 </div>		
 
+<?php echo $this->loadSnippet('footer_disclaimer'); ?>

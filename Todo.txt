@@ -2,8 +2,6 @@ Front End
 
 - AGB
 - Impressum
-- licence key per payment/shipping method
-- Addressen: Länder pflegbar machen
 - add documentation
 
 Back End

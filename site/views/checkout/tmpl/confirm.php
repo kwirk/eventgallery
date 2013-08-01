@@ -35,4 +35,4 @@ foreach($orders as $myorder) {
 </div>
 
 
-
+<?php echo $this->loadSnippet('footer_disclaimer'); ?>

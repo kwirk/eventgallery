@@ -36,3 +36,4 @@ defined('_JEXEC') or die('Restricted access');
 
 </div>
 
+<?php echo $this->loadSnippet('footer_disclaimer'); ?>

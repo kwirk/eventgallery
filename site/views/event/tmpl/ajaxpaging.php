@@ -70,8 +70,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 </script>
 
 
-<?php  echo  $this->loadSnippet("cart"); ?>
-<?php  echo  $this->loadSnippet("social"); ?>
+<?php  echo  $this->loadSnippet('cart'); ?>
+<?php  echo  $this->loadSnippet('social'); ?>
 
 
 <?php IF ($this->folder->cartable == 1 && $this->params->get('use_cart', '1')==1): ?>
@@ -189,3 +189,5 @@ defined('_JEXEC') or die('Restricted access'); ?>
     <div style="clear:both"></div>
     
 </div>
+
+<?php echo $this->loadSnippet('footer_disclaimer'); ?>

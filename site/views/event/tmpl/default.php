@@ -74,8 +74,8 @@ defined('_JEXEC') or die('Restricted access');
     });
 </script>
 
-<?php  echo  $this->loadSnippet("cart"); ?>
-<?php  echo  $this->loadSnippet("social"); ?>
+<?php  echo  $this->loadSnippet('cart'); ?>
+<?php  echo  $this->loadSnippet('social'); ?>
 
 <div id="event">
     <?php IF ($this->params->get('show_date', 1) == 1): ?>
@@ -169,3 +169,4 @@ defined('_JEXEC') or die('Restricted access');
     </form>
 </div>
 
+<?php echo $this->loadSnippet('footer_disclaimer'); ?>

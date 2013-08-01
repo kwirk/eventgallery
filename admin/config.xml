@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<config>
+<config addfieldpath="/administrator/components/com_eventgallery/models/fields">
 
 <fieldset name="general" label="COM_EVENTGALLERY_EVENTS_OPTIONS_GENERAL_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_GENERAL_DESC">
 
@@ -78,7 +78,12 @@
 		
 </fieldset>
 
-<fieldset addfieldpath="/administrator/components/com_eventgallery/models/fields" name="checkout" label="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_LABEL" description="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_DESC">
+
+<fieldset  addfieldpath="/administrator/components/com_content/models/fields"
+		  
+			name="checkout" 
+			label="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_LABEL" 
+			description="COM_EVENTGALLERY_EVENTS_OPTIONS_CHECKOUT_DESC">
 		<field name="currency_symbol" 
 			default="EUR"
 			type="text"
@@ -90,7 +95,7 @@
 			<option value="1">JYES</option>
 		</field>
 		
-		<field name="checkout_disclaimer" 
+		<field name="checkout_disclaimer"
 			type="localizabletext"
 			inputtype="textarea"
 		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_DISCLAIMER"
@@ -100,7 +105,31 @@
 			type="localizabletext"
 			inputtype="textarea"
 		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_MERCHANTADDRESS"
-            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_MERCHANTADDRESS_DESCRIPTION" />    
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_MERCHANTADDRESS_DESCRIPTION" />
+        
+        <field name="footer_disclaimer"
+			type="localizabletext"
+			inputtype="textarea"
+		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_FOOTERDISCLAIMER"
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_FOOTERDISCLAIMER_DESCRIPTION" />
+        
+        <field name="pp_article_link" type="text"
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_PRIVACYPOLICYARTICLELINK"
+				required="false"
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_PRIVACYPOLICYARTICLELINK_DESCRIPTION"
+			/>
+        
+        <field name="tac_article_link" type="text"
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_TACARTICLELINK"
+				required="false"
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_TACARTICLELINK_DESCRIPTION"
+			/>
+			
+		<field name="impress_article_link" type="text"
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_IMPRESSARTICLELINK"
+				required="false"
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_IMPRESSARTICLELINK_DESCRIPTION"
+			/>	
 		
 </fieldset>
 

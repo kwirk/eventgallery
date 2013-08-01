@@ -21,7 +21,7 @@ $disclaimerObject = new EventgalleryLibraryDatabaseLocalizablestring($this->para
 $mercentAddressObject = new EventgalleryLibraryDatabaseLocalizablestring($this->params->get('checkout_mercentaddress',''));
 
 $disclaimer = strlen($disclaimerObject->get())>0?$disclaimerObject->get():JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_DISCLAIMER');
-$mercentAddress = strlen($mercentAddressObject->get())>0?$mercentAddressObject->get():JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_DISCLAIMER');
+$mercentAddress = strlen($mercentAddressObject->get())>0?$mercentAddressObject->get():JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_ADDRESS');
 
 ?>
 <style type="text/css">
