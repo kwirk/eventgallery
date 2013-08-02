@@ -8,5 +8,5 @@ set version=%version:</version>=%
 set version=%version:.=_%
 set zipfilename=com_eventgallery_%version%.zip
 
-del ../%zipfilename%
+del ..\%zipfilename%
 zip -r ../%zipfilename% * -i "admin/*" "site/*" "eventgallery.xml" "index.html" "LICENSE.txt" "script.php"

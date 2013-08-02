@@ -212,7 +212,8 @@ var JSGallery2 = new Class({
 			    	'position' : 'absolute',
 			    	'display' : 'block',
 			    	'left': '10px', 
-			    	'top': '10px'
+			    	'top': '10px',
+			    	'width': '40px'
 			    }
 			});		
 			
