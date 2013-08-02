@@ -95,7 +95,7 @@ defined('_JEXEC') or die('Restricted access');
 		{
 			$row = $this->files[$i];		
 			$checked 	= JHTML::_('grid.id',   $i, $row->id );
-			$published =  JHTML::_('jgrid.published', $row->published, $i );
+			// TODO: remove due to strange issues with at least on joomla installation $published =  JHTML::_('jgrid.published', $row->published, $i );
 
 			?>
 			<tr class="<?php echo "row$k"; ?>">

@@ -294,11 +294,11 @@ There are only a few things globally manageable.
 
 - show social sharing button
 
-	You can enable your vitors to post links to images in social media.
+	You can enable your visitors to post links to images in social media. In addition you can enable different sharing options with the dedicated buttons for each service. They should work out of the box, only the Facebook button needs additional configuration.
 
 - Facebook App Id
 
-	Specify a App Id for your Facebook application which is responsible for sharing the links to your images.
+	Specify a App Id for your Facebook application which is responsible for sharing the links to your images. Make sure the App is configured to work with your domain.
 
 - external cart link
 
