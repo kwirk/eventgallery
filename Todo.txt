@@ -1,14 +1,10 @@
 Front End
 
-- AGB
-- Impressum
 - add documentation
 
 Back End
 
 - mail template
  
-
-Shipping: Service Line Item for a Shipping Method should be able to save the Tracking-Link
 System
 	- get paypal application id
