@@ -18,6 +18,12 @@ $link =  JRoute::_('index.php?option=com_eventgallery&view=singleimage&format=ra
 $image = $this->model->file->getImageUrl(500,500, false);
 $twitter = $description;
 
+$imageurl = JURI::base().'images/eventgallery/'.$this->model->file->folder.'/'.$this->model->file->file;
+// handle picasa images
+if (strpos($this->model->file->folder,'@')>0) {
+	$imageurl = $this->model->file->getImageUrl(600, 600, true);
+}
+
 ?>
 <?php IF ($this->params->get('use_social_sharing_button', 0)==1):?>			    		
 <a href="#" style="float: left" class="social-share-button" rel="sharingbutton-close"><i class="big"></i></a>	 
@@ -25,7 +31,10 @@ $twitter = $description;
 	<?php IF ($this->params->get('use_social_sharing_facebook', 0)==1):?>			    
 		<a href="#" onclick="javascript:FB.ui({
 							  method: 'feed',
-							  link: '<?php echo $link ?>'
+							  link: '<?php echo $link ?>',
+							  picture: '<?php echo $imageurl ?>',
+							  caption: '<?php echo $description ?>',
+							  description: '<?php echo $description ?>'
 							}, function(response){}); return false;" 
 			><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/facebook.png' ?>" alt="Facebook" title="Facebook"></a>
 	<?php ENDIF ?>
