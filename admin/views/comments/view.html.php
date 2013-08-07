@@ -25,12 +25,7 @@ class EventgalleryViewComments extends EventgalleryLibraryCommonView
 		
 		$app = JFactory::getApplication();
 		
-		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_COMMENTS' ), 'generic.png' );
-		JToolBarHelper::deleteList('Remove all comments?','removeComment','Remove');
-		JToolBarHelper::editList('editComment','Edit');
-		//JToolBarHelper::addNewX('editComment','New');
-		JToolBarHelper::publishList('Commentpublish');
-		JToolBarHelper::unpublishList('Commentunpublish');
+
 
 		
 		$model = $this->getModel();		
@@ -41,7 +36,13 @@ class EventgalleryViewComments extends EventgalleryLibraryCommonView
 				   
 		$this->pagination = $model->getPagination();		
 		$this->items = $model->getItems();
-		
+
+        JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_COMMENTS' ), 'generic.png' );
+        JToolBarHelper::deleteList('Remove all comments?','removeComment','Remove');
+        JToolBarHelper::editList('editComment','Edit');
+        //JToolBarHelper::addNewX('editComment','New');
+        JToolBarHelper::publishList('Commentpublish');
+        JToolBarHelper::unpublishList('Commentunpublish');
 
 		EventgalleryHelpersEventgallery::addSubmenu('comments');		
 		$this->sidebar = JHtmlSidebar::render();

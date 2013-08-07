@@ -15,7 +15,7 @@ jimport('joomla.filesystem.file');
 class EventgalleryController extends JControllerLegacy
 {
 	
-	protected $default_view = 'events';
+	protected $default_view = 'eventgallery';
 
 
     /**
@@ -47,9 +47,7 @@ class EventgalleryController extends JControllerLegacy
 	 */
 	function comments()
 	{
-		
-		EventgalleryHelpersEventgallery::addSubmenu(JRequest::getCmd('view', 'comments'));
-		$view = $this->getView('comments','html');
+				$view = $this->getView('comments','html');
 		$view->setModel($this->getModel('comments'),true);
 		$view->display();
 	}
@@ -254,69 +252,6 @@ class EventgalleryController extends JControllerLegacy
 	}
 
 
-	
-	/**
-	 * function to publish a file. This is uses for links in emails
-	 * 
-	 */
-	function publishFileByMail()
-	{
-		$model = $this->getModel('file');
-		$model->publish(1);
-		$view = $this->getView('publishFileByMail','raw');
-		$view->setModel($model, true);
-		$view->display();
-	
-	}
-	
-	/**
-	 * function to unpublish a file. This is uses for links in emails
-	 * 
-	 */
-	function unpublishFileByMail()
-	{
-		$model = $this->getModel('file');
-		$model->publish(0);
-		$view = $this->getView('publishFileByMail','raw');
-		$view->setModel($model, true);
-		$view->display();
-	}
-
-	/**
-	 * function to unpublish a comment. This is uses for links in emails
-	 * 
-	 */
-	function unpublishCommentByMail()
-	{
-		$model = $this->getModel('comment');
-		$model->publish(0);
-		$view = $this->getView('publishCommentByMail','raw');
-		$view->setModel($model, true);
-		$view->display();
-	}
-	
-	  
-
-	
-	/**
-	 * function to disallow comments for a file
-	 */
-	function disallowCommentsForFileByMail()
-	{
-		$model = $this->getModel('file');
-		$model->allowComments(0);
-		$view = $this->getView('allowCommentsForFileByMail','raw');
-		$view->setModel($model, true);
-		$view->display();
-	
-	}
-	
-	
-	
-
-
-	
-	
 	/**
 	 * function so remove every cache-entry
 	 */

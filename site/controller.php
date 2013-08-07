@@ -127,17 +127,30 @@ class EventgalleryController extends JControllerLegacy
             }
 
 
-            $mailer = new JMail();
+            $mailer = JFactory::getMailer();
             $params = JComponentHelper::getParams('com_eventgallery');
 
+            $userids = JAccess::getUsersByGroup($params->get('admin_usergroup'));
 
-            $mailadresses = explode(',', $params->get('adminmail'));
-            if (count($mailadresses) == 0) {
+            if (count($userids) == 0) {
                 return;
             }
 
-            $mailadresses = JMailHelper::cleanAddress($mailadresses);
-            $mailer->addRecipient($mailadresses);
+            foreach ($userids as $userid) {
+                $user = JUser::getInstance($userid);
+                if ($user->sendEmail==1) {
+
+                    $mailadress = JMailHelper::cleanAddress($user->email);
+                    $mailer->addRecipient($mailadress);
+                }
+            }
+
+            $config = JFactory::getConfig();
+            $sender = array(
+                $config->get( 'mailfrom' ),
+                $config->get( 'fromname' ) );
+
+            $mailer->setSender($sender);
 
             JRequest::setVar('newCommentId', $row->id);
 
@@ -159,18 +172,11 @@ class EventgalleryController extends JControllerLegacy
 
             $mailer->setSubject(
                 JMailHelper::cleanSubject(
-                    $row->folder . "/" . $row->file . JText::_('COM_EVENTGALLERY_COMMENT_ADD_MAIL_SUBJECT')
-                    . $app->getCfg('sitename')
+                    $row->folder . "|" . $row->file . ' - ' .JText::_('COM_EVENTGALLERY_COMMENT_ADD_MAIL_SUBJECT')
+                    . ' - ' .$app->getCfg('sitename')
                 )
             );
             $mailer->SetBody($bodytext);
-
-
-            $image_thumb_file
-                = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery' . DIRECTORY_SEPARATOR . $row->folder
-                . DIRECTORY_SEPARATOR . 'thumbs' . DIRECTORY_SEPARATOR . '-1' . $row->file;
-
-            $mailer->AddEmbeddedImage($image_thumb_file, 'image');
 
             $mailer->IsHTML(true);
             $mailer->Send();

@@ -16,8 +16,14 @@ class EventgalleryHelpersEventgallery
 	{
 
 		JHtmlSidebar::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTS'),
+			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTGALLERY'),
 			'index.php?option=com_eventgallery',
+			$vName == 'eventgallery'
+		);
+
+		JHtmlSidebar::addEntry(
+			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTS'),
+			'index.php?option=com_eventgallery&view=events',
 			$vName == 'events' || $vName=='event' || $vName=='files'
 		);
 		JHtmlSidebar::addEntry(

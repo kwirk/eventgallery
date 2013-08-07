@@ -34,10 +34,23 @@ class CheckoutController extends JControllerLegacy
 
         $mailer = JFactory::getMailer();
 
+        $userids = JAccess::getUsersByGroup($params->get('admin_usergroup'));
+
+
+        foreach ($userids as $userid) {
+            $user = JUser::getInstance($userid);
+            if ($user->sendEmail==1) {
+                $mailadresses = JMailHelper::cleanAddress($user->email);
+                $mailer->addBCC($mailadresses);
+            }
+        }
+
+        $config = JFactory::getConfig();
         $sender = array(
-            $params->get('adminmail'),
-            $sitename
-        );
+            $config->get('mailfrom' ),
+            $config->get( 'fromname' ) );
+
+        $mailer->setSender($sender);
 
         $mailer->setSubject(
             "$sitename - Image Order for ".$order->getBillingAddress()->getFirstName().' '.$order->getBillingAddress()->getLastName().' with '.$order->getLineItemsTotalCount().' copies of ' . $order->getLineItemsCount() . " images"

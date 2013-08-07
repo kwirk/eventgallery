@@ -90,43 +90,10 @@ defined('_JEXEC') or die('Restricted access');
                     ) ?>"><?php echo JText::_(
                     'COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_ACTION_SHOW_ALL_FOR_USER'
                 ) ?> <?php echo $this->newComment->user_id ?></a> <br>
-            <br>
-            <br>
-            <a
-                href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=unpublishCommentByMail&format=raw&cid[]="
-                        . $this->newComment->id, false, -1
-                    ) ?>"><?php echo JText::_(
-                    'COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_ACTION_DELETE'
-                ) ?> <?php echo $this->newComment->id ?></a> <br>
-            <br>
-            <br>
-            <a
-                href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=disallowCommentsForFileByMail&format=raw&cid[]="
-                        . $this->file->id, false, -1
-                    ) ?>"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_COMMENT_DISALLOW') ?></a><br>
-            <a
-                href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=allowCommentsForFileByMail&format=raw&cid[]="
-                        . $this->file->id, false, -1
-                    ) ?>"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_COMMENT_ALLOW') ?></a> <br>
-            <br>
-            <a
-                href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=unpublishFileByMail&format=raw&cid[]="
-                        . $this->file->id, false, -1
-                    ) ?>"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_IMAGE_UNPUBLISH') ?></a><br>
-            <a
-                href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=publishFileByMail&format=raw&cid[]="
-                        . $this->file->id, false, -1
-                    ) ?>"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_IMAGE_PUBLISH') ?></a></td>
+        </td>
     </tr>
 </table>
-</td>
-</tr>
-</table>
+
 </body>
 </html>
 
