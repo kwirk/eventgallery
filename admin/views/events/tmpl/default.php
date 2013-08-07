@@ -18,7 +18,7 @@ if ($version->isCompatible('3.0')) {
     $document->addStyleSheet($css);
 }
 ?>
-<form action="index.php" method="post" id="adminForm" name="adminForm">
+<form method="post" id="adminForm" name="adminForm">
 <?php if (!empty( $this->sidebar)) : ?>
 	<div id="j-sidebar-container" class="span2">
 		<?php echo $this->sidebar; ?>

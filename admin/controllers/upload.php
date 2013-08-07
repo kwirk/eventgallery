@@ -117,6 +117,6 @@ class EventgalleryControllerUpload extends JControllerForm
 	}
 	
 	public function cancel() {
-		$this->setRedirect( 'index.php?option=com_eventgallery');
+		$this->setRedirect( 'index.php?option=com_eventgallery&view=events');
 	}
 }

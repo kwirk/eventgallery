@@ -34,7 +34,7 @@ class EventgalleryModelEvent extends JModelAdmin
 		$db->setQuery($query);
 		$db->query();
 	}
-	
+
 	
 
     public function getForm($data = array(), $loadData = true) {
@@ -97,6 +97,11 @@ class EventgalleryModelEvent extends JModelAdmin
 
 
         return $result;
+    }
+
+    public function validate($form, $data, $group = null) {
+        $data['folder'] = JFile::makeSafe($data['folder']);
+        return parent::validate($form, $data, $group);
     }
 
 
