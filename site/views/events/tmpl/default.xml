@@ -34,12 +34,14 @@
                    description="COM_EVENTGALLERY_OPTIONS_EVENTS_GREETING_DESC"
                     />
 
-            <field name="sort_events_by" type="radio" default="ordering"
+            <field name="sort_events_by" type="list" default="ordering"
                    label="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DESC">
                 <option value="ordering">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_ORDERING</option>
                 <option value="date_asc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_ASC</option>
                 <option value="date_desc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_DESC</option>
+                <option value="name_asc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_NAME_ASC</option>
+                <option value="name_desc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_NAME_DESC</option>
             </field>
 
             <field name="tags" type="text" default="" label="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_LABEL"

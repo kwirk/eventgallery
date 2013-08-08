@@ -66,9 +66,12 @@ class EventgalleryModelEvents extends JModelLegacy
                 $query .= 'ORDER by date asc, ordering desc';            
             } elseif ($sortAttribute == "date_desc") {
                 $query .= 'ORDER by date desc, ordering desc';            
+            } elseif ($sortAttribute == "name_asc") {
+                $query .= 'ORDER by folder.folder asc';            
+            } elseif ($sortAttribute == "name_desc") {
+                $query .= 'ORDER by folder.folder desc';            
             } else {
                 $query .= 'ORDER by ordering desc';
-
             }
             
             $entries = $this->_getList($query);
