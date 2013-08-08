@@ -50,6 +50,7 @@ Let's list all the features this gallery component provides:
 # Requirements {#Requirements}
 
 - Images! Large Images. At least as wide as the space where you want to show them is. Bigger is better :)
+- your images need to have an extension like JPG or jpg. JPEG is not supported.
 - Joomla 2.5 (>2.5.8) or Joomla 3
 - PHP 5.3 or later
 - GD library for PHP
