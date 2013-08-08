@@ -7,23 +7,6 @@ class EventgalleryPluginsPaymentPaypalVendorPaypal {
     */
    protected $_errors = array();
 
-
-
-   /**
-    * API endpoint
-    * Live - https://api-3t.paypal.com/nvp
-    * Sandbox - https://api-3t.sandbox.paypal.com/nvp
-    * @var string
-    */
-   protected $_endPoint = 'https://svcs.sandbox.paypal.com/AdaptivePayments/Pay';
-
-   /**
-    * API Version
-    * @var string
-    */
-   protected $_version = '74.0';
-
-
     /**
      * Make API request
      *
