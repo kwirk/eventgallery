@@ -60,13 +60,14 @@ $use_cart_inside_component = $myParams->get('use_cart_inside_component', '1') ==
             </div>
 
             <div class="cart-summary btn-group">
-                <button class="btn"><span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS') ?>
+                <button title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_DESCRIPTION') ?>"class="btn"><span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS') ?>
                 </button>
-                <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN') ?>" class="btn toggle-down" href="#"><i class="icon-arrow-down"></i></button>
-                <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_UP') ?>" class="btn toggle-up" href="#"><i class="icon-arrow-up"></i></button>
-                <button onclick="document.location.href='<?php echo JRoute::_(
+                <button title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN') ?>" class="btn toggle-down" href="#"><i class="icon-arrow-down"></i></button>
+                <button title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP') ?>" class="btn toggle-up" href="#"><i class="icon-arrow-up"></i></button>
+                <button title="<?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART_DESCRIPTION') ?>" onclick="document.location.href='<?php echo JRoute::_(
                     "index.php?option=com_eventgallery&view=cart"
-                ); ?>'" class="btn btn-primary"><?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART') ?></button>
+                ); ?>'" class="btn btn-primary"><i class="icon-tocart-small"></i></button>
+
                 <button class="btn" data-rel="lightbo2" data-href="#mb_cart-help">?</button>
             </div>
             <div style="display:none">

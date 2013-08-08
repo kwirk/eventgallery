@@ -134,7 +134,7 @@ defined('_JEXEC') or die('Restricted access');
                 "index.php?option=com_eventgallery&view=singleimage&folder=" . $this->model->firstFile->folder
                 . "&file=" . $this->model->firstFile->file
             ) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_START') ?>"><i
-                    class="icon-arrow-first"></i></a>
+                    class="icon-fast-backward"></i></a>
         <?php ENDIF ?>
 
         <?php IF ($this->model->prevFile && $this->model->prevFile != $this->model->file): ?>
@@ -158,7 +158,7 @@ defined('_JEXEC') or die('Restricted access');
                 "index.php?option=com_eventgallery&view=singleimage&folder=" . $this->model->lastFile->folder . "&file="
                 . $this->model->lastFile->file
             ) ?>#image" title="<?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NAV_END') ?>"><i
-                    class="icon-arrow-last"></i></a>
+                    class="icon-fast-forward"></i></a>
         <?php ENDIF ?>
 
         <?php IF ($this->model->file->allowcomments == 1 && $this->use_comments == 1): ?>

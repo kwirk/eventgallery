@@ -21,8 +21,12 @@ defined('_JEXEC') or die('Restricted access'); ?>
     <div class="well imagetypeselection" style="display:none">
         <?php include dirname(__FILE__).'/imagesetinformation.php'; ?>
         <div class="btn-group pull-right">
-            <button class="btn imagetypeselection-hide"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_CLOSE') ?></button>       
-            <button class="btn btn-primary eventgallery-add-all"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_ADD_ALL') ?></button>
+            <a title="<?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_CLOSE_DESCRIPTION') ?>" class="btn btn-default imagetypeselection-hide"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_CLOSE') ?></a>       
+            <a title="<?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART_DESCRIPTION') ?>" class="btn btn-default" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=cart'); ?>"><i class="icon-tocart-small"></i></a>
+            <a title="<?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_ADD_ALL_DESCRIPTION') ?>"class="btn btn-primary eventgallery-add-all"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_ADD_ALL') ?></a>
+        </div>
+        <div class="help">
+            <?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES_HELP_SELECTION');?>
         </div>
         <div class="clearfix"></div>
     </div>

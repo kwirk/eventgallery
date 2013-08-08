@@ -11,12 +11,12 @@
 }
 
 #events .item-container {
-	float: left;
-	width: 33.3333333%;		
-	padding: 5px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;	
+    float: left;
+    width: 33.3333333%;     
+    padding: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; 
 }
 
 #events .item-container-middle {
@@ -581,7 +581,7 @@ a.button-removeFromCart i.loading {
 .button-cart-connector:hover i.big,
 .button-cart:hover i.big,
 .button-removeFromCart:hover i.big,
-.button-alreadyInCart:hover	 i.big,
+.button-alreadyInCart:hover  i.big,
 .social-share-button:hover i.big {
     opacity: 1 !important;
 }
@@ -623,7 +623,9 @@ div.img:hover .button-alreadyInCart i.big {
 .social-share-button i.icon-social-share-button-small,
 .button-cart-connector  i.icon-cart-connector-small,
 .button-alreadyInCart i.icon-cart-small,
-.button-removeFromCart i.icon-cart-small {
+.button-removeFromCart i.icon-cart-small,
+i.icon-tocart-small
+ {
     background: transparent url(../images/cart/buttons.png) no-repeat;
     width: 18px;
     height: 14px;
@@ -647,6 +649,10 @@ div.img:hover .button-alreadyInCart i.big {
 
 .button-removeFromCart i.icon-cart-small {
     background-position: -18px -30px;
+}
+
+i.icon-tocart-small {
+    background-position: -78px -30px;
 }
 
 /* cart */
@@ -705,6 +711,13 @@ div.img:hover .button-alreadyInCart i.big {
     float: left;
     width: 100%;
 }
+
+.eventgallery-ajaxcart .cart-items .thumbnail {
+    margin-bottom: 9px;
+    padding: 4px;
+}
+
+
 
 /**
 * Cart & checkout page
@@ -905,5 +918,9 @@ div.img:hover .button-alreadyInCart i.big {
         width:100%;
     }
 
+}
+
+.eventgallery-footer-disclaimer {
+    margin-top: 20px;
 }
 
