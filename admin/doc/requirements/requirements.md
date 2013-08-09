@@ -1,0 +1,9 @@
+- Images! Large Images. At least as wide as the space where you want to show them is. Bigger is better :)
+- your images need to have an extension like JPG or jpg. JPEG is not supported.
+- Joomla 2.5 (>2.5.8) or Joomla 3
+- PHP 5.3 or later
+- GD library for PHP
+- set the PHP memory limit high enough
+- your Joomla Template should put jQuery into no conflict mode
+- standard Joomla Mootools have to be available.
+- your template should not produce any JavaScript errors before you install the component

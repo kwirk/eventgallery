@@ -14,12 +14,66 @@ class EventgalleryHelpersEventgallery
 	
 	public static function addSubmenu($vName = 'events')
 	{
+        $currentLayout = JRequest::getString('layout','default');
 
-		JHtmlSidebar::addEntry(
-			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTGALLERY'),
-			'index.php?option=com_eventgallery',
-			$vName == 'eventgallery'
-		);
+        if ($vName == 'documentation') {
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_INTRO'),
+                'index.php?option=com_eventgallery&view=documentation',
+                $currentLayout=='default'
+            );
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_REQUIREMENTS'),
+                'index.php?option=com_eventgallery&view=documentation&layout=requirements',
+                $currentLayout=='requirements'
+            );
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_VIDEOS'),
+                'index.php?option=com_eventgallery&view=documentation&layout=videos',
+                $currentLayout=='videos'
+            );
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_USAGE'),
+                'index.php?option=com_eventgallery&view=documentation&layout=usage',
+                $currentLayout=='usage'
+            );
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_CHECKOUT'),
+                'index.php?option=com_eventgallery&view=documentation&layout=checkout',
+                $currentLayout=='checkout'
+            );
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_EXTEND'),
+                'index.php?option=com_eventgallery&view=documentation&layout=extend',
+                $currentLayout=='extend'
+            );
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_FAQ'),
+                'index.php?option=com_eventgallery&view=documentation&layout=faq',
+                $currentLayout=='faq'
+            );
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_RELEASES'),
+                'index.php?option=com_eventgallery&view=documentation&layout=releases',
+                $currentLayout=='releases'
+            );
+
+            return;
+        }
+
+        JHtmlSidebar::addEntry(
+            JText::_('COM_EVENTGALLERY_SUBMENU_EVENTGALLERY'),
+            'index.php?option=com_eventgallery',
+            $vName == 'eventgallery'
+        );
 
 		JHtmlSidebar::addEntry(
 			JText::_('COM_EVENTGALLERY_SUBMENU_EVENTS'),
