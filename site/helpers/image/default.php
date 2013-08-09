@@ -88,7 +88,7 @@ abstract class EventgalleryHelpersImageDefault implements EventgalleryHelpersIma
     						title="' . htmlentities($lineitem->getImageType()->getDisplayName()) . '"
     						data-title="' . rawurlencode($this->getLightBoxTitle()) . '"
     						data-lineitem-id="' . $lineitem->getId() . '"
-    						rel="lightbo2[cart]"> ' . $this->getThumbImgTag(104, 104) . '</a>';
+    						rel="lightbo2[cart]"> ' . $this->getThumbImgTag(48, 48) . '</a>';
     }
 
     public function getMiniCartThumb($lineitem)
