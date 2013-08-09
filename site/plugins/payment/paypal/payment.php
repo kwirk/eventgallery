@@ -61,7 +61,7 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
         $requestParams = array (
 
                 'actionType' => 'PAY',
-                'currencyCode' => $lineitemcontainer->getTotal()->getCurrency(),
+                'currencyCode' => $lineitemcontainer->getTotal()->getCurrencyCode(),
                 "receiverList" => array(
                     "receiver"=>array(array(
                         'amount' => $lineitemcontainer->getTotal()->getAmount(),

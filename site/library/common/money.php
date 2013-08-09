@@ -20,6 +20,7 @@ class EventgalleryLibraryCommonMoney
 
     protected $_amount;
     protected $_currency;
+    protected $_currencyCode;
 
     /**
      * @param float $amount
@@ -29,7 +30,9 @@ class EventgalleryLibraryCommonMoney
     {
         $this->_amount=$amount;
         #$this->_currency=$currency;
-        $this->_currency = JComponentHelper::getParams('com_eventgallery')->get('currency_symbol', 'EUR');
+        $params = JComponentHelper::getParams('com_eventgallery');
+        $this->_currency = $params->get('currency_symbol', 'EUR');
+        $this->_currencyCode = $params->get('currency_code', 'EUR');
     }
 
 
@@ -49,9 +52,20 @@ class EventgalleryLibraryCommonMoney
     }
 
     /**
+     * Returns the display name of the currency
+     *
      * @return string
      */
     public function getCurrency() {
         return $this->_currency;
+    }
+
+    /**
+     * Return the Currency Code like EUR or USD
+     *
+     * @return string
+     */
+    public function getCurrencyCode() {
+        return $this->_currencyCode;
     }
 }

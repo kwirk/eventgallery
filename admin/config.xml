@@ -85,6 +85,12 @@
 			type="text"
 		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_CURRENCYSYMBOL"
             description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_CURRENCYSYMBOL_DESCRIPTION" />
+        
+        <field name="currency_code" 
+			default="EUR"
+			type="text"
+		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_CURRENCYCODE"
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_CURRENCYCODE_DESCRIPTION" />
 		
 		<field name="use_terms_conditions_checkbox" type="radio" class="btn-group" default="1" label="COM_EVENTGALLERY_OPTIONS_COMMON_USETERMCONDITIONS_LABEL" description="COM_EVENTGALLERY_OPTIONS_COMMON_USETERMCONDITIONS_DESC">
 			<option value="0">JNO</option>
