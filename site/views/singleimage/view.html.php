@@ -28,6 +28,9 @@ class EventgalleryViewSingleimage extends EventgalleryLibraryCommonView
 
     function display($tpl = NULL)
     {
+
+      EventgalleryHelpersCaptcha::generateData();
+
         /**
          * @var JSite $app
          */

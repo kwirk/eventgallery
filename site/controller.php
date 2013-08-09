@@ -85,7 +85,7 @@ class EventgalleryController extends JControllerLegacy
         $store = true;
         $buzzwords = $model->getBuzzwords();
         $buzzwordsClean = BuzzwordsHelper::validateBuzzwords($buzzwords, JRequest::getVar('text'));
-        $captchaHelper = new CaptchaHelper();
+        $captchaHelper = new EventgalleryHelpersCaptcha();
 
 
         if ($captchaHelper->validateCaptcha(JRequest::getVar('password')) == false) {
@@ -192,7 +192,7 @@ class EventgalleryController extends JControllerLegacy
     function displayCaptcha()
     {
         $app = JFactory::getApplication();
-        $captchaHelper = new CaptchaHelper();
+        $captchaHelper = new EventgalleryHelpersCaptcha();
         $captchaHelper->displayCaptcha();
         $app->close();
     }

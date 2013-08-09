@@ -8,13 +8,18 @@
  */
 defined('_JEXEC') or die;
 
-class CaptchaHelper
+class EventgalleryHelpersCaptcha
 {
 
-    function validateCaptcha($password)
+    public function validateCaptcha($password)
     {
-
-        $sicherheits_eingabe = $this->encrypt($password, "1");
+        /*echo $_SESSION['rechen_captcha_spam'];
+        echo "<br>";
+        echo session_id();
+        echo "<pre>";
+        print_r($_SESSION);
+        echo "</pre>";*/
+        $sicherheits_eingabe = $password;
         $sicherheits_eingabe = str_replace("=", "", $sicherheits_eingabe);
         if (isset($_SESSION['rechen_captcha_spam']) AND $sicherheits_eingabe == $_SESSION['rechen_captcha_spam']) {
             unset($_SESSION['rechen_captcha_spam']);
@@ -23,25 +28,7 @@ class CaptchaHelper
         return false;
     }
 
-    //function encrypt($string, $key)
-    function encrypt($string)
-    {
-        /*$result = '';
-        for($i=0; $i<strlen($string); $i++) {
-           $char = substr($string, $i, 1);
-           $keychar = substr($key, ($i % strlen($key))-1, 1);
-           $char = chr(ord($char)+ord($keychar));
-           $result.=$char;
-        }
-        return base64_encode($result);*/
-        return $string;
-    }
-
-
-    function displayCaptcha()
-    {
-        @session_start();
-        unset($_SESSION['rechen_captcha_spam']);
+    public static function generateData() {
         $zahl1 = rand(10, 20); //Erste Zahl 10-20
         $zahl2 = rand(1, 10); //Zweite Zahl 1-10
         $operator = rand(1, 2); // + oder -
@@ -54,10 +41,16 @@ class CaptchaHelper
             $ergebnis = $zahl1 - $zahl2;
         }
 
-        $_SESSION['rechen_captcha_spam'] = $this->encrypt($ergebnis, "1"); //Key
-        $_SESSION['rechen_captcha_spam'] = str_replace("=", "", $_SESSION['rechen_captcha_spam']);
-
         $rechnung = $zahl1 . $operatorzeichen . $zahl2 . " = ?";
+
+        $_SESSION['rechen_captcha_spam'] = $ergebnis;
+        $_SESSION['rechen_captcha_calc'] = $rechnung;
+    }
+
+
+    public function displayCaptcha()
+    {
+        $rechnung = $_SESSION['rechen_captcha_calc'];
         $img = imagecreatetruecolor(80, 15);
         $schriftfarbe = imagecolorallocate($img, 13, 28, 91);
         $hintergrund = imagecolorallocate($img, 162, 162, 162);
