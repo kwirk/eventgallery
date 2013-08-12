@@ -162,8 +162,8 @@ class EventgalleryHelpersImageHelper
              * @var DOMElement $thumbnailNode
              */
             foreach ($thumbnailNodes as $thumbnailNode) {
-
-                if ($thumbnailNode->getAttribute('width') == $thumbnailNode->getAttribute('height')) {
+                //if url contains a thumbsize like /s123-c/ it's a crop image
+                if (preg_match("/\/s[0-9]+-c\//",$thumbnailNode->getAttribute('url')==0 )) {
                     $thumbnailsCrop[$thumbnailNode->getAttribute('width')] = $thumbnailNode->getAttribute('url');
                 } else {
                     $thumbnails[$thumbnailNode->getAttribute('width')] = $thumbnailNode->getAttribute('url');
