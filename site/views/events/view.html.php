@@ -50,10 +50,13 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
             $this->params->merge($app->getMenu()->getDefault()->params);
         }
 
-		$entriesPerPage = $this->params->get('max_events_per_page', 12);
+        $entriesPerPage = $this->params->get('max_events_per_page', 12);
+
+        if ($this->getLayout()=='magic') {
+            $entriesPerPage = 0;
+        }
 
         $model = $this->getModel('events');
-
         $eventModel = JModelLegacy::getInstance('Event', 'EventModel');
 
 
@@ -66,11 +69,31 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
         $this->pageNav = $model->getPagination();
 
 
-        $this->entries = $entries;
-        $this->fileCount = $model->getFileCount();
-        $this->folderCount = $model->getFolderCount();
-        $this->eventModel = $eventModel;
+        if ($this->getLayout()=='magic') {
+            $images = array();
 
+            foreach ($entries as $entry) {
+               $result =  $this->cache->call(array($eventModel, 'getEntries'), $entry->folder, -1, -1, 0);
+               $images = array_merge($images, $result);
+            }
+
+            $this->entries = $images;
+            $folder = new stdClass();
+            $folder->cartable = false;
+            $folder->date = "";
+            $folder->description="";
+            $folder->text = "";
+            $this->folder = $folder;
+            $this->entriesCount = count($images);
+
+        } else {
+
+            $this->entries = $entries;
+
+            $this->fileCount = $model->getFileCount();
+            $this->folderCount = $model->getFolderCount();
+            $this->eventModel = $eventModel;
+        }
 
         parent::display($tpl);
     }

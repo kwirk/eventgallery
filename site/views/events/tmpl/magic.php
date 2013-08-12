@@ -10,14 +10,18 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+/**
+ * @var JCacheControllerCallback $cache
+ */
 ?>
 
 
 
 
-<?php  echo  $this->loadSnippet('cart'); ?>
 <?php  echo  $this->loadSnippet('social'); ?>
 
-<?php echo $this->loadSnippet('event/default'); ?>
+<p class="greetings"><?php echo $this->params->get('greetings'); ?></p>
+
+<?php  echo $this->loadSnippet('event/'.str_replace('_:','',$this->params->get('event_layout', 'default'))); ?>
 
 <?php echo $this->loadSnippet('footer_disclaimer'); ?>

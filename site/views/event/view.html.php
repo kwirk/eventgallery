@@ -64,7 +64,7 @@ class EventViewEvent extends EventgalleryLibraryCommonView
             $this->setLayout($layout);
         }
 
-        $model = $this->getModel('event', 'Eventgallery');
+        $model = $this->getModel('event');
 
 
         $pageNav = $model->getPagination(JRequest::getVar('folder', ''));
