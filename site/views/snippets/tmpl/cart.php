@@ -66,7 +66,7 @@ $use_cart_inside_component = $myParams->get('use_cart_inside_component', '1') ==
                 <button title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP') ?>" class="btn toggle-up" href="#"><i class="icon-arrow-up"></i></button>
                 <button title="<?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART_DESCRIPTION') ?>" onclick="document.location.href='<?php echo JRoute::_(
                     "index.php?option=com_eventgallery&view=cart"
-                ); ?>'" class="btn btn-primary"><i class="icon-tocart-small"></i></button>
+                ); ?>'" class="btn"><i class="icon-tocart-small"></i></button>
 
                 <button class="btn" data-rel="lightbo2" data-href="#mb_cart-help">?</button>
             </div>

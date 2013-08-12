@@ -43,7 +43,7 @@ class EventgalleryViewPassword extends EventgalleryLibraryCommonView
         $file = JRequest::getString('file', '');
         $folder = JRequest::getString('folder', '');
 
-        $model = JModelLegacy::getInstance('Event', 'EventgalleryModel');
+        $model = JModelLegacy::getInstance('Event', 'EventModel');
 
         $folder = $model->getFolder($folder);
 

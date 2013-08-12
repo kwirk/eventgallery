@@ -14,7 +14,7 @@ jimport( 'joomla.application.component.model' );
 
 //jimport( 'joomla.application.component.helper' );
 
-class EventgalleryModelEvents extends JModelLegacy
+class EventsModelEvents extends JModelLegacy
 {
 
     var $_commentCount = null;

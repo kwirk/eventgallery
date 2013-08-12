@@ -174,7 +174,7 @@ defined('_JEXEC') or die('Restricted access');
 
         
         <?php IF ($this->model->folder->cartable == 1  && $this->params->get('use_cart', '1')==1): ?>
-            <a href="#" class="btn btn-primary button-add2cart imagetypeselection-show"
+            <a href="#" class="btn button-add2cart imagetypeselection-show"
                title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART') ?>"
                data-id="folder=<?php echo $this->model->file->folder . "&file=" . $this->model->file->file ?>"><i
                     class="icon-cart-small"></i></a>

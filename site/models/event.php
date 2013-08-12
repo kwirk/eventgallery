@@ -16,7 +16,7 @@ jimport('joomla.html.pagination');
 
 
 /** @noinspection PhpUndefinedClassInspection */
-class EventgalleryModelEvent extends JModelLegacy
+class EventModelEvent extends JModelLegacy
 {
     protected $_pagination;
 

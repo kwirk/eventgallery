@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.view');
 
 
-class EventgalleryViewEvents extends EventgalleryLibraryCommonView
+class EventsViewEvents extends EventgalleryLibraryCommonView
 {
     protected $params;
     protected $entries;
@@ -52,7 +52,7 @@ class EventgalleryViewEvents extends EventgalleryLibraryCommonView
 
 		$entriesPerPage = $this->params->get('max_events_per_page', 12);
         $model = $this->getModel('events');
-        $eventModel = $this->getModel('event');
+        $eventModel = $this->getModel('event', 'EventModel');
 
         //$entries = $model->getEntries(JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
         $entries = $this->cache->call(

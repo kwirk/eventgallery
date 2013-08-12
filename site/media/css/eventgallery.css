@@ -944,7 +944,9 @@ i.icon-arrow-right:before,
 i.icon-arrow-left:before,
 i.icon-list:before,
 i.icon-zoom-in:before,
-i.icon-comment:before {
+i.icon-comment:before,
+i.icon-arrow-up:before,
+i.icon-arrow-down:before {
     content: '';
 }
 

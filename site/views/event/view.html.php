@@ -14,7 +14,7 @@ jimport('joomla.application.pathway');
 jimport('joomla.html.pagination');
 
 /** @noinspection PhpUndefinedClassInspection */
-class EventgalleryViewEvent extends EventgalleryLibraryCommonView
+class EventViewEvent extends EventgalleryLibraryCommonView
 {
     /**
      * @var JRegistry
@@ -64,7 +64,7 @@ class EventgalleryViewEvent extends EventgalleryLibraryCommonView
             $this->setLayout($layout);
         }
 
-        $model = $this->getModel('event');
+        $model = $this->getModel('event', 'Eventgallery');
 
 
         $pageNav = $model->getPagination(JRequest::getVar('folder', ''));

@@ -23,52 +23,7 @@ class EventgalleryController extends JControllerLegacy
 
     public function display($cachable = false, $urlparams = array())
     {
-
-        $viewname = JRequest::getString('view', 'events');
-        JRequest::setVar('view', $viewname);
-
-        if ($viewname == 'events') {
-            $viewLayout = JRequest::getString('layout', 'default');
-            $view = $this->getView($viewname, 'html', '', array('layout' => $viewLayout));
-
-            /**
-             * @var EventgalleryModelEvents $eventsModel
-             */
-            $eventsModel = $this->getModel('events');
-            /**
-             * @var EventgalleryModelEvent $eventModel
-             */
-            $eventModel = $this->getModel('event');
-
-            $view->setModel($eventsModel, true);
-            $view->setModel($eventModel, false);
-        }
-
-        if ($viewname == 'event') {
-            $password = JRequest::getString('password', '');
-            $folder = JRequest::getString('folder', '');
-            $folder = $this->getModel('event')->getFolder($folder);
-
-            // we need to do this only if someone entered a password.
-            // the views will protect themselfs
-            $accessAllowed = EventgalleryHelpersFolderprotection::isAccessAllowed($folder, $password);
-            if (strlen($password) > 0 && !$accessAllowed) {
-                $msg = JText::_('COM_EVENTGALLERY_PASSWORD_FORM_ERROR');
-                $this->setRedirect(JRoute::_("index.php?view=password&folder=" . $folder->folder, false), $msg);
-                $this->redirect();
-            }
-
-        }
-
-        // this fixes a strange behavior where the viewType is set to php if url rewriting is enabled.
-        if ($viewname == 'resizeimage') {
-            $document = JFactory::getDocument();
-            $document->setType('html');
-        }
-
         parent::display($cachable, $urlparams);
-
-
     }
 
     function save_comment($cachable = false, $urlparams = array())

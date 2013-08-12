@@ -15,7 +15,7 @@ require_once JPATH_BASE . '/components/com_eventgallery/helpers/vendors/class.jp
 require_once JPATH_BASE.'/components/com_eventgallery/helpers/vendors/pel/src/PelJpeg.php';
 
 
-class EventgalleryViewResizeimage extends JViewLegacy
+class ResizeimageViewResizeimage extends JViewLegacy
 {
 
     function display($tpl=null)
