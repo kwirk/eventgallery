@@ -172,8 +172,8 @@ var JSGallery2 = new Class({
                     'top': '10px'
                 }
             });
-
-            this.bigImage.getParent().grab(this.add2cartLink);
+			this.add2cartLink.hide();
+            this.bigImage.getParent().grab(this.add2cartLink);            
             $(document.body).fireEvent('updatecartlinks');
         }
 
