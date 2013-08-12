@@ -6,6 +6,10 @@
 
 <hr class="system-pagebreak" title="Videos" alt="Videos" />
 
+{file://install.md}
+
+<hr class="system-pagebreak" title="Install" alt="Install" />
+
 {file://videos.md}
 
 <hr class="system-pagebreak" title="Usage" alt="Usage" />
