@@ -298,7 +298,7 @@ There are only a few things globally manageable.
 
 - Facebook App Id
 
-	Specify a App Id for your Facebook application which is responsible for sharing the links to your images. Make sure the App is configured to work with your domain.
+	Specify a App Id for your Facebook application which is responsible for sharing the links to your images. Make sure the App is configured to work with your domain. The app need to have the permission photo_upload. 
 
 - external cart link
 

@@ -29,14 +29,36 @@ if (strpos($this->model->file->folder,'@')>0) {
 <a href="#" style="float: left" class="social-share-button" rel="sharingbutton-close"><i class="big"></i></a>	 
 
 	<?php IF ($this->params->get('use_social_sharing_facebook', 0)==1):?>			    
-		<a href="#" onclick="javascript:FB.ui({
-							  method: 'feed',
-							  link: '<?php echo $link ?>',
-							  picture: '<?php echo $imageurl ?>',
-							  caption: '<?php echo $description ?>',
-							  description: '<?php echo $description ?>'
-							}, function(response){}); return false;" 
-			><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/facebook.png' ?>" alt="Facebook" title="Facebook"></a>
+		<a href="#" id="facebook-post-image"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/facebook.png' ?>" alt="Facebook" title="Facebook"></a>
+		<script>
+
+		var shareFunction = function(e) {
+			e.preventDefault();
+
+			var wallPost = {
+			    picture: "<?php echo $imageurl ?>"
+			};
+
+			FB.login(function(response) {
+		        if (response.authResponse) {
+		            var access_token =   FB.getAuthResponse()['accessToken'];
+		            FB.api('/me/photos?access_token='+access_token, 'post', { url: wallPost.picture, access_token: access_token }, function(response) {
+		                if (!response || response.error) {
+		                    //alert('Error occured: ' + JSON.stringify(response.error));
+		                  } else {
+		                    alert('<?php echo JTEXT::_('COM_EVENTGALLERY_SOCIAL_SHARE_IMAGE_SHARED')?>');
+		                  }
+		            });
+		        } else {
+		            //console.log('User cancelled login or did not fully authorize.');
+		        }
+		    }, {scope: 'publish_stream'});
+
+		};
+
+		$('facebook-post-image').addEvent('click', shareFunction);
+
+		</script>
 	<?php ENDIF ?>
 
 	<?php IF ($this->params->get('use_social_sharing_google', 0)==1):?>			    
@@ -63,5 +85,6 @@ if (strpos($this->model->file->folder,'@')>0) {
 	<?php IF ($this->params->get('use_social_sharing_download', 0)==1):?>			    
 		<a href="<?php echo  JURI::base().'images/eventgallery/'.$this->model->file->folder.'/'.$this->model->file->file ?>" target="_blank" lt="Download" title="Download"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/icons/32x32/download-icon.png' ?>" alt="Download" title="Download"</a>
 	<?php ENDIF ?>
-		
+
+
 <?php ENDIF ?>
