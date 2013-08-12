@@ -12,20 +12,6 @@ class EventsController extends JControllerLegacy
 {
     public function display($cachable = false, $urlparams = array())
     {
-        $viewLayout = JRequest::getString('layout', 'default');
-        $view = $this->getView('events', 'html', '', array('layout' => $viewLayout));
-
-        /**
-         * @var EventgalleryModelEvents $eventsModel
-         */
-        $eventsModel = $this->getModel('events', 'EventsModel');
-        /**
-         * @var EventgalleryModelEvent $eventModel
-         */
-        $eventModel = $this->getModel('event', 'EventModel');
-
-        $view->setModel($eventsModel, true);
-        $view->setModel($eventModel, false);
 
         parent::display($cachable, $urlparams);
     }

@@ -51,8 +51,11 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
         }
 
 		$entriesPerPage = $this->params->get('max_events_per_page', 12);
+
         $model = $this->getModel('events');
-        $eventModel = $this->getModel('event', 'EventModel');
+
+        $eventModel = JModelLegacy::getInstance('Event', 'EventModel');
+
 
         //$entries = $model->getEntries(JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
         $entries = $this->cache->call(
