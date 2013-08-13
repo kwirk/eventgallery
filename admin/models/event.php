@@ -100,7 +100,10 @@ class EventgalleryModelEvent extends JModelAdmin
     }
 
     public function validate($form, $data, $group = null) {
-        $data['folder'] = JFile::makeSafe($data['folder']);
+        // clean up the folder name if it is no picasa album
+        if (strpos($data['folder'], '@')===false  ) {
+            $data['folder'] = JFile::makeSafe($data['folder']);
+        }
         return parent::validate($form, $data, $group);
     }
 
