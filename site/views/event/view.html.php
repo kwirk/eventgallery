@@ -90,7 +90,6 @@ class EventgalleryViewEvent extends JViewLegacy
 	{
 		$app	= JFactory::getApplication();
 		$menus	= $app->getMenu();
-		$pathway = $app->getPathway();
 		$title = null;
 
 		// Because the application sets a default page title,
@@ -126,13 +125,26 @@ class EventgalleryViewEvent extends JViewLegacy
 
 		if ($this->folder->text)
 		{
-			$this->document->setDescription($this->folder->text);
+			$this->document->setDescription(strip_tags($this->folder->text));
 		}
 		elseif (!$this->folder->text && $this->params->get('menu-meta_description'))
 		{
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
+
+		if ($this->params->get('menu-meta_keywords'))
+		{
+			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+		}
+
+		if ($this->params->get('robots'))
+		{
+			$this->document->setMetadata('robots', $this->params->get('robots'));
+		}
 	}
+
+
+
 }
 
 ?>
