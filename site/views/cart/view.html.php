@@ -51,6 +51,11 @@ class CartViewCart extends EventgalleryLibraryCommonView
         $pathway = $app->getPathWay();
         $pathway->addItem(JText::_('COM_EVENTGALLERY_CART_PATH'));
 
+        // show a disabled message once the cart is not active
+        if ($this->params->get('use_cart',0)==0) {
+            $this->setLayout('disabled');
+        }
+
         $this->_prepareDocument();
 
         parent::display($tpl);

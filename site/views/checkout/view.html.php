@@ -48,22 +48,31 @@ class CheckoutViewCheckout extends EventgalleryLibraryCommonView
         $this->cart = $cartMgr->getCart();
 
 
+        // set the default view
         if ($this->getLayout() == 'default') {
             $this->setLayout('review');
         }
 
-        if ($this->getLayout() != 'confirm'
-            && ($this->cart->getBillingAddress() == null
-                || $this->cart->getShippingAddress() == null
-                || $this->cart->getPaymentMethod() == null
-                || $this->cart->getShippingMethod() == null)
-        ) {
+
+        // if the current layout is not confirm and some details are missing, display the change page.
+        // if there are no items in the cart, go the the cart page.
+        if ($this->getLayout() != 'confirm') {
+
             if ($this->cart->getLineItemsCount()==0) {
                 $app->redirect(
                     JRoute::_("index.php?option=com_eventgallery&view=cart", false)                   
                 );
             }
-            $this->setLayout('change');
+
+            if ($this->cart->getBillingAddress() == null
+                || $this->cart->getShippingAddress() == null
+                || $this->cart->getPaymentMethod() == null
+                || $this->cart->getShippingMethod() == null) {
+
+                $this->setLayout('change');    
+
+            }
+
         }
 
         if ($this->getLayout() == 'change') {
