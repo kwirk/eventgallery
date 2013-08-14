@@ -445,6 +445,7 @@ With each new version it might be necessary to add new translation keys to your 
 		- the Facebook Feed Dialog is gone. Did not work very well. Now the images are 
 		  shared directly to the users Facebook album. Just make sure that you Facebook 
 		  App has the photo_upload permission to get it working.
+		- support for menu item based keyword/robot configuration
     - Bug Fixes
     	- removed some strict warnings while rendering images
     	- removed some strict warnings while in the events list
