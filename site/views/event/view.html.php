@@ -118,18 +118,18 @@ class EventViewEvent extends EventgalleryLibraryCommonView
      */
     protected function _prepareDocument()
     {
-        $app = JFactory::getApplication();
-        $menus = $app->getMenu();
-
-        $title = NULL;
+        $app    = JFactory::getApplication();
+        $menus  = $app->getMenu();
+        $title = null;
 
         // Because the application sets a default page title,
         // we need to get it from the menu item itself
         $menu = $menus->getActive();
-        if ($menu) {
+        if ($menu)
+        {
             $this->params->def('page_heading', $this->params->get('page_title', $menu->title));
         }
-
+        
 
         $title = $this->params->get('page_title', '');
 
@@ -141,9 +141,11 @@ class EventViewEvent extends EventgalleryLibraryCommonView
         // Check for empty title and add site name if param is set
         if (empty($title)) {
             $title = $app->getCfg('sitename');
-        } elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
+        }
+        elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
             $title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
-        } elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
+        }
+        elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
             $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
         }
         if (empty($title)) {
@@ -151,10 +153,23 @@ class EventViewEvent extends EventgalleryLibraryCommonView
         }
         $this->document->setTitle($title);
 
-        if ($this->folder->text) {
-            $this->document->setDescription($this->folder->text);
-        } elseif (!$this->folder->text && $this->params->get('menu-meta_description')) {
+        if ($this->folder->text)
+        {
+            $this->document->setDescription(strip_tags($this->folder->text));
+        }
+        elseif (!$this->folder->text && $this->params->get('menu-meta_description'))
+        {
             $this->document->setDescription($this->params->get('menu-meta_description'));
+        }
+
+        if ($this->params->get('menu-meta_keywords'))
+        {
+            $this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+        }
+
+        if ($this->params->get('robots'))
+        {
+            $this->document->setMetadata('robots', $this->params->get('robots'));
         }
     }
 }

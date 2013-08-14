@@ -134,8 +134,20 @@ abstract class PelEntryNumber extends PelEntry {
      *
      * @see getValue
      */
-    function setValue(/* $value... */) {
-        $value = func_get_args();
+    function setValue($value1 ='foobar', 
+                      $value2 ='foobar', 
+                      $value3 ='foobar', 
+                      $value4 ='foobar', 
+                      $value5 ='foobar', 
+                      $value6 ='foobar') {
+        $value = array();
+        if ($value1!='foobar') { $value[] = $value1; }
+        if ($value2!='foobar') { $value[] = $value2; }
+        if ($value3!='foobar') { $value[] = $value3; }
+        if ($value4!='foobar') { $value[] = $value4; }
+        if ($value5!='foobar') { $value[] = $value5; }
+        if ($value6!='foobar') { $value[] = $value6; }
+
         $this->setValueArray($value);
     }
 

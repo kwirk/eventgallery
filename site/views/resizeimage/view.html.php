@@ -104,34 +104,36 @@ class ResizeimageViewResizeimage extends JViewLegacy
         $input_jpeg = null;
         if ($debug || !file_exists($image_thumb_file)) {
 
-            $ext = substr($image_file, -3);
+            $ext = pathinfo($image_file, PATHINFO_EXTENSION);;
 
             if (strtolower($ext) == "gif") {
                 if (!$im_original = imagecreatefromgif($image_file)) {
-                    echo "Error opening $image_file!";
-                    exit;
+                    echo "Error opening $image_file!"; exit;
                 }
-            } else {
-                if (strtolower($ext) == "jpg") {
+            } else if(strtolower($ext) == "jpg" || strtolower($ext) == "jpeg") {
+                $input_jpeg = null;
+                // try to use PEL first. If things fail, use the php internal method to get the JPEG
+                try {
                     $input_jpeg = new PelJpeg($image_file);
-
                     /* The input image is already loaded, so we can reuse the bytes stored
                      * in $input_jpeg when creating the Image resource. */
-                    
                     if (!$im_original = ImageCreateFromString($input_jpeg->getBytes())) {
                         echo "Error opening $image_file!"; exit;
                     }
-                } else {
-                    if (strtolower($ext) == "png") {
-                        if (!$im_original = imagecreatefrompng($image_file)) {
-                            echo "Error opening $image_file!";
-                            exit;
-                        }
-                    } else {
-                        die("$ext not supported");
+                } catch (Exception $e){
+                    if (!$im_original = imagecreatefromjpeg($image_file)) {
+                        echo "Error opening $image_file!"; exit;
                     }
                 }
+                
+            } else if(strtolower($ext) == "png") {
+                if (!$im_original = imagecreatefrompng($image_file)) {
+                    echo "Error opening $image_file!"; exit;
+                }
+            } else {
+                die("$ext not supported");
             }
+        
 
 
             $orig_width = imagesx($im_original);
