@@ -442,7 +442,14 @@ With each new version it might be necessary to add new translation keys to your 
 
 ## 2.6.8
 	- New Features
-		- the Facebook Feed Dialog is gone. Did not work very well. Now the images are shared directly to the users Facebook album. Just make sure that you Facebook App has the photo_upload permission to get it working.
+		- the Facebook Feed Dialog is gone. Did not work very well. Now the images are 
+		  shared directly to the users Facebook album. Just make sure that you Facebook 
+		  App has the photo_upload permission to get it working.
+    - Bug Fixes
+    	- removed some strict warnings while rendering images
+    	- removed some strict warnings while in the events list
+    	- avoid fail to render an image because of invalid EXIF data
+
 
 ## 2.6.7
 

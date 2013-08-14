@@ -35,8 +35,10 @@ class EventgalleryController extends JControllerLegacy
 			$params	 = $app->getParams();
 			$viewLayout = JRequest::getString('layout', 'default');
 			$view = $this->getView($viewname, 'html', '', array('base_path' => $this->basePath, 'layout' => $viewLayout));
-			$view->setModel( $this->getModel('events'),true);
-			$view->setModel( $this->getModel('event'),false);	
+			$eventsModel = $this->getModel('events');
+			$eventModel = $this->getModel('event');
+			$view->setModel( $eventsModel,true);
+			$view->setModel( $eventModel, false);	
 		}
 
 		if ($viewname == 'event') {
