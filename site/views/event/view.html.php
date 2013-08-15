@@ -123,14 +123,15 @@ class EventgalleryViewEvent extends JViewLegacy
 		}
 		$this->document->setTitle($title);
 
-		if ($this->folder->text)
-		{
-			$this->document->setDescription(strip_tags($this->folder->text));
-		}
-		elseif (!$this->folder->text && $this->params->get('menu-meta_description'))
-		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
-		}
+        if (strlen($this->params->get('menu-meta_description'))>0)  
+        {
+            $this->document->setDescription($this->params->get('menu-meta_description'));
+        } 
+        elseif (strlen($this->folder->text)>0) 
+        {
+            $this->document->setDescription(strip_tags($this->folder->text));
+        }
+		
 
 		if ($this->params->get('menu-meta_keywords'))
 		{
