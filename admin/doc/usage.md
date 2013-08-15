@@ -3,7 +3,16 @@ The follwing help page deals with the general usage of Event Gallery. If you wan
 
 %toc%
 
+{file://usage/overview.md}
+
+
 {file://usage/links.md}
+
+
 {file://usage/events.md}
+
+
 {file://usage/comments.md}
+
+
 {file://usage/options.md}

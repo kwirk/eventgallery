@@ -1,16 +1,16 @@
 # Manage Events {#ManageEvents}
 
-The first page you see is the events page. You can manage your events here. Aside of creating a new event you can set an event offline/online, upload files, open the file list and open the edit view. In addition there are two more buttons in the toolbar:
+You can manage your events here. Aside of creating a new event you can set an event offline/online, upload files, open the file list and open the edit view. In addition there are three more buttons in the toolbar:
 
+- Options
 - Sync Database
-	
-	You can do the upload using FTP or the build in image uploader. Since this component uses the databases to store information about files it needs to be updated once you change something directly at file system level. You can add/remove files and folders. By hitting the sync button added folders and files get added to the database while removed files/folder get removed. Finally the database is in sync with the file system. If you try to upload using FTP put your images into a new folder below  _/images/eventgallery/_
-
 - Clear Cache
 
-	The component caches all calculated images. If you feel you have to clear this cache just hit this button. Keep in mind that refreshing the cache might be expensive. 
+For details check the overview section.
 
-![Events page](img/backend/page_events.jpg)
+
+
+![Events page](img/backend/backend_events.jpg)
 
 
 ## Edit Event {#EditEvent}
@@ -49,11 +49,15 @@ The view let's you edit the details of an event.
 	
 	Defines if users can add images from this folder to the cart. Useful if you want to display image where it makes no sense for getting requests for.
 
+- Image Set
+
+	If you want to sell images from this event you need to select the image set you want to use. 
+
 - Text
 
 	You can add additional text to an event. This text is usually shown above the thumbnails in the front end.
 
-![Event page](img/backend/page_event_edit.jpg)
+![Event page](img/backend/backend_event_create.jpg)
 
 
 ## Manage Files {#ManageFiles}
@@ -73,9 +77,11 @@ Once you created your event and uploaded some photos you may want to manage thos
 	Should this image be used for the overview page in the front end? Multiple selections are possible, the image with the highest ranking will win.
 
 - show in image list
+
 	Sometimes you want show an image on the overview page but not in the actual image list. With this option you can hide the image on the list. It'll only appear on the overview page if it is defined as a main image.
+	
 
 The status of an photo can be changed by the button in the status column. By using the check boxes and the buttons in the toolbar you can perform an operation for multiple photos.
 
-![Event page](img/backend/page_event_files.jpg)
+![Event page](img/backend/backend_files.jpg)
 
