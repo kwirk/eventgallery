@@ -37,6 +37,12 @@ class EventgalleryHelpersEventgallery
             );
 
             JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_INSTALL'),
+                'index.php?option=com_eventgallery&view=documentation&layout=install',
+                $currentLayout=='install'
+            );
+
+            JHtmlSidebar::addEntry(
                 JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_USAGE'),
                 'index.php?option=com_eventgallery&view=documentation&layout=usage',
                 $currentLayout=='usage'
