@@ -24,6 +24,7 @@ class com_eventgalleryInstallerScript
 
         $folders = array(  
             JPATH_ROOT . '/administrator/components/com_eventgallery/controllers',
+            JPATH_ROOT . '/administrator/components/com_eventgallery/doc',
             JPATH_ROOT . '/administrator/components/com_eventgallery/media',
             JPATH_ROOT . '/administrator/components/com_eventgallery/models',
             JPATH_ROOT . '/administrator/components/com_eventgallery/views',
