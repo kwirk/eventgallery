@@ -42,7 +42,7 @@ class PlgContentEventgallery_help extends JPlugin
 			return;
 		}
 
-		$document =& JFactory::getDocument();	
+		$document = JFactory::getDocument();	
 	
 	    $css=JURI::base().'administrator/components/com_eventgallery/media/css/manual.css';
 		$document->addStyleSheet($css);	
