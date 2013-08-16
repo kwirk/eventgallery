@@ -6,6 +6,8 @@ First of all you need to define image types. Imaging them as the format like 5"x
 
 ## Image Type
 
+An image type can be a 5x7 print of the image, the 5MPixel version or the printed coffe cup. Nothing is fixed, you can define what ever you can imagine.
+
 ![Configuration options](img/backend/backend_imagetype.jpg)
 
 The image type offers you the following settings:
@@ -54,6 +56,8 @@ You defined image types like shown above. Now you can bundle them to image type 
 ![Configuration options](img/backend/backend_imagetypesets.jpg)
 
 ## Image Type Set
+
+The image type set is a combination of different image types.
 
 ![Configuration options](img/backend/backend_imagetypeset.jpg)
 
