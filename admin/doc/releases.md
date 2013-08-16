@@ -9,6 +9,9 @@ Get the latest version from here: [www.svenbluege.de](http://www.svenbluege.de)
 ## 3.0.0 {#300}
 {file://releases/3.0.0.md}
 
+## 2.6.8 {#268}
+{file://releases/2.6.8.md}
+
 ## 2.6.7 {#267}
 {file://releases/2.6.7.md}
 
