@@ -7,4 +7,6 @@ Back End
 - mail template
  
 System
-	- get paypal application id
+
+- use joomla plugins for payment, surcharge and shipping in order to make them installable.
+	
