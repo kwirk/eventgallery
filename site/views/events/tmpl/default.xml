@@ -31,6 +31,7 @@
                    rows="3"
                    cols="50"
                    description="COM_EVENTGALLERY_OPTIONS_EVENTS_GREETING_DESC"
+                   filter="JComponentHelper::filterText"
                     />
 
             <field name="sort_events_by" type="list" default=""

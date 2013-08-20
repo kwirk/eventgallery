@@ -104,19 +104,22 @@
 			type="localizabletext"
 			inputtype="textarea"
 		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_DISCLAIMER"
-            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_DISCLAIMER_DESCRIPTION" />
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_DISCLAIMER_DESCRIPTION"
+            filter="JComponentHelper::filterText"/>
             
         <field name="checkout_merchantaddress" 
 			type="localizabletext"
 			inputtype="textarea"
 		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_MERCHANTADDRESS"
-            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_MERCHANTADDRESS_DESCRIPTION" />
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_MERCHANTADDRESS_DESCRIPTION" 
+            filter="JComponentHelper::filterText"/>
         
         <field name="footer_disclaimer"
 			type="localizabletext"
 			inputtype="textarea"
 		    label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_FOOTERDISCLAIMER"
-            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_FOOTERDISCLAIMER_DESCRIPTION" />
+            description="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_FOOTERDISCLAIMER_DESCRIPTION" 
+            filter="JComponentHelper::filterText"/>
         
         <field name="pp_article_link" type="text"
 				label="COM_EVENTGALLERY_OPTIONS_COMMON_CHECKOUT_PRIVACYPOLICYARTICLELINK"
@@ -208,6 +211,7 @@
            rows="3"
            cols="50"
            description="COM_EVENTGALLERY_OPTIONS_EVENTS_GREETING_DESC"
+           filter="JComponentHelper::filterText"
             />
 
     <field name="sort_events_by" type="list" default="ordering"
