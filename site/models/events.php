@@ -141,6 +141,29 @@ class EventsModelEvents extends JModelLegacy
                 $entries = $finalWinners;
             }
 
+            foreach($entries as $entry) {
+                 // get the full text part
+                $initialtext = $entry->text;
+                $introtext = "";
+                $fulltext = "";
+
+                $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
+                $tagPos = preg_match($pattern, $initialtext);
+
+                if ($tagPos == 0)
+                {
+                    $introtext = $initialtext;
+                    $fulltext = $initialtext;
+                }
+                else
+                {
+                    list ($introtext, $fulltext) = preg_split($pattern, $initialtext, 2);
+                }
+
+                $entry->text = $fulltext;
+                $entry->introtext = $introtext;
+            }
+
             $this->_entries = $entries;
             $this->_total = count($entries);
 

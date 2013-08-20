@@ -158,7 +158,31 @@ class EventModelEvent extends JModelLegacy
         if (count($folders) == 0) {
             return NULL;
         }
-        return $folders[0];
+
+        $folder = $folders[0];
+         // get the full text part
+        $initialtext = $folder->text;
+        $introtext = "";
+        $fulltext = "";
+
+        $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
+        $tagPos = preg_match($pattern, $initialtext);
+
+        if ($tagPos == 0)
+        {
+            $introtext = $initialtext;
+            $fulltext = $initialtext;
+        }
+        else
+        {
+            list ($introtext, $fulltext) = preg_split($pattern, $initialtext, 2);
+        }
+
+        $folder->text = $fulltext;
+        $folder->introtext = $introtext;
+        
+
+        return $folder;
     }
 
 

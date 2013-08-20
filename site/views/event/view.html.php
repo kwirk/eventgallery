@@ -99,7 +99,8 @@ class EventViewEvent extends EventgalleryLibraryCommonView
 
         $this->pageNav = $pageNav;
         $this->entries = $entries;
-        $this->entriesCount = count($entries);
+        $this->entriesCount = count($entries);       
+
         $this->folder = $folder;
         $this->use_comments = $this->params->get('use_comments');
         $folderObject = new EventgalleryLibraryFolder($folder->folder);

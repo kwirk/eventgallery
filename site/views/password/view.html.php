@@ -100,7 +100,7 @@ class EventgalleryViewPassword extends EventgalleryLibraryCommonView
         }
         $this->document->setTitle($title);
 
-        if ($this->folder->text) {
+        if ($this->folder->text) {            
             $this->document->setDescription($this->folder->text);
         } elseif (!$this->folder->text && $this->params->get('menu-meta_description')) {
             $this->document->setDescription($this->params->get('menu-meta_description'));

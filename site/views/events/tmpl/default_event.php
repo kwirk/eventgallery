@@ -1,24 +1,3 @@
-<?php 
-
-$initialtext = $this->entry->text;
-$introtext = "";
-$fulltext = "";
-
-$pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
-$tagPos = preg_match($pattern, $array['articletext']);
-
-if ($tagPos == 0)
-{
-	$introtext = $initialtext;
-	$fulltext = '';
-}
-else
-{
-	list ($introtext, $fulltext) = preg_split($pattern, $initialtext, 2);
-}
-
-
-?>
 <div class="item-container item-container-big">
 	<div class="item item_first">
 		<div class="content">				
@@ -26,7 +5,7 @@ else
 
 				<?php IF($this->params->get('show_date',1)==1):?><div class="date"><a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>"><?php echo JHTML::Date($this->entry->date);?></a></div><?php ENDIF ?>
 				<div class="title"><a  href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>"><?php echo $this->entry->description;?></a></div>
-				<?php IF($this->params->get('show_text',1)==1):?><div class="text"><a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>"><?php echo $introtext;?></a></div><?php ENDIF ?>
+				<?php IF($this->params->get('show_text',1)==1):?><div class="text"><a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>"><?php echo $this->entry->introtext;?></a></div><?php ENDIF ?>
 				<?php IF($this->params->get('show_imagecount',1)==1):?><div class="imagecount"><a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_IMAGECOUNT') ?> <?php echo $this->entry->overallCount;?></a></div><?php ENDIF ?>				
 				<?php IF ($this->params->get('use_comments')==1 && isset($this->entry->commentCount) && $this->params->get('show_commentcount',1)==1):?><div class="comment"><a href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=event&folder=".$this->entry->folder) ?>"><?php echo JText::_('COM_EVENTGALLERY_EVENTS_LABEL_COMMENTCOUNT') ?> <?php echo $this->entry->commentCount;?></a></div><?php ENDIF ?>
 			</div>
