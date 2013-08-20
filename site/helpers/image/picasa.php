@@ -10,7 +10,8 @@
 
 class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
 {
-
+    
+    public $_blank_script_path = 'components/com_eventgallery/media/images/blank.gif';
 
     public $image;
     public $thumbs;
@@ -78,8 +79,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
         }
         // css verschiebung berechnen
 
-        return '<img src="' . JURI::base() . 'components/com_eventgallery/helpers/blank.php?width=' . $width
-        . '&amp;height=' . $height . '"
+        return '<img src="'.JURI::root().$this->_blank_script_path.'?width='.$width.'&amp;height='.$height.'"
     				 style="background-repeat:no-repeat; 
     						background-image:url(\'' . $this->getThumbUrl($width, $height, true, false) . '\');
     						background-position: 50% 50%;" 
@@ -90,8 +90,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
     {
 
         return '<img class="' . $cssClass . '"
-    				 src="' . JURI::base() . 'components/com_eventgallery/helpers/blank.php?width=' . $width
-        . '&amp;height=' . $height . '"
+    				 src="'.JURI::root().$this->_blank_script_path.'" width="'.$width.'" height="'.$height.'"
     				 style="background-repeat:no-repeat; 
     						background-image:url(\'' . $this->getThumbUrl($width, $height, true, $crop) . '\');
     						background-position: 50% 50%;
@@ -111,8 +110,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
 										data-width="' . $this->width . '"
 										data-height="' . $this->height . '"
 								    	longdesc="' . $this->getThumbUrl($width, $height, true, $crop) . '"
-								    	src="' . JURI::base() . 'components/com_eventgallery/helpers/blank.php?width='
-            . $width . '&amp;height=' . $height . '"
+								    	src="'.JURI::root().$this->_blank_script_path.'?width='.$width.'&amp;height='.$height.'"
 								    	style="background-position: 50% 50%; background-repeat:no-repeat;"
 										alt=""
 					    			/>';

@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 
 		protected $_image_script_path = 'components/com_eventgallery/helpers/image.php';
-		protected $_blank_script_path = 'components/com_eventgallery/helpers/blank.php';
+		protected $_blank_script_path = 'components/com_eventgallery/media/images/blank.gif';
 		public $exif;
 
 		// constructor
@@ -43,8 +43,7 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
             }
 
             if ($params->get('use_legacy_image_rendering','0')=='1') {
-                $this->_image_script_path = "index.php";
-                $this->_blank_script_path = "components/com_eventgallery/media/images/blank.gif";
+                $this->_image_script_path = "index.php";                
             }
 
 			
@@ -70,7 +69,7 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    }
 	    
 	    public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
-	    	return '<img src="'.JURI::root().$this->_blank_script_path.'?width='.$width.'&amp;height='.$height.'" 
+	    	return '<img src="'.JURI::root().$this->_blank_script_path.'" width="'.$width.'" height="'.$height.'" 
 	    				style="	background-repeat:no-repeat; 
 	    						background-position: 50% 50%; 
 	    						background-image:url(\''.$this->getThumbUrl($width,$height, true, $height==$width).'\');
