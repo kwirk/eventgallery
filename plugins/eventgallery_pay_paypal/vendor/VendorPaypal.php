@@ -1,6 +1,6 @@
 <?php
 
-class EventgalleryPluginsPaymentPaypalVendorPaypal {
+class EventgalleryPluginsPaymentVendorPaypal {
    /**
     * Last error message(s)
     * @var array

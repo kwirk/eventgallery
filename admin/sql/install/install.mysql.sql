@@ -383,10 +383,10 @@ INSERT INTO `#__eventgallery_imagetypeset_imagetype_assignment` (`imagetypesetid
 --
 
 INSERT INTO `#__eventgallery_paymentmethod` (`id`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `published`, `default`, `ordering`, `modified`, `created`, `data`) VALUES
-(1, 'EventgalleryPluginsPaymentStandardStandard', 'Cash on Pickup', '{"en-GB":"Cash on pickup","de-DE":"Zahlung bei Abholung"}', '{"en-GB":"Pay when you pick up your order","de-DE":"Die Bezahlung erfolgt bei Abholung"}', 19, 0.00, 'EUR', '1', '0', '1', '0000-00-00 00:00:00', NULL, ''),
-(2, 'EventgalleryPluginsPaymentStandardStandard', 'COD', '{"en-GB":"Cash on Delivery","de-DE":"Nachnahme"}', '{"en-GB":"Pay per Cash on Delivery","de-DE":"Zahlung per Nachnahme"}', 19, 2.00, 'EUR', '1','0', '2',  '0000-00-00 00:00:00', NULL, ''),
-(3, 'EventgalleryPluginsPaymentPaypalPayment', 'Paypal', '{"en-GB":"Paypal","de-DE":"Paypal"}', '{"en-GB":"Bezahlung mit Paypal","de-DE":"Bezahlung mit Paypal"}', 19, 0.50, 'EUR', '1', '1', '3',  '0000-00-00 00:00:00', NULL, '{"receiver": { "email": "svenbluege-facilitator@gmail.com"}, "credentials": { "userid":"svenbluege-facilitator_api1.gmail.com", "password":"1372090428", "signature":"AJPnC-kx7R-Q9kRWBdP2GlSUumB6AxXvJxK5X6XYD9B0dr6yo0-0X8dI", "appid":"APP-80W284485P519543T"}, "endpoints" : {"api":"https://svcs.sandbox.paypal.com/AdaptivePayments/Pay", "webscr":"https://www.sandbox.paypal.com/cgi-bin/webscr" }}'),
-(4, 'EventgalleryPluginsPaymentStandardStandard', 'Amazon', '{"en-GB":"Amazon","de-DE":"Amazon"}', '{"en-GB":"Bezahlung mit Amazon","de-DE":"Bezahlung mit Amazon"}', 19, 0.70, 'EUR', '0', '0', '4',  '0000-00-00 00:00:00', NULL, '');
+(1, 'EventgalleryPluginsPaymentStandard', 'Cash on Pickup', '{"en-GB":"Cash on pickup","de-DE":"Zahlung bei Abholung"}', '{"en-GB":"Pay when you pick up your order","de-DE":"Die Bezahlung erfolgt bei Abholung"}', 19, 0.00, 'EUR', '1', '0', '1', '0000-00-00 00:00:00', NULL, ''),
+(2, 'EventgalleryPluginsPaymentStandard', 'COD', '{"en-GB":"Cash on Delivery","de-DE":"Nachnahme"}', '{"en-GB":"Pay per Cash on Delivery","de-DE":"Zahlung per Nachnahme"}', 19, 2.00, 'EUR', '1','0', '2',  '0000-00-00 00:00:00', NULL, ''),
+(3, 'EventgalleryPluginsPaymentPaypal', 'Paypal', '{"en-GB":"Paypal","de-DE":"Paypal"}', '{"en-GB":"Bezahlung mit Paypal","de-DE":"Bezahlung mit Paypal"}', 19, 0.50, 'EUR', '1', '1', '3',  '0000-00-00 00:00:00', NULL, '{"receiver": { "email": "svenbluege-facilitator@gmail.com"}, "credentials": { "userid":"svenbluege-facilitator_api1.gmail.com", "password":"1372090428", "signature":"AJPnC-kx7R-Q9kRWBdP2GlSUumB6AxXvJxK5X6XYD9B0dr6yo0-0X8dI", "appid":"APP-80W284485P519543T"}, "endpoints" : {"api":"https://svcs.sandbox.paypal.com/AdaptivePayments/Pay", "webscr":"https://www.sandbox.paypal.com/cgi-bin/webscr" }}'),
+(4, 'EventgalleryPluginsPaymentStandard', 'Amazon', '{"en-GB":"Amazon","de-DE":"Amazon"}', '{"en-GB":"Bezahlung mit Amazon","de-DE":"Bezahlung mit Amazon"}', 19, 0.70, 'EUR', '0', '0', '4',  '0000-00-00 00:00:00', NULL, '');
 
 	
    
@@ -395,20 +395,20 @@ INSERT INTO `#__eventgallery_paymentmethod` (`id`, `classname`, `name`, `display
 --
 
 INSERT INTO `#__eventgallery_shippingmethod` (`id`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `published`, `default`, `ordering`, `modified`, `created`) VALUES
-(1, 'EventgalleryPluginsShippingStandardStandard', 'pickup', '{"en-GB":"Pick up","de-DE":"Abholung"}', '{"en-GB":"Pick up your order at a specific address","de-DE":"Selbstabholung an einer bestimmten Adresse"}', 19, 0.00, 'EUR', '1', '0', '1', '0000-00-00 00:00:00', NULL),
-(2, 'EventgalleryPluginsShippingStandardStandard', 'Hermes', '{"en-GB":"Hermes","de-DE":"Hermes"}', '{"en-GB":"Shipping by Hermes","de-DE":"Versand mit Hermes"}', 19, 5.00, 'EUR','1', '1', '2',  '0000-00-00 00:00:00', NULL),
-(3, 'EventgalleryPluginsShippingStandardStandard', 'DHL', '{"en-GB":"DHL","de-DE":"DHL"}', '{"en-GB":"Shipping by DHL","de-DE":"Versand mit DHL"}', 19, 6.00, 'EUR','1', '0', '3',  '0000-00-00 00:00:00', NULL),
-(4, 'EventgalleryPluginsShippingEmailEmail', 'email', '{"en-GB":"eMail","de-DE":"E-Mail"}', '{"en-GB":"Shipping by email","de-DE":"Versand mit Email"}', 19, 0.00, 'EUR','1', '0', '4',  '0000-00-00 00:00:00', NULL),
-(5, 'EventgalleryPluginsShippingStandardStandard', 'UPS', '{"en-GB":"UPS","de-DE":"UPS"}', '{"en-GB":"Shipping by UPS","de-DE":"Versand mit UPS"}', 19, 8.00, 'EUR','0', '0', '5',  '0000-00-00 00:00:00', NULL);
+(1, 'EventgalleryPluginsShippingStandard', 'pickup', '{"en-GB":"Pick up","de-DE":"Abholung"}', '{"en-GB":"Pick up your order at a specific address","de-DE":"Selbstabholung an einer bestimmten Adresse"}', 19, 0.00, 'EUR', '1', '0', '1', '0000-00-00 00:00:00', NULL),
+(2, 'EventgalleryPluginsShippingStandard', 'Hermes', '{"en-GB":"Hermes","de-DE":"Hermes"}', '{"en-GB":"Shipping by Hermes","de-DE":"Versand mit Hermes"}', 19, 5.00, 'EUR','1', '1', '2',  '0000-00-00 00:00:00', NULL),
+(3, 'EventgalleryPluginsShippingStandard', 'DHL', '{"en-GB":"DHL","de-DE":"DHL"}', '{"en-GB":"Shipping by DHL","de-DE":"Versand mit DHL"}', 19, 6.00, 'EUR','1', '0', '3',  '0000-00-00 00:00:00', NULL),
+(4, 'EventgalleryPluginsShippingEmail', 'email', '{"en-GB":"eMail","de-DE":"E-Mail"}', '{"en-GB":"Shipping by email","de-DE":"Versand mit Email"}', 19, 0.00, 'EUR','1', '0', '4',  '0000-00-00 00:00:00', NULL),
+(5, 'EventgalleryPluginsShippingStandard', 'UPS', '{"en-GB":"UPS","de-DE":"UPS"}', '{"en-GB":"Shipping by UPS","de-DE":"Versand mit UPS"}', 19, 8.00, 'EUR','0', '0', '5',  '0000-00-00 00:00:00', NULL);
 
 --
 -- Daten für Tabelle `#__eventgallery_surcharge`
 --
 
 INSERT INTO `#__eventgallery_surcharge` (`id`, `ordering`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `published`, `rule`, `modified`, `created`, `data`) VALUES
-(1, 1, 'EventgalleryPluginsSurchargeStandardStandard', 'surcharge', '{"en-GB":"Surcharge 1","de-DE":"Auftragspauschale 1"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 2.00, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"maxAmount":10}}'),
-(2, 2, 'EventgalleryPluginsSurchargeStandardStandard', 'surcharge', '{"en-GB":"Surcharge 2","de-DE":"Auftragspauschale 2"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 0.50, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"minAmount":10, "maxAmount":50}}'),
-(3, 3, 'EventgalleryPluginsSurchargeStandardStandard', 'surcharge', '{"en-GB":"Surcharge 3","de-DE":"Auftragspauschale 3"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 0.00, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"minAmount":50, "maxAmount":100}}');
+(1, 1, 'EventgalleryPluginsSurchargeStandard', 'surcharge', '{"en-GB":"Surcharge 1","de-DE":"Auftragspauschale 1"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 2.00, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"maxAmount":10}}'),
+(2, 2, 'EventgalleryPluginsSurchargeStandard', 'surcharge', '{"en-GB":"Surcharge 2","de-DE":"Auftragspauschale 2"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 0.50, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"minAmount":10, "maxAmount":50}}'),
+(3, 3, 'EventgalleryPluginsSurchargeStandard', 'surcharge', '{"en-GB":"Surcharge 3","de-DE":"Auftragspauschale 3"}', '{"en-GB":"Surcharge to cover expenses for this order.","de-DE":"Auftragspauschale zur Deckung von Zusatzkosten für diese Bestellung."}', 19, 0.00, 'EUR', 1, NULL, '0000-00-00 00:00:00', NULL, '{"rules":{"minAmount":50, "maxAmount":100}}');
 
 
 --

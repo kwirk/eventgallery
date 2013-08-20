@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryPluginsSurchargeStandardStandard extends  EventgalleryLibraryMethodsSurcharge
+class EventgalleryPluginsSurchargeStandard extends  EventgalleryLibraryMethodsSurcharge
 {
 
 
@@ -59,7 +59,7 @@ class EventgalleryPluginsSurchargeStandardStandard extends  EventgalleryLibraryM
          */
 
         $language = JFactory::getLanguage();
-        $language->load('com_eventgallery' , __DIR__ , $language->getTag(), true);
+        $language->load('plg_eventgallery_sur_standard' , __DIR__ , $language->getTag(), true);
 
         /**
          * disable the default data field

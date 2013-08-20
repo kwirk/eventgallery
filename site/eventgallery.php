@@ -17,6 +17,8 @@ JTable::addIncludePath(
     . DIRECTORY_SEPARATOR . 'tables'
 );
 
+
+
 // load forms
 JForm::addFormPath(JPATH_COMPONENT . '/models/forms');
 
@@ -25,6 +27,13 @@ JForm::addFieldPath(JPATH_COMPONENT . '/models/fields');
 
 //load classes
 JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT);
+
+// load plugins
+
+JLoader::discover('EventgalleryPluginsShipping', JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_ship', true, true);
+JLoader::discover('EventgalleryPluginsSurcharge', JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_sur', true, true);
+JLoader::discover('EventgalleryPluginsPayment', JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_pay', true, true);
+
 
 // Load necessary media files 
 EventgalleryHelpersMedialoader::load();

@@ -23,6 +23,10 @@ JTable::addIncludePath(
 JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT_SITE);
 JLoader::registerPrefix('Eventgallery', JPATH_COMPONENT);
 
+JLoader::discover('EventgalleryPluginsShipping', JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_ship', true, true);
+JLoader::discover('EventgalleryPluginsSurcharge', JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_sur', true, true);
+JLoader::discover('EventgalleryPluginsPayment', JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_pay', true, true);
+
 $version =  new JVersion();
 if (!$version->isCompatible('3.0')) {
     require_once(JPATH_COMPONENT.'/helpers/legacy_layout.php');

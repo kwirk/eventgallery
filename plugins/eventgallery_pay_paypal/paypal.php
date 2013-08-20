@@ -11,7 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethodsPayment
+class EventgalleryPluginsPaymentPaypal extends  EventgalleryLibraryMethodsPayment
 {
 
 
@@ -78,7 +78,7 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
             );
 
 
-        $paypal = new EventgalleryPluginsPaymentPaypalVendorPaypal();
+        $paypal = new EventgalleryPluginsPaymentVendorPaypal();
         $response = $paypal->request('Pay', $endPoint, $credentials,
             $requestParams
         );
@@ -184,7 +184,7 @@ class EventgalleryPluginsPaymentPaypalPayment extends  EventgalleryLibraryMethod
          */
 
         $language = JFactory::getLanguage();
-        $language->load('com_eventgallery' , __DIR__ , $language->getTag(), true);
+        $language->load('plg_eventgallery_pay_paypal' , __DIR__ , $language->getTag(), true);
 
         /**
          * disable the default data field
