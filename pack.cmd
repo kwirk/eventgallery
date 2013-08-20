@@ -44,3 +44,53 @@ zip -r ../../../%zipfilename% *
 
 cd..
 cd..
+
+set plg_name=eventgallery_pay_paypal
+set zipfilename=plg_%plg_name%_%version%.zip
+cd plugins
+cd %plg_name%
+del ..\..\..\%zipfilename%
+zip -r ../../../%zipfilename% *
+
+cd..
+cd..
+
+set plg_name=eventgallery_pay_standard
+set zipfilename=plg_%plg_name%_%version%.zip
+cd plugins
+cd %plg_name%
+del ..\..\..\%zipfilename%
+zip -r ../../../%zipfilename% *
+
+cd..
+cd..
+
+set plg_name=eventgallery_ship_standard
+set zipfilename=plg_%plg_name%_%version%.zip
+cd plugins
+cd %plg_name%
+del ..\..\..\%zipfilename%
+zip -r ../../../%zipfilename% *
+
+cd..
+cd..
+
+set plg_name=eventgallery_ship_email
+set zipfilename=plg_%plg_name%_%version%.zip
+cd plugins
+cd %plg_name%
+del ..\..\..\%zipfilename%
+zip -r ../../../%zipfilename% *
+
+cd..
+cd..
+
+set plg_name=eventgallery_sur_standard
+set zipfilename=plg_%plg_name%_%version%.zip
+cd plugins
+cd %plg_name%
+del ..\..\..\%zipfilename%
+zip -r ../../../%zipfilename% *
+
+cd..
+cd..

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="eventgallery_pay">
+	<name>PLG_EVENTGALLERY_PAY_PAYPAL</name>
+	<author>Sven Bluege</author>
+	<creationDate>August 2013</creationDate>	
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>svenbluege@gmail.com</authorEmail>
+	<authorUrl>www.svenbluege.de</authorUrl>
+	<version>3.0.0</version>
+	<description>PLG_EVENTGALLERY_PAY_PAYPAL_DESC</description>
+	<files>
+		<folder>language</folder>
+		<folder>vendor</folder>
+		<filename>cacert.pem</filename>
+		<filename plugin="eventgallery_pay_paypal">payment.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+		</fields>
+	</config>
+</extension>
