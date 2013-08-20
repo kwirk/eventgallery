@@ -17,34 +17,37 @@
                     />
         </fieldset>
     </fields>
-    <fields name="params">
+    <fields name="params" addfieldpath="/components/com_eventgallery/models/fields">
         <fieldset name="params" label="COM_EVENTGALLERY_LAYOUT_EVENT_FIELDSET_LABEL">
-            <field name="show_exif" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_LABEL"
+            <field name="show_exif" type="list" default="" label="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="show_date" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_LABEL"
+            <field name="show_date" type="list" default="" label="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="use_fullscreen_lightbox" type="list" default="0"
+            <field name="use_fullscreen_lightbox" type="list" default=""
                    label="COM_EVENTGALLERY_OPTIONS_USE_FULLSCREEN_LIGHTBOX_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_USE_FULLSCREEN_LIGHTBOX_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="event_image_list_thumbnail_height" id="event_image_list_thumbnail_height" type="integer"
-                   first="0" last="1000" step="10" default="150"
+            <field name="event_image_list_thumbnail_height" id="event_image_list_thumbnail_height" type="integerwithdefault"
+                   first="0" last="1000" step="10" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
-            <field name="event_image_list_thumbnail_jitter" id="event_image_list_thumbnail_jitter" type="integer"
-                   first="0" last="500" step="10" default="50"
+            <field name="event_image_list_thumbnail_jitter" id="event_image_list_thumbnail_jitter" type="integerwithdefault"
+                   first="0" last="500" step="10" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC"/>
             <field name="event_image_list_thumbnail_first_item_height" id="event_image_list_thumbnail_first_item_height"
-                   type="integer" first="1" last="10" step="1" default="2"
+                   type="integerwithdefault" first="1" last="10" step="1" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_DESC"/>
         </fieldset>

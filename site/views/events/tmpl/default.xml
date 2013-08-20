@@ -16,9 +16,8 @@
                     menuitems="true"
                     extension="com_eventgallery"
                     view="event"
-                    useglobal="false"
+                    useglobal="true"
                     />
-
         </fieldset>
 
 
@@ -34,9 +33,10 @@
                    description="COM_EVENTGALLERY_OPTIONS_EVENTS_GREETING_DESC"
                     />
 
-            <field name="sort_events_by" type="list" default="ordering"
+            <field name="sort_events_by" type="list" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="ordering">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_ORDERING</option>
                 <option value="date_asc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_ASC</option>
                 <option value="date_desc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_DESC</option>
@@ -46,89 +46,98 @@
 
             <field name="tags" type="text" default="" label="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENTS_TAGS_DESC"/>
-
-			<field name="max_events_per_page" type="text" default="12" label="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_PER_PAGE_LABEL" description="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_PER_PAGE_DESC" />
+			
+			 <field name="max_events_per_page" type="integerwithdefault" first="1" last="500" step="1" default=""
+                   label="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_PER_PAGE_LABEL"
+                   description="COM_EVENTGALLERY_OPTIONS_EVENTS_MAX_EVENTS_PER_PAGE_DESC"/>
 
 
             <field type="spacer"/>
 
             <field type="spacer"/>
-            <field name="show_exif" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_LABEL"
+            <field name="show_exif" type="list" default="" label="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_SHOW_EXIF_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="show_date" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_LABEL"
+            <field name="show_date" type="list" default="" label="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_SHOW_DATE_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="show_text" type="list" default="0" label="COM_EVENTGALLERY_OPTIONS_SHOW_TEXT_LABEL"
+            <field name="show_text" type="list" default="" label="COM_EVENTGALLERY_OPTIONS_SHOW_TEXT_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_SHOW_TEXT_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="show_imagecount" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_IMAGECOUNT_LABEL"
+            <field name="show_imagecount" type="list" default="" label="COM_EVENTGALLERY_OPTIONS_SHOW_IMAGECOUNT_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_SHOW_IMAGECOUNT_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="show_imagehits" type="list" default="1" label="COM_EVENTGALLERY_OPTIONS_SHOW_IMAGEHITS_LABEL"
+            <field name="show_imagehits" type="list" default="" label="COM_EVENTGALLERY_OPTIONS_SHOW_IMAGEHITS_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_SHOW_IMAGEHITS_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="show_commentcount" type="list" default="1"
+            <field name="show_commentcount" type="list" default=""
                    label="COM_EVENTGALLERY_OPTIONS_SHOW_COMMENTCOUNT_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_SHOW_COMMENTCOUNT_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field name="use_fullscreen_lightbox" type="list" default="0"
+            <field name="use_fullscreen_lightbox" type="list" default=""
                    label="COM_EVENTGALLERY_OPTIONS_USE_FULLSCREEN_LIGHTBOX_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_USE_FULLSCREEN_LIGHTBOX_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
         </fieldset>
-        <fieldset name="params2" label="COM_EVENTGALLERY_LAYOUT_EVENT_AJAX_LIST">
-            <field name="event_ajax_list_thumbnail_size" type="integer" first="25" last="500" step="1" default="75"
+        <fieldset addfieldpath="/components/com_eventgallery/models/fields" name="params2" label="COM_EVENTGALLERY_LAYOUT_EVENT_AJAX_LIST">
+            <field name="event_ajax_list_thumbnail_size" type="integerwithdefault" first="25" last="500" step="1" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_SIZE_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_SIZE_DESC"/>
             <field name="event_ajax_list_number_of_thumbnail_on_first_page"
-                   id="event_ajax_list_number_of_thumbnail_on_first_page" type="integer" first="1" last="100" step="1"
-                   default="11" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_PAGE_LABEL"
+                   id="event_ajax_list_number_of_thumbnail_on_first_page" type="integerwithdefault" first="1" last="100" step="1"
+                   default="" label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_PAGE_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_PAGE_DESC"/>
             <field name="event_ajax_list_number_of_thumbnail_per_page" id="event_ajax_list_number_of_thumbnail_per_page"
-                   type="integer" first="1" last="100" step="1" default="22"
+                   type="integerwithdefault" first="1" last="100" step="1" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_FIRSTPAGE_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_AJAX_THUMBNAIL_PER_FIRSTPAGE_DESC"/>
         </fieldset>
         <fieldset name="params3" label="COM_EVENTGALLERY_LAYOUT_EVENT_DEFAULT_LIST">
-            <field name="event_default_list_thumbnail_height" id="event_default_list_thumbnail_height" type="integer"
-                   first="0" last="1000" step="10" default="150"
+            <field name="event_default_list_thumbnail_height" id="event_default_list_thumbnail_height" type="integerwithdefault"
+                   first="0" last="1000" step="10" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
-            <field name="event_default_list_thumbnail_jitter" id="event_default_list_thumbnail_jitter" type="integer"
-                   first="0" last="500" step="10" default="50"
+            <field name="event_default_list_thumbnail_jitter" id="event_default_list_thumbnail_jitter" type="integerwithdefault"
+                   first="0" last="500" step="10" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC"/>
             <field name="event_default_list_thumbnail_first_item_height"
-                   id="event_default_list_thumbnail_first_item_height" type="integer" first="1" last="10" step="1"
-                   default="2" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_LABEL"
+                   id="event_default_list_thumbnail_first_item_height" type="integerwithdefault" first="1" last="10" step="1"
+                   default="" label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_DESC"/>
         </fieldset>
         <fieldset name="params4" label="COM_EVENTGALLERY_LAYOUT_EVENT_IMAGE_LIST">
-            <field name="event_image_list_thumbnail_height" id="event_image_list_thumbnail_height" type="integer"
-                   first="0" last="1000" step="10" default="150"
+            <field name="event_image_list_thumbnail_height" id="event_image_list_thumbnail_height" type="integerwithdefault"
+                   first="0" last="1000" step="10" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_DESC"/>
-            <field name="event_image_list_thumbnail_jitter" id="event_image_list_thumbnail_jitter" type="integer"
-                   first="0" last="500" step="10" default="50"
+            <field name="event_image_list_thumbnail_jitter" id="event_image_list_thumbnail_jitter" type="integerwithdefault"
+                   first="0" last="500" step="10" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_JITTER_DESC"/>
             <field name="event_image_list_thumbnail_first_item_height" id="event_image_list_thumbnail_first_item_height"
-                   type="integer" first="1" last="10" step="1" default="2"
+                   type="integerwithdefault" first="1" last="10" step="1" default=""
                    label="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_LABEL"
                    description="COM_EVENTGALLERY_OPTIONS_EVENT_THUMBNAIL_HEIGHT_FIRSTITEM_DESC"/>
         </fieldset>
