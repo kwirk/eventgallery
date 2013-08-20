@@ -34,7 +34,6 @@ class com_eventgalleryInstallerScript
             JPATH_ROOT . '/components/com_eventgallery/library',
             JPATH_ROOT . '/components/com_eventgallery/media',
             JPATH_ROOT . '/components/com_eventgallery/models',
-            JPATH_ROOT . '/components/com_eventgallery/plugins',
             JPATH_ROOT . '/components/com_eventgallery/tests',
             JPATH_ROOT . '/components/com_eventgallery/views'
         );

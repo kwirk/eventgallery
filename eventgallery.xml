@@ -31,7 +31,6 @@
 		<folder>language</folder>
 		<folder>helpers</folder>
 		<folder>library</folder>
-		<folder>plugins</folder>
 		<folder>media</folder>
 		<folder>models</folder>
 		<folder>views</folder>
