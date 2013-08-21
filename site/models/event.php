@@ -161,26 +161,10 @@ class EventModelEvent extends JModelLegacy
 
         $folder = $folders[0];
          // get the full text part
-        $initialtext = $folder->text;
-        $introtext = "";
-        $fulltext = "";
+        $splittedText = EventgalleryHelpersTextsplitter::split($folder->text);
 
-        $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
-        $tagPos = preg_match($pattern, $initialtext);
-
-        if ($tagPos == 0)
-        {
-            $introtext = $initialtext;
-            $fulltext = $initialtext;
-        }
-        else
-        {
-            list ($introtext, $fulltext) = preg_split($pattern, $initialtext, 2);
-        }
-
-        $folder->text = $fulltext;
-        $folder->introtext = $introtext;
-        
+        $folder->text = $splittedText->fulltext;
+        $folder->introtext = $splittedText->introtext;
 
         return $folder;
     }

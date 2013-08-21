@@ -11,7 +11,9 @@
 
 defined('_JEXEC') or die;
 
-require_once JPATH_SITE . '/components/com_eventgallery/router.php';
+require_once JPATH_SITE . '/components/com_eventgallery/helpers/tags.php';
+require_once JPATH_SITE . '/components/com_eventgallery/helpers/route.php';
+require_once JPATH_SITE . '/components/com_eventgallery/helpers/textsplitter.php';
 
 /**
  * Eventgallery Search plugin
@@ -146,26 +148,10 @@ class PlgSearchEventgallery extends JPlugin
             foreach ($rows as $key => $row)
             {
 
-                // get the full text part
-                $initialtext = $row->text;
-                $introtext = "";
-                $fulltext = "";
+                $splittedText = EventgalleryHelpersTextsplitter::split($rows[$key]->text);
 
-                $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
-                $tagPos = preg_match($pattern, $initialtext);
-
-                if ($tagPos == 0)
-                {
-                    $introtext = $initialtext;
-                    $fulltext = $initialtext;
-                }
-                else
-                {
-                    list ($introtext, $fulltext) = preg_split($pattern, $initialtext, 2);
-                }
-
-                $rows[$key]->text=$introtext;
-                $rows[$key]->href = $this->createEventRoute($rows[$key]->folder, $rows[$key]->tags);
+                $rows[$key]->text=$splittedText->introtext;
+                $rows[$key]->href = EventgalleryHelpersRoute::createEventRoute($rows[$key]->folder, $rows[$key]->tags);
                 $rows[$key]->section="";
                 $rows[$key]->browsernav="";
 
@@ -177,108 +163,5 @@ class PlgSearchEventgallery extends JPlugin
         return $return;
     }
 
-    function createEventRoute($foldername, $tags) {
 
-
-        $app		= JFactory::getApplication();
-        $menus		= $app->getMenu('site');
-        /**
-         * @var JLanguage $lang
-         */
-        $lang = JFactory::getLanguage();
-        $language = $lang->getTag();
-
-
-        $component	= JComponentHelper::getComponent('com_eventgallery');
-
-        $attributes = array('component_id');
-        $values = array($component->id);
-
-        // take the current lang into account
-        $attributes[] = 'language';
-        $values[] = array($language, '*');
-
-
-        $items		= $menus->getItems($attributes, $values);
-        $itemid = NULL;
-
-        foreach ($items as $item)
-        {
-            if (isset($item->query) && isset($item->query['view']))
-            {
-                $view = $item->query['view'];
-
-                if ($view == 'events') {
-                    if (strlen($item->params->get('tags',''))==0) {
-                        $itemid = $item->id;
-                    } else {
-                        if ( $this->checkTags($item->params->get('tags'), $tags) ) {
-                            $itemid = $item->id;
-                        }
-                    }
-                }
-
-                if ($view == 'event' && isset($view->query['folder']) && $view->query['folder']==$foldername) {
-                    $itemid = $item->id;
-                }
-            }
-
-            if ($itemid != NULL) {
-                break;
-            }
-        }
-
-        // if not found, return language specific home link
-        if ($itemid==NULL) {
-            $default = $menus->getDefault($language);
-            $itemid =  !empty($default->id) ? $default->id : null;
-        }
-
-        $url = JRoute::_('index.php?option=com_eventgallery&view=event&folder='.$foldername.'&Itemid='.$itemid);
-
-        return $url;
-    }
-
-    /**
-     * Checks if at least one needle tag is part of the tags string.
-     * Returns false if the needle is empty
-     *
-     *
-     * @param $tags   a comma or space separated string (foo, bar, foo2)
-     * @param $needleTags a comma or space separated string (foo, bar, foo2)
-     * @return bool returns true if one element in the needeTags is contained in the tags
-     */
-    function checkTags($tags, $needleTags) {
-        if (strlen($needleTags)==0) {
-            return false;
-        }
-
-
-        // handle space and comma separated lists like "foo bar" or "foo, bar"
-
-        $tempTags = explode(',',str_replace(" ", ",", $needleTags));
-        array_walk($tempTags, 'trim');
-
-        $needleTags = Array();
-
-        foreach($tempTags as $tag)
-        {
-            if(strlen($tag)>0)
-            {
-                $needleTags[] = $tag;
-            }
-        }
-
-        $regex = "/(".implode($needleTags,'|').")/i";
-
-        if (preg_match($regex, $tags)) {
-            return true;
-        }
-
-
-
-        // no match
-        return false;
-
-    }
 }

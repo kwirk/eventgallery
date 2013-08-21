@@ -112,28 +112,10 @@ class EventsModelEvents extends JModelLegacy
                 // handle space and comma separated lists like "foo bar" or "foo, bar"
 
                 
-
-                $tempTags = explode(',',str_replace(" ", ",", $tags));        
-                array_walk($tempTags, 'trim');
-                
-                $tags = Array();
-
-                foreach($tempTags as $tag)
-                {
-                    
-                    if(strlen($tag)>0)
-                    {
-                        array_push($tags,$tag);
-                        
-                    }
-                }        
-                
-                $regex = "/(".implode($tags,'|').")/i";
-                
                 $finalWinners = Array();
                 
                 foreach($entries as $entry) {
-                    if (preg_match($regex, $entry->tags)) {
+                    if (EventgalleryHelpersTags::checkTags($tags, $entry->tags) ) {
                         $finalWinners[] = $entry;
                     }
                 }
@@ -142,26 +124,11 @@ class EventsModelEvents extends JModelLegacy
             }
 
             foreach($entries as $entry) {
-                 // get the full text part
-                $initialtext = $entry->text;
-                $introtext = "";
-                $fulltext = "";
 
-                $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
-                $tagPos = preg_match($pattern, $initialtext);
+                $splittedText = EventgalleryHelpersTextsplitter::split($entry->text);
 
-                if ($tagPos == 0)
-                {
-                    $introtext = $initialtext;
-                    $fulltext = $initialtext;
-                }
-                else
-                {
-                    list ($introtext, $fulltext) = preg_split($pattern, $initialtext, 2);
-                }
-
-                $entry->text = $fulltext;
-                $entry->introtext = $introtext;
+                $entry->text = $splittedText->fulltext;
+                $entry->introtext = $splittedText->introtext;
             }
 
             $this->_entries = $entries;
