@@ -450,6 +450,7 @@ With each new version it might be necessary to add new translation keys to your 
     	- removed some strict warnings while rendering images
     	- removed some strict warnings while in the events list
     	- avoid fail to render an image because of invalid EXIF data
+    	- fixes square sized image defect when images are coming from picasa web
 
 
 ## 2.6.7
