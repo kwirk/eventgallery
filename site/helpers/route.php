@@ -68,7 +68,8 @@ class EventgalleryHelpersRoute
             $itemid = !empty($default->id) ? $default->id : null;
         }
 
-        $url = JRoute::_('index.php?option=com_eventgallery&view=event&folder=' . $foldername . '&Itemid=' . $itemid);
+
+        $url = ('index.php?option=com_eventgallery&view=event&folder=' . $foldername . '&Itemid=' . $itemid);
 
         return $url;
     }
