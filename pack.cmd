@@ -94,3 +94,13 @@ zip -r ../../../%zipfilename% *
 
 cd..
 cd..
+
+set plg_name=eventgallery_search
+set zipfilename=plg_%plg_name%_%version%.zip
+cd plugins
+cd %plg_name%
+del ..\..\..\%zipfilename%
+zip -r ../../../%zipfilename% *
+
+cd..
+cd..
