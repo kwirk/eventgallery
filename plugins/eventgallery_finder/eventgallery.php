@@ -251,11 +251,11 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         $item->route = EventgalleryHelpersRoute::createEventRoute($item->folder, $item->tags);
         $item->path = FinderIndexerHelper::getContentPath($item->route);
 
-        $item->title = $item->description;
+        $item->title = $item->title;
         $splittedText = EventgalleryHelpersTextsplitter::split($item->text);
         $item->fulltext = $splittedText->fulltext;
         $item->introtext = $splittedText->introtext;
-        $item->description = $splittedText->introtext;
+        $item->summary = $splittedText->introtext;
         $item->state = 1;
         $item->publish_start_date = 0;
         $item->publish_end_date = null;
@@ -270,6 +270,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
 
         // Handle the link to the meta-data.
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'tags');
+        $item->addInstruction(FinderIndexer::META_CONTEXT, 'description');
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'fulltext');
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'introtext');
 
@@ -315,7 +316,14 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         $db = JFactory::getDbo();
         // Check if we can use the supplied SQL query.
         $query = $query instanceof JDatabaseQuery ? $query : $db->getQuery(true)
-            ->select('a.*')
+            ->select('a.id as id,
+                        a.folder as folder,
+                        a.description as title,
+                        a.published as published,
+                        a.tags as tags,
+                        a.text as text,
+                        a.date as date,
+                        a.lastmodified as lastmodified')
             ->from('#__eventgallery_folder AS a');
 
         return $query;
@@ -339,26 +347,6 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         return $query;
     }
 
-    /**
-     * Method to get a SQL query to load the published and access states for
-     * an article and category.
-     *
-     * @return  JDatabaseQuery  A database object.
-     *
-     * @since   2.5
-     */
-    protected function getStateQuery()
-    {
-        $query = $this->db->getQuery(true);
-        // Item ID
-        $query->select('a.id');
-        // Item and category published state
-        $query->select('a.published AS state, a.published AS cat_state');
-        // Item and category access levels
-        $query->select('1 as access, 1 AS cat_access')
-            ->from($this->table . ' AS a');
 
 
-        return $query;
-    }
 }
