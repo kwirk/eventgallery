@@ -102,7 +102,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
      */
     public function onFinderAfterDelete($context, $table)
     {
-        if ($context == 'com_weblinks.weblink')
+        if ($context == 'com_eventgallery.event')
         {
             $id = $table->id;
         }
@@ -133,27 +133,18 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
     public function onFinderAfterSave($context, $row, $isNew)
     {
         // We only want to handle web links here. We need to handle front end and back end editing.
-        if ($context == 'com_weblinks.weblink' || $context == 'com_weblinks.form' )
+        if ($context == 'com_eventgallery.event' || $context == 'com_eventgallery.events')
         {
             // Check if the access levels are different
             if (!$isNew && $this->old_access != $row->access)
             {
                 // Process the change.
-                $this->itemAccessChange($row);
+                $this->remove($row->id);
+                $this->reindex($row->id);
             }
 
             // Reindex the item
             $this->reindex($row->id);
-        }
-
-        // Check for access changes in the category
-        if ($context == 'com_categories.category')
-        {
-            // Check if the access levels are different
-            if (!$isNew && $this->old_cataccess != $row->access)
-            {
-                $this->categoryAccessChange($row);
-            }
         }
 
         return true;
@@ -176,22 +167,15 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
     public function onFinderBeforeSave($context, $row, $isNew)
     {
         // We only want to handle web links here
-        if ($context == 'com_weblinks.weblink' || $context == 'com_weblinks.form')
+        if ($context == 'com_eventgallery.event' || $context == 'com_eventgallery.events')
         {
             // Query the database for the old access level if the item isn't new
             if (!$isNew)
             {
-                $this->checkItemAccess($row);
-            }
-        }
 
-        // Check for access levels from the category
-        if ($context == 'com_categories.category')
-        {
-            // Query the database for the old access level if the item isn't new
-            if (!$isNew)
-            {
-                $this->checkCategoryAccess($row);
+                $this->remove($row->id);
+                $this->reindex($row->id);
+
             }
         }
 
@@ -214,9 +198,14 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
     public function onFinderChangeState($context, $pks, $value)
     {
         // We only want to handle web links here
-        if ($context == 'com_weblinks.weblink' || $context == 'com_weblinks.form')
+        if ($context == 'com_eventgallery.event' || $context == 'com_eventgallery.events')
         {
-            $this->itemStateChange($pks, $value);
+            foreach ($pks as $pk)
+            {
+                // Reindex the item
+                $this->remove($pk);
+                $this->reindex($pk);
+            }
         }
         // Handle when the plugin is disabled
         if ($context == 'com_plugins.plugin' && $value === 0)
@@ -270,7 +259,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         $item->state = 1;
         $item->publish_start_date = 0;
         $item->publish_end_date = null;
-        $item->access=1;
+        $item->access = $item->published;
 
         /*
          * Add the meta-data processing instructions based on the newsfeeds
@@ -283,7 +272,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'tags');
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'fulltext');
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'introtext');
-        
+
         // Add the type taxonomy data.
         $item->addTaxonomy('Type', 'Event');
 
@@ -346,6 +335,29 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         // Build an SQL query based on the modified time.
         $query = $this->db->getQuery(true)
             ->where('a.lastmodified >= ' . $this->db->quote($time));
+
+        return $query;
+    }
+
+    /**
+     * Method to get a SQL query to load the published and access states for
+     * an article and category.
+     *
+     * @return  JDatabaseQuery  A database object.
+     *
+     * @since   2.5
+     */
+    protected function getStateQuery()
+    {
+        $query = $this->db->getQuery(true);
+        // Item ID
+        $query->select('a.id');
+        // Item and category published state
+        $query->select('a.published AS state, a.published AS cat_state');
+        // Item and category access levels
+        $query->select('1 as access, 1 AS cat_access')
+            ->from($this->table . ' AS a');
+
 
         return $query;
     }
