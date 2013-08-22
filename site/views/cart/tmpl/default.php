@@ -116,6 +116,10 @@ defined('_JEXEC') or die('Restricted access');
         var setQuantityNeedsCalculationMode = function (e) {
 
             $(e.target).getParent('tr').getElements(".eventgallery-hide-on-quantity-change").fade('out');
+            setNeedsCalculationMode();
+        }
+
+        var setNeedsCalculationMode = function() {
             var cartSummary = $$(".cart-summary")[0];
 
             new Fx.Slide(cartSummary, {
@@ -128,7 +132,6 @@ defined('_JEXEC') or die('Restricted access');
                 }
             }).slideOut();
         }
-
 
         var removeItem = function (e) {
             e.stop();
