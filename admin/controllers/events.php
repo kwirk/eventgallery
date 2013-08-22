@@ -68,7 +68,7 @@ class EventgalleryControllerEvents extends JControllerAdmin
                 $this->setMessage($model->getError());
             }
         }
-        $this->setRedirect(JRoute::_('index.php?option=com_eventgallery&view=events'));
+        $this->setRedirect(JRoute::_('index.php?option=com_eventgallery&view=events', false));
     }
 
 
