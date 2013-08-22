@@ -1,116 +1,57 @@
-@echo off
+@ECHO OFF
 
-setlocal EnableDelayedExpansion
+rem CREATE Path variable
 
-for /F %%a in ('findstr "<version>" eventgallery.xml') do set versionStr="%%a"
+	echo Create the necessary path variables
+	echo.
 
-set version=%versionStr:<version>=%
-set version=%version:</version>=%
-set version=%version:.=_%
-set version=%version:"=%
+	set sourcepath=%cd%
+	cd ..
+	set targetpath=%cd%
+	cd %sourcepath%
+	set buildpath=%sourcepath%\build
+	set tmppath=%targetpath%\tmpBuild
+	set fartpath=%buildpath%\fart.exe
 
-set zipfilename=com_eventgallery_%version%.zip
 
-rem com_eventgallery
-del ..\%zipfilename%
-zip -r ../%zipfilename% * -i "admin/*" "site/*" "eventgallery.xml" "index.html" "LICENSE.txt" "script.php"
+	echo Source Path is %sourcepath% 
+	echo Target Path is %targetpath%
+	echo Tmp Path is    %tmppath%
+	echo FART Path is   %fartpath%
+	echo.
 
-rem mod_eventgallery_cart
-set zipfilename=mod_eventgallery_cart_%version%.zip
-cd modules
-cd mod_eventgallery_cart
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
 
-cd..
-cd..
+	set /p version= <%buildpath%\version.txt
+	set fileversion=%version:.=_%
+	echo Building %version% (%fileversion%)
+	echo.
 
-rem plg_eventgallery_help
-set zipfilename=plg_eventgallery_help_%version%.zip
-cd plugins
-cd eventgallery_help
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
+rem COPY to temp folder
 
-cd..
-cd..
+	echo.
+	echo Copy everything into a temp folder
+	echo.
+ 	rmdir /Q /S %tmppath%
+ 	mkdir %tmppath%
+ 	xcopy /Q /E %sourcepath% %tmppath%
 
-rem plg_eventgallery_help_toc
-set zipfilename=plg_eventgallery_help_toc_%version%.zip
-cd plugins
-cd eventgallery_help_toc
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
+	echo.
+	echo Replace the placeholders
+	echo.
+	%fartpath% -r  %tmppath%\*.xml "$$version$$" "%version%"
+	%fartpath% -r  %tmppath%\*.xml "$$fileversion$$" "%fileversion%"
+	echo.
+	echo.
+	echo.
 
-cd..
-cd..
+rem pack the items
 
-set plg_name=eventgallery_pay_paypal
-set zipfilename=plg_%plg_name%_%version%.zip
-cd plugins
-cd %plg_name%
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
+ 	call %buildpath%\build_com_eventgallery.cmd
 
-cd..
-cd..
+	call %buildpath%\build_module.cmd
+	
+	call %buildpath%\build_plugin.cmd
 
-set plg_name=eventgallery_pay_standard
-set zipfilename=plg_%plg_name%_%version%.zip
-cd plugins
-cd %plg_name%
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
+rem create the package by using package files
 
-cd..
-cd..
-
-set plg_name=eventgallery_ship_standard
-set zipfilename=plg_%plg_name%_%version%.zip
-cd plugins
-cd %plg_name%
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
-
-cd..
-cd..
-
-set plg_name=eventgallery_ship_email
-set zipfilename=plg_%plg_name%_%version%.zip
-cd plugins
-cd %plg_name%
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
-
-cd..
-cd..
-
-set plg_name=eventgallery_sur_standard
-set zipfilename=plg_%plg_name%_%version%.zip
-cd plugins
-cd %plg_name%
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
-
-cd..
-cd..
-
-set plg_name=eventgallery_search
-set zipfilename=plg_%plg_name%_%version%.zip
-cd plugins
-cd %plg_name%
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
-
-cd..
-cd..
-
-set plg_name=eventgallery_finder
-set zipfilename=plg_%plg_name%_%version%.zip
-cd plugins
-cd %plg_name%
-del ..\..\..\%zipfilename%
-zip -r ../../../%zipfilename% *
-
-cd..
-cd..
+	call %buildpath%\build_package.cmd
