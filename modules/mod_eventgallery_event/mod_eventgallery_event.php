@@ -14,6 +14,8 @@ defined('_JEXEC') or die();
 //load classes
 JLoader::registerPrefix('Eventgallery', JPATH_BASE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery');
 
+JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_eventgallery/models', 'ContentModel');
+
 // Load necessary media files
 //EventgalleryHelpersMedialoader::load();
 
@@ -25,9 +27,10 @@ if ($foldername) {
      * @var EventModelEvent $model
      * */
     $model = JModelLegacy::getInstance('Event', 'EventModel', array('ignore_request' => true));
-    $files = $model->getEntries($foldername, 0, $params->get('max_images'), 1);
     $folder = $model->getFolder($foldername);
 
-    require JModuleHelper::getLayoutPath('mod_eventgallery_event', $params->get('layout', 'default'));
-
+    if (isset($folder) && $folder->published==1 && EventgalleryHelpersFolderprotection::isAccessAllowed($folder)) {
+        $files = $model->getEntries($foldername, 0, $params->get('max_images'), 1);
+        require JModuleHelper::getLayoutPath('mod_eventgallery_event', $params->get('layout', 'default'));
+    }
 }
