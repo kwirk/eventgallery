@@ -139,7 +139,6 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
             if (!$isNew && $this->old_access != $row->access)
             {
                 // Process the change.
-                $this->remove($row->id);
                 $this->reindex($row->id);
             }
 
@@ -214,6 +213,18 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         }
     }
 
+    protected function index(FinderIndexerResult $item, $format = 'html') {
+        if (!JLanguageMultilang::isEnabled()) {
+            $this->indexLanguage($item, $format, '');
+            return;
+        }
+
+        $languages = JLanguageHelper::getLanguages();
+        foreach ($languages as $lang) {
+            $this->indexLanguage($item, $format, $lang->lang_code);
+        }
+    }
+
     /**
      * Method to index an item. The item must be a FinderIndexerResult object.
      *
@@ -225,7 +236,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
      * @since   2.5
      * @throws  Exception on database error.
      */
-    protected function index(FinderIndexerResult $item, $format = 'html')
+    protected function indexLanguage(FinderIndexerResult $item, $format = 'html', $language)
     {
 
 
@@ -235,7 +246,11 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
             return;
         }
 
-        $item->setLanguage();
+        if ($language=='') {
+            $item->setLanguage();
+        } else {
+            $this->language = $language;
+        }
 
         // Initialize the item parameters.
         $registry = new JRegistry;
@@ -284,6 +299,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         // Index the item.
         $this->indexer->index($item);
     }
+
 
     /**
      * Method to setup the indexer to be run.
