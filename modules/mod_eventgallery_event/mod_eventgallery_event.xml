@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="3.0"
+	client="site"
+	method="upgrade">
+	<name>MOD_EVENTGALLERY_EVENT</name>
+	<author>Sven Bluege</author>
+	<creationDate>August 2013</creationDate>
+	<copyright></copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>svenbluege@gmail.com</authorEmail>
+	<authorUrl>www.svenbluege.de</authorUrl>
+	<version>2.9.0</version>
+	<description>MOD_EVENTGALLERY_EVENT_DESC</description>
+	
+	<files>
+		<filename module="mod_eventgallery_event">mod_eventgallery_event.php</filename>
+		<folder>language</folder>
+		<filename>index.html</filename>
+		<filename>mod_eventgallery_event.xml</filename>
+		<folder>tmpl</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic"
+                  addfieldpath="/administrator/components/com_eventgallery/models/fields">
+
+            <field name="folder" type="modal_folder"
+                   label="MOD_EVENTGALLERY_LAYOUT_EVENT_FOLDER_LABEL"
+                   required="true"
+                   description="MOD_EVENTGALLERY_LAYOUT_EVENT_FOLDER_DESC"
+                    />
+                    
+            <field name="max_images" default="5" type="text" label="MOD_EVENTGALLERY_OPTIONS_MAX_IMAGES_LABEL" description="MOD_EVENTGALLERY_OPTIONS_MAX_IMAGES_DESC" />
+            <field name="thumb_width" first="20" last="500" step="1" default="50" type="integer" label="MOD_EVENTGALLERY_OPTIONS_THUMBWIDTH_LABEL" description="MOD_EVENTGALLERY_OPTIONS_THUMBWIDTH_DESC" />
+            
+            
+        	</fieldset>
+		</fields>
+	</config>
+</extension>
