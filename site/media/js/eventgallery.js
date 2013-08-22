@@ -72,6 +72,7 @@ var EventgalleryImage = new Class({
         this.tag = image;
         this.index = index;
         this.calcSize();
+        console.log(this);
 
 
     },
@@ -198,7 +199,10 @@ var EventgalleryRow = new Class({
         }
 
     },
-    processRow: function () {
+    /**
+    * @param bool finalRows defines is this row is part of a set of final rows. 
+    */
+    processRow: function (finalRows) {
 
         // calc the diff
         var diff = this.options.maxWidth - this.width;
@@ -224,14 +228,23 @@ var EventgalleryRow = new Class({
         var diffWidthBalance = diff - (diffWidth * (this.images.length - 1));
 
         // handle the last image differently if it should not be cropped. Be aware that a vertial image will appear in full height!
-
-        if (this.images.length == 1 && !this.options.cropLastImage) {
+        
+        if (
+                // display the last/first image with the available width if:
+                //
+                // the image should not be cropped if we display the first image
+                (this.images.length == 1 && !this.options.cropLastImage)|| 
+                // this is for the last image but only if it's landscaped. This avoids square
+                // sized images for landscape images. We just override the crop configuration
+                ( finalRows && this.images.length == 1 && this.images[0].height<this.images[0].width)
+            ) 
+        {
             var image = this.images[0];
             var height = Math.round(image.height / image.width * this.options.maxWidth);
             image.setSize(this.options.maxWidth, height);
 
+        
         } else {
-
             this.images.each(function (image, index) {
 
                 var imageWidth = Math.floor(image.width / image.height * this.options.maxHeight);
@@ -351,7 +364,7 @@ var EventgalleryImagelist = new Class({
             };
 
             if (options.maxWidth > 0) {
-                this.generateRows(imagesToProcess, this.options.firstImageRowHeight, options);
+                this.generateRows(imagesToProcess, this.options.firstImageRowHeight, options, false);
             }
         }
 
@@ -362,11 +375,14 @@ var EventgalleryImagelist = new Class({
             cropLastImage: this.options.cropLastImage
         };
 
-        this.generateRows(imagesToProcess, 99999, options);
+        this.generateRows(imagesToProcess, 99999, options, true);
 
     },
 
-    generateRows: function (imagesToProcess, numberOfRowsToCreate, options) {
+    /**
+    * @param bool finalRows defines if this set is the last set of rows.
+    */
+    generateRows: function (imagesToProcess, numberOfRowsToCreate, options, finalRows) {
 
 
         var currentRow = new EventgalleryRow(options);
@@ -376,14 +392,14 @@ var EventgalleryImagelist = new Class({
             if (addSuccessfull) {
                 imagesToProcess.shift();
             } else {
-                currentRow.processRow();
+                currentRow.processRow(finalRows);
                 numberOfRowsToCreate--;
                 if (numberOfRowsToCreate == 0) break;
                 currentRow = new EventgalleryRow(options);
             }
         }
 
-        currentRow.processRow();
+        currentRow.processRow(finalRows);
 
     }
 
