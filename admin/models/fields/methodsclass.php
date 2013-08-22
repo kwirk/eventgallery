@@ -22,10 +22,20 @@ class JFormFieldmethodsclass extends JFormField
         $cssclass = $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
         $superclass = (string)$this->element['superclass'];
 
-        $this->getClasses(JPATH_SITE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery'.DIRECTORY_SEPARATOR.'plugins');
+        $this->getClasses(JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_sur');
+        $this->getClasses(JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_pay');
+        $this->getClasses(JPATH_PLUGINS.DIRECTORY_SEPARATOR.'eventgallery_ship');
+
         if ($this->form->getField('id')->value!=0 && $this->value!="") {
             $class= $this->value;
-            return  '<input '.$cssclass.' value="'.$class::getClassName().'" disabled="disabled"">';
+
+            if ( class_exists($class ) ) {
+                $classname = $class::getClassName();
+            } else {
+                $classname = 'invalid';
+            }
+
+            return  '<input '.$cssclass.' value="'.$classname.'" disabled="disabled"">';
         }
 
         $return  = '<select '.$required.' '.$cssclass.' name='.$this->name.' id='.$this->id.'>';

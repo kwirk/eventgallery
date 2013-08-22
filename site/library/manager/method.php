@@ -91,7 +91,11 @@ abstract class EventgalleryLibraryManagerMethod extends EventgalleryLibraryManag
         }
 
         $array_values = array_values($methods);
-        return $array_values[0];
+        if (isset($array_values[0])) {
+            return $array_values[0];
+        }
+        
+        return NULL;
     }
 
     /**
