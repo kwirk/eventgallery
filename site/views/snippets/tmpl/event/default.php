@@ -23,8 +23,8 @@ defined('_JEXEC') or die('Restricted access');
             rowHeight: <?php echo $this->params->get('event_default_list_thumbnail_height',100); ?>,
             rowHeightJitter: <?php echo $this->params->get('event_default_list_thumbnail_jitter', 0); ?>,
             firstImageRowHeight: <?php echo $this->params->get('event_default_list_thumbnail_first_item_height',1); ?>,
-            eventgallerySelector: '.thumbnails',
-            eventgalleryImageSelector: '.thumbnails .thumbnail',
+            eventgallerySelector: '.eventgallery-thumbnails',
+            eventgalleryImageSelector: '.eventgallery-thumbnails .thumbnail',
             initComplete: function () {
                 eventgalleryLazyloader = new LazyLoadEventgallery({
                     range: 100,
@@ -47,7 +47,7 @@ defined('_JEXEC') or die('Restricted access');
 
             },
             resizeStart: function () {
-                $$('.thumbnails img').setStyle('opacity', 0);
+                $$('.eventgallery-thumbnails img').setStyle('opacity', 0);
 
 
             },
@@ -107,7 +107,7 @@ defined('_JEXEC') or die('Restricted access');
 
     <div style="clear:both"></div>
 
-    <div class="thumbnails">
+    <div class="eventgallery-thumbnails thumbnails">
         <?php foreach ($this->entries as $entry) : /** @var EventgalleryHelpersImageDefault $entry */ ?>
             <?php $this->assign('entry', $entry) ?>
 

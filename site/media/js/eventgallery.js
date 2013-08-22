@@ -72,9 +72,6 @@ var EventgalleryImage = new Class({
         this.tag = image;
         this.index = index;
         this.calcSize();
-        console.log(this);
-
-
     },
     calcSize: function () {
         // glue includes everything but the image width/heigt: margin, padding, border
