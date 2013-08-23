@@ -60,8 +60,13 @@ class EventViewEvent extends EventgalleryLibraryCommonView
             $this->params->merge($app->getMenu()->getDefault()->params);
         }
 
-        if ($layout = $this->params->get('event_layout')) {
+        if ($this->getLayout()=='default' && $layout = $this->params->get('event_layout')) {
             $this->setLayout($layout);
+        }
+
+        // legacy fix since I renamed default to pageable
+        if ($this->getLayout()=='default') {
+            $this->setLayout('pageable');
         }
 
         $model = $this->getModel('event');
