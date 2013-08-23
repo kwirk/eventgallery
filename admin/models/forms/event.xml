@@ -38,7 +38,7 @@
                class="input-xlarge"
                 />
                 
-        <field name="tags"
+        <field name="foldertags"
                type="text"
                inputtype="text"
                label="COM_EVENTGALLERY_EVENTS_TAGS"

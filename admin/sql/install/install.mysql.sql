@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_folder` (
   `picasakey` varchar(125) DEFAULT NULL,
   `password` VARCHAR( 250 ) NOT NULL,
   `cartable` TINYINT( 1 ) NOT NULL DEFAULT  '1',
-  `tags` text,
+  `foldertags` text,
   `description` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
   `published` tinyint(4) NOT NULL DEFAULT '1',

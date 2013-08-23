@@ -115,7 +115,7 @@ class EventsModelEvents extends JModelLegacy
                 $finalWinners = Array();
                 
                 foreach($entries as $entry) {
-                    if (EventgalleryHelpersTags::checkTags($tags, $entry->tags) ) {
+                    if (EventgalleryHelpersTags::checkTags($tags, $entry->foldertags) ) {
                         $finalWinners[] = $entry;
                     }
                 }

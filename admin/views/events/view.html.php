@@ -19,23 +19,28 @@ class EventgalleryViewEvents extends EventgalleryLibraryCommonView
 
 	protected $items;
 	protected $pagination;
+    protected $state;
+    protected $foldertags;
 
 	function display($tpl = null)
 	{				
 		// Get data from the model
-		
-		$model = $this->getModel();		
-		$pagination = $model->getPagination();		
-		$items = $model->getItems();
+        $this->state = $this->get('State');
+        $this->items = $this->get('Items');
+        $this->foldertags = $this->get('Tags');
+        $this->pagination = $this->get('Pagination');
 
+        // Check for errors.
+        if (count($errors = $this->get('Errors'))) {
+            JError::raiseError(500, implode("\n", $errors));
+            return false;
+        }
 
-		$this->items =$items;
-		$this->pagination = $pagination;
+        $this->addToolbar();
+        EventgalleryHelpersEventgallery::addSubmenu('events');
+        $this->sidebar = JHtmlSidebar::render();
 
-		EventgalleryHelpersEventgallery::addSubmenu('events');		
-		$this->sidebar = JHtmlSidebar::render();
-		$this->addToolbar();
-		parent::display($tpl);
+        return parent::display($tpl);
 	}
 
 	protected function addToolbar() {
@@ -59,7 +64,52 @@ class EventgalleryViewEvents extends EventgalleryLibraryCommonView
 				
 		$bar->appendButton('Confirm', 'COM_EVENTGALLERY_CLEAR_CACHE_ALERT', 'trash', 'COM_EVENTGALLERY_SUBMENU_CLEAR_CACHE',  'clearCache', false);
 		$bar->appendButton('Confirm', 'COM_EVENTGALLERY_SYNC_DATABASE_SYNC_ALERT', 'checkin', 'COM_EVENTGALLERY_SUBMENU_SYNC_DATABASE',  'refreshDatabase', false);
-		
+
+        $options= array();
+        foreach($this->foldertags as $key=>$value) {
+            $options[] = JHtml::_('select.option', $key, $value);
+        }
+        $options[] = JHtml::_('select.option', '------', 'JNONE');
+        $options[] = JHtml::_('select.option', '*', 'JALL');
+
+
+        JHtmlSidebar::addFilter(
+            JText::_('COM_EVENTGALLERY_EVENT_FILTER_TAG'),
+            'filter_tag',
+            JHtml::_('select.options', $options, 'value', 'text', $this->state->get('filter.tag'), true)
+        );
+
+
+        $options= array();
+        $options[] = JHtml::_('select.option', 'local', JText::_('COM_EVENTGALLERY_EVENT_TYPE_LOCAL'));
+        $options[] = JHtml::_('select.option', 'picasa', JText::_('COM_EVENTGALLERY_EVENT_TYPE_PICASA'));
+        $options[] = JHtml::_('select.option', '*', 'JALL');
+
+        JHtmlSidebar::addFilter(
+            JText::_('COM_EVENTGALLERY_EVENT_FILTER_TYPE'),
+            'filter_type',
+            JHtml::_('select.options', $options, 'value', 'text', $this->state->get('filter.type'), true)
+        );
+
+
+
 	}
+
+    /**
+     * Returns an array of fields the table can be sorted by
+     *
+     * @return  array  Array containing the field name to sort by as the key and display text as value
+     *
+     * @since   3.0
+     */
+    protected function getSortFields()
+    {
+        return array(
+            'folder' => JText::_('COM_EVENTGALLERY_EVENTS_FOLDERNAME'),
+            'ordering' => JText::_('COM_EVENTGALLERY_EVENTS_ORDER'),
+            'published' => JText::_('COM_EVENTGALLERY_EVENTS_PUBLISHED'),
+            'cartable' => JText::_('COM_EVENTGALLERY_EVENTS_CARTABLE')
+        );
+    }
 }
 

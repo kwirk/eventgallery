@@ -89,7 +89,7 @@ class PlgSearchEventgallery extends JPlugin
                 $wheres2[] = 'folder.folder LIKE ' . $text;
                 $wheres2[] = 'folder.description LIKE ' . $text;
                 $wheres2[] = 'folder.text LIKE ' . $text;
-                $wheres2[] = 'folder.tags LIKE ' . $text;
+                $wheres2[] = 'folder.foldertags LIKE ' . $text;
                 $where = '(' . implode(') OR (', $wheres2) . ')';
                 break;
 
@@ -105,7 +105,7 @@ class PlgSearchEventgallery extends JPlugin
                     $wheres2[] = 'folder.folder LIKE ' . $word;
                     $wheres2[] = 'folder.description LIKE ' . $word;
                     $wheres2[] = 'folder.text LIKE ' . $word;
-                    $wheres2[] = 'folder.tags LIKE ' . $word;
+                    $wheres2[] = 'folder.foldertags LIKE ' . $word;
                     $wheres[] = implode(' OR ', $wheres2);
                 }
                 $where = '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
@@ -130,7 +130,7 @@ class PlgSearchEventgallery extends JPlugin
 
         $query = $db->getQuery(true);
 
-        $query->select('folder.description as title, folder.tags as tags, folder.folder as folder, folder.text as text, folder.date as created');
+        $query->select('folder.description as title, folder.foldertags as foldertags, folder.folder as folder, folder.text as text, folder.date as created');
         $query->from('#__eventgallery_folder AS folder')
             ->where('(' . $where . ') AND folder.published=1')
             ->order($order);
@@ -151,7 +151,7 @@ class PlgSearchEventgallery extends JPlugin
                 $splittedText = EventgalleryHelpersTextsplitter::split($rows[$key]->text);
 
                 $rows[$key]->text=$splittedText->introtext;
-                $rows[$key]->href = EventgalleryHelpersRoute::createEventRoute($rows[$key]->folder, $rows[$key]->tags);
+                $rows[$key]->href = EventgalleryHelpersRoute::createEventRoute($rows[$key]->folder, $rows[$key]->foldertags);
                 $rows[$key]->section="";
                 $rows[$key]->browsernav="";
 

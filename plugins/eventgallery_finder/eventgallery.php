@@ -139,7 +139,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
             if (!$isNew && $this->old_access != $row->access)
             {
                 // Process the change.
-                $this->reindex($row->id);
+                $this->remove($row->id);
             }
 
             // Reindex the item
@@ -169,13 +169,9 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         if ($context == 'com_eventgallery.event' || $context == 'com_eventgallery.events')
         {
             // Query the database for the old access level if the item isn't new
-            if (!$isNew)
-            {
+            $this->remove($row->id);
+            $this->reindex($row->id);
 
-                $this->remove($row->id);
-                $this->reindex($row->id);
-
-            }
         }
 
         return true;
@@ -263,7 +259,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
 
         // Build the necessary route and path information.
         $item->url = $this->getURL($item->id, $this->extension, $this->layout);
-        $item->route = EventgalleryHelpersRoute::createEventRoute($item->folder, $item->tags);
+        $item->route = EventgalleryHelpersRoute::createEventRoute($item->folder, $item->foldertags);
         $item->path = FinderIndexerHelper::getContentPath($item->route);
 
         $item->title = $item->title;
@@ -284,7 +280,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         $item->metaauthor = $item->metadata->get('author');
 
         // Handle the link to the meta-data.
-        $item->addInstruction(FinderIndexer::META_CONTEXT, 'tags');
+        $item->addInstruction(FinderIndexer::META_CONTEXT, 'foldertags');
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'description');
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'fulltext');
         $item->addInstruction(FinderIndexer::META_CONTEXT, 'introtext');
@@ -336,7 +332,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
                         a.folder as folder,
                         a.description as title,
                         a.published as published,
-                        a.tags as tags,
+                        a.foldertags as foldertags,
                         a.text as text,
                         a.date as date,
                         a.lastmodified as lastmodified')

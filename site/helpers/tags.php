@@ -31,7 +31,8 @@ class EventgalleryHelpersTags
 
         // handle space and comma separated lists like "foo bar" or "foo, bar"
 
-        $tempTags = explode(',', str_replace(" ", ",", $needleTags));
+
+        $tempTags = self::splitTags($needleTags);
         array_walk($tempTags, 'trim');
 
         $needleTags = Array();
@@ -52,6 +53,16 @@ class EventgalleryHelpersTags
         // no match
         return false;
 
+    }
+
+    /**
+     * Splits a tag string into an array of tags. Tags can be separated by space or comma
+     *
+     * @param $string
+     * @return array
+     */
+    public static function splitTags($tagString) {
+        return explode(',', str_replace(" ", ",", $tagString));
     }
 
 }

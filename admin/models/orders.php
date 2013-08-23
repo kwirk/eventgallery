@@ -15,7 +15,7 @@ jimport( 'joomla.application.component.modellist' );
 class EventgalleryModelOrders extends JModelList
 {
 
-    protected $context = '';
+    protected $context = 'orders';
 
     /**
      * Constructor.

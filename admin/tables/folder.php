@@ -15,7 +15,7 @@ class TableFolder extends JTable
     public $id = null;
     public $folder = null;
     public $picasakey = null;
-    public $tags = null;
+    public $foldertags = null;
     public $date = null;
     public $description = null;
     public $published = null;

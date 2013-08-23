@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
     <div class="thumbnails">
         <?php foreach($files as $file):?>
 
-                <a class="thumbnail" href="<?php echo JRoute::_(EventgalleryHelpersRoute::createEventRoute($folder->folder, $folder->tags)) ?>"><?php
+                <a class="thumbnail" href="<?php echo JRoute::_(EventgalleryHelpersRoute::createEventRoute($folder->folder, $folder->foldertags)) ?>"><?php
                     /**
                      * @var EventgalleryHelpersImageInterface $file
                      */
