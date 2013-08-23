@@ -203,6 +203,17 @@
 
 <fieldset name="events" label="COM_EVENTGALLERY_LAYOUT_EVENTS_LIST" description="COM_EVENTGALLERY_LAYOUT_EVENTS_LIST_DESC">
 
+	<field
+	    name="event_layout"
+	    type="componentlayout"
+	    label="COM_EVENTGALLERY_OPTIONS_EVENTS_LAYOUT_LABEL"
+	    description="COM_EVENTGALLERY_OPTIONS_EVENTS_LAYOUT_DESC"
+	    menuitems="true"
+	    extension="com_eventgallery"
+	    view="event"
+	    useglobal="false"
+	  />
+
     <field name="greetings"
            id="greetings"
            type="textarea"
