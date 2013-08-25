@@ -20,13 +20,17 @@
 
 {file://checkout.md}
 
-<hr class="system-pagebreak" title="Extend" alt="Extend" />
+<hr class="system-pagebreak" title="Extensions" alt="Extensions" />
 
-{file://extend.md}
+{file://extensions.md}
 
 <hr class="system-pagebreak" title="FAQ" alt="FAQ"/>
 
 {file://faq.md}
+
+<hr class="system-pagebreak" title="Extend" alt="Extend" />
+
+{file://extend.md}
 
 <hr class="system-pagebreak" title="Releases" alt="Releases"/>
 

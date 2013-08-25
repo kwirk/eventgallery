@@ -55,15 +55,21 @@ class EventgalleryHelpersEventgallery
             );
 
             JHtmlSidebar::addEntry(
-                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_EXTEND'),
-                'index.php?option=com_eventgallery&view=documentation&layout=extend',
-                $currentLayout=='extend'
-            );
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_EXTENSIONS'),
+                'index.php?option=com_eventgallery&view=documentation&layout=extensions',
+                $currentLayout=='extensions'
+            );            
 
             JHtmlSidebar::addEntry(
                 JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_FAQ'),
                 'index.php?option=com_eventgallery&view=documentation&layout=faq',
                 $currentLayout=='faq'
+            );
+
+            JHtmlSidebar::addEntry(
+                JText::_('COM_EVENTGALLERY_SUBMENU_DOCUMENTATION_EXTEND'),
+                'index.php?option=com_eventgallery&view=documentation&layout=extend',
+                $currentLayout=='extend'
             );
 
             JHtmlSidebar::addEntry(
