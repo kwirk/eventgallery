@@ -56,13 +56,22 @@ class EventgalleryHelpersTags
     }
 
     /**
-     * Splits a tag string into an array of tags. Tags can be separated by space or comma
+     * Splits a tag string into an array of tags. Tags can be separated by space or comma.
+     * Does not return empty tags
      *
      * @param $string
      * @return array
      */
     public static function splitTags($tagString) {
-        return explode(',', str_replace(" ", ",", $tagString));
+        $tags =  explode(',', str_replace(" ", ",", $tagString));
+        $tags = array_unique($tags);
+        foreach($tags as $key=>$tag) {
+            $content = trim($tag);
+            if (empty($content)) {
+                unset($tags[$key]);
+            }
+        }
+        return $tags;
     }
 
 }
