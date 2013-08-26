@@ -14,6 +14,10 @@ There are only a few things globally manageable. Especially the appearance of th
 
 	Defines if comments are enabled. 
 
+- Default User Group
+
+	You can force the people to login before they can see your images. This field provides a set of default user groups which are used if an event does not define it's own.
+
 
 ## Image
 

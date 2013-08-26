@@ -25,6 +25,10 @@ The view let's you edit the details of an event.
 
 	If you want to include a Picasa album which is not public but accessible using a special Picasa key, then add this key here. In case you pulled the URL from Google Plus prefix it with `Gv1sRg`. Otherwise the album will not appear. 
 
+- User Groups
+
+	Defines a set of user groups. If a user wants to see an event he needs to be part of one of the defined user groups. Otherwise he'll get a login page or a access denied screen.
+
 - Password
 
 	Set a password for each folder if you want to protect it somehow. If a user tries to access such a folder he need to enter a password. If you want to send out links to a password protected folder you can add this password directly to the link and nobody needs to be bothered by a password page. 
