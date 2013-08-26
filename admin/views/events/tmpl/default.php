@@ -197,6 +197,10 @@ $sortFields = $this->getSortFields();
                             <strong><?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_PASSWORD' ); ?></strong><br>
                             <?php echo $row->password; ?><br>
                         <?php ENDIF ?>
+                        <?php IF (strlen($row->usergroupids)>0 && $row->usergroupids!='1'): ?>
+                            <strong><?php echo JText::_( 'COM_EVENTGALLERY_EVENTS_USERGROUPS' ); ?></strong><br>
+                            <?php echo $row->usergroupids; ?><br>
+                        <?php ENDIF ?>
                     </small>
 				</td>
 				<td class="center">

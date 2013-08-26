@@ -16,6 +16,13 @@
 		</field>
 		
 		
+		<field 	name="eventgallery_min_usergroup" 
+				type="usergroup" 
+				default="1" 
+				multiple="true"
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_MINUSERGROUP_LABEL" 
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_MINUSERGROUP_DESCRIPTION" />
+		
 </fieldset>
 
 

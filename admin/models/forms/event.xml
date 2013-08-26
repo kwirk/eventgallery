@@ -37,7 +37,13 @@
                validate=""
                class="input-xlarge"
                 />
-                
+        <field 	name="usergroups" 
+				type="usergroup" 
+				default="1" 
+				multiple="true"
+				label="COM_EVENTGALLERY_EVENTS_USERGROUPS" 
+				description="COM_EVENTGALLERY_EVENTS_USERGROUPS_DESCRIPTION" />
+				
         <field name="foldertags"
                type="text"
                inputtype="text"

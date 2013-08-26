@@ -57,6 +57,8 @@ class EventgalleryModelEvent extends JModelAdmin
         if (empty($data))
         {
             $data = $this->getItem();
+
+            $data->usergroups = explode(',', $data->usergroupids);
             // Prime some default values.
             if ($this->getState('event.id') == 0)
             {
@@ -105,7 +107,16 @@ class EventgalleryModelEvent extends JModelAdmin
         if (strpos($data['folder'], '@')===false  ) {
             $data['folder'] = JFile::makeSafe($data['folder']);
         }
-        return parent::validate($form, $data, $group);
+
+        $validData =  parent::validate($form, $data, $group);
+
+        if (!isset($data['usergroups']) || count($data['usergroups'])==0) {
+            $validData['usergroupids'] = '';
+        } else {
+            $validData['usergroupids'] = implode(',', $data['usergroups']);
+        }
+
+        return $validData;
     }
 
 

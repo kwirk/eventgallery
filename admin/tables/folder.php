@@ -27,6 +27,7 @@ class TableFolder extends JTable
     public $typesetid = null;
     public $modified = null;
     public $created = null;
+    public $usergroupids = null;
 
     /**
      * Constructor
