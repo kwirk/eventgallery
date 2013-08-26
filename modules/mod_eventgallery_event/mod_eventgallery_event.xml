@@ -11,7 +11,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>svenbluege@gmail.com</authorEmail>
 	<authorUrl>www.svenbluege.de</authorUrl>
-	<version>2.9.0</version>
+	<version>$$version$$</version>
 	<description>MOD_EVENTGALLERY_EVENT_DESC</description>
 	
 	<files>

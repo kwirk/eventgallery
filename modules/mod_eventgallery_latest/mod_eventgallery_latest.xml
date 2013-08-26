@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="3.0"
+	client="site"
+	method="upgrade">
+	<name>MOD_EVENTGALLERY_LATEST</name>
+	<author>Sven Bluege</author>
+	<creationDate>August 2013</creationDate>
+	<copyright></copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>svenbluege@gmail.com</authorEmail>
+	<authorUrl>www.svenbluege.de</authorUrl>
+	<version>2.9.2</version>
+	<description>MOD_EVENTGALLERY_LATEST_DESC</description>
+	
+	<files>
+		<filename module="mod_eventgallery_latest">mod_eventgallery_latest.php</filename>
+		<folder>language</folder>
+		<filename>index.html</filename>
+		<filename>mod_eventgallery_latest.xml</filename>
+		<folder>tmpl</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic"
+                  addfieldpath="/administrator/components/com_eventgallery/models/fields">
+				<field name="tags" default="" type="text" label="MOD_EVENTGALLERY_OPTIONS_TAGS_LABEL" description="MOD_EVENTGALLERY_OPTIONS_TAGS_DESC" />                    
+				<field name="sort_events_by" type="list" default="ordering"
+				       label="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_LABEL"
+				       description="COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DESC">
+		        <option value="ordering">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_ORDERING</option>
+		        <option value="date_asc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_ASC</option>
+		        <option value="date_desc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_DATE_DESC</option>
+		        <option value="name_asc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_NAME_ASC</option>
+		        <option value="name_desc">COM_EVENTGALLERY_OPTIONS_EVENTS_SORT_EVENTS_BY_NAME_DESC</option>
+		    </field>
+		    <field name="event_history_position" first="0" last="500" step="1" default="0" type="integer" label="MOD_EVENTGALLERY_OPTIONS_EVENTHISTORYPOSITION_LABEL" description="MOD_EVENTGALLERY_OPTIONS_EVENTHISTORYPOSITION_DESC" />
+            <field name="max_images" default="5" type="text" label="MOD_EVENTGALLERY_OPTIONS_MAX_IMAGES_LABEL" description="MOD_EVENTGALLERY_OPTIONS_MAX_IMAGES_DESC" />
+            <field name="thumb_width" first="20" last="500" step="1" default="50" type="integer" label="MOD_EVENTGALLERY_OPTIONS_THUMBWIDTH_LABEL" description="MOD_EVENTGALLERY_OPTIONS_THUMBWIDTH_DESC" />
+            
+            
+        	</fieldset>
+		</fields>
+	</config>
+</extension>
