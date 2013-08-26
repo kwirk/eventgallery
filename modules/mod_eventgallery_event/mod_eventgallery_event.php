@@ -29,7 +29,9 @@ if ($foldername) {
     $model = JModelLegacy::getInstance('Event', 'EventModel', array('ignore_request' => true));
     $folder = $model->getFolder($foldername);
 
-    if (isset($folder) && $folder->published==1 && EventgalleryHelpersFolderprotection::isAccessAllowed($folder)) {
+
+
+    if (isset($folder) && $folder->published==1 && EventgalleryHelpersFolderprotection::isAccessAllowed($folder) && EventgalleryHelpersFolderprotection::isVisible($folder)) {
         $files = $model->getEntries($foldername, 0, $params->get('max_images'), 1);
         require JModuleHelper::getLayoutPath('mod_eventgallery_event', $params->get('layout', 'default'));
     }
