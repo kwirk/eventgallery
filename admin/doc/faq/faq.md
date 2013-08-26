@@ -57,6 +57,6 @@
 
 - the database tables of event gallery are probably set to the wrong format. Use the following sql script to fix this: 
 
-	alter table #__eventgallery_file convert to character set utf8 collate utf8_unicode_ci;
-    alter table #__eventgallery_folder convert to character set utf8 collate utf8_unicode_ci;
-    alter table #__eventgallery_comment convert to character set utf8 collate utf8_unicode_ci;
+		alter table #__eventgallery_file convert to character set utf8 collate utf8_unicode_ci;
+	    alter table #__eventgallery_folder convert to character set utf8 collate utf8_unicode_ci;
+	    alter table #__eventgallery_comment convert to character set utf8 collate utf8_unicode_ci;
