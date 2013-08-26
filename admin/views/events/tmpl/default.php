@@ -204,8 +204,11 @@ $sortFields = $this->getSortFields();
 						<?php echo $row->commentCount ?>
 					</a>
 				</td>
-				<td>
-					<?php $user = JFactory::getUser($row->userid); echo $user->name;?>, <?php echo JHTML::Date($row->lastmodified,JText::_('DATE_FORMAT_LC3')) ?>
+				<td><small>
+					<?php $user = JFactory::getUser($row->userid); echo $user->name;?><br /> 
+                    <?php echo JText::_( 'COM_EVENTGALLERY_EVENT_CREATED' ); ?> <?php echo JHTML::Date($row->created,JText::_('DATE_FORMAT_LC4')) ?><br>
+                    <?php echo JText::_( 'COM_EVENTGALLERY_EVENT_MODIFIED' ); ?> <?php echo JHTML::Date($row->modified,JText::_('DATE_FORMAT_LC4')) ?><br>
+                    </small>
 				</td>
 				
 			</tr>

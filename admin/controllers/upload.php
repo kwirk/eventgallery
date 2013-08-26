@@ -98,7 +98,10 @@ class EventgalleryControllerUpload extends JControllerForm
 				$query = "REPLACE into #__eventgallery_file set 
 							folder=".$db->Quote($folder).", 
 							file=".$db->Quote($uploadedFile).",
-							userid=".$db->Quote($user->id);
+							userid=".$db->Quote($user->id).",
+							created=now(),
+						    modified=now()
+							";
 
 				$db->setQuery($query);
 				$db->query();

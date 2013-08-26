@@ -9,10 +9,17 @@
  */
 
 defined('_JEXEC') or die('Restricted access'); 
+
 $document = JFactory::getDocument();
+$css=JURI::base().'components/com_eventgallery/media/css/eventgallery.css';
+$document->addStyleSheet($css);     
+
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.formvalidation');
 $version =  new JVersion();
 if ($version->isCompatible('3.0')) {
-
+	JHtml::_('formbehavior.chosen', 'select');    
 } else {
     $css=JURI::base().'components/com_eventgallery/media/css/legacy.css';
     $document->addStyleSheet($css);
@@ -20,7 +27,21 @@ if ($version->isCompatible('3.0')) {
 
 ?>
 
-<form action="index.php" method="post" name="adminForm" id="adminForm">
+<script type="text/javascript">
+    Joomla.submitbutton = function(task)
+    {
+        if (task == 'comment.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+            <?php echo $this->form->getField('text')->save(); ?>
+            Joomla.submitform(task, document.getElementById('adminForm'));
+        }
+        else {
+            alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+        }
+    }
+</script>
+
+<form action="<?php echo JRoute::_('index.php?option=com_eventgallery&layout=edit&id='.(int) $this->item->id); ?>" method="POST" name="adminForm" id="adminForm">
+
 <?php if (!empty( $this->sidebar)) : ?>
     <div id="j-sidebar-container" class="span2">
         <?php echo $this->sidebar; ?>
@@ -29,96 +50,14 @@ if ($version->isCompatible('3.0')) {
 <?php else : ?>
     <div id="j-main-container">
 <?php endif;?>
-		<fieldset class="adminform">
-			<legend><?php echo JText::_( 'Details' ); ?></legend>
+    	<?php echo $this->loadSnippet('formfields'); ?>
+    </div>
 
-			<table class="admintable">
-			<tr>
-				<td colspan=2>
-					<img class="thumbnail" src="<?php echo JURI::base().("../components/com_eventgallery/helpers/image.php?view=resizeimage&folder=".$this->comment->folder."&file=".$this->comment->file."&option=com_eventgallery&width=100&height=50")?>" />
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="right" class="key">
-					<label for="name">
-						<?php echo JText::_( 'Name' ); ?>:
-					</label>
-				</td>
-				<td>
-					<input class="text_area" type="text" name="name" id="name" size="32" maxlength="250" value="<?php echo $this->comment->name;?>" />
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="right" class="key">
-					<label for="email">
-						<?php echo JText::_( 'Email' ); ?>:
-					</label>
-				</td>
-				<td>
-					<input class="text_area" type="text" name="email" id="email" size="32" maxlength="250" value="<?php echo $this->comment->email;?>" />
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="right" class="key">
-					<label for="link">
-						<?php echo JText::_( 'Link' ); ?>:
-					</label>
-				</td>
-				<td>
-					<input class="text_area" type="text" name="link" id="link" size="32" maxlength="250" value="<?php echo $this->comment->link;?>" />
-				</td>
-			</tr>
-			
-			<tr>
-				<td width="100" align="right" class="key">
-					<label for="ip">
-						<?php echo JText::_( 'IP' ); ?>:
-					</label>
-				</td>
-				<td>
-					<input class="text_area" type="text" name="ip" id="ip" size="32" maxlength="250" value="<?php echo $this->comment->ip;?>" />
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="right" class="key">
-					<label for="user_id">
-						<?php echo JText::_( 'UserID' ); ?>:
-					</label>
-				</td>
-				<td>
-					<input class="text_area" type="text" name="user_id" id="user_id" size="32" maxlength="250" value="<?php echo $this->comment->user_id;?>" />
-				</td>
-			</tr>		
-			<tr>
-				<td width="100" align="right" class="key">
-					<label for="name">
-						<?php echo JText::_( 'Text' ); ?>:
-					</label>
-				</td>
-				<td>
-					<textarea class="text_area" name="text" id="text" size="32" cols="50" rows="5" maxlength="450"><?php echo $this->comment->text;?></textarea>
-				</td>
-			</tr>	
-			<tr>
-				<td width="100" align="right" class="key">
-					<label for="date">
-						<?php echo JText::_( 'Date' ); ?>:
-					</label>
-				</td>
-				<td>
-					<input class="text_area" type="text" name="date" id="date" size="32" maxlength="250" value="<?php echo $this->comment->date;?>" />
-				</td>
-			</tr>			
-		</table>
-		</fieldset>
-	</div>
-	<div class="clr"></div>
+    <div class="clr"></div>
 
-	<input type="hidden" name="option" value="com_eventgallery" />
-	<input type="hidden" name="id" value="<?php echo $this->comment->id; ?>" />
-	<input type="hidden" name="file" value="<?php echo $this->comment->file; ?>" />
-	<input type="hidden" name="folder" value="<?php echo $this->comment->folder; ?>" />
-	<input type="hidden" name="task" value="saveComment" />
-
-
+    <?php echo JHtml::_('form.token'); ?>
+    <input type="hidden" name="option" value="com_eventgallery" />
+    <input type="hidden" name="oldfolder" value="<?php echo $this->item->folder; ?>" />
+    <input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
+    <input type="hidden" name="task" value="" />
 </form>

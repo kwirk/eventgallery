@@ -52,3 +52,11 @@
 ## Image-Upload does not work {#imageupload}
 
 - 100% of the time the upload is refused by the server because of restrictive security configurations. Please contact your provider. They can fix it. In the meantime you can use FTP to upload the images to `/images/eventgallery/[your folder]` and hit the "Sync Database" button in the main tool bar of the Event Gallery component in the back end.
+
+## Character Encoding does not work
+
+- the database tables of event gallery are probably set to the wrong format. Use the following sql script to fix this: 
+
+	alter table #__eventgallery_file convert to character set utf8 collate utf8_unicode_ci;
+    alter table #__eventgallery_folder convert to character set utf8 collate utf8_unicode_ci;
+    alter table #__eventgallery_comment convert to character set utf8 collate utf8_unicode_ci;

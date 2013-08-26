@@ -40,97 +40,7 @@ class EventgalleryController extends JControllerLegacy
 		parent::display($cachable, $urlparams);
 	}
 
-	/**
-	 * function to call comments-View
-	 * 
-	 * @return void
-	 */
-	function comments()
-	{
-				$view = $this->getView('comments','html');
-		$view->setModel($this->getModel('comments'),true);
-		$view->display();
-	}
-
-	/**
-	 * method to call edit-Events-View
-	 * 
-	 * @return void
-	 */
-	function editComment()
-	{
-		JRequest::setVar( 'view', 'comment' );
-		JRequest::setVar('hidemainmenu', 1);
-		$this->display();
-	}
-
-	/**
-	 * method to save a comment after editing it
-	 */
-	function saveComment()
-	{
-		
-		JRequest::setVar( 'view', 'comment' );
-		$model = $this->getModel('comment');
-        $post = JRequest::get('post');
-
-		if ($model->store($post)) {
-			$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_SAVED_SUCCESS' );
-		} else {
-			$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_SAVED_ERROR' );
-		}
-		// Check the table in so it can be edited.... we are done with it anyway
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=comments&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
-	}
-
-	/**
-	 * function to remode a comment
-	 * 
-	 * @return void
-	 */
-	function removeComment()
-	{
-
-		$model = $this->getModel('comment');
-		if(!$model->delete()) {
-			$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_DELETE_ERROR' );
-		} else {
-			$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_DELETE_SUCCESS' );
-		}
-
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=comments&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
-	}
-
-	/**
-	 * function to cancel editing of a comment
-	 */
-	function cancelComment()
-	{
-		$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_EDIT_CANCEL' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=comments&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
-	}
-
-	/*
-	 * function to publish a comment
-	 */
-	function Commentpublish()
-	{
-		$model = $this->getModel('comment');
-		$model->publish(1);
-		$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_PUBLISHED' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=comments&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
-	}
 	
-	/**
-	 * function to unpublish a comment
-	 */
-	function Commentunpublish()
-	{
-		$model = $this->getModel('comment');
-		$model->publish(0);
-		$msg = JText::_( 'COM_EVENTGALLERY_COMMENT_UNPUBLISHED' );
-		$this->setRedirect( 'index.php?option=com_eventgallery&task=comments&folder='.JRequest::getVar('folder').'&file='.JRequest::getVar('file'), $msg );
-	}
 	
 	
 	/**
@@ -186,6 +96,7 @@ class EventgalleryController extends JControllerLegacy
 			
 			$date = "";
 			$temp = array();
+			$created = date('Y-m-d H:i:s',filemtime($maindir.$folder));
 
 			if (preg_match("/[0-9]{4}-[0-9]{2}-[0-9]{2}/",$folder, $temp))
 			{
@@ -203,7 +114,9 @@ class EventgalleryController extends JControllerLegacy
 			                 published=0,
 			                 date=".$db->Quote($date).",
 			                 description=".$db->Quote($description).",
-			                 userid=".$db->Quote($user->id)."
+			                 userid=".$db->Quote($user->id).",
+			                 created=".$db->quote($created).",
+			                 modified=NOW()
 			         ;";
 			$db->setQuery($query);
 			$db->query();
@@ -234,10 +147,21 @@ class EventgalleryController extends JControllerLegacy
 			# Füge alle Dateien eines Verzeichnisses in die DB ein.
 			foreach($files as $file)
 			{
-				@list($width, $height, $type, $attr) = getimagesize($maindir.$folder.DIRECTORY_SEPARATOR.$file);
+				$filepath = $maindir.$folder.DIRECTORY_SEPARATOR.$file;
+				@list($width, $height, $type, $attr) = getimagesize($filepath);
 
-				
-				$query = "insert IGNORE into #__eventgallery_file set folder='$folder', file='$file', width='$width', height='$height', published=1";
+                $created = date('Y-m-d H:i:s',filemtime($filepath));
+
+				$query = "insert IGNORE into #__eventgallery_file 
+					set folder='$folder', 
+						file='$file', 
+						width='$width', 
+						height='$height', 
+						published=1,
+						created=".$db->quote($created).",
+						modified=now(),
+						userid=".$db->Quote($user->id)."
+					;";
 				$db->setQuery($query);
 				$db->query();
 				
@@ -247,7 +171,7 @@ class EventgalleryController extends JControllerLegacy
 		
 		
 		$msg = JText::_( 'COM_EVENTGALLERY_SYNC_DATABASE_SYNC_DONE' );
-		$this->setRedirect( 'index.php?option=com_eventgallery', $msg );	
+		$this->setRedirect( 'index.php?option=com_eventgallery', $msg );
 	
 	}
 

@@ -9,134 +9,52 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-jimport('joomla.application.component.model');
+jimport( 'joomla.application.component.modeladmin' );
+jimport('joomla.html.pagination');
+jimport('joomla.filesystem.file');
+
 
 /** @noinspection PhpUndefinedClassInspection */
-class EventgalleryModelComment extends JModelLegacy
+class EventgalleryModelComment extends JModelAdmin
 {
 
-    protected $_id;
-    protected $_data;
+    public function getTable($type = 'Comment', $prefix = 'Table', $config = array())
+    {
+        return JTable::getInstance($type, $prefix, $config);
+    }	
 
-    /**
-     * Constructor that retrieves the ID from the request
-     *
-     * @access    public
-     * @return \EventgalleryModelComment
-     */
-	function __construct()
-	{
-		parent::__construct();
+    public function getForm($data = array(), $loadData = true) {
 
-		$array = JRequest::getVar('cid',  0, '', 'array');
-		$this->setId((int)$array[0]);
-	}
+        $form = $this->loadForm('com_eventgallery.comment', 'comment', array('control' => 'jform', 'load_data' => $loadData));
 
-	function setId($id)
-	{
-		// Set id and wipe data
-		$this->_id		= $id;
-		$this->_data	= null;
-	}
+        if (empty($form)){
+            return false;
+        }
 
+        return $form;
+    }
 
-	/**
-	 * Method to get a hello
-	 * @return object with data
-	 */
-	function getData()
-	{
-		// Load the data
-		if (empty( $this->_data )) {
-			$query = ' SELECT * FROM #__eventgallery_comment '.
-					'  WHERE id = '.$this->_id;
-			$this->_db->setQuery( $query );
-			$this->_data = $this->_db->loadObject();
-		}
-		if (!$this->_data) {
-			$this->_data = new stdClass();
-			$this->_data->id = 0;
-			$this->_data->greeting = null;
-		}
-		return $this->_data;
-	}
+    protected function loadFormData()
+    {
+        // Check the session for previously entered form data.
+        $data = JFactory::getApplication()->getUserState('com_eventgallery.edit.comment.data', array());
 
-	function store()
-	{
-        /**
-         * @var JTable $row
-         */
-        $row = $this->getTable('comment');
+        if (empty($data))
+        {
+            $data = $this->getItem();
+            // Prime some default values.
+            if ($this->getState('comment.id') == 0)
+            {
+                $app = JFactory::getApplication();
+                $data->set('id', $app->input->get('id'));
+            }
+        }
+        
+		if (method_exists($this, 'preprocessData')) {
+        	$this->preprocessData('com_eventgallery.comment', $data);
+        }
 
-		$data = JRequest::get( 'post' );
-
-		if (!$row->bind($data)) {
-			$this->setError($this->_db->getErrorMsg());
-			return false;
-		}
-
-		if (!$row->check()) {
-			$this->setError($this->_db->getErrorMsg());
-			return false;
-		}
-		
-		if (!$row->store()) {
-			$this->setError( $this->_db->getErrorMsg() );
-			return false;
-		}
-
-		return true;
-	}
-
-
-	function delete()
-	{
-		$cids = JRequest::getVar( 'cid', array(0), 'post', 'array' );
-
-        /**
-         * @var JTable $row
-         */
-		$row = $this->getTable('comment');
-
-		if (count( $cids ))
-		{
-			foreach($cids as $cid) {
-				if (!$row->delete( $cid )) {
-					$this->setError( $this->_db->getErrorMsg() );
-					return false;
-				}
-			}						
-		}
-		return true;
-	}
-
-	function publish($visible)
-	{
-        /**
-         * @var JTable $row
-         */
-		$cids = JRequest::getVar( 'cid', array(0), '', 'array' );
-		if (count( $cids ))
-		{
-			foreach($cids as $cid) {
-                /**
-                 * @var TableComment $row
-                 */
-                $row = $this->getTable('comment');
-
-		        $query = ' SELECT * FROM #__eventgallery_comment '.
-							'  WHERE id = '.$cid;
-				$this->_db->setQuery( $query );
-				$data = $this->_db->loadObject();
-				$row->bind($data);
-				$row->published = $visible;
-				$row->id=$cid;
-				if (!$row->store()) {
-					$this->setError( $this->_db->getErrorMsg() );
-				}
-			}
-		}
-		return true;
-	}			
+        return $data;
+    }
 
 }

@@ -9,14 +9,17 @@
  */
 
 defined('_JEXEC') or die('Restricted access'); 
+
+JHtml::_('behavior.tooltip');
 $document = JFactory::getDocument();
 $version =  new JVersion();
 if ($version->isCompatible('3.0')) {
-
+ 
 } else {
     $css=JURI::base().'components/com_eventgallery/media/css/legacy.css';
     $document->addStyleSheet($css);
 }
+
 ?>
 
 <form action="index.php" method="post" id="adminForm" name="adminForm">
@@ -51,7 +54,7 @@ if ($version->isCompatible('3.0')) {
 				    if (strlen($filterItem)>0)
 				    {
 				        echo "<a href=\"";
-				        echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter='.$filterString );
+				        echo JRoute::_( 'index.php?option=com_eventgallery&view=comments&filter='.$filterString );
 				        echo "\">$filterItem</a>";
 				        if ($count<$total-2)
 				        {
@@ -95,8 +98,8 @@ if ($version->isCompatible('3.0')) {
 			{
 			    $row = $this->items[$i];
 			    $checked 	= JHTML::_('grid.id',   $i, $row->id );
-			    $published =  JHTML::_('jgrid.published', $row->published, $i,'Comment' );
-			    $link 		= JRoute::_( 'index.php?option=com_eventgallery&task=editComment&cid[]='. $row->id );
+			    $published =  JHTML::_('jgrid.published', $row->published, $i,'comments.' );			   
+			    $link 	= JRoute::_( 'index.php?option=com_eventgallery&task=comment.edit&id='. $row->id );
 
 			    ?>
 			<tr class="<?php echo "row$k"; ?>">
@@ -122,19 +125,19 @@ if ($version->isCompatible('3.0')) {
 				</td>
 				<td>
 					<a 
-					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=folder='.$row->folder.';'.$this->filter) ?>">+ Folder</a>
+					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&view=comments&filter=folder='.$row->folder.';'.$this->filter) ?>">+ Folder</a>
 					<br>
 					<a 
-					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=file='.$row->file.';folder='.$row->folder.';'.$this->filter) ?>">+ Bild</a>
+					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&view=comments&filter=file='.$row->file.';folder='.$row->folder.';'.$this->filter) ?>">+ Bild</a>
 					<br>
 					<a
-					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=name='.$row->name.';'.$this->filter) ?>">+ Name</a>
+					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&view=comments&filter=name='.$row->name.';'.$this->filter) ?>">+ Name</a>
 					<br>
 					<a
-					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=ip='.$row->ip.';'.$this->filter) ?>">+ IP</a>
+					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&view=comments&filter=ip='.$row->ip.';'.$this->filter) ?>">+ IP</a>
 					<br>
 					<a
-					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=user_id='.$row->user_id.';'.$this->filter) ?>">+ User</a>
+					href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&view=comments&filter=user_id='.$row->user_id.';'.$this->filter) ?>">+ User</a>
 				</td>		
 			</tr>
 			<?php
@@ -145,8 +148,10 @@ if ($version->isCompatible('3.0')) {
 		<?php echo $this->pagination->getListFooter(); ?>
 </div>
 
-<input type="hidden" name="option" value="com_eventgallery" /> 
-<input type="hidden" name="task" value="comments" />
-<input type="hidden" name="boxchecked" value="0" />
+	< <?php echo JHtml::_('form.token'); ?>
+    <input type="hidden" name="task" value="" />
+    <input type="hidden" name="boxchecked" value="0" />
+    <input type="hidden" name="limitstart" value="<?php echo $this->pagination->limitstart; ?>" />
+	<input type="hidden" name="option" value="com_eventgallery" />	
 
 </form>

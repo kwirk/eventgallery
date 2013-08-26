@@ -21,11 +21,12 @@ class TableFolder extends JTable
     public $published = null;
     public $text = null;
     public $userid = null;
-    public $lastmodified = null;
     public $ordering = null;
     public $password = null;
     public $cartable = null;
-    public $typesetid;
+    public $typesetid = null;
+    public $modified = null;
+    public $created = null;
 
     /**
      * Constructor

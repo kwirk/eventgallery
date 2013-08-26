@@ -12,19 +12,20 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableFile extends JTable
 {
-	var $id = null;
-	var $file = null;
-    var $folder = null;
-	var $hits = null;
-	var $caption = null;
-	var $title = null;
-	var $published = null;
-	var $allowcomments = null;
-	var $userid = null;
-	var $lastmodified = null;
-	var $ordering = null;
-	var $ismainimage = null;
-	var $ismainimageonly = null;
+	public $id = null;
+	public $file = null;
+    public $folder = null;
+	public $hits = null;
+	public $caption = null;
+	public $title = null;
+	public $published = null;
+	public $allowcomments = null;
+	public $userid = null;
+	public $ordering = null;
+	public $ismainimage = null;
+	public $ismainimageonly = null;
+	public $modified = null;
+	public $created = null;
 
     /**
      * Constructor

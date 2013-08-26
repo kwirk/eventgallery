@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_comment` (
   `date` datetime NOT NULL,
   `email` varchar(255) NOT NULL,
   `link` varchar(255) NOT NULL,
+  `modified` timestamp NULL DEFAULT NULL,
+  `created` timestamp NULL DEFAULT NULL, 
   PRIMARY KEY  (`id`),
   KEY `filefolderkey` (`folder`,`file`)
 );
@@ -30,7 +32,8 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_file` (
   `published` tinyint(4) NOT NULL default '1',
   `allowcomments` tinyint(4) NOT NULL default '1',
   `userid` int(11) NOT NULL,
-  `lastmodified` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `modified` timestamp NULL DEFAULT NULL,
+  `created` timestamp NULL DEFAULT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `file` (`folder`,`file`),
   KEY `index_file` (`file`),
@@ -51,7 +54,8 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_folder` (
   `imagetypesetid` int(11) DEFAULT NULL,
   `text` text,
   `userid` int(11) NOT NULL,
-  `lastmodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified` timestamp NULL DEFAULT NULL,
+  `created` timestamp NULL DEFAULT NULL,
   `ordering` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `folder` (`folder`)

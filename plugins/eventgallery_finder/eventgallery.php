@@ -335,7 +335,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
                         a.foldertags as foldertags,
                         a.text as text,
                         a.date as date,
-                        a.lastmodified as lastmodified')
+                        a.modified as modified')
             ->from('#__eventgallery_folder AS a');
 
         return $query;
@@ -354,7 +354,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
     {
         // Build an SQL query based on the modified time.
         $query = $this->db->getQuery(true)
-            ->where('a.lastmodified >= ' . $this->db->quote($time));
+            ->where('a.modified >= ' . $this->db->quote($time));
 
         return $query;
     }

@@ -12,18 +12,20 @@ defined('_JEXEC') or die('Restricted access');
 
 class TableComment extends JTable
 {
-	var $id = null;
-	var $file = null;
-    var $folder = null;
-	var $text = null;
-	var $name = null;
-	var $link = null;
-	var $email = null;
-	var $user_id = null;
-	var $date = null;
-	var $ip = null;
-	var $published = null;
-	var $lastmodified = null;
+	public $id = null;
+	public $file = null;
+    public $folder = null;
+	public $text = null;
+	public $name = null;
+	public $link = null;
+	public $email = null;
+	public $user_id = null;
+	public $date = null;
+	public $ip = null;
+	public $published = null;
+	public $modified = null;
+	public $created = null;
+  
 
     /**
      * Constructor
