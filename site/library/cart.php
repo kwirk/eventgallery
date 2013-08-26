@@ -125,6 +125,10 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
             throw new Exception("the item you try to add is not published.");
         }
 
+        if (!$file->isVisible()) {
+            throw new Exception("the item you try to add is not visible for you. You might want to login first.");
+        }
+
         if (!$file->isAccessible()) {
             throw new Exception("the item you try to add is not accessible. You might need to enter a password to unlock the folder first.");
         }

@@ -93,6 +93,23 @@ class EventViewEvent extends EventgalleryLibraryCommonView
             );
         }
 
+
+
+        if (!EventgalleryHelpersFolderprotection::isVisible($folder)) {
+            $user = JFactory::getUser();
+            if ($user->guest) {
+
+                $redirectUrl = JRoute::_("index.php?option=com_eventgallery&view=event&folder=" . $folder->folder, false);
+                $redirectUrl = urlencode(base64_encode($redirectUrl));
+                $redirectUrl = '&return='.$redirectUrl;
+                $joomlaLoginUrl = 'index.php?option=com_users&view=login';
+                $finalUrl = JRoute::_($joomlaLoginUrl . $redirectUrl, false);
+                $app->redirect($finalUrl);
+            } else {
+                $this->setLayout('noaccess');
+            }
+        }
+
         $password = JRequest::getString('password', '');
         $accessAllowed = EventgalleryHelpersFolderprotection::isAccessAllowed($folder, $password);
 

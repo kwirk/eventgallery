@@ -135,4 +135,13 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
         return true;
     }
 
+    /**
+     * Returns false if the current user is not allowed to see this item
+     *
+     * @return bool
+     */
+    public function isVisible() {
+        return EventgalleryHelpersFolderprotection::isVisible($this->_folder);
+    }
+
 }

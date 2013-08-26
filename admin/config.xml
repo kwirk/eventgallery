@@ -16,12 +16,12 @@
 		</field>
 		
 		
-		<field 	name="eventgallery_min_usergroup" 
+		<field 	name="eventgallery_default_usergroup" 
 				type="usergroup" 
 				default="1" 
 				multiple="true"
-				label="COM_EVENTGALLERY_OPTIONS_COMMON_MINUSERGROUP_LABEL" 
-				description="COM_EVENTGALLERY_OPTIONS_COMMON_MINUSERGROUP_DESCRIPTION" />
+				label="COM_EVENTGALLERY_OPTIONS_COMMON_DEFAULTUSERGROUP_LABEL" 
+				description="COM_EVENTGALLERY_OPTIONS_COMMON_DEFAULTUSERGROUP_DESCRIPTION" />
 		
 </fieldset>
 

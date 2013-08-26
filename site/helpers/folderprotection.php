@@ -12,6 +12,45 @@ class EventgalleryHelpersFolderprotection
 {
 
     /**
+     * Returns true if the folder is visible for the current user
+     *
+     * @param $folder
+     */
+    public static function isVisible($folder) {
+        $user = JFactory::getUser();
+
+        $params = JComponentHelper::getParams('com_eventgallery');
+        $minUserGroups = $params->get('eventgallery_default_usergroup');
+
+        // if no user groups are set at all
+        if (strlen($folder->usergroupids)==0 && count($minUserGroups)==0 ) {
+            return true;
+        }
+
+        // use the default usergroups if the folder does not define any
+        if (strlen($folder->usergroupids)==0) {
+            $folderUserGroups = $minUserGroups;
+        } else {
+            $folderUserGroups = explode(',', $folder->usergroupids);
+        }
+
+
+        // if the public user group is part of the folder user groups
+        if (in_array(1, $folderUserGroups)) {
+            return true;
+        }
+
+        $userUserGroups = JUserHelper::getUserGroups($user->id);
+        foreach($userUserGroups as $userUserGroup) {
+            if (in_array($userUserGroup, $folderUserGroups)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * returns true if the folder is unlocked. If a password is given we try to unlock
      * the folder. If the password is wrong or the folder is locked false is returned.
      */

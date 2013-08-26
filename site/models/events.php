@@ -34,8 +34,18 @@ class EventsModelEvents extends JModelLegacy
         $this->setState('limit',$limit);
         $this->setState('com_eventgallery.events.limitstart',$limitstart);
     }
-    
-    function getEntries($limitstart=0, $limit=0, $tags = "", $sortAttribute='ordering')
+
+    /**
+     *
+     *
+     * @param int $limitstart
+     * @param int $limit
+     * @param string $tags
+     * @param string $sortAttribute
+     * @param $usergroups
+     * @return array
+     */
+    function getEntries($limitstart=0, $limit=0, $tags = "", $sortAttribute='ordering', $usergroups)
     {
 
 
@@ -122,6 +132,14 @@ class EventsModelEvents extends JModelLegacy
 
                 $entries = $finalWinners;
             }
+
+            // filter by user group
+            foreach($entries as $key=>$entry) {
+                if (!EventgalleryHelpersFolderprotection::isVisible($entry)) {
+                    unset($entries[$key]);
+                }
+            }
+
 
             foreach($entries as $entry) {
 

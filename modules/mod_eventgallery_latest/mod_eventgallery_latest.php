@@ -24,6 +24,9 @@ JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_eventgallery/models',
  */
 $cache = JFactory::getCache('mod_eventgallery_latest');
 
+$user = JFactory::getUser();
+$usergroups = JUserHelper::getUserGroups($user->id);
+
 /**
  * @var EventsModelEvents $eventsModel
  * */
@@ -34,7 +37,8 @@ $events = $cache->call(
         -1,
         $params->get('max_images', 5),
         $params->get('tags', ''),
-        $params->get('sort_events_by', 'ordering')
+        $params->get('sort_events_by', 'ordering'),
+        $usergroups
 );
 
 $position = $params->get('event_history_position', 0);

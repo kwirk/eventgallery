@@ -60,10 +60,12 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
         $eventModel = JModelLegacy::getInstance('Event', 'EventModel');
 
 
+        $user = JFactory::getUser();
+        $usergroups = JUserHelper::getUserGroups($user->id);
         //$entries = $model->getEntries(JRequest::getVar('page',1),$entriesPerPage,$params->get('tags'));
         $entries = $this->cache->call(
             array($model, 'getEntries'), JRequest::getVar('start', 0), $entriesPerPage, $this->params->get('tags'),
-            $this->params->get('sort_events_by')
+            $this->params->get('sort_events_by'), $usergroups
         );
 
         $this->pageNav = $model->getPagination();
