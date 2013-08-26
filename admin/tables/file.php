@@ -35,4 +35,9 @@ class TableFile extends JTable
 	function TableFile($db) {
 		parent::__construct('#__eventgallery_file', 'id', $db);
 	}
+
+    public function store($updateNulls = false) {
+        $this->modified = date("Y-m-d H:i:s");
+        return parent::store($updateNulls);
+    }
 }

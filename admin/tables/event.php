@@ -20,8 +20,15 @@ jimport('component.com_eventgallery.tables.TableFile');
 class TableEvent extends JTable
 {
 
+
+
     function TableEvent($db) {
         parent::__construct('#__eventgallery_folder', 'id', $db);
+    }
+
+    public function store($updateNulls = false) {
+        $this->modified = date("Y-m-d H:i:s");
+        return parent::store($updateNulls);
     }
 }
 

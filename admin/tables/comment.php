@@ -35,4 +35,9 @@ class TableComment extends JTable
 	function TableComment($db) {
 		parent::__construct('#__eventgallery_comment', 'id', $db);
 	}
+
+    public function store($updateNulls = false) {
+        $this->modified = date("Y-m-d H:i:s");
+        return parent::store($updateNulls);
+    }
 }

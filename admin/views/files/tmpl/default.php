@@ -162,9 +162,11 @@ if ($version->isCompatible('3.0')) {
 					</a>
 				</td>
 				<td>
-					<?php $user = JFactory::getUser($row->userid); echo $user->name;?>, <br> 
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENT_FILE_CREATED' ); ?><?php echo JHTML::Date($row->created,JText::_('DATE_FORMAT_LC4')) ?>, <br>
-					<?php echo JText::_( 'COM_EVENTGALLERY_EVENT_FILE_MODIFIED' ); ?><?php echo JHTML::Date($row->modified,JText::_('DATE_FORMAT_LC4')) ?>
+					<small>
+						<?php $user = JFactory::getUser($row->userid); echo $user->name;?>, <br> 
+						<?php echo JText::_( 'COM_EVENTGALLERY_EVENT_FILE_CREATED' ); ?><?php echo JHTML::Date($row->created,JText::_('DATE_FORMAT_LC4')) ?>, <br>
+						<?php echo JText::_( 'COM_EVENTGALLERY_EVENT_FILE_MODIFIED' ); ?><?php echo JHTML::Date($row->modified,JText::_('DATE_FORMAT_LC4')) ?>
+					</small>
 				</td>
 				
 			</tr>
