@@ -169,8 +169,11 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         if ($context == 'com_eventgallery.event' || $context == 'com_eventgallery.events')
         {
             // Query the database for the old access level if the item isn't new
-            $this->remove($row->id);
-            $this->reindex($row->id);
+            if (!$isNew) {
+                $this->remove($row->id);            
+                $this->reindex($row->id);
+            }
+
 
         }
 
