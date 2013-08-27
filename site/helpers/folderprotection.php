@@ -34,15 +34,17 @@ class EventgalleryHelpersFolderprotection
             $folderUserGroups = explode(',', $folder->usergroupids);
         }
 
-
         // if the public user group is part of the folder user groups
         if (in_array(1, $folderUserGroups)) {
             return true;
         }
 
+
+
         $userUserGroups = JUserHelper::getUserGroups($user->id);
         foreach($userUserGroups as $userUserGroup) {
-            if (in_array($userUserGroup, $folderUserGroups)) {
+
+            if (count(array_intersect(EventgalleryHelpersUsergroups::getGroupPath($userUserGroup), $folderUserGroups))>0 ) {
                 return true;
             }
         }
