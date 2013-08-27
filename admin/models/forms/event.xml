@@ -39,7 +39,7 @@
                 />
         <field 	name="usergroups" 
 				type="usergroup" 
-				default="1" 
+				default="" 
 				multiple="true"
 				label="COM_EVENTGALLERY_EVENTS_USERGROUPS" 
 				description="COM_EVENTGALLERY_EVENTS_USERGROUPS_DESCRIPTION" />
