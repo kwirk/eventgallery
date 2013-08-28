@@ -17,6 +17,7 @@
 		<file type="module" id="eventgallery_full" client="site">mod_eventgallery_latest_$$fileversion$$.zip</file>
 		<file type="plugin" id="eventgallery_full" group="finder">plg_eventgallery_finder_$$fileversion$$.zip</file>
 		<file type="plugin" id="eventgallery_full" group="search">plg_eventgallery_search_$$fileversion$$.zip</file>
+		<file type="plugin" id="eventgallery_full" group="content">plg_eventgallery_content_$$fileversion$$.zip</file>
 		<file type="plugin" id="eventgallery_full" group="eventgallery_sur">plg_eventgallery_sur_standard_$$fileversion$$.zip</file>
 		<file type="plugin" id="eventgallery_full" group="eventgallery_pay">plg_eventgallery_pay_standard_$$fileversion$$.zip</file>
 		<file type="plugin" id="eventgallery_full" group="eventgallery_pay">plg_eventgallery_pay_paypal_$$fileversion$$.zip</file>
