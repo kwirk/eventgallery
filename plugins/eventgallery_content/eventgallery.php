@@ -61,35 +61,54 @@ class PlgContentEventgallery extends JPlugin
             return;
         }
 
-        $foldername = "test";
-        $result = "";
+        preg_match_all("/\{eventgallery ([^\}]*)\}/", $row->text, $matches);
 
-        if ($foldername) {
+
+
+        foreach($matches[0] as $key=>$value) {
+            $result = "";
+            preg_match("/event=\"([^\"]*)\"/", $value, $folderMatches);
+            if (!isset($folderMatches[1])) {
+                continue;
+            }
+            $foldername = $folderMatches[1];
+
+            $max_images = "5";
+            preg_match("/max_images=\"?([-0-9]+)\"?/", $value, $maxImagesMatches);
+            if (isset($maxImagesMatches[1])) {
+                $max_images = $maxImagesMatches[1];
+            }
+
+            $params->set('thumb_width', 50);
+            preg_match("/thumb_width=\"?([0-9]+)\"?/", $value, $sizeMatches);
+            if (isset($sizeMatches[1])) {
+                $params->set('thumb_width', $sizeMatches[1]);
+            }
+
             /**
              * @var EventModelEvent $model
              * */
             $model = JModelLegacy::getInstance('Event', 'EventModel', array('ignore_request' => true));
             $folder = $model->getFolder($foldername);
 
-
-
             if (isset($folder) && $folder->published==1 && EventgalleryHelpersFolderprotection::isAccessAllowed($folder) && EventgalleryHelpersFolderprotection::isVisible($folder)) {
-                $files = $model->getEntries($foldername, 0, $params->get('max_images'), 1);
+                $files = $model->getEntries($foldername, 0, $max_images, 1);
 
+                // Get the path for the layout file
+                $path = JPluginHelper::getLayoutPath('content', 'eventgallery');
+
+                // Render
                 ob_start();
-
-                // Include the requested template filename in the local scope
-                // (this will execute the view logic).
-                include __DIR__.'/tmpl/default.php';
-
-                // Done with the requested template; get the buffer and
-                // clear it.
-                $result = ob_get_contents();
-                ob_end_clean();
+                include $path;
+                $result = ob_get_clean();
             }
+
+
+            $row->text = str_replace($value, $result, $row->text, $count );
         }
 
-        $row->text = str_replace("{eventgallery}", $result, $row->text);
+
+
 
         return true;
     }

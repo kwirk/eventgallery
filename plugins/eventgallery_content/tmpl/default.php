@@ -2,13 +2,13 @@
 defined('_JEXEC') or die('Restricted access'); ?>
 
 <style>
-    .mod-eventgallery-event .thumbnail{
+    .plg-eventgallery-event .thumbnail{
         float: left;
     }
 
 </style>
 
-<div class="mod-eventgallery-event">
+<div class="plg-eventgallery-event">
     <div class="thumbnails">
         <?php foreach($files as $file):?>
 
@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
                     /**
                      * @var EventgalleryHelpersImageInterface $file
                      */
-                    echo $file->getThumbImgTag($params->get('thumb_width', 50), $params->get('thumb_width', 50), '', true);
+                    echo $file->getThumbImgTag($params->get('thumb_width'), $params->get('thumb_width'), '', true);
                 ?></a>
 
         <?php endforeach; ?>
