@@ -132,7 +132,7 @@ defined('_JEXEC') or die('Restricted access');
                            data-folder="<?php echo $this->entry->folder ?>"
                            data-file="<?php echo $this->entry->file; ?>"><i class="big"></i></a>
                     <?php ENDIF ?>
-                    <?php IF ($this->params->get('use_social_sharing_button', 0)==1):?>
+                    <?php IF ($this->params->get('use_social_sharing_button', 0)==1 && $this->folder->attribs['use_social_sharing']==1):?>
 					     <a rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->folder.'&file='.$this->entry->file.'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="big"></i></a>
 					<?php ENDIF ?>
                 </div>

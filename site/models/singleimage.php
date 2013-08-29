@@ -191,6 +191,10 @@ class EventgalleryModelSingleimage extends JModelLegacy
         	          where published=1 and folder=' . $this->_db->Quote($folder);
             $folders = $this->_getList($query);
             $this->folder = $folders[0];
+            // Convert the params field to an array.
+            $registry = new JRegistry;
+            $registry->loadString($this->folder->attribs);
+            $this->folder->attribs = $registry->toArray();
         }
     }
 

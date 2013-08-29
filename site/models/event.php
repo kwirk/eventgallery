@@ -99,6 +99,7 @@ class EventModelEvent extends JModelLegacy
 
         $result = Array();
         foreach ($entries as $entry) {
+            
             $result[] = new EventgalleryHelpersImageLocal($entry);
         }
 
@@ -165,6 +166,11 @@ class EventModelEvent extends JModelLegacy
 
         $folder->text = $splittedText->fulltext;
         $folder->introtext = $splittedText->introtext;
+
+        // Convert the params field to an array.
+        $registry = new JRegistry;
+        $registry->loadString($folder->attribs);
+        $folder->attribs = $registry->toArray();
 
         return $folder;
     }

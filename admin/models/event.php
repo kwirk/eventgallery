@@ -19,6 +19,19 @@ jimport('joomla.filesystem.file');
 class EventgalleryModelEvent extends JModelAdmin
 {
 
+    public function getItem($pk = null) {
+        $item = parent::getItem($pk);
+
+        if ($item!== false) {
+            // Convert the params field to an array.
+            $registry = new JRegistry;
+            $registry->loadString($item->attribs);
+            $item->attribs = $registry->toArray();
+        }
+
+        return $item;
+    }
+
     public function getTable($type = 'Event', $prefix = 'Table', $config = array())
     {
         return JTable::getInstance($type, $prefix, $config);

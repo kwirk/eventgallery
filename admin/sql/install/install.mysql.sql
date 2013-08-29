@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `#__eventgallery_folder` (
   `created` timestamp NULL DEFAULT NULL,
   `ordering` int(10) unsigned NOT NULL DEFAULT '0',
   `usergroupids` text,
+  `attribs` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `folder` (`folder`)
 );

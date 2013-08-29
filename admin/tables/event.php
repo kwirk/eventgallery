@@ -30,5 +30,32 @@ class TableEvent extends JTable
         $this->modified = date("Y-m-d H:i:s");
         return parent::store($updateNulls);
     }
+
+
+	/**
+	 * Overloaded bind function
+	 *
+	 * @param   array  $array   Named array
+	 * @param   mixed  $ignore  An optional array or space separated list of properties
+	 *                          to ignore while binding.
+	 *
+	 * @return  mixed  Null if operation was satisfactory, otherwise returns an error string
+	 *
+	 * @see     JTable::bind
+	 * @since   11.1
+	 */
+	public function bind($array, $ignore = '')
+	{		
+
+		if (isset($array['attribs']) && is_array($array['attribs']))
+		{
+			$registry = new JRegistry;
+			$registry->loadArray($array['attribs']);
+			$array['attribs'] = (string) $registry;
+		}
+		
+		return parent::bind($array, $ignore);
+	}
+
 }
 
