@@ -10,6 +10,7 @@
 	<description>PLG_EVENTGALLERY_CONTENT_DESC</description>
 	<files>
 		<folder>language</folder>
+		<folder>tmpl</folder>
 		<filename plugin="eventgallery">eventgallery.php</filename>
 		<filename>index.html</filename>
 	</files> 	
