@@ -38,7 +38,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
                 'next_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>',
                 'zoom_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
                 'titleTarget': 'bigImageDescription',
-                'showSocialMediaButton': <?php echo $this->params->get('use_social_sharing_button', 0)==1?'true':'false'?>,
+                'showSocialMediaButton': <?php echo ($this->params->get('use_social_sharing_button', 0)==1  && $this->folder->attribs->get('use_social_sharing', 1)==1)?'true':'false'?>,
                 'showCartButton': <?php echo $this->folder->cartable==1?'true':'false'; ?>,
                 'showCartConnector': <?php echo $this->params->get('show_cart_connector', 0)==1&&$this->folder->cartable==1?'true':'false'; ?>,
 				'cartConnectorLinkRel' : '<?php echo $this->params->get('cart_connector_link_rel', 'nofollow')?>',
