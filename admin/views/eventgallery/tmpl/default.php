@@ -124,10 +124,6 @@ if ($version->isCompatible('3.0')) {
 		</div>
 	</div>
 
-
-
-	
-
 </div>
 
 <form action="index.php" method="post" id="adminForm" name="adminForm">

@@ -14,11 +14,16 @@ jimport( 'joomla.application.component.view');
 /** @noinspection PhpUndefinedClassInspection */
 class EventgalleryViewEventgallery extends EventgalleryLibraryCommonView
 {
+    protected $version;
 
 	function display($tpl = null)
 	{				
 		// Get data from the model
-		
+        $componentId = JComponentHelper::getComponent('com_eventgallery')->id;
+        $extension = JTable::getInstance('extension');
+        $extension->load($componentId);
+        $data = json_decode($extension->manifest_cache, true);
+        $this->version = $data['version'];
 
 		EventgalleryHelpersEventgallery::addSubmenu('events');		
 		$this->sidebar = JHtmlSidebar::render();
@@ -28,7 +33,7 @@ class EventgalleryViewEventgallery extends EventgalleryLibraryCommonView
 
 	protected function addToolbar() {
 
-		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTGALLERY' ), 'generic.png' );
+		JToolBarHelper::title(   JText::_( 'COM_EVENTGALLERY_EVENTGALLERY' ) . " ". $this->version, 'generic.png' );
 		//JToolBarHelper::deleteList();
 		JToolBarHelper::preferences('com_eventgallery', '550');
 
