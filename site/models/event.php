@@ -170,7 +170,7 @@ class EventModelEvent extends JModelLegacy
         // Convert the params field to an array.
         $registry = new JRegistry;
         $registry->loadString($folder->attribs);
-        $folder->attribs = $registry->toArray();
+        $folder->attribs = $registry;
 
         return $folder;
     }

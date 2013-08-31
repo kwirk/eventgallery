@@ -194,7 +194,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
             // Convert the params field to an array.
             $registry = new JRegistry;
             $registry->loadString($this->folder->attribs);
-            $this->folder->attribs = $registry->toArray();
+            $this->folder->attribs = $registry;
         }
     }
 
