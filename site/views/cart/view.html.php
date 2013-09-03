@@ -52,7 +52,7 @@ class CartViewCart extends EventgalleryLibraryCommonView
         $pathway->addItem(JText::_('COM_EVENTGALLERY_CART_PATH'));
 
         // show a disabled message once the cart is not active
-        if ($this->params->get('use_cart',0)==0) {
+        if ($this->params->get('use_cart',1)==0) {
             $this->setLayout('disabled');
         }
 
