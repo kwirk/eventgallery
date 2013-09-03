@@ -31,7 +31,7 @@ class EventgalleryLibraryManagerImagetypeset extends  EventgalleryLibraryManager
             $query = $db->getQuery(true);
             $query->select('id');
             $query->from('#__eventgallery_imagetypeset');
-            $query->order('`default` DESC');
+            $query->order($db->quoteName('default') . ' DESC');
             $query->order('ordering');
             $db->setQuery($query);
             $items = $db->loadObjectList();

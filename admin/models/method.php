@@ -100,14 +100,14 @@ class EventgalleryModelMethod extends JModelAdmin
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
             $query->update($this->table_name);
-            $query->set('`default` = 0');
+            $query->set($db->quoteName('default') . ' = 0');
             $db->setQuery($query);
             $db->execute();
 
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
             $query->update($this->table_name);
-            $query->set('`default` = 1');
+            $query->set($db->quoteName('default') . ' = 1');
             $query->where('id='.$db->quote($id));
 
             $db->setQuery($query);

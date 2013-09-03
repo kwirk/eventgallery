@@ -29,7 +29,8 @@ class EventgalleryLibraryFactoryOrder extends EventgalleryLibraryFactoryFactory
 
         $query = $db->getQuery(true);
         $query->insert("#__eventgallery_order");
-        $query->set("id=".$db->quote($uuid));
+        $query->columns('id');
+        $query->values($db->quote($uuid));
         $db->setQuery($query);
         $db->execute();
 

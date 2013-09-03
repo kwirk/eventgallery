@@ -62,7 +62,7 @@ class EventgalleryLibraryManagerOrderstatus extends EventgalleryLibraryManagerMa
         $query->select('s.*');
         $query->from('#__eventgallery_orderstatus s');
         $query->where('type='.$db->quote($typeid));
-        $query->order('`default` DESC');
+        $query->order($db->quoteName('default') .' DESC');
         $query->order('ordering');
         $db->setQuery($query);
         $items = $db->loadObjectList();

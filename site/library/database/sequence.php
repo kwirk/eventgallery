@@ -22,7 +22,8 @@ class EventgalleryLibraryDatabaseSequence
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->insert("#__eventgallery_sequence");
-        $query->set('value=0');
+        $query->columns('value');
+        $query->values('0');
         $db->setQuery($query);
         $db->execute();
         return $db->insertid();

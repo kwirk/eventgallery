@@ -57,7 +57,8 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
 
             $query = $db->getQuery(true);
             $query->insert("#__eventgallery_cart");
-            $query->set("id=".$db->quote($uuid));
+            $query->columns("id");
+            $query->values($db->quote($uuid));
             $db->setQuery($query);
             $db->execute();
 

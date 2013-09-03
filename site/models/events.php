@@ -65,23 +65,24 @@ class EventsModelEvents extends JModelLegacy
         }
 
         if ($this->_entries == null) {
-            $query = 'SELECT folder.*, count(1) overallCount 
-                      FROM #__eventgallery_folder folder left join #__eventgallery_file file on 
-                            folder.folder = file.folder AND folder.published=1 AND file.published=1                         
-                      WHERE folder.published=1 
-                        and (isnull(file.ismainimageonly) OR file.ismainimageonly=0)
-                      GROUP by folder.folder ';
+            $query = $this->_db->getQuery(true)
+                ->select('folder.*, count(1) AS '.$this->_db->quoteName('overallCount'))
+                ->from($this->_db->quoteName('#__eventgallery_folder') . ' AS folder')
+                ->join('LEFT', $this->_db->quoteName('#__eventgallery_file') . ' AS file ON folder.folder = file.folder AND folder.published=1 AND file.published=1')
+                ->where('(file.ismainimageonly IS NULL OR file.ismainimageonly=0)')
+                ->group('folder.id')
+                ->group('folder.folder');
 
             if ($sortAttribute == "date_asc") {
-                $query .= 'ORDER by date asc, ordering desc';            
+                $query->order('date ASC, ordering DESC');
             } elseif ($sortAttribute == "date_desc") {
-                $query .= 'ORDER by date desc, ordering desc';            
+                $query->order('date DESC, ordering DESC');
             } elseif ($sortAttribute == "name_asc") {
-                $query .= 'ORDER by folder.folder asc';            
+                $query->order('folder.folder ASC');
             } elseif ($sortAttribute == "name_desc") {
-                $query .= 'ORDER by folder.folder desc';            
+                $query->order('folder.folder DESC');
             } else {
-                $query .= 'ORDER by ordering desc';
+                $query->order('ordering DESC');
             }
             
             $entries = $this->_getList($query);
@@ -195,10 +196,11 @@ class EventsModelEvents extends JModelLegacy
     {
         if (!$this->_commentCount)
         {
-            $query = 'select folder, count(1) commentCount 
-                      from #__eventgallery_comment
-                      where published=1
-                      group by folder';
+            $query = $this->_db->getQuery(true)
+                ->select('folder, count(1) AS commentCount')
+                ->from($this->_db->quoteName('#__eventgallery_comment'))
+                ->where('published=1')
+                ->group('folder');
             $comments = $this->_getList($query,0,0);
             $this->_commentCount = array();
             foreach($comments as $comment)
@@ -213,7 +215,10 @@ class EventsModelEvents extends JModelLegacy
     function getFolderCount()
     {
         $db = JFactory::getDBO();
-        $query = 'SELECT count(1) from #__eventgallery_folder where published=1';
+        $query = $db->getQuery(true)
+            ->select('count(1)')
+            ->from($db->quoteName('#__eventgallery_folder'))
+            ->where('published=1');
         $db->setQuery( $query );
         return $db->loadResult();
     }
@@ -221,9 +226,11 @@ class EventsModelEvents extends JModelLegacy
     function getFileCount()
     {
         $db = JFactory::getDBO();
-        $query = 'SELECT count(1) from #__eventgallery_file file join #__eventgallery_folder folder 
-                    on file.folder=folder.folder 
-                    where file.published=1 and folder.published=1';
+        $query = $db->getQuery(true)
+            ->select('count(1)')
+            ->from($db->quoteName('#__eventgallery_file') . ' AS file')
+            ->join('INNER', $db->quoteName('#__eventgallery_folder') . ' AS folder ON file.folder=folder.folder')
+            ->where('file.published=1 and folder.published=1');
         $db->setQuery( $query );
         return $db->loadResult();
     }

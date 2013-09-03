@@ -34,7 +34,7 @@ class EventgalleryModelFiles extends JModelList
 
 
 		$query->select('file.*');
-        $query->select('IF (isNull(comment.id),0,sum(1)) commentCount');
+        $query->select('CASE WHEN comment.id IS NULL THEN 0 ELSE sum(1) END AS '.$db->quoteName('commentCount'));
 		$query->from('#__eventgallery_file AS file');
         $query->join('','#__eventgallery_folder AS folder on folder.folder=file.folder');
         $query->leftJoin('#__eventgallery_comment comment on file.folder=comment.folder and file.file=comment.file');
@@ -49,8 +49,10 @@ class EventgalleryModelFiles extends JModelList
     {
         // Load the data
         if (empty( $this->_item )) {
-            $query = ' SELECT * FROM #__eventgallery_folder '.
-                '  WHERE id = \''.$this->_id.'\'';
+            $query = $this->_db->getQuery(true)
+                ->select('*')
+                ->from($this->_db->quoteName('#__eventgallery_folder'))
+                ->where('id='.$this->_db->quote($this->_id));
             $this->_db->setQuery( $query );
             $this->_item = $this->_db->loadObject();
         }

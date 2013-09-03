@@ -23,8 +23,10 @@ class EventgalleryModelComment extends JModelLegacy
     {
         $db = JFactory::getDBO();
 
-        $query = ' SELECT * FROM #__eventgallery_comment ' .
-            ' WHERE id=' . $db->Quote($commentId);
+        $query = $db->getQuery(true)
+            ->select('*')
+            ->from($db->quoteName('#__eventgallery_comment'))
+            ->where('id=' . $db->quote($commentId));
         $db->setQuery($query);
         return $db->loadObject();
     }
@@ -33,8 +35,11 @@ class EventgalleryModelComment extends JModelLegacy
     {
         $db = JFactory::getDBO();
         $comment = $this->getData($commentId);
-        $query = ' SELECT * FROM #__eventgallery_file ' .
-            ' WHERE file=' . $db->Quote($comment->file) . ' and folder=' . $db->Quote($comment->folder);
+        $query = $db->getQuery(true)
+            ->select('*')
+            ->from($db->quoteName('#__eventgallery_file'))
+            ->where('file=' . $db->quote($comment->file))
+            ->where('folder=' . $db->quote($comment->folder));
         $db->setQuery($query);
         return new EventgalleryHelpersImageLocal($db->loadObject());
     }

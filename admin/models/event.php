@@ -41,10 +41,16 @@ class EventgalleryModelEvent extends JModelAdmin
 	function changeFolderName($oldFolder, $newFolder)
 	{
 		$db = JFactory::getDBO();
-		$query = "update #__eventgallery_file set folder='$newFolder' where folder='$oldFolder';";
+		$query = $db->getQuery(true)
+			->update($db->quoteName('#__eventgallery_file'))
+			->set('folder=' . $db.quote($newFolder))
+			->where('folder=' . $db.quote($oldFolder));
 		$db->setQuery($query);
 		$db->query();
-		$query = "update #__eventgallery_comment set folder='$newFolder' where folder='$oldFolder';";
+		$query = $db->getQuery(true)
+			->update($db->quoteName('#__eventgallery_comment'))
+			->set('folder=' . $db.quote($newFolder))
+			->where('folder=' . $db.quote($oldFolder));
 		$db->setQuery($query);
 		$db->query();
 	}
