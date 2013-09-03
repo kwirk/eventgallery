@@ -127,6 +127,7 @@ class EventgalleryModelMethod extends JModelAdmin
              */
             $classname = $this->manager_classname;
             $methodMgr = $classname::getInstance();
+            $methodMgr->refreshMethods();
             $method = $methodMgr->getMethod($data['id'], false);
             if ($method) {
                 $success &= $method->onSaveAdminForm($data);

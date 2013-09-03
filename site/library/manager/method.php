@@ -76,6 +76,14 @@ abstract class EventgalleryLibraryManagerMethod extends EventgalleryLibraryManag
     }
 
     /**
+     * resets the cache
+     */
+    public function refreshMethods() {
+        $this->_methods = NULL;
+        $this->_methods_published = NULL;
+    }
+
+    /**
      * @return EventgalleryLibraryInterfaceMethod
      */
     public function getDefaultMethod()
