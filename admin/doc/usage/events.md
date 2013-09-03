@@ -61,6 +61,10 @@ The view let's you edit the details of an event.
 
 	You can add additional text to an event. This text is usually shown above the thumbnails in the front end.
 
+- Others
+	
+	Use this tab to controll more settings for this event like the options for social sharing.
+
 ![Event page](img/backend/backend_event_create.jpg)
 
 

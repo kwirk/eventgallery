@@ -162,7 +162,15 @@
 				default="" 
 				label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_APPDID" 
 				description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_APPIC_DESCRIPTION" />
-				
+		
+		<field name="use_social_sharing_facebook_type" type="list" class="" default="photo_share" 
+		            label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_TYPE_LABEL" 
+		      description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_TYPE_DESCRIPTION">
+			<option value="photo_share">COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_PHOTOSHARE</option>
+			<option value="feed_dialog">COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_FEEDDIALOG</option>
+			<option value="share_dialog">COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_SHAREDIALOG</option>
+		</field>
+		
 		<field name="use_social_sharing_facebook" type="radio" class="btn-group" default="0" 
 		            label="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_LABEL" 
 		      description="COM_EVENTGALLERY_OPTIONS_COMMON_USE_SOCIAL_SHARING_FACEBOOK_DESCRIPTION">

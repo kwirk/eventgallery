@@ -11,80 +11,57 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-$title = "";
-$description = $this->model->folder->description;;
-$subject = $this->model->folder->description." "; 
-$link =  JRoute::_('index.php?option=com_eventgallery&view=singleimage&format=raw&folder='.$this->model->file->folder.'&file='.$this->model->file->file, true, -1);
-$image = $this->model->file->getImageUrl(500,500, false);
-$twitter = $description;
+$this->description = $this->model->folder->description;
+$this->subject = $this->model->folder->description." "; 
+$this->link =  JRoute::_('index.php?option=com_eventgallery&view=singleimage&format=raw&folder='.$this->model->file->folder.'&file='.$this->model->file->file, true, -1);
+$this->image = $this->model->file->getImageUrl(500,500, false);
+$this->twitter = $this->description;
 
-$imageurl = JURI::base().'images/eventgallery/'.$this->model->file->folder.'/'.$this->model->file->file;
+$this->imageurl = JURI::base().'images/eventgallery/'.$this->model->file->folder.'/'.$this->model->file->file;
 // handle picasa images
 if (strpos($this->model->file->folder,'@')>0) {
-	$imageurl = $this->model->file->getImageUrl(600, 600, true);
+	$this->imageurl = $this->model->file->getImageUrl(600, 600, true);
 }
 
 ?>
 <?php IF ($this->params->get('use_social_sharing_button', 0)==1 && $this->model->folder->attribs->get('use_social_sharing',1)==1):?>			    		
 <a href="#" style="float: left" class="social-share-button" rel="sharingbutton-close"><i class="big"></i></a>	 
 
-	<?php IF ($this->params->get('use_social_sharing_facebook', 0)==1 && $this->model->folder->attribs->get('use_social_sharing_facebook',1)==1):?>			    
-		<a href="#" id="facebook-post-image"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/facebook.png' ?>" alt="Facebook" title="Facebook"></a>
-		<script>
+	<?php IF ($this->params->get('use_social_sharing_facebook', 0)==1 && $this->model->folder->attribs->get('use_social_sharing_facebook',1)==1):?>	
 
-			var shareFunction = function(e) {
-				e.preventDefault();
+		<?php IF ($this->params->get('use_social_sharing_facebook_type', 'photo_share') == 'photo_share'): ?>		    
+			<?php echo $this->loadTemplate('facebook_photoshare'); ?>
+		<?php ENDIF ?>
 
-				//change the facebook icon
-				$$('#facebook-post-image img').set('src',"<?php echo JUri::base().'components/com_eventgallery/media/images/loading.gif' ?>");
-	
-				var wallPost = {
-				    picture: "<?php echo $imageurl ?>"
-				};
+		<?php IF ($this->params->get('use_social_sharing_facebook_type', 'photo_share') == 'feed_dialog'): ?>		    
+			<?php echo $this->loadTemplate('facebook_feeddialog'); ?>
+		<?php ENDIF ?>
 
-				FB.login(function(response) {
-			        if (response.authResponse) {
-			            var access_token =   FB.getAuthResponse()['accessToken'];
-			            FB.api('/me/photos?access_token='+access_token, 'post', { url: wallPost.picture, access_token: access_token }, function(response) {
-			                if (!response || response.error) {
-			                    //alert('Error occured: ' + JSON.stringify(response.error));
-			                  } else {
-			                    alert('<?php echo JTEXT::_('COM_EVENTGALLERY_SOCIAL_SHARE_IMAGE_SHARED')?>');
-			                  }
-			                $$('#facebook-post-image img').set('src',"<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/facebook.png' ?>");
-			            });
-			        } else {
-			            //console.log('User cancelled login or did not fully authorize.');
-			            $$('#facebook-post-image img').set('src',"<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/facebook.png' ?>");
-			        }
-			    }, {scope: 'publish_stream'});
+		<?php IF ($this->params->get('use_social_sharing_facebook_type', 'photo_share') == 'share_dialog'): ?>		    
+			<?php echo $this->loadTemplate('facebook_sharedialog'); ?>
+		<?php ENDIF ?>
 
-			};
-
-			$('facebook-post-image').addEvent('click', shareFunction);
-
-		</script>
 	<?php ENDIF ?>
 
 	<?php IF ($this->params->get('use_social_sharing_google', 0)==1 && $this->model->folder->attribs->get('use_social_sharing_google',1)==1):?>			    
-		<a href="https://plus.google.com/share?url=<?php echo urlencode($link)?>" onclick="javascript:window.open(this.href,
+		<a href="https://plus.google.com/share?url=<?php echo urlencode($this->link)?>" onclick="javascript:window.open(this.href,
 		  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes');return false;"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/google.png' ?>" alt="Google+" title="Google+"></a>
 	<?php ENDIF ?>
 
 	<?php IF ($this->params->get('use_social_sharing_twitter', 0)==1 && $this->model->folder->attribs->get('use_social_sharing_twitter',1)==1):?>			    
-		<a href="https://twitter.com/intent/tweet?source=webclient&text=<?php echo $twitter?>" 
-		   onclick="window.open('http://twitter.com/share?url=<?php echo $link?>&text=<?php echo urlencode($twitter)?>', 'twitterwindow', 'height=450, width=550, toolbar=0, location=1, menubar=0, directories=0, scrollbars=auto'); return false;"
+		<a href="https://twitter.com/intent/tweet?source=webclient&text=<?php echo $this->twitter?>" 
+		   onclick="window.open('http://twitter.com/share?url=<?php echo $this->link?>&text=<?php echo urlencode($this->twitter)?>', 'twitterwindow', 'height=450, width=550, toolbar=0, location=1, menubar=0, directories=0, scrollbars=auto'); return false;"
 		   ><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/twitter.png' ?>" alt="Twitter" title="Twitter"></a>
 	<?php ENDIF ?>
 
 	<?php IF ($this->params->get('use_social_sharing_pinterest', 0)==1 && $this->model->folder->attribs->get('use_social_sharing_pinterest', 1)==1):?>			    
-		<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($link)?>&media=<?php echo urlencode($image)?>&description=<?php echo $description?>"
+		<a href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($this->link)?>&media=<?php echo urlencode($this->image)?>&description=<?php echo $this->description?>"
 			onclick="javascript:window.open(this.href,
 		  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes');return false;"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/interest.png' ?>" alt="Pinterest" title="Pinterest"></a>
 	<?php ENDIF ?>
 
 	<?php IF ($this->params->get('use_social_sharing_email', 0)==1 && $this->model->folder->attribs->get('use_social_sharing_email', 1)==1):?>			    
-		<a href="mailto:?subject=<?php echo $subject?>&body=<?php echo $link?>" onclick=""> <img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/email.png' ?>" alt="Mail" title="Mail"></a>
+		<a href="mailto:?subject=<?php echo $this->subject?>&body=<?php echo $this->link?>" onclick=""> <img src="<?php echo JUri::base().'components/com_eventgallery/media/images/social/32/email.png' ?>" alt="Mail" title="Mail"></a>
 	<?php ENDIF ?>
 
 	<?php IF ($this->params->get('use_social_sharing_download', 0)==1 && $this->model->folder->attribs->get('use_social_sharing_download', 1)==1):?>			    

@@ -117,7 +117,12 @@ There are only a few things globally manageable. Especially the appearance of th
 
 	Specify a App Id for your Facebook application which is responsible for sharing the links to your images. Make sure the App is configured to work with your domain. Make sure the App is configured to work with your domain. The App need to have the permission photo_upload. 
 
+- Facebook Share Type
 
+	You can use differt sharing options for your facebook account like
+	- The Share dialog https://developers.facebook.com/docs/reference/plugins/share-links/
+	- The Feed dialog https://developers.facebook.com/docs/ios/feed-dialog-using-ios-sdk/
+	- Directly post the image to the users albums
 
 
 
