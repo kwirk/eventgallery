@@ -24,6 +24,8 @@ defined('_JEXEC') or die('Restricted access');
     <?php $this->set('address',$this->lineitemcontainer->getShippingAddress()); echo $this->loadSnippet('checkout/address') ?>    
 </div>
 
+<div class="clearfix"></div>
+
 <?php echo $this->loadSnippet('checkout/lineitems') ?>
 
 <?php echo $this->loadSnippet('checkout/total') ?>
