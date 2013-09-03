@@ -35,7 +35,7 @@ class EventgalleryHelpersImageHelper
             //mkdir($cachebasedir, 0777);
             mkdir(JPATH_CACHE);
             #echo "created $cachebasedir <br>";
-            JLog::add('have to create dir ' . JPATH_CACHE, JLog::INFO, 'com_eventgallery');
+            #JLog::add('have to create dir ' . JPATH_CACHE, JLog::INFO, 'com_eventgallery');
         }
 
         $cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery';
@@ -43,7 +43,7 @@ class EventgalleryHelpersImageHelper
             //mkdir($cachebasedir, 0777);
             mkdir($cachebasedir);
             #echo "created $cachebasedir <br>";
-            JLog::add('have to create dir ' . $cachebasedir, JLog::INFO, 'com_eventgallery');
+            #JLog::add('have to create dir ' . $cachebasedir, JLog::INFO, 'com_eventgallery');
 
 
         }
@@ -54,7 +54,7 @@ class EventgalleryHelpersImageHelper
             //mkdir($cachebasedir, 0777);
             mkdir($cachebasedir);
             #echo "created $cachebasedir <br>";
-            JLog::add('have to create dir ' . $cachebasedir, JLog::INFO, 'com_eventgallery');
+            #JLog::add('have to create dir ' . $cachebasedir, JLog::INFO, 'com_eventgallery');
 
 
         }
@@ -67,9 +67,12 @@ class EventgalleryHelpersImageHelper
 
         } else {
 
-            //JLog::add('have write new cache file for '.$url, JLog::INFO, 'com_eventgallery');
+            //JLog::add('have writen new cache file for '.$url, JLog::INFO, 'com_eventgallery');
 
-            $xml = @file_get_contents($url);
+            $xml = file_get_contents($url);
+            if ($xml===false) {
+                JLog::add('unable to connect to remote host. Make sure allow_url_fopen=On and the server has access to the internet. url: '.$url, JLog::INFO, 'com_eventgallery');                
+            }
             $xml = str_replace("xmlns='http://www.w3.org/2005/Atom'", '', $xml);
             #echo "reloading content from $url <br>";
             if (strlen($xml) > 0) {
@@ -77,7 +80,7 @@ class EventgalleryHelpersImageHelper
                 fwrite($fh, $xml);
                 fclose($fh);
             }
-            JLog::add('have wrote xml to file ' . $cachefilename, JLog::INFO, 'com_eventgallery');
+            #
 
         }
 

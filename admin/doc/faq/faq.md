@@ -1,23 +1,28 @@
 ## Thumbs do not show up {#thumbs}
 
+There are a couple of reasons why thumbs don't show up. At first you have to check if the thumbs are visible in the back end. Of so you it's most likely an issue which occurs in your browser since the server can render images. The following lists point you so some of the most common issues.
+
 ### Server
+
 - `mod_secure`: Please `ask your provider` about possible issues with that. Doing this solved 99% of the issue.
 - Error 500: PHP memory size too low. I have good experience with 128M. Depends on the size of your images
 - do not use special characters in your file names like Umlaute, +, or things like this. Make your file names safe for the web.
 - Error 500: the PHP function imageconvolution does not work on your server. For now one user reported this using PHP 5.3.8. After commenting out the line of code the gallery worked fine.
-- you use space character in your folder name (fixed since 2.6.2)
 - install GD library for image processing
 - issues with image sharping. Try to disable it using the components configuration dialog.
 - PHP should have write permission to /images, /cache and /logs
-- Picasa Images do not show up because the method get\_file\_content is not working. Check with your hosting provider to solve this issue.
+- Picasa Images do not show up because the method get\_file\_content is not working. Check with your hosting provider to solve this issue. allow_url_fopen should be enabled.
 - Error 500: PHP should be able to execute the script /components/com_eventgallery/helpers/image.php in order to display thumbs.
 - try to use Use Rendering Fallback and contact your provider if this works for you so he can change the server settings.
+- log file is too large: delete /logs/com_eventgallery.log.php
 
 ### Joomla Configuration
+
 - Picasa albums do not work because your SEO-component strips out the @-sign from the URLs
 
 
 ### Browser
+
 - JavaScript error occurred which prevents the whole site from executing JavaScript. Without JavaScript it no image will appear.
 - To verify that there are no JavaScript errors on your page do this:
 	- open the site in your browser
