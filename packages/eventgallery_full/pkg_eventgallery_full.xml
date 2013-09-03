@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" version="3.0.0" method="upgrade">
+	<name>Event Gallery - Full Package</name>
+	<author>Sven Blüge</author>
+	<creationDate>Sept 2013</creationDate>
+	<copyright></copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<authorEmail>svenbluege@gmail.com</authorEmail>
+	<authorUrl>www.svenbluege.de</authorUrl>
+	<version>$$version$$</version>
+	<description>The whole Event Gallery Package.</description>
+ 	<packagename>eventgallery_full</packagename>
+	<files folder="packages">
+		<file type="component" id="com_eventgallery" >com_eventgallery_$$fileversion$$.zip</file>
+		<file type="module" id="mod_eventgallery_cart" client="site">mod_eventgallery_cart_$$fileversion$$.zip</file>
+		<file type="module" id="mod_eventgallery_event" client="site">mod_eventgallery_event_$$fileversion$$.zip</file>
+		<file type="module" id="mod_eventgallery_latest" client="site">mod_eventgallery_latest_$$fileversion$$.zip</file>
+		<file type="plugin" id="eventgallery" group="finder">plg_eventgallery_finder_$$fileversion$$.zip</file>
+		<file type="plugin" id="eventgallery" group="search">plg_eventgallery_search_$$fileversion$$.zip</file>
+		<file type="plugin" id="eventgallery" group="content">plg_eventgallery_content_$$fileversion$$.zip</file>
+		<file type="plugin" id="standard" group="eventgallery_sur">plg_eventgallery_sur_standard_$$fileversion$$.zip</file>
+		<file type="plugin" id="standard" group="eventgallery_pay">plg_eventgallery_pay_standard_$$fileversion$$.zip</file>
+		<file type="plugin" id="paypal" group="eventgallery_pay">plg_eventgallery_pay_paypal_$$fileversion$$.zip</file>
+		<file type="plugin" id="standard" group="eventgallery_ship">plg_eventgallery_ship_standard_$$fileversion$$.zip</file>
+		<file type="plugin" id="email" group="eventgallery_ship">plg_eventgallery_ship_email_$$fileversion$$.zip</file>
+	</files>
+	
+	
+</extension >

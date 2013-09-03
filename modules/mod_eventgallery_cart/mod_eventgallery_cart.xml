@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.1" client="site" method="upgrade">
-	<name>mod_eventgallery_cart</name>
+	<name>MOD_EVENTGALLERY_CART</name>
 	<author>Sven Bluege</author>
 	<creationDate>August 2013</creationDate>
 	<copyright></copyright>

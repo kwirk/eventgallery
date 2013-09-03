@@ -15,7 +15,7 @@ for /f "delims=" %%i in ('dir /ad/b %packagebasefolder%') do (
 	
 	
 	rem split the line and get the 3th token 1<2>3</foo>
-	for /f "delims=<>, tokens=3" %%a in ('findstr "<file " !packagefolder!\%%i.xml') do (
+	for /f "delims=<>, tokens=3" %%a in ('findstr "<file " !packagefolder!\pkg_%%i.xml') do (
 		set filename=%%a		
 		xcopy /Q /Y %targetpath%\!filename! !packagefolder!\packages
 	)

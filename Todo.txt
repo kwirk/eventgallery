@@ -7,3 +7,6 @@ Back End
 - mail template
  
 System
+
+- integrate Joomla Tags System
+- new Events List: pinterest like.
