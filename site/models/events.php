@@ -27,10 +27,9 @@ class EventsModelEvents extends JModelLegacy
         $app = JFactory::getApplication();
         
         parent::__construct();      
-        
-        $limitstart =  $app->getUserStateFromRequest( 'com_eventgallery.events.limitstart', 'limitstart', 0);        
 
-        $limit =  $app->getUserStateFromRequest( 'global.list.limit', 'limit', $app->getCfg('list_limit'), 'int' );
+        $limitstart =  JRequest::getInt('limitstart');
+        $limit =  JComponentHelper::getParams('com_eventgallery')->get('max_events_per_page', 12);
         $this->setState('limit',$limit);
         $this->setState('com_eventgallery.events.limitstart',$limitstart);
     }
@@ -155,7 +154,7 @@ class EventsModelEvents extends JModelLegacy
             
             
         }
-        
+
         return array_slice($this->_entries, $limitstart, $limit);
         
     }
