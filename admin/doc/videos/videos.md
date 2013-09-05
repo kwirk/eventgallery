@@ -24,4 +24,4 @@
 
 ## YouTube Channel {#channel}
 
-You can also check out the YouTube channel using this link: (http://www.youtube.com/user/SvenBluege)
+You can also check out the YouTube channel using this link: [YouTube](http://www.youtube.com/user/SvenBluege)

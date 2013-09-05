@@ -54,20 +54,7 @@ if ($version->isCompatible('3.0')) {
 				<div style="float: left; margin-top: 10px;">
 					<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=svenbluege%40gmail%2ecom&lc=GB&item_name=Event%20Gallery%20Development&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest"><img src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif"></a>
 				</div>
-				
-				<div style="float: left; margin-left: 40px;">
-					<script type="text/javascript">
-					/* <![CDATA[ */
-					    (function() {
-					        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-					        s.type = 'text/javascript';
-					        s.async = true;
-					        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-					        t.parentNode.insertBefore(s, t);
-					    })();
-					/* ]]> */</script>
-					<a class="FlattrButton" style="display:none;" href="http://www.svenbluege.de/joomla-event-gallery"></a>
-				</div>
+								
 				<div style="clear:both;"></div>
 			</div>
 			<p>
