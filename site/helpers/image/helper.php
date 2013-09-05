@@ -38,7 +38,7 @@ class EventgalleryHelpersImageHelper
             #JLog::add('have to create dir ' . JPATH_CACHE, JLog::INFO, 'com_eventgallery');
         }
 
-        $cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery';
+        $cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery_picasa';
         if (!is_dir($cachebasedir)) {
             //mkdir($cachebasedir, 0777);
             mkdir($cachebasedir);
@@ -47,17 +47,8 @@ class EventgalleryHelpersImageHelper
 
 
         }
-        $cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery' . DIRECTORY_SEPARATOR . 'picasa';
-        $cachefilename = $cachebasedir . DIRECTORY_SEPARATOR . md5($url) . '.xml';
 
-        if (!is_dir($cachebasedir)) {
-            //mkdir($cachebasedir, 0777);
-            mkdir($cachebasedir);
-            #echo "created $cachebasedir <br>";
-            #JLog::add('have to create dir ' . $cachebasedir, JLog::INFO, 'com_eventgallery');
-
-
-        }
+        $cachefilename = $cachebasedir . DIRECTORY_SEPARATOR . md5($url) . '.xml';        
 
 
         $cache_life = '360000'; //caching time, in seconds

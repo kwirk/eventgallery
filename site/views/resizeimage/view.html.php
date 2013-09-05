@@ -67,9 +67,9 @@ class ResizeimageViewResizeimage extends JViewLegacy
         $basedir
             = JPATH_BASE . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'eventgallery' . DIRECTORY_SEPARATOR;
         $sourcedir = $basedir . $folder;
-        $cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery' . DIRECTORY_SEPARATOR;
+        $cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery_images' . DIRECTORY_SEPARATOR;
         $cachedir = $cachebasedir . $folder;
-        $cachedir_thumbs = $cachebasedir . $folder . DIRECTORY_SEPARATOR . 'thumbs';
+        $cachedir_thumbs = $cachebasedir . $folder;
 
         if (!is_dir(JPATH_CACHE)) {
             //mkdir($cachebasedir, 0777);

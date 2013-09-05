@@ -69,9 +69,9 @@ $saveAsSize = $sizeSet->getMatchingSize($width);
 
 $basedir = JPATH_BASE . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'eventgallery' . DIRECTORY_SEPARATOR;
 $sourcedir = $basedir . $folder;
-$cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery' . DIRECTORY_SEPARATOR;
+$cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery_images' . DIRECTORY_SEPARATOR;
 $cachedir = $cachebasedir . $folder;
-$cachedir_thumbs = $cachebasedir . $folder . DIRECTORY_SEPARATOR . 'thumbs';
+$cachedir_thumbs = $cachebasedir . $folder;
 
 $image_file = $sourcedir . DIRECTORY_SEPARATOR . $file;
 $image_thumb_file = $cachedir_thumbs . DIRECTORY_SEPARATOR . $mode . $saveAsSize . $file;
