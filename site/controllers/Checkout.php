@@ -135,7 +135,7 @@ class CheckoutController extends JControllerLegacy
                     JRoute::_("index.php?option=com_eventgallery&view=checkout&task=change"), $msg, 'info'
                 );
             } else {
-                $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout"), $msg, 'info');
+                $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout"));
             }
         }
     }
