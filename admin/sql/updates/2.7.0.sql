@@ -331,8 +331,8 @@ INSERT INTO `#__eventgallery_paymentmethod` (`id`, `classname`, `name`, `display
 --
 
 INSERT INTO `#__eventgallery_shippingmethod` (`id`, `classname`, `name`, `displayname`, `description`, `taxrate`, `price`, `currency`, `published`, `default`, `ordering`, `modified`, `created`) VALUES
-(3, 'EventgalleryPluginsShippingStandard', 'ground', '{"en-GB":"Mail","de-DE":"Post"}', '{"en-GB":"Shipping of your items in a parcel","de-DE":"Versand mit Post"}', 19, 6.00, 'EUR','1', '0', '3',  '0000-00-00 00:00:00', NULL),
-(4, 'EventgalleryPluginsShippingEmail', 'email', '{"en-GB":"eMail","de-DE":"eMail"}', '{"en-GB":"Shipping by email","de-DE":"Versand mit eMail"}', 19, 0.00, 'EUR','1', '0', '4',  '0000-00-00 00:00:00', NULL);
+(3, 'EventgalleryPluginsShippingStandard', 'ground', '{"en-GB":"Mail","de-DE":"Post"}', '{"en-GB":"Shipping of your items in a parcel","de-DE":"Versand mit Post"}', 19, 6.00, 'EUR','1', '0', '3',  '0000-00-00 00:00:00', NULL);
+
 
 --
 -- Daten für Tabelle `#__eventgallery_orderstatus`
