@@ -13,6 +13,8 @@ jimport( 'joomla.application.component.controlleradmin' );
 
 class EventgalleryControllerOrders extends JControllerAdmin
 {
+
+    protected $view_list = "orders";
     /**
      * Proxy for getModel.
      */
