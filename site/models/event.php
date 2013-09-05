@@ -26,8 +26,7 @@ class EventModelEvent extends JModelLegacy
 
         parent::__construct();
 
-        $limitstart = $app->getUserStateFromRequest('com_eventgallery.event.limitstart', 'limitstart', 0);
-
+        $limitstart = JRequest::getInt('limitstart', 0);
         $limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
         $this->setState('limit', $limit);
         $this->setState('com_eventgallery.event.limitstart', $limitstart);

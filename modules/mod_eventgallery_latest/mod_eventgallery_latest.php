@@ -52,7 +52,7 @@ if (count($events)>$position) {
     $folder = $model->getFolder($foldername);
 
     if (isset($folder) && $folder->published==1 && EventgalleryHelpersFolderprotection::isAccessAllowed($folder)) {
-        $files = $model->getEntries($foldername, 0, $params->get('max_images'), 1);
+        $files = $model->getEntries($foldername, -1, $params->get('max_images'), 1);
         require JModuleHelper::getLayoutPath('mod_eventgallery_latest', $params->get('layout', 'default'));
     }
 }
