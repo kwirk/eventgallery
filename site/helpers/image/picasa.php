@@ -118,7 +118,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
 										data-width="' . $this->width . '"
 										data-height="' . $this->height . '"
 								    	longdesc="' . $this->getThumbUrl($width, $height, true, $crop) . '"
-								    	src="'.JURI::root().$this->_blank_script_path.' 
+								    	src="'.JURI::root().$this->_blank_script_path.'" 
                                         width="'.$width.'"
                                         height="'.$height.'"
 								    	style=" width: '.$width.'px;
