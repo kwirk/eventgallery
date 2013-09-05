@@ -69,11 +69,12 @@ defined('_JEXEC') or die('Restricted access');
     window.addEvent('domready', function () {
 
         var myVerticalSlide = <?php echo ($this->getErrors())?"new Fx.Slide('commentform').show();":"new Fx.Slide('commentform').hide();"; ?>
+        $('commentform').setStyle('visibility','visible');
 
-            $('toggle_comment').addEvent('click', function (e) {
-                e.stop();
-                myVerticalSlide.toggle();
-            });
+        $('toggle_comment').addEvent('click', function (e) {
+            e.stop();
+            myVerticalSlide.toggle();
+        });
 
     });
     <?php ENDIF ?>

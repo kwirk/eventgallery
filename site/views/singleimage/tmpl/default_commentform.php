@@ -12,7 +12,7 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 <?php IF ($this->model->file->allowcomments == 1 && $this->use_comments == 1): ?>
-    <div class="commentform" id="commentform">
+    <div class="commentform" id="commentform" style="visibility: hidden;">
 
         <h1><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_NEW') ?></h1>
 
