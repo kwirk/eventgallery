@@ -50,7 +50,7 @@ defined('_JEXEC') or die;
             
             <button onclick="document.location.href='<?php echo JRoute::_(
                 "index.php?option=com_eventgallery&view=cart"
-            ); ?>'" title="<?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART_DESCRIPTION') ?>" class="btn"><i class="icon-tocart-small"></i></button>
+            ); ?>'" title="<?php echo JText::_('MOD_EVENTGALLERY_CART_BUTTON_CART_DESCRIPTION') ?>" class="btn"><i class="icon-tocart-small"></i></button>
             <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN') ?>" class="btn toggle-down" href="#"><i class="icon-arrow-down"></i></button>
             <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_UP') ?>" class="btn toggle-up" href="#"><i class="icon-arrow-up"></i></button>
 
