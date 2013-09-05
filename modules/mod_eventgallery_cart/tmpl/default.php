@@ -26,7 +26,7 @@ defined('_JEXEC') or die;
                 buttonUpSelector: '.eventgallery-ajaxcart-module .toggle-up',
                 'removeUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=removefromcart&format=raw", true); ?>".replace(/&amp;/g, '&'),
                 'add2cartUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=add2cart&format=raw", true); ?>".replace(/&amp;/g, '&'),
-                'removeLinkTitle': "<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEM_REMOVE')?>",
+                'removeLinkTitle': "<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_REMOVE')?>",
                 'getCartUrl': "<?php echo JRoute::_("index.php?option=com_eventgallery&view=rest&task=getCart&format=raw", true); ?>".replace(/&amp;/g, '&')
             };
 
@@ -39,7 +39,7 @@ defined('_JEXEC') or die;
     <div class="eventgallery-ajaxcart eventgallery-ajaxcart-module">
 
         <div>
-            <span class="itemscount">0</span> <?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS') ?>
+            <span class="itemscount">0</span> <?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS') ?>
         </div>
 
         <div class="cart-items-container">
@@ -50,16 +50,16 @@ defined('_JEXEC') or die;
             
             <button onclick="document.location.href='<?php echo JRoute::_(
                 "index.php?option=com_eventgallery&view=cart"
-            ); ?>'" title="<?php echo JText::_('MOD_EVENTGALLERY_CART_BUTTON_CART_DESCRIPTION') ?>" class="btn"><i class="icon-tocart-small"></i></button>
-            <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN') ?>" class="btn toggle-down" href="#"><i class="icon-arrow-down"></i></button>
-            <button title="<?php echo JText::_('MOD_EVENTGALLERY_CART_ITEMS_TOGGLE_UP') ?>" class="btn toggle-up" href="#"><i class="icon-arrow-up"></i></button>
+            ); ?>'" title="<?php echo JText::_('COM_EVENTGALLERY_CART_BUTTON_CART_DESCRIPTION') ?>" class="btn"><i class="icon-tocart-small"></i></button>
+            <button title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_DOWN') ?>" class="btn toggle-down" href="#"><i class="icon-arrow-down"></i></button>
+            <button title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEMS_TOGGLE_UP') ?>" class="btn toggle-up" href="#"><i class="icon-arrow-up"></i></button>
 
             <button class="btn" data-rel="lightbo2" data-href="#mb_cart-help-module">?</button>
         </div>
         <div style="display:none">
             <div id="mb_cart-help-module">
-                <h2><?php echo JText::_('MOD_EVENTGALLERY_CART_HELP_HEADLINE') ?></h2>
-                <?php echo JText::_('MOD_EVENTGALLERY_CART_HELP_TEXT') ?>
+                <h2><?php echo JText::_('COM_EVENTGALLERY_CART_HELP_HEADLINE') ?></h2>
+                <?php echo JText::_('COM_EVENTGALLERY_CART_HELP_TEXT') ?>
             </div>
         </div>
         <div style="clear:both"></div>

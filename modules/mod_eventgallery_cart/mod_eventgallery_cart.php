@@ -19,6 +19,11 @@ EventgalleryHelpersMedialoader::load();
 $params = JComponentHelper::getParams('com_eventgallery');
 
 
+$language = JFactory::getLanguage();
+$language->load('com_eventgallery');
+$language->load('com_eventgallery' , JPATH_BASE.DIRECTORY_SEPARATOR.'language'.DIRECTORY_SEPARATOR.'overrides');
+$language->load('com_eventgallery' , JPATH_BASE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery');
+
 /**
  * Only load the cart if the internal cart is disabled or we're currently not showing the gallery component
  */
