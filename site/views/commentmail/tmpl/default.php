@@ -62,30 +62,30 @@ defined('_JEXEC') or die('Restricted access');
         <td bgcolor="#EEEEEE" colspan="2">
             <a
                 href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=editComment&cid[]="
+                        "administrator/index.php?option=com_eventgallery&task=comment.edit&id="
                         . $this->newComment->id, false, -1
                     ) ?>"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_ACTION_EDIT') ?></a> <br>
             <a
                 href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=comments&filter=", false, -1
+                        "administrator/index.php?option=com_eventgallery&view=comments&filter=", false, -1
                     ) ?>"><?php echo JText::_('COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_ACTION_SHOW_ALL') ?></a> <br>
             <a
                 href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=comments&filter=folder="
+                        "administrator/index.php?option=com_eventgallery&view=comments&filter=folder="
                         . $this->newComment->folder, false, -1
                     ) ?>"><?php echo JText::_(
                     'COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_ACTION_SHOW_ALL_FOR_FOLDER'
                 ) ?> <?php echo $this->newComment->folder ?></a> <br>
             <a
                 href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=comments&filter=file="
+                        "administrator/index.php?option=com_eventgallery&view=comments&filter=file="
                         . $this->newComment->file . ";folder=" . $this->newComment->folder, false, -1
                     ) ?>"><?php echo JText::_(
                     'COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_ACTION_SHOW_ALL_FOR_IMAGE'
                 ) ?></a> <br>
             <a
                 href="<?php echo JURI::base() . JRoute::_(
-                        "administrator/index.php?option=com_eventgallery&task=comments&filter=user_id="
+                        "administrator/index.php?option=com_eventgallery&view=comments&filter=user_id="
                         . $this->newComment->user_id, false, -1
                     ) ?>"><?php echo JText::_(
                     'COM_EVENTGALLERY_SINGLEIMAGE_COMMENT_MAIL_ACTION_SHOW_ALL_FOR_USER'
