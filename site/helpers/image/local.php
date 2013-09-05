@@ -59,8 +59,12 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    
 	    public function getFullImgTag($width=104,  $height=104) {
 	    	
-	    	return '<img src="'.JURI::root().$this->_blank_script_path.'?width='.$width.'&amp;height='.$height.'" 
-	    	             style="background-repeat:no-repeat;
+	    	return '<img src="'.JURI::root().$this->_blank_script_path.'" 
+	    				 width="'.$width.'" 
+	    				 height="'.$height.'" 
+	    	             style="width: '.$width.'px;
+	    						height: '.$height.'px;
+	    	             		background-repeat:no-repeat;
 	    	    				background-position: 50% 50%; 
 	    	    				background-image:url(\''.$this->getThumbUrl($width,$height,false,true).'\');
 	    	    				" 
@@ -69,8 +73,12 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
 	    }
 	    
 	    public function getThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
-	    	return '<img src="'.JURI::root().$this->_blank_script_path.'" width="'.$width.'" height="'.$height.'" 
-	    				style="	background-repeat:no-repeat; 
+	    	return '<img src="'.JURI::root().$this->_blank_script_path.'" 
+	    				 width="'.$width.'" 
+	    				 height="'.$height.'" 
+	    				 style="width: '.$width.'px;
+	    						height: '.$height.'px;
+	    						background-repeat:no-repeat;	    				
 	    						background-position: 50% 50%; 
 	    						background-image:url(\''.$this->getThumbUrl($width,$height, true, $height==$width).'\');
 								filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height, true, $height==$width).'\', sizingMethod=\'scale\'); 
@@ -87,8 +95,13 @@ class EventgalleryHelpersImageLocal extends EventgalleryHelpersImageDefault{
     									data-width="'.$this->width.'"
 										data-height="'.$this->height.'"
 								    	longdesc="'.$this->getThumbUrl($width,$height, true, $crop).'"
-								    	src="'.JURI::root().$this->_blank_script_path.'?width='.$width.'&amp;height='.$height.'"
-								    	style="background-position: 50% 50%; background-repeat: no-repeat;"
+								    	src="'.JURI::root().$this->_blank_script_path.'" 
+								    	width="'.$width.'" 
+								    	height="'.$height.'"
+								    	style=" width: '.$width.'px;
+		    									height: '.$height.'px;
+		    									background-position: 50% 50%; 
+		    									background-repeat: no-repeat;"
 								    	alt=""
 					    			/>';
 			return $imgTag;

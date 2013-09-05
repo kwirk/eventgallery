@@ -79,8 +79,12 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
         }
         // css verschiebung berechnen
 
-        return '<img src="'.JURI::root().$this->_blank_script_path.'?width='.$width.'&amp;height='.$height.'"
-    				 style="background-repeat:no-repeat; 
+        return '<img src="'.JURI::root().$this->_blank_script_path.'" 
+                     width="'.$width.'" 
+                     height="'.$height.'"
+    				 style="width: '.$width.'px;
+                            height: '.$height.'px;
+                            background-repeat:no-repeat; 
     						background-image:url(\'' . $this->getThumbUrl($width, $height, true, false) . '\');
     						background-position: 50% 50%;" 
     						alt="" />';
@@ -90,8 +94,12 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
     {
 
         return '<img class="' . $cssClass . '"
-    				 src="'.JURI::root().$this->_blank_script_path.'" width="'.$width.'" height="'.$height.'"
-    				 style="background-repeat:no-repeat; 
+    				 src="'.JURI::root().$this->_blank_script_path.'" 
+                     width="'.$width.'" 
+                     height="'.$height.'"
+    				 style="width: '.$width.'px;
+                            height: '.$height.'px;
+                            background-repeat:no-repeat; 
     						background-image:url(\'' . $this->getThumbUrl($width, $height, true, $crop) . '\');
     						background-position: 50% 50%;
 							filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\'' . $this->getThumbUrl(
@@ -110,8 +118,13 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
 										data-width="' . $this->width . '"
 										data-height="' . $this->height . '"
 								    	longdesc="' . $this->getThumbUrl($width, $height, true, $crop) . '"
-								    	src="'.JURI::root().$this->_blank_script_path.'?width='.$width.'&amp;height='.$height.'"
-								    	style="background-position: 50% 50%; background-repeat:no-repeat;"
+								    	src="'.JURI::root().$this->_blank_script_path.' 
+                                        width="'.$width.'"
+                                        height="'.$height.'"
+								    	style=" width: '.$width.'px;
+                                                height: '.$height.'px;
+                                                background-position: 50% 50%; 
+                                                background-repeat:no-repeat;"
 										alt=""
 					    			/>';
 
