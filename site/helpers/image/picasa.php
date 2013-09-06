@@ -70,7 +70,9 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 		// css verschiebung berechnen
 		
     	return '<img src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" 
-    				 style="background-repeat:no-repeat; 
+    				 style="width: '.$width.'px;
+	    	             	height: '.$height.'px;
+    				 		background-repeat:no-repeat; 
     						background-image:url(\''.$this->getThumbUrl($width,$height,true,false).'\');
     						background-position: 50% 50%;" 
     						alt="" />';
@@ -80,7 +82,9 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
 
     	return '<img class="'.$cssClass.'" 
     				 src="'.JURI::base().'components/com_eventgallery/helpers/blank.php?width='.$width.'&amp;height='.$height.'" 
-    				 style="background-repeat:no-repeat; 
+    				 style="width: '.$width.'px;
+	    	             	height: '.$height.'px;
+    				 		background-repeat:no-repeat; 
     						background-image:url(\''.$this->getThumbUrl($width,$height,true,$crop).'\');
     						background-position: 50% 50%;
 							filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''.$this->getThumbUrl($width,$height,true,$crop).'\', sizingMethod=\'scale\'); 
@@ -92,6 +96,8 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault{
     public function getLazyThumbImgTag($width=104,  $height=104, $cssClass="", $crop=false) {
 		
 		$imgTag = '<img class="lazyme '.$cssClass.'"
+										width: '.$width.'px;
+	    	             				height: '.$height.'px;
 										data-width="'.$this->width.'"
 										data-height="'.$this->height.'"	
 								    	longdesc="'.$this->getThumbUrl($width,$height, true, $crop).'"

@@ -61,8 +61,10 @@ function EventgalleryBuildRoute(&$query)
 	};	
 
 	if (isset($query['format'])) {
-		$segments[] = 	$query['format'];
-		unset($query['format']);
+        if ($config->get('sef_suffix')!=1) {
+            $segments[] = 	$query['format'];
+            unset($query['format']);
+        }
 	}
 	
 	return $segments;
