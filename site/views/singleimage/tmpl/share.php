@@ -65,7 +65,7 @@ if (strpos($this->model->file->folder,'@')>0) {
 	<?php ENDIF ?>
 
 	<?php IF ($this->params->get('use_social_sharing_download', 0)==1 && $this->model->folder->attribs->get('use_social_sharing_download', 1)==1):?>			    
-		<a href="<?php echo  JURI::base().'images/eventgallery/'.$this->model->file->folder.'/'.$this->model->file->file ?>" target="_blank" lt="Download" title="Download"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/icons/32x32/download-icon.png' ?>" alt="Download" title="Download"</a>
+		<a href="<?php echo $this->imageurl; ?>" target="_blank" lt="Download" title="Download"><img src="<?php echo JUri::base().'components/com_eventgallery/media/images/icons/32x32/download-icon.png' ?>" alt="Download" title="Download"</a>
 	<?php ENDIF ?>
 
 
