@@ -163,6 +163,11 @@ class CheckoutController extends JControllerLegacy
 
         $cart = $cartMgr->getCart();
 
+        // if the cart is empty
+        if ($cart->getLineItemsCount()==0) {
+            $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=cart"));
+            return;
+        }
 
         /* create order*/
         $orderMgr = new EventgalleryLibraryManagerOrder();
