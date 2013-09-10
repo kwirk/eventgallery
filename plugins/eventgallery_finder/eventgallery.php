@@ -238,6 +238,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
     protected function indexLanguage(FinderIndexerResult $item, $format = 'html', $language)
     {
 
+        $version =  new JVersion();
 
         // Check if the extension is enabled
         if (JComponentHelper::isEnabled($this->extension) == false)
@@ -246,7 +247,13 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         }
 
         if ($language=='') {
-            $item->setLanguage();
+           
+            if ($version->isCompatible('3.0')) {
+                $item->setLanguage();
+            } else {
+                $item->language='';
+            }
+            
         } else {
             $this->language = $language;
         }
@@ -291,12 +298,22 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         // Add the type taxonomy data.
         $item->addTaxonomy('Type', 'Event');
 
+        // Add the language taxonomy data.
+        $item->addTaxonomy('Language', $item->language);
 
         // Get content extras.
         FinderIndexerHelper::getContentExtras($item);
 
-        // Index the item.
-        $this->indexer->index($item);
+        if ($version->isCompatible('3.0')) {
+               // Index the item.
+            $this->indexer->index($item);
+        } else {
+            // Index the item.
+            FinderIndexer::index($item);
+        }
+        
+
+        
     }
 
 
