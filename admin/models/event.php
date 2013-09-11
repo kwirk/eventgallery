@@ -43,14 +43,14 @@ class EventgalleryModelEvent extends JModelAdmin
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__eventgallery_file'))
-			->set('folder=' . $db.quote($newFolder))
-			->where('folder=' . $db.quote($oldFolder));
+			->set('folder=' . $db->quote($newFolder))
+			->where('folder=' . $db->quote($oldFolder));
 		$db->setQuery($query);
 		$db->query();
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__eventgallery_comment'))
-			->set('folder=' . $db.quote($newFolder))
-			->where('folder=' . $db.quote($oldFolder));
+			->set('folder=' . $db->quote($newFolder))
+			->where('folder=' . $db->quote($oldFolder));
 		$db->setQuery($query);
 		$db->query();
 	}
