@@ -24,9 +24,10 @@ class EventgalleryControllerEvent extends JControllerForm
 	 * @return	void
 	 * @since	1.6
 	 */
-	protected function postSaveHook(EventgalleryModelEvent $model, $validData = array())
+	protected function postSaveHook(JModelLegacy $model, $validData = array())
 	{
 
+		
         $oldFolder = JRequest::getVar("oldfolder", null);
 		$newFolder = $validData['folder'];
 		
