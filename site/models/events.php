@@ -69,7 +69,6 @@ class EventsModelEvents extends JModelLegacy
                 ->from($this->_db->quoteName('#__eventgallery_folder') . ' AS folder')
                 ->join('LEFT', $this->_db->quoteName('#__eventgallery_file') . ' AS file ON folder.folder = file.folder AND folder.published=1 AND file.published=1')
                 ->where('(file.ismainimageonly IS NULL OR file.ismainimageonly=0)')
-                ->group('folder.id')
                 ->group('folder.folder');
 
             if ($sortAttribute == "date_asc") {

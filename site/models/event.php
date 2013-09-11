@@ -72,16 +72,15 @@ class EventModelEvent extends JModelLegacy
             ->join('LEFT', $this->_db->quoteName('#__eventgallery_comment') . ' AS comment ON file.folder=comment.folder and file.file=comment.file')
             ->where('file.folder=' . $this->_db->Quote($folder)) 
             ->where('file.published=1')
-            ->group('file.id, comment.id');
+            ->group('file.id');
+
         if ($imagesForEvents == 0) {
             // find files which are allowed to show in a list        
-            $query->where('file.ismainimageonly=0')
-                ->group('file.folder, file.file')
-                ->order('ordering DESC, file.file');
+            $query->where('file.ismainimageonly=0')                
+                  ->order('ordering DESC, file.file');
         } else {
             // find files and sort them with the main images first
-            $query->group('file.folder, file.file')
-                ->order('file.ismainimage DESC, ordering DESC, file.file');
+            $query->order('file.ismainimage DESC, ordering DESC, file.file');
         }
 
         if ($limit != 0) {
