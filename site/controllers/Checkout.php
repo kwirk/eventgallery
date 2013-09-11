@@ -185,7 +185,7 @@ class CheckoutController extends JControllerLegacy
         if ($send !== true) {
             $msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_FAILED') . ' (' . $send . ')';
         } else {
-            $msg = JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_STORED');
+            $msg = NULL; 
         }
 
         $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=checkout&task=confirm"), $msg, 'info');
