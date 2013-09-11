@@ -148,7 +148,7 @@ if ($version->isCompatible('3.0')) {
 		<?php echo $this->pagination->getListFooter(); ?>
 </div>
 
-	< <?php echo JHtml::_('form.token'); ?>
+	<?php echo JHtml::_('form.token'); ?>
     <input type="hidden" name="task" value="" />
     <input type="hidden" name="boxchecked" value="0" />
     <input type="hidden" name="limitstart" value="<?php echo $this->pagination->limitstart; ?>" />
