@@ -43,8 +43,10 @@ class EventgalleryModelFile extends JModelAdmin
         {
             foreach($pks as $cid) {
 
-                $query = ' SELECT * FROM #__eventgallery_file '.
-                    '  WHERE id = '.$this->_db->quote($cid);
+                $query = $this->_db->getQuery(true)
+                    ->select('*')
+                    ->from($this->_db->quoteName('#__eventgallery_file'))
+                    ->where('id=' . $this->_db->quote($cid));
 
                 $this->_db->setQuery( $query );
                 $data = $this->_db->loadObject();

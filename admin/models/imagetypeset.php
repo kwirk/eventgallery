@@ -105,7 +105,7 @@ class EventgalleryModelImagetypeset extends JModelAdmin
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
             $query->update('#__eventgallery_imagetypeset_imagetype_assignment');
-            $query->set('`default` = 0');
+            $query->set($db->quoteName('default') . ' = 0');
             $query->where('imagetypesetid = '.$db->quote($id));
 
             $db->setQuery($query);
@@ -114,7 +114,7 @@ class EventgalleryModelImagetypeset extends JModelAdmin
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
             $query->update('#__eventgallery_imagetypeset_imagetype_assignment');
-            $query->set('`default` = 1');
+            $query->set($db->quoteName('default') . ' = 1');
             $query->where('imagetypeid='.$db->quote($default_imagetypeid));
             $query->where('imagetypesetid = '.$db->quote($id));
             $db->setQuery($query);
@@ -152,14 +152,14 @@ class EventgalleryModelImagetypeset extends JModelAdmin
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
             $query->update('#__eventgallery_imagetypeset');
-            $query->set('`default` = 0');
+            $query->set($db->quoteName('default') . ' = 0');
             $db->setQuery($query);
             $db->execute();
 
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
             $query->update('#__eventgallery_imagetypeset');
-            $query->set('`default` = 1');
+            $query->set($db->quoteName('default') . ' = 1');
             $query->where('id='.$db->quote($id));
 
             $db->setQuery($query);

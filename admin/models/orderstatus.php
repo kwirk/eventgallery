@@ -105,7 +105,7 @@ class EventgalleryModelOrderstatus extends JModelAdmin
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
             $query->update('#__eventgallery_orderstatus');
-            $query->set('`default` = 0');
+            $query->set($db->quoteName('default') . ' = 0');
             $query->where('type='.$db->quote($orderStatus->getType()));
 
             $db->setQuery($query);
@@ -114,7 +114,7 @@ class EventgalleryModelOrderstatus extends JModelAdmin
             $db = JFactory::getDBO();
             $query = $db->getQuery(true);
             $query->update('#__eventgallery_orderstatus');
-            $query->set('`default` = 1');
+            $query->set($db->quoteName('default') . ' = 1');
             $query->where('type='.$db->quote($orderStatus->getType()));
             $query->where('id='.$db->quote($id));
 

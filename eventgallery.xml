@@ -13,11 +13,13 @@
 	<install>
 		<sql>
 			<file driver="mysql" charset="utf8">sql/install/install.mysql.sql</file>
+			<file driver="postgresql" charset="utf8">sql/install/install.postgresql.sql</file>
 		</sql>
 	</install>
     <uninstall>
 	  <sql>
 	    <file charset="utf8" driver="mysql">sql/install/uninstall.mysql.sql</file>
+	    <file charset="utf8" driver="postgresql">sql/install/uninstall.postgresql.sql</file>
 	  </sql>
 	</uninstall>
 	<update> 

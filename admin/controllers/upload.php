@@ -94,14 +94,31 @@ class EventgalleryControllerUpload extends JControllerForm
 			
 				
 				@list($width, $height, $type, $attr) = getimagesize($path.$uploadedFile);
-				
-				$query = "REPLACE into #__eventgallery_file set 
-							folder=".$db->Quote($folder).", 
-							file=".$db->Quote($uploadedFile).",
-							userid=".$db->Quote($user->id).",
-							created=now(),
-						    modified=now()
-							";
+                $query = $db->getQuery(True)
+                    ->select('count(1)')
+                    ->from($db->quoteName('#__eventgallery_file'))
+                    ->where('folder=' . $db->quote($folder))
+                    ->where('file=' . $db->quote($uploadedFile));
+                $db->setQuery($query);
+                if ($db->loadResult() == 0) {
+                    $query = $db->getQuery(true)
+                        ->insert($db->quoteName('#__eventgallery_file'))
+                        ->columns('folder,file,userid,created,modified')
+                        ->values(
+                            $db->Quote($folder).','.
+                            $db->Quote($uploadedFile).','.
+                            $db->Quote($user->id).','.
+                            'now(),now()');
+                }else{
+                    $query = $db->getQuery(true)
+                        ->update($db->quoteName('#__eventgallery_file'))
+                        ->set('userid='.$db->Quote($user->id))
+                        ->set('created=now()')
+                        ->set('modified=now()')
+                        ->where('folder='.$db->Quote($folder))
+                        ->where('file='.$db->Quote($uploadedFile));
+                }
+
 
 				$db->setQuery($query);
 				$db->query();

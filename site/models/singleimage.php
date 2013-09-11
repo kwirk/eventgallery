@@ -68,9 +68,12 @@ class EventgalleryModelSingleimage extends JModelLegacy
             } else {
 
                 $db = JFactory::getDBO();
-                $query
-                    = 'SELECT * from #__eventgallery_file
-	                      where folder=' . $db->Quote($folder) . ' and published=1 order by file';
+                $query = $db->getQuery(true)
+                    ->select('*')
+                    ->from($db->quoteName('#__eventgallery_file'))
+                    ->where('folder=' . $db->quote($folder))
+                    ->where('published=1')
+                    ->order('file');
                 $db->setQuery($query);
                 #$db = new JDatabase();
                 $files = $db->loadObjectList();
@@ -186,9 +189,10 @@ class EventgalleryModelSingleimage extends JModelLegacy
     function loadFolder($folder)
     {
         if (!$this->folder) {
-            $query
-                = 'SELECT * from #__eventgallery_folder
-        	          where published=1 and folder=' . $this->_db->Quote($folder);
+            $query = $this->_db->getQuery(true)
+                ->select('*')
+                ->from('#__eventgallery_folder')
+                ->where('published=1 and folder=' . $this->_db->quote($folder));
             $folders = $this->_getList($query);
             $this->folder = $folders[0];
             // Convert the params field to an array.
@@ -201,13 +205,13 @@ class EventgalleryModelSingleimage extends JModelLegacy
     function loadComments()
     {
         if (!$this->comments) {
-            $query
-                = "SELECT *
-	    			  FROM #__eventgallery_comment 
-	    	          WHERE published=1 
-	    	    			and file=" . $this->_db->Quote($this->file->file) . "
-	    	     			and folder=" . $this->_db->Quote($this->file->folder) . "
-	    	          ORDER BY date DESC";
+            $query = $this->_db->getQuery(true)
+                ->select('*')
+                ->from($this->_db->quoteName('#__eventgallery_comment'))
+                ->where('published=1')
+                ->where('file=' . $this->_db->quote($this->file->file))
+                ->where('folder=' . $this->_db->quote($this->file->folder))
+                ->order('date DESC');
             $this->comments = $this->_getList($query);
             if (!$this->comments) {
                 $this->comments = Array();

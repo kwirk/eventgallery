@@ -65,29 +65,23 @@ class EventModelEvent extends JModelLegacy
         }
 
         // database handling
+        $query = $this->_db->getQuery(true)
+            ->select('file.*, CASE WHEN comment.id IS NULL THEN 0 ELSE sum(1) END AS '.$this->_db->quoteName('commentCount'))
+            ->from($this->_db->quoteName('#__eventgallery_file') . ' AS file')
+            ->join('INNER', $this->_db->quoteName('#__eventgallery_folder') . ' AS folder ON folder.folder=file.folder and folder.published=1')
+            ->join('LEFT', $this->_db->quoteName('#__eventgallery_comment') . ' AS comment ON file.folder=comment.folder and file.file=comment.file')
+            ->where('file.folder=' . $this->_db->Quote($folder)) 
+            ->where('file.published=1')
+            ->group('file.id, comment.id');
         if ($imagesForEvents == 0) {
             // find files which are allowed to show in a list        
-            $query
-                = 'SELECT file.*, IF (isNull(comment.id),0,sum(1)) commentCount
-            	  from #__eventgallery_file file join #__eventgallery_folder folder on folder.folder=file.folder and folder.published=1
-            	  left join #__eventgallery_comment comment on file.folder=comment.folder and file.file=comment.file
-                      where file.folder=' . $this->_db->Quote($folder) . '
-                        and file.published=1
-                        and (comment.published=1 or isNull(comment.published))
-                        and file.ismainimageonly=0                    
-                      group by file.folder, file.file
-                      order by ordering desc, file.file';
+            $query->where('file.ismainimageonly=0')
+                ->group('file.folder, file.file')
+                ->order('ordering DESC, file.file');
         } else {
             // find files and sort them with the main images first
-            $query
-                = 'SELECT file.*, IF (isNull(comment.id),0,sum(1)) commentCount
-              from #__eventgallery_file file join #__eventgallery_folder folder on folder.folder=file.folder and folder.published=1
-              left join #__eventgallery_comment comment on file.folder=comment.folder and file.file=comment.file
-                  where file.folder=' . $this->_db->Quote($folder) . '
-                    and file.published=1
-                    and (comment.published=1 or isNull(comment.published))                    
-                  group by file.folder, file.file
-                  order by file.ismainimage desc, ordering desc, file.file';
+            $query->group('file.folder, file.file')
+                ->order('file.ismainimage DESC, ordering DESC, file.file');
         }
 
         if ($limit != 0) {
