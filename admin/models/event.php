@@ -41,18 +41,30 @@ class EventgalleryModelEvent extends JModelAdmin
 	function changeFolderName($oldFolder, $newFolder)
 	{
 		$db = JFactory::getDBO();
+
+        // update the file table
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__eventgallery_file'))
 			->set('folder=' . $db->quote($newFolder))
 			->where('folder=' . $db->quote($oldFolder));
 		$db->setQuery($query);
 		$db->query();
+
+        // update the comment table
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__eventgallery_comment'))
 			->set('folder=' . $db->quote($newFolder))
 			->where('folder=' . $db->quote($oldFolder));
 		$db->setQuery($query);
 		$db->query();
+
+        // update the imagelineitem table
+        $query = $db->getQuery(true)
+            ->update($db->quoteName('#__eventgallery_imagelineitem'))
+            ->set('folder=' . $db->quote($newFolder))
+            ->where('folder=' . $db->quote($oldFolder));
+        $db->setQuery($query);
+        $db->query();
 	}
 
 	
@@ -138,5 +150,63 @@ class EventgalleryModelEvent extends JModelAdmin
         return $validData;
     }
 
+    public function delete(&$pks) {
+
+        $folders = array();
+        $db = JFactory::getDBO();
+        $pks = (array) $pks;
+        $table = $this->getTable();
+
+        // Iterate the items to remember to items which needs to be deleted
+        foreach ($pks as $i => $pk)
+        {
+
+            if ($table->load($pk))
+            {
+                $folders[$pk] = $table->folder;
+            }
+        }
+
+        $result = parent::delete($pks);
+
+        $maindir=JPATH_ROOT.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR ;
+        //remove the files and folders
+        foreach($folders as $key=>$folder) {
+            // if the folder does not longer exist
+            if (!$table->load($key)) {
+
+                // remove the physical files
+                $this->delTree($maindir.$folder);
+
+                // remove files
+                $query = $db->getQuery(true)
+                    ->delete($db->quoteName('#__eventgallery_file'))
+                    ->where('folder=' . $db->quote($folder));
+                $db->setQuery($query);
+                $db->query();
+
+                // remove comments
+                $query = $db->getQuery(true)
+                    ->delete($db->quoteName('#__eventgallery_comment'))
+                    ->where('folder=' . $db->quote($folder));
+                $db->setQuery($query);
+                $db->query();
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $dir a path to the folder which should be deleted
+     * @return bool
+     */
+    private function delTree($dir) {
+        $files = array_diff(scandir($dir), array('.','..'));
+        foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : unlink("$dir/$file");
+        }
+        return rmdir($dir);
+    }
 
 }
