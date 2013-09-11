@@ -138,6 +138,7 @@ $sortFields = $this->getSortFields();
                         <strong><?php if ($item->getPaymentStatus()) echo $item->getPaymentStatus()->getDisplayName() ?></strong><br>
                         <?php echo JText::_('COM_EVENTGALLERY_ORDERSTATUS_TYPE_SHIPPING'); ?>:
                         <strong><?php if ($item->getShippingStatus()) echo $item->getShippingStatus()->getDisplayName() ?></strong><br>
+                        <small><?php echo $item->getCreationDate(); ?></small>
                     </td>
                     <td>
 

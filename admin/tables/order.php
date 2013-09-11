@@ -55,4 +55,9 @@ class TableOrder extends JTable
 	function __construct( &$db ) {
 		parent::__construct('#__eventgallery_order', 'id', $db);
 	}
+
+    public function store($updateNulls = false) {
+        $this->modified = date("Y-m-d H:i:s");
+        return parent::store($updateNulls);
+    }
 }

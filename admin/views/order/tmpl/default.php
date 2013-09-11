@@ -72,6 +72,14 @@ if ($version->isCompatible('3.0')) {
             <div class="span4">
                 <h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_GENERAL_INFORMATION')?></h3>
                 <?php $this->lineitemcontainer = $this->item; echo $this->loadTemplate('basicinformation');?>
+                <p>
+                    <strong><?php echo JText::_('COM_EVENTGALLERY_ORDER_CREATIONDATE'); ?></strong><br>
+                    <?php echo $this->item->getCreationDate(); ?>
+                </p>
+                <p>
+                    <strong><?php echo JText::_('COM_EVENTGALLERY_ORDER_MODIFICATIONDATE'); ?></strong><br>
+                    <?php echo $this->item->getModificationDate(); ?>
+                </p>
             </div>
             <div class="span4">
                 <h3><?php echo JText::_('COM_EVENTGALLERY_ORDER_ADDRESS_BILLING')?></h3>
@@ -107,6 +115,7 @@ if ($version->isCompatible('3.0')) {
 
     <pre class="span12">
     <?php
+        echo "\n";
         foreach($this->item->getLineitems() as $item) {
             /**
              * @var EventgalleryLibraryImagelineitem $item
