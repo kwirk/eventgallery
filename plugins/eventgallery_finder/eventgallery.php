@@ -136,7 +136,7 @@ class PlgFinderEventgallery extends FinderIndexerAdapter
         if ($context == 'com_eventgallery.event' || $context == 'com_eventgallery.events')
         {
             // Check if the access levels are different
-            if (!$isNew && $this->old_access != $row->access)
+            if (!$isNew)
             {
                 // Process the change.
                 $this->remove($row->id);
