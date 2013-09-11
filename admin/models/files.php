@@ -34,12 +34,12 @@ class EventgalleryModelFiles extends JModelList
 
 
 		$query->select('file.*');
-        $query->select('CASE WHEN comment.id IS NULL THEN 0 ELSE sum(1) END AS '.$db->quoteName('commentCount'));
+        $query->select('COUNT(comment.id) AS '.$db->quoteName('commentCount'));
 		$query->from('#__eventgallery_file AS file');
         $query->join('','#__eventgallery_folder AS folder on folder.folder=file.folder');
         $query->leftJoin('#__eventgallery_comment comment on file.folder=comment.folder and file.file=comment.file');
 		$query->where('folder.id='.$this->_db->Quote($this->_id));
-		$query->group('file.folder, file.file');
+		$query->group('file.id');
 		$query->order('file.ordering DESC, file.folder DESC');
 
 		return $query;

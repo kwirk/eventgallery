@@ -66,7 +66,7 @@ class EventModelEvent extends JModelLegacy
 
         // database handling
         $query = $this->_db->getQuery(true)
-            ->select('file.*, CASE WHEN comment.id IS NULL THEN 0 ELSE sum(1) END AS '.$this->_db->quoteName('commentCount'))
+            ->select('file.*, COUNT(comment.id) AS '.$this->_db->quoteName('commentCount'))
             ->from($this->_db->quoteName('#__eventgallery_file') . ' AS file')
             ->join('INNER', $this->_db->quoteName('#__eventgallery_folder') . ' AS folder ON folder.folder=file.folder and folder.published=1')
             ->join('LEFT', $this->_db->quoteName('#__eventgallery_comment') . ' AS comment ON file.folder=comment.folder and file.file=comment.file')

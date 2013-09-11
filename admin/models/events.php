@@ -74,9 +74,9 @@ class EventgalleryModelEvents extends JModelList
             }
         }
 
-		$query->select('f.*, CASE WHEN c.id IS NULL THEN 0 ELSE sum(1) END AS '.$db->quoteName('commentCount'));
+		$query->select('f.*, COUNT(c.id) AS '.$db->quoteName('commentCount'));
 		$query->from('#__eventgallery_folder f left join #__eventgallery_comment c on f.folder=c.folder');
-		$query->group('f.folder');
+		$query->group('f.id');
 
 
         // Filter by search in title
