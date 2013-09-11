@@ -28,7 +28,7 @@ class JFormFieldlocalizabletext extends JFormField
             $lt = new stdClass();
         }
         foreach($langs as $tag=>$lang) {
-            $result .= '<div class="input-prepend" style="display:block; margin-bottom:10px">';
+            $result .= '<div class="input-prepend" style="display:block; margin-bottom:10px; clear:both;">';
             $result .= '<span class="add-on">'.$tag .'</span>';
             $value = isset($lt->$tag)===true?$lt->$tag:'';
             if ($inputtype == 'textarea'){
