@@ -28,6 +28,7 @@ class com_eventgalleryInstallerScript
             JPATH_ROOT . '/administrator/components/com_eventgallery/media',
             JPATH_ROOT . '/administrator/components/com_eventgallery/models',
             JPATH_ROOT . '/administrator/components/com_eventgallery/views',
+            JPATH_ROOT . '/administrator/components/com_eventgallery/sql',
             JPATH_ROOT . '/components/com_eventgallery/controllers',
             JPATH_ROOT . '/components/com_eventgallery/helpers',
             JPATH_ROOT . '/components/com_eventgallery/language',

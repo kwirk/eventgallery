@@ -24,7 +24,8 @@
 	</uninstall>
 	<update> 
     	<schemas> 
-	    	<schemapath type="mysql">sql/updates</schemapath> 
+	    	<schemapath type="mysql">sql/updates/mysql</schemapath>
+	    	<schemapath type="postgresql">sql/updates/postgresql</schemapath> 
         </schemas> 
 	</update>
 

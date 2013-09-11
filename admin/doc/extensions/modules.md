@@ -6,4 +6,4 @@ If you installed the module there is a new instance which you can find with the 
 
 ## Latest Event Module
 
-Shows a number of images from the latest event. You can define the meaning of "latest" using the settings for the event sorting. In addition the module has a setting for the event history position which allows you to configure for example three instances of this module type to display the three latest events. 
+Shows a number of images from the latest event. You can define the meaning of "latest" using the settings for the event sorting. In addition the module has a setting for the event history position which allows you to configure for example three instances of this module type to display the three latest events.
