@@ -175,7 +175,7 @@ defined('_JEXEC') or die('Restricted access');
 
         
         <?php IF ($this->model->folder->cartable == 1  && $this->params->get('use_cart', '1')==1): ?>
-            <a href="#" class="btn btn-primary imagetypeselection-show"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES') ?></button>
+            <a class="btn btn-primary imagetypeselection-show"><?php echo JText::_('COM_EVENTGALLERY_PRODUCT_BUY_IMAGES') ?></button>
         <?php ENDIF ?>
 
         <?php IF ($this->model->folder->cartable == 1 && $this->params->get('show_cart_connector', 0) == 1): ?>
