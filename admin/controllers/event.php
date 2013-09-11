@@ -24,7 +24,7 @@ class EventgalleryControllerEvent extends JControllerForm
 	 * @return	void
 	 * @since	1.6
 	 */
-	protected function postSaveHook(JModelLegacy $model, $validData = array())
+	protected function postSaveHook(EventgalleryModelEvent $model, $validData = array())
 	{
 
 		
