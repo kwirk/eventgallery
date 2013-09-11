@@ -200,4 +200,37 @@ class EventgalleryModelOrder extends JModelAdmin
         return true;
     }
 
+    public function delete(&$pks) {
+        $result = parent::delete($pks);
+
+        $pks = (array) $pks;
+        $table = $this->getTable();
+
+        // Iterate the items to delete each one.
+        foreach ($pks as $i => $pk)
+        {
+            // if the order was deleted, remote the line items too.
+            if (!$table->load($pk))
+            {
+                // remove lineitems
+                $db = JFactory::getDBO();
+                $query = $db->getQuery(true)
+                    ->delete($db->quoteName('#__eventgallery_imagelineitem'))
+                    ->where('lineitemcontainerid=' . $db->quote($pk));
+                $db->setQuery($query);
+                $db->query();
+
+                //remove servicelineitems
+                $db = JFactory::getDBO();
+                $query = $db->getQuery(true)
+                    ->delete($db->quoteName('#__eventgallery_servicelineitem'))
+                    ->where('lineitemcontainerid=' . $db->quote($pk));
+                $db->setQuery($query);
+                $db->query();
+            }
+        }
+
+        return $result;
+    }
+
 }
