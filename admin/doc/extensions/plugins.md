@@ -20,7 +20,21 @@ Make sure the content plugin is enabled to update the index once you change even
 
 This plugin is useful is you want to add some images of an event to an article.
 
+### Images
+
 Syntax: ```{eventgallery event="foo" max_images=4 thumb_width=75}``` 
 
 ```max_images``` and ```thumb_width``` are optional. The value for the ```event``` parameter has to be the value of the folder name field of an event. Set ```max_images=-1``` to show all images of an event.
 
+### Description
+
+If you want to display the description of an event use this tag: 
+```{eventgallery event="foo" attr="description"}``` 
+
+### Text
+
+If you want to display the text of an event use this tag: 
+```{eventgallery event="foo" attr="text" type="intro"}``` 
+```{eventgallery event="foo" attr="text" type="full"}``` 
+
+If you used a page break tag in your text the intro and full content will be different. 

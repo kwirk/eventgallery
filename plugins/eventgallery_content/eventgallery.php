@@ -65,25 +65,21 @@ class PlgContentEventgallery extends JPlugin
 
 
 
-        foreach($matches[0] as $key=>$value) {
+        foreach($matches[0] as $key=>$paramString) {
             $result = "";
-            preg_match("/event=\"([^\"]*)\"/", $value, $folderMatches);
+
+            preg_match("/event=\"([^\"]*)\"/", $paramString, $folderMatches);
             if (!isset($folderMatches[1])) {
                 continue;
             }
             $foldername = $folderMatches[1];
 
-            $max_images = "5";
-            preg_match("/max_images=\"?([-0-9]+)\"?/", $value, $maxImagesMatches);
-            if (isset($maxImagesMatches[1])) {
-                $max_images = $maxImagesMatches[1];
-            }
+            $max_images = $this->getParameterValue($paramString, 'max_images', 5);
 
-            $params->set('thumb_width', 50);
-            preg_match("/thumb_width=\"?([0-9]+)\"?/", $value, $sizeMatches);
-            if (isset($sizeMatches[1])) {
-                $params->set('thumb_width', $sizeMatches[1]);
-            }
+            $params->set('thumb_width', $this->getParameterValue($paramString, 'thumb_width', 50));
+
+            $attr = $this->getParameterValue($paramString, 'attr', 'images');
+            $type = $this->getParameterValue($paramString, 'type', null);
 
             /**
              * @var EventModelEvent $model
@@ -94,23 +90,53 @@ class PlgContentEventgallery extends JPlugin
             if (isset($folder) && $folder->published==1 && EventgalleryHelpersFolderprotection::isAccessAllowed($folder) && EventgalleryHelpersFolderprotection::isVisible($folder)) {
                 $files = $model->getEntries($foldername, 0, $max_images, 1);
 
-                // Get the path for the layout file
-                $path = JPluginHelper::getLayoutPath('content', 'eventgallery');
+                if ($attr == 'images') {
+                    // Get the path for the layout file
+                    $path = JPluginHelper::getLayoutPath('content', 'eventgallery');
 
-                // Render
-                ob_start();
-                include $path;
-                $result = ob_get_clean();
+                    // Render
+                    ob_start();
+                    include $path;
+                    $result = ob_get_clean();
+                }
+
+                if ($attr == 'description') {
+                    $result = $folder->description;
+                }
+
+                if ($attr == 'text') {
+                    if ($type=="intro") {
+                        $result = $folder->introtext;
+                    } else {
+                        $result = $folder->text;
+                    }
+                }
             }
 
 
-            $row->text = str_replace($value, $result, $row->text, $count );
+            $row->text = str_replace($paramString, $result, $row->text, $count );
         }
 
 
 
 
         return true;
+    }
+
+    /**
+     * @param $string a string like foo="bar" bar="1223"
+     * @param $key a string like foo
+     * @param $defaultValue the default result.
+     * @return null|String with the key for the result is bar
+     */
+    protected function getParameterValue($string, $key, $defaultValue) {
+
+        preg_match("/$key=\"?([A-Za-z0-9]+)\"?/", $string, $sizeMatches);
+        if (isset($sizeMatches[1])) {
+            return $sizeMatches[1];
+        }
+
+        return $defaultValue;
     }
 
    
