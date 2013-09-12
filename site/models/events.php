@@ -69,7 +69,7 @@ class EventsModelEvents extends JModelLegacy
                 ->from($this->_db->quoteName('#__eventgallery_folder') . ' AS folder')
                 ->join('LEFT', $this->_db->quoteName('#__eventgallery_file') . ' AS file ON folder.folder = file.folder AND folder.published=1 AND file.published=1')
                 ->where('(file.ismainimageonly IS NULL OR file.ismainimageonly=0)')
-                ->group('folder.folder');
+                ->group('folder.id');
 
             if ($sortAttribute == "date_asc") {
                 $query->order('date ASC, ordering DESC');
@@ -195,7 +195,7 @@ class EventsModelEvents extends JModelLegacy
         if (!$this->_commentCount)
         {
             $query = $this->_db->getQuery(true)
-                ->select('folder, count(1) AS commentCount')
+                ->select('folder, count(1) AS '.$this->_db->quoteName('commentCount'))
                 ->from($this->_db->quoteName('#__eventgallery_comment'))
                 ->where('published=1')
                 ->group('folder');
