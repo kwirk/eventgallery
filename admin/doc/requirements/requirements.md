@@ -2,7 +2,7 @@
 - your images need to have an extension like JPG or jpg.
 - Joomla 2.5 (>2.5.11) or Joomla 3.x 
 - PHP 5.3 or later
-- MySQL (prefered) or PostgreSQL
+- MySQL (prefered) or PostgreSQL (build in but unsupported)
 - GD library for PHP
 - set the PHP memory limit high enough
 - your Joomla Template should put jQuery into no conflict mode
