@@ -25,7 +25,7 @@ foreach($orders as $myorder) {
 
 ?>
 
-<div class="eventgallery-checkout">
+<div class="eventgallery-checkout eventgallery-confirm-page">
 
 	<h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_CONFIRM_HEADLINE') ?></h1>
     <h2> <?php echo JText::sprintf('COM_EVENTGALLERY_CART_CHECKOUT_CONFIRM_SUCCESS_MESSAGE', $order->getDocumentNumber(), $order->getEMail() ) ?></h2>

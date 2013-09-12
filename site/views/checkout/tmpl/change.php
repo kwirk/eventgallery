@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-<div class="eventgallery-checkout">
+<div class="eventgallery-checkout eventgallery-change-page">
     <h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_CHANGE_HEADLINE') ?></h1>
     <?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_CHANGE_TEXT') ?>&nbsp;
     <!--<a class="" href="<?php echo JRoute::_("index.php?option=com_eventgallery&view=cart") ?>"><?php echo JText::_('COM_EVENTGALLERY_CART')?> <i class="icon-arrow-right"></i></a>-->
