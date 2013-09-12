@@ -140,4 +140,24 @@ interface EventgalleryLibraryInterfaceMethod
      */
     public function onSaveAdminForm($validData);
 
+    /**
+     * This method returns content which can be shown if the method is displayed on a review page.
+     * A review page is a page where the method is attached to a cart instead of an order
+     *
+     * @param $lineitemcontainer EventgalleryLibraryLineitemcontainer
+     * @return String
+     */
+    public function getMethodReviewContent($lineitemcontainer);
+
+
+    /**
+     * This method returns content which can be shown if the method is displayed on a review page.
+     * A review page is a page where the method is attached to an order instead of a cart
+     * Keep in mind that this content is also part of emails.
+     *
+     * @param $lineitemcontainer EventgalleryLibraryLineitemcontainer
+     * @return String
+     */
+    public function getMethodConfirmContent($lineitemcontainer);
+
 }

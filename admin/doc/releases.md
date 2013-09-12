@@ -6,7 +6,10 @@ What's new? Find out about the new features and fixed bugs here.
 
 Get the latest version from here: [www.svenbluege.de](http://www.svenbluege.de)
 
-## 3.0.0 {#301}
+## 3.0.2 {#302}
+{file://releases/3.0.1.md}
+
+## 3.0.1 {#301}
 {file://releases/3.0.1.md}
 
 ## 3.0.0 {#300}

@@ -183,6 +183,15 @@ abstract class EventgalleryLibraryMethodsMethod extends EventgalleryLibraryDatab
         return true;
     }
 
+    public function getMethodReviewContent($lineitemcontainer) {
+        return "";
+    }
+
+
+    public function getMethodConfirmContent($lineitemcontainer) {
+        return "";
+    }
+
     protected function _storeMethod()
     {
         $data = $this->_object;

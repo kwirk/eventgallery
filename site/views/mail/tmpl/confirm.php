@@ -99,6 +99,8 @@ $mercentAddress = strlen($mercentAddressObject->get())>0?$mercentAddressObject->
         <?php echo JText::sprintf('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_MESSAGE', JHTML::_('date', $order->getCreationDate()), $order->getDocumentNumber()) ?>
     </p>
 
+    <?php $this->set('lineitemcontainer', $order); echo $this->loadSnippet('order/methodinformation') ?>
+
     <h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_YOUR_ITEMS') ?></h1>
 
     <table>

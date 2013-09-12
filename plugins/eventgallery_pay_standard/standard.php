@@ -30,4 +30,40 @@ class EventgalleryPluginsPaymentStandard extends  EventgalleryLibraryMethodsPaym
     static public  function getClassName() {
         return "Payment: Standard";
     }
+
+    public function onPrepareAdminForm($form) {
+
+        /**
+         * add the language files
+         */
+
+        $language = JFactory::getLanguage();
+        $language->load('plg_eventgallery_pay_standard' , __DIR__ , $language->getTag(), true);
+
+        /**
+         * disable the default data field
+         */
+        $form->setFieldAttribute('data', 'required', 'false');
+        $form->setFieldAttribute('data', 'disabled', 'true');
+
+        $fields = new SimpleXMLElement(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'forms'.DIRECTORY_SEPARATOR.'fields.xml'));
+        $form->setField($fields);
+
+        if (isset($this->getData()->review_message)) {  $form->setValue("payment_standard_review_message", null, $this->getData()->review_message); }
+        if (isset($this->getData()->confirmation_message)) {  $form->setValue("payment_standard_confirmation_message", null, $this->getData()->confirmation_message); }
+
+        return $form;
+    }
+
+    public function onSaveAdminForm($data) {
+
+        $object = new stdClass();
+
+        $object->review_message = $data['payment_standard_review_message'];
+        $object->confirmation_message = $data['payment_standard_confirmation_message'];
+
+        $this->setData($object);
+
+        return true;
+    }
 }

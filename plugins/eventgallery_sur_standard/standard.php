@@ -67,25 +67,8 @@ class EventgalleryPluginsSurchargeStandard extends  EventgalleryLibraryMethodsSu
         $form->setFieldAttribute('data', 'required', 'false');
         $form->setFieldAttribute('data', 'disabled', 'true');
 
-        $field = new SimpleXMLElement('
-            <fieldset name="surcharge" label="COM_EVENTGALLERY_PLUGINS_SURCHARGE_STANDARD_LABEL" description="COM_EVENTGALLERY_PLUGINS_SURCHARGE_STANDARD_DESC">
-                <field name="surcharge_standard_min"
-                   type="text"
-                   label="COM_EVENTGALLERY_PLUGINS_SURCHARGE_STANDARD_MIN_LABEL"
-                   description="COM_EVENTGALLERY_PLUGINS_SURCHARGE_STANDARD_MIN_DESC"
-                   required="false"
-                   class="input-xlarge"
-                />
-                <field name="surcharge_standard_max"
-                   type="text"
-                   label="COM_EVENTGALLERY_PLUGINS_SURCHARGE_STANDARD_MAX_LABEL"
-                   description="COM_EVENTGALLERY_PLUGINS_SURCHARGE_STANDARD_MAX_DESC"
-                   required="false"
-                   class="input-xlarge"
-                />
-            </fieldset>
-        ');
-        $form->setField($field);
+        $fields = new SimpleXMLElement(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'forms'.DIRECTORY_SEPARATOR.'fields.xml'));
+        $form->setField($fields);
 
         if (isset($this->getData()->rules->minAmount)) {  $form->setValue("surcharge_standard_min", null, $this->getData()->rules->minAmount); }
         if (isset($this->getData()->rules->maxAmount)) {  $form->setValue("surcharge_standard_max", null, $this->getData()->rules->maxAmount); }

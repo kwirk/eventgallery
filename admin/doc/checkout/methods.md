@@ -1,6 +1,6 @@
 ## Payment {#payment}
 
-Define how an oder can be payed.
+Define how an order can be payed. You can add additional messages which show up on review and confirmation pages. Using those messages you can create a payment method like Cash in Advance where you can name the right way for the customer to send you the money. 
 
 ![Configuration options](img/backend/backend_paymentmethodes.jpg)
 

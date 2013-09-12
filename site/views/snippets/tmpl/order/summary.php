@@ -12,7 +12,9 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 
-<?php echo $this->loadSnippet('checkout/basic') ?>    
+<?php echo $this->loadSnippet('checkout/basic') ?>
+
+<?php echo $this->loadSnippet('order/methodinformation') ?>
 
 <div class="review-billing-address">
     <h2><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_REVIEW_BILLINGADDRESS_HEADLINE') ?></h2>
@@ -28,3 +30,4 @@ defined('_JEXEC') or die('Restricted access');
 <?php echo $this->loadSnippet('checkout/lineitems') ?>
 
 <?php echo $this->loadSnippet('order/total') ?>
+

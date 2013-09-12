@@ -192,50 +192,10 @@ class EventgalleryPluginsPaymentPaypal extends  EventgalleryLibraryMethodsPaymen
         $form->setFieldAttribute('data', 'required', 'false');
         $form->setFieldAttribute('data', 'disabled', 'true');
 
-        $field = new SimpleXMLElement('
-            <fieldset name="paypal" label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_LABEL" description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_DESC">
-                <field name="paypal_receiver_email"
-                   type="text"
-                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_RECEIVER_EMAIL_LABEL"
-                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_RECEIVER_EMAIL_DESC"
-                   required="true"                   
-                   class="input-xlarge"
-                />
-                <field name="paypal_credentials_userid"
-                   type="text"
-                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_USERID_LABEL"
-                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_USERID_DESC"
-                   required="true"                   
-                   class="input-xlarge"
-                />
-                <field name="paypal_credentials_password"
-                   type="text"
-                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_PASSWORD_LABEL"
-                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_PASSWORD_DESC"
-                   required="true"                   
-                   class="input-xlarge"
-                />
-                <field name="paypal_credentials_signature"
-                   type="text"
-                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_SIGNATURE_LABEL"
-                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_SIGNATURE_DESC"
-                   required="true"                   
-                   class="input-xlarge"
-                />
-                <field name="paypal_credentials_appid"
-                   type="text"
-                   label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_APPID_LABEL"
-                   description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_CREDENTIALS_APPID_DESC"
-                   required="true"                   
-                   class="input-xlarge"
-                />
-                <field name="paypal_options_productionmode" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_PRODUCTIONMODE_LABEL" description="COM_EVENTGALLERY_PLUGINS_PAYMENT_PAYPAL_PRODUCTIONMODE_DESC">
-                    <option value="1">JYES</option>
-                    <option value="0">JNO</option>
-                </field>
-            </fieldset>
-        ');
-        $form->setField($field);
+
+
+        $fields = new SimpleXMLElement(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'forms'.DIRECTORY_SEPARATOR.'fields.xml'));
+        $form->setField($fields);
 
         if (isset($this->getData()->receiver->email)) {         $form->setValue("paypal_receiver_email", null, $this->getData()->receiver->email); }
         if (isset($this->getData()->credentials->userid)) {     $form->setValue("paypal_credentials_userid", null, $this->getData()->credentials->userid); }
