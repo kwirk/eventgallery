@@ -52,8 +52,10 @@ class CheckoutController extends JControllerLegacy
 
         $mailer->setSender($sender);
 
+        $subject = JText::sprintf('COM_EVENTGALLERY_CART_CHECKOUT_ORDER_MAIL_CONFIRMATION_SUBJECT', $order->getBillingAddress()->getFirstName().' '.$order->getBillingAddress()->getLastName(), $order->getLineItemsTotalCount(), $order->getLineItemsCount());
+
         $mailer->setSubject(
-            "$sitename - Image Order for ".$order->getBillingAddress()->getFirstName().' '.$order->getBillingAddress()->getLastName().' with '.$order->getLineItemsTotalCount().' copies of ' . $order->getLineItemsCount() . " images"
+            "$sitename - " . $subject
         );
 
         $mailer->setSender($sender);
