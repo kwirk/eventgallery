@@ -85,6 +85,7 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
             $folder->date = "";
             $folder->description="";
             $folder->text = "";
+            $folder->attribs = $this->params;           
             $this->folder = $folder;
             $this->entriesCount = count($images);
 
