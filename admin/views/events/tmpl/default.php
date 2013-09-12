@@ -211,7 +211,7 @@ $sortFields = $this->getSortFields();
                     </small>
 				</td>
 				<td class="center">
-					<a href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&task=comments&filter=folder='.$row->folder) ?>">
+					<a href="<?php echo JRoute::_( 'index.php?option=com_eventgallery&view=comments&filter=folder='.$row->folder) ?>">
 						<?php echo $row->commentCount ?>
 					</a>
 				</td>
