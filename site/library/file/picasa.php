@@ -95,7 +95,7 @@ class EventgalleryLibraryFilePicasa extends EventgalleryLibraryFile
         $caption = "";
 
         if (isset($this->_file->caption) && strlen($this->_file->caption) > 0) {
-            $caption .= '<span class="img-caption img-caption-part1">' . $this->_file->caption . '</span>';
+            $caption .= '<span class="img-caption img-caption-part1">' . nl2br(htmlspecialchars($this->_file->caption)) . '</span>';
         }
 
         if ($showExif && isset($this->_file->exif) && strlen($this->_file->exif->model) > 0 && strlen($this->_file->exif->focallength) > 0
