@@ -30,7 +30,7 @@ foreach($orders as $myorder) {
 	<h1><?php echo JText::_('COM_EVENTGALLERY_CART_CHECKOUT_CONFIRM_HEADLINE') ?></h1>
     <h2> <?php echo JText::sprintf('COM_EVENTGALLERY_CART_CHECKOUT_CONFIRM_SUCCESS_MESSAGE', $order->getDocumentNumber(), $order->getEMail() ) ?></h2>
 
-    <?php $this->set('edit',false); $this->set('lineitemcontainer', $order); echo $this->loadSnippet('checkout/summary') ?>
+    <?php $this->set('edit',false); $this->set('lineitemcontainer', $order); echo $this->loadSnippet('order/summary') ?>
 	<div class="clearfix"></div>
 </div>
 
