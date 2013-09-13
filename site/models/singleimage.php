@@ -39,14 +39,11 @@ class EventgalleryModelSingleimage extends JModelLegacy
 
     function __construct()
     {
-        $app = JFactory::getApplication();
 
         $params = JComponentHelper::getParams('com_eventgallery');
-        $this->paging_images_count = $params->get('paging_images_count');
+        $this->paging_images_count = $params->get('paging_images_count', 0);
 
         parent::__construct();
-        $limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int');
-        $this->setState('limit', $limit);
 
     }
 
@@ -57,35 +54,10 @@ class EventgalleryModelSingleimage extends JModelLegacy
             $this->loadFolder($folder);
 
             // picasa files are not stored in the database
-            $countHits = true;
 
-            if (strpos($folder, '@') > -1) {
-                $values = explode("@", $folder, 2);
-                $picasakey = $this->folder->picasakey;
-                $album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $picasakey);
-                $files = $album->photos;
-                $countHits = false;
-            } else {
+            $eventModel = JModelLegacy::getInstance('Event', 'EventModel');
+            $files = $eventModel->getEntries($folder, 0, -1);
 
-                $db = JFactory::getDBO();
-                $query = $db->getQuery(true)
-                    ->select('*')
-                    ->from($db->quoteName('#__eventgallery_file'))
-                    ->where('folder=' . $db->quote($folder))
-                    ->where('published=1')
-                    ->order('file');
-                $db->setQuery($query);
-                #$db = new JDatabase();
-                $files = $db->loadObjectList();
-
-                $filesObjects = Array();
-
-                foreach ($files as $file) {
-                    $filesObjects[] = new EventgalleryHelpersImageLocal($file);
-                }
-
-                $files = $filesObjects;
-            }
 
             $i = 0;
             $filesCount = count($files);
@@ -96,11 +68,12 @@ class EventgalleryModelSingleimage extends JModelLegacy
                     /**
                      * Update Hits
                      */
-                    if ($countHits == true) {
-                        /**
-                         * @var TableFile $table
-                         */
-                        $table = $this->getTable('File');
+
+                    /**
+                     * @var TableFile $table
+                     */
+                    $table = $this->getTable('File');
+                    if  (isset($file->id) && $table->load($file->id)) {
                         $table->bind($file);
                         $table->hits++;
                         $table->store();
@@ -150,19 +123,6 @@ class EventgalleryModelSingleimage extends JModelLegacy
                     if ($lowerStop >= 0) {
                         $this->prevFiles = array_slice($files, $lowerStart, $lowerStop - $lowerStart + 1);
                     }
-                    /*
-                      echo "lower  = array_slice($files,$lowerStart,$lowerStop+$lowerStart-2);<br>";
-                      echo "upper = array_slice($files,$lowerStart,$lowerStop-$lowerStart+1);<br>";
-
-                      //echo "<pre>";
-                      echo "$i\n<br>";
-                      echo "$lower -> $upper\n<br>";
-                      echo "$lowerStart -> $lowerStop\n<br>";
-                      echo "$upperStart -> $upperStop<br>";
-                      echo count($this->prevFiles)."<br>";
-                      echo count($this->nextFiles)."<br>";
-                      */
-
 
                     $this->lastFile = $files[count($files) - 1];
                     $this->firstFile = $files[0];
@@ -188,17 +148,15 @@ class EventgalleryModelSingleimage extends JModelLegacy
 
     function loadFolder($folder)
     {
+        /**
+         * @var EventModelEvent $eventModel
+         */
+
+
+
         if (!$this->folder) {
-            $query = $this->_db->getQuery(true)
-                ->select('*')
-                ->from('#__eventgallery_folder')
-                ->where('published=1 and folder=' . $this->_db->quote($folder));
-            $folders = $this->_getList($query);
-            $this->folder = $folders[0];
-            // Convert the params field to an array.
-            $registry = new JRegistry;
-            $registry->loadString($this->folder->attribs);
-            $this->folder->attribs = $registry;
+            $eventModel = JModelLegacy::getInstance('Event', 'EventModel');
+            $this->folder = $eventModel->getFolder($folder);
         }
     }
 
@@ -250,6 +208,11 @@ class EventgalleryModelSingleimage extends JModelLegacy
         return $entry;
     }
 
+    /**
+     * This function was used as a comment filter before.
+     *
+     * @return array
+     */
     function getBuzzwords()
     {
         /*$query = "SELECT * from #__buzzword where published=1";
