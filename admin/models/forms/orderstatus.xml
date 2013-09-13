@@ -39,6 +39,7 @@
                required="false"
                validate=""
                class="input-xlarge"
+               filter="JComponentHelper::filterText"
                 /> 
     </fieldset>
 </form>

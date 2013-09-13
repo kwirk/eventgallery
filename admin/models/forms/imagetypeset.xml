@@ -22,6 +22,7 @@
                required="false"
                validate=""
                class="input-xlarge"
+               filter="JComponentHelper::filterText"
                 /> 
                 
         <field name="note"
@@ -31,7 +32,7 @@
                placeholder="COM_EVENTGALLERY_IMAGETYPESET_NOTE_PLACEHOLDER"
                required="false"
                validate=""
-               class="input-xlarge"
+               class="input-xlarge"               
                 />               
          
          <field name="published" type="radio" class="btn-group" default="0" label="COM_EVENTGALLERY_EVENTS_PUBLISHED" description="COM_EVENTGALLERY_EVENTS_PUBLISHED_DESCRIPTION">

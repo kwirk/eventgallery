@@ -43,6 +43,7 @@
                required="false"
                validate=""
                class="input-xlarge"
+               filter="JComponentHelper::filterText"
                 /> 
         
          <field name="data"
