@@ -68,15 +68,22 @@ class EventgalleryPluginsPaymentStandard extends  EventgalleryLibraryMethodsPaym
     }
 
     public function getMethodReviewContent($lineitemcontainer) {
-
-        $string = new EventgalleryLibraryDatabaseLocalizablestring($this->getData()->review_message);
+        $data = $this->getData();
+        if (null == $data) {
+            return "";
+        }
+        $string = new EventgalleryLibraryDatabaseLocalizablestring($data->review_message);
         return $string->get();
 
     }
 
 
     public function getMethodConfirmContent($lineitemcontainer) {
-        $string = new EventgalleryLibraryDatabaseLocalizablestring($this->getData()->confirmation_message);
+        $data = $this->getData();
+        if (null == $data) {
+            return "";
+        }
+        $string = new EventgalleryLibraryDatabaseLocalizablestring($data->confirmation_message);
         return $string->get();
     }
 
