@@ -184,6 +184,8 @@ class EventgalleryController extends JControllerLegacy
 		
 		$path=JPATH_BASE.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'com_eventgallery_images';
 		rrmDir($path);
+		$path=JPATH_BASE.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'com_eventgallery_picasa';
+		rrmDir($path);
 		$path=JPATH_BASE.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'com_eventgallery';
 		rrmDir($path);
 		$msg = JText::_( 'COM_EVENTGALLERY_CLEAR_CACHE_DONE' );
