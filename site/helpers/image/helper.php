@@ -186,6 +186,7 @@ class EventgalleryHelpersImageHelper
 
 
             $photo['caption'] = $xpath->query('.//summary', $node)->item(0)->textContent;
+            $photo['title'] = "";
             $photo['folder'] = $userName . '@' . $albumNameOrId;
             $photo['file'] = $xpath->query('.//gphoto:id', $node)->item(0)->textContent;
             $photo['commentCount'] = $xpath->query('.//gphoto:commentCount', $node)->item(0)->textContent;
