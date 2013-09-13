@@ -115,22 +115,27 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
             throw new Exception("can't add item with invalid file or folder name");
         }
 
-        $file = new EventgalleryLibraryFile($foldername, $filename);
+        /**
+         * @var EventgalleryLibraryManagerFile $fileMgr
+         */
+        $fileMgr = EventgalleryLibraryManagerFile::getInstance();
+        $file = $fileMgr->getFile($foldername, $filename);
+
 
         /* security check BEGIN */
-        if (!$file->isCartable()) {
-            throw new Exception("the item you try to add is not cartable.");
-        }
-
         if (!$file->isPublished()) {
             throw new Exception("the item you try to add is not published.");
         }
 
-        if (!$file->isVisible()) {
+        if (!$file->getFolder()->isCartable()) {
+            throw new Exception("the item you try to add is not cartable.");
+        }
+
+        if (!$file->getFolder()->isVisible()) {
             throw new Exception("the item you try to add is not visible for you. You might want to login first.");
         }
 
-        if (!$file->isAccessible()) {
+        if (!$file->getFolder()->isAccessible()) {
             throw new Exception("the item you try to add is not accessible. You might need to enter a password to unlock the folder first.");
         }
 
@@ -140,9 +145,9 @@ class EventgalleryLibraryCart extends EventgalleryLibraryLineitemcontainer
         $imageType = NULL;
 
         if ($typeid == NULL) {
-            $imageType = $file->getImageTypeSet()->getDefaultImageType();
+            $imageType = $file->getFolder()->getImageTypeSet()->getDefaultImageType();
         } else {
-            $imageType = $file->getImageTypeSet()->getImageType($typeid);
+            $imageType = $file->getFolder()->getImageTypeSet()->getImageType($typeid);
         }
 
         if ($imageType == NULL) {

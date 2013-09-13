@@ -18,7 +18,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
 {
 
     /**
-     * @var TableFolder
+     * @var EventgalleryLibraryFolder
      */
     var $folder = NULL;
     /**
@@ -48,33 +48,36 @@ class EventgalleryModelSingleimage extends JModelLegacy
     }
 
 
-    function getData($folder, $filename)
+    function getData($foldername, $filename)
     {
         if (!$this->_dataLoaded) {
-            $this->loadFolder($folder);
+            $this->loadFolder($foldername);
 
             // picasa files are not stored in the database
 
             $eventModel = JModelLegacy::getInstance('Event', 'EventModel');
-            $files = $eventModel->getEntries($folder, 0, -1);
+            $files = $this->folder->getFiles(0, -1);
 
 
             $i = 0;
             $filesCount = count($files);
 
-
+            /**
+             * @var EventgalleryLibraryFile $file
+             */
             foreach ($files as $file) {
-                if (strcmp($file->file, $filename) == 0) {
+                if (strcmp($file->getFileName(), $filename) == 0) {
                     /**
                      * Update Hits
                      */
 
+                    $file->countHit();
                     /**
                      * @var TableFile $table
                      */
                     $table = $this->getTable('File');
                     if  (isset($file->id) && $table->load($file->id)) {
-                        $table->bind($file);
+                        $table->bind($file->getInternalFile());
                         $table->hits++;
                         $table->store();
                     }
@@ -146,17 +149,18 @@ class EventgalleryModelSingleimage extends JModelLegacy
         }
     }
 
-    function loadFolder($folder)
+    function loadFolder($foldername)
     {
         /**
          * @var EventModelEvent $eventModel
          */
 
-
-
         if (!$this->folder) {
-            $eventModel = JModelLegacy::getInstance('Event', 'EventModel');
-            $this->folder = $eventModel->getFolder($folder);
+            /**
+             * @var EventgalleryLibraryManagerFolder $folderMgr
+             */
+            $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+            $this->folder = $folderMgr->getFolder($foldername);
         }
     }
 
@@ -167,8 +171,8 @@ class EventgalleryModelSingleimage extends JModelLegacy
                 ->select('*')
                 ->from($this->_db->quoteName('#__eventgallery_comment'))
                 ->where('published=1')
-                ->where('file=' . $this->_db->quote($this->file->file))
-                ->where('folder=' . $this->_db->quote($this->file->folder))
+                ->where('file=' . $this->_db->quote($this->file->getFileName()))
+                ->where('folder=' . $this->_db->quote($this->file->getFolderName()))
                 ->order('date DESC');
             $this->comments = $this->_getList($query);
             if (!$this->comments) {

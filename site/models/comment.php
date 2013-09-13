@@ -33,14 +33,12 @@ class EventgalleryModelComment extends JModelLegacy
 
     function getFile($commentId)
     {
-        $db = JFactory::getDBO();
         $comment = $this->getData($commentId);
-        $query = $db->getQuery(true)
-            ->select('*')
-            ->from($db->quoteName('#__eventgallery_file'))
-            ->where('file=' . $db->quote($comment->file))
-            ->where('folder=' . $db->quote($comment->folder));
-        $db->setQuery($query);
-        return new EventgalleryHelpersImageLocal($db->loadObject());
+        /**
+         * @var EventgalleryLibraryManagerFile $fileMgr
+         */
+        $fileMgr = EventgalleryLibraryManagerFile::getInstance();
+        return $fileMgr->getFile($comment->folder, $comment->file);
+
     }
 }

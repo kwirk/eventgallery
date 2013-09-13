@@ -12,51 +12,13 @@ class EventgalleryHelpersFolderprotection
 {
 
     /**
-     * Returns true if the folder is visible for the current user
-     *
-     * @param $folder
-     */
-    public static function isVisible($folder) {
-        $user = JFactory::getUser();
-
-        $params = JComponentHelper::getParams('com_eventgallery');
-        $minUserGroups = $params->get('eventgallery_default_usergroup');
-
-        // if no user groups are set at all
-        if (strlen($folder->usergroupids)==0 && count($minUserGroups)==0 ) {
-            return true;
-        }
-
-        // use the default usergroups if the folder does not define any
-        if (strlen($folder->usergroupids)==0) {
-            $folderUserGroups = $minUserGroups;
-        } else {
-            $folderUserGroups = explode(',', $folder->usergroupids);
-        }
-
-        // if the public user group is part of the folder user groups
-        if (in_array(1, $folderUserGroups)) {
-            return true;
-        }
-
-
-
-        $userUserGroups = JUserHelper::getUserGroups($user->id);
-        foreach($userUserGroups as $userUserGroup) {
-
-            if (count(array_intersect(EventgalleryHelpersUsergroups::getGroupPath($userUserGroup), $folderUserGroups))>0 ) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * returns true if the folder is unlocked. If a password is given we try to unlock
      * the folder. If the password is wrong or the folder is locked false is returned.
+     *
+     * @param Object $folder  a folder object
+     * @param string $password a password
+     * @return boolean
      */
-
     public static function isAccessAllowed($folder, $password = "")
     {
 
@@ -68,13 +30,13 @@ class EventgalleryHelpersFolderprotection
         }
 
         // if the folder has an empty password
-        if (strlen($folder->password) == 0) {
+        if (strlen($folder->getPassword()) == 0) {
             return true;
         }
 
 
         // if the event need a password
-        if (is_object($folder) && strlen($folder->password) > 0) {
+        if (is_object($folder) && strlen($folder->getPassword()) > 0) {
 
             $unlockedFoldersJson = $session->get("eventgallery_unlockedFolders", "");
 
@@ -84,16 +46,16 @@ class EventgalleryHelpersFolderprotection
             }
 
             // return true because the folder is already unlocked.
-            if (in_array($folder->folder, $unlockedFolders)) {
+            if (in_array($folder->getFolderName(), $unlockedFolders)) {
                 return true;
             }
 
             // does the entered password matches?
-            if (strcmp($folder->password, $password) == 0) {
+            if (strcmp($folder->getPassword(), $password) == 0) {
 
                 // remember that we unlocked this folder
-                if (!in_array($folder->folder, $unlockedFolders)) {
-                    array_push($unlockedFolders, $folder->folder);
+                if (!in_array($folder->getFolderName(), $unlockedFolders)) {
+                    array_push($unlockedFolders, $folder->getFolderName());
                 }
 
                 $session->set("eventgallery_unlockedFolders", json_encode($unlockedFolders));

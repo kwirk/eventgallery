@@ -15,14 +15,19 @@ class EventController extends JControllerLegacy
 
         $password = JRequest::getString('password', '');
         $folder = JRequest::getString('folder', '');
-        $folder = $this->getModel('event')->getFolder($folder);
+        /**
+         * @var EventgalleryLibraryManagerFolder $folderMgr
+         */
+        $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+        $folder = $folderMgr->getFolder($folder);
+
 
         // we need to do this only if someone entered a password.
         // the views will protect themselfs
         $accessAllowed = EventgalleryHelpersFolderprotection::isAccessAllowed($folder, $password);
         if (strlen($password) > 0 && !$accessAllowed) {
             $msg = JText::_('COM_EVENTGALLERY_PASSWORD_FORM_ERROR');
-            $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=password&folder=" . $folder->folder, false), $msg);
+            $this->setRedirect(JRoute::_("index.php?option=com_eventgallery&view=password&folder=" . $folder->getFolderName(), false), $msg);
             $this->redirect();
         }
 

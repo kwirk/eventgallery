@@ -14,7 +14,7 @@ jimport('joomla.application.categories');
 /**
  * Build the route for the com_eventgallery component
  *
- * @param	array	An array of URL arguments
+ * @param	array $query	An array of URL arguments
  * @return	array	The URL arguments to use to assemble the subsequent URL.
  * @since	1.5
  */
@@ -73,7 +73,7 @@ function EventgalleryBuildRoute(&$query)
 /**
  * Parse the segments of a URL.
  *
- * @param	array	The segments of the URL to parse.
+ * @param	array	$segments The segments of the URL to parse.
  *
  * @return	array	The URL attributes to be used by the application.
  * @since	1.5

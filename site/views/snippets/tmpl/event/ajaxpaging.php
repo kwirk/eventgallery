@@ -38,9 +38,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
                 'next_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/next_button.png'?>',
                 'zoom_image': '<?php echo JURI::base().'components/com_eventgallery/media/images/zoom_button.png'?>',
                 'titleTarget': 'bigImageDescription',
-                'showSocialMediaButton': <?php echo ($this->params->get('use_social_sharing_button', 0)==1  && $this->folder->attribs->get('use_social_sharing', 1)==1)?'true':'false'?>,
-                'showCartButton': <?php echo $this->folder->cartable==1?'true':'false'; ?>,
-                'showCartConnector': <?php echo $this->params->get('show_cart_connector', 0)==1&&$this->folder->cartable==1?'true':'false'; ?>,
+                'showSocialMediaButton': <?php echo ($this->params->get('use_social_sharing_button', 0)==1  && $this->folder->getAttribs()->get('use_social_sharing', 1)==1)?'true':'false'?>,
+                'showCartButton': <?php echo $this->folder->isCartable()?'true':'false'; ?>,
+                'showCartConnector': <?php echo $this->params->get('show_cart_connector', 0)==1&&$this->folder->isCartable()==1?'true':'false'; ?>,
 				'cartConnectorLinkRel' : '<?php echo $this->params->get('cart_connector_link_rel', 'nofollow')?>',
                 'lightboxRel': 'lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox',0)==1?'fullscreen':''; ?>]'
             });
@@ -90,19 +90,19 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
                     <div id="page<?php echo $pageCount++; ?>" class="page">
 
-                        <?php foreach ($this->entries as $entry) :/** @var EventgalleryHelpersImageDefault $entry */ ?>
+                        <?php foreach ($this->entries as $entry) :/** @var EventgalleryLibraryFile $entry */ ?>
 
                         <?php IF ($pageCount == 1 && $imageCount == 0): ?>
                             <?php IF ($this->params->get('show_date', 1) == 1): ?>
                                 <h4 class="date">
-                                    <?php echo JHTML::Date($this->folder->date); ?>
+                                    <?php echo JHTML::Date($this->folder->getDate()); ?>
                                 </h4>
                             <?php ENDIF ?>
                             <h1 class="description">
-                                <?php echo $this->folder->description; ?>
+                                <?php echo $this->folder->getDescription(); ?>
                             </h1>
                             <div class="text">
-                                <?php echo $this->folder->text; ?>
+                                <?php echo $this->folder->getText(); ?>
                             </div>
                         <?php ENDIF; ?>
 
@@ -115,25 +115,25 @@ defined('_JEXEC') or die('Restricted access'); ?>
                                href="<?php echo $entry->getImageUrl(NULL, NULL, true); ?>"
                                title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8'); ?>"
                                rel="<?php echo $entry->getImageUrl(50, 50, false, false); ?>"
-                               data-folder="<?php echo $entry->folder; ?>"
-                               data-file="<?php echo $entry->file; ?>"
+                               data-folder="<?php echo $entry->getFolderName(); ?>"
+                               data-file="<?php echo $entry->getFileName(); ?>"
                                <?php IF ($this->params->get('show_cart_connector', 0)==1):?>
-							       data-cart-connector-link="<?php echo rawurlencode(EventgalleryHelpersCartconnector::getLink($this->entry->folder, $this->entry->file));?>"
+							       data-cart-connector-link="<?php echo rawurlencode(EventgalleryHelpersCartconnector::getLink($this->entry->getFolderName(), $this->entry->getFileName()));?>"
 							   <?php ENDIF ?>
-                               data-id="folder=<?php echo $entry->folder ?>&amp;file=<?php echo $entry->file ?>"
-                               data-width="<?php echo $entry->width; ?>"
-                               data-height="<?php echo $entry->height; ?>"
+                               data-id="folder=<?php echo $entry->getFolderName() ?>&amp;file=<?php echo $entry->getFileName() ?>"
+                               data-width="<?php echo $entry->getWidth(); ?>"
+                               data-height="<?php echo $entry->getHeight(); ?>"
                                data-description="<?php if ($this->params->get('show_date', 1) == 1) {
-                                   echo JHTML::Date($this->folder->date) . ' - ';
+                                   echo JHTML::Date($this->folder->getDate()) . ' - ';
                                }
-                               echo $this->folder->description . "&lt;br /&gt; " . JText::_(
+                               echo $this->folder->getDescription() . "&lt;br /&gt; " . JText::_(
                                        'COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_IMAGE'
                                    ) . " $imageCount " . JText::_('COM_EVENTGALLERY_EVENT_AJAX_IMAGE_CAPTION_OF')
                                    . " $this->entriesCount" ?>
 										<br /><?php echo rawurlencode($entry->getTitle()); ?>"
                                data-title="<?php echo rawurlencode($entry->getLightBoxTitle()); ?>"
                            	   <?php IF ($this->params->get('use_social_sharing_button', 0)==1):?>
-							    	data-social-sharing-link="<?php echo rawurlencode(JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->folder.'&file='.$this->entry->file.'&format=raw') ); ?>"
+							    	data-social-sharing-link="<?php echo rawurlencode(JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->getFolderName().'&file='.$this->entry->getFileName().'&format=raw') ); ?>"
 							   <?php ENDIF ?>
                                 >
                                 <?php echo $entry->getThumbImgTag(

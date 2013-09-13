@@ -10,14 +10,10 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-?>
 
+echo  $this->loadSnippet('cart');
+echo  $this->loadSnippet('social');
 
+echo $this->loadSnippet('event/default');
 
-
-<?php  echo  $this->loadSnippet('cart'); ?>
-<?php  echo  $this->loadSnippet('social'); ?>
-
-<?php echo $this->loadSnippet('event/default'); ?>
-
-<?php echo $this->loadSnippet('footer_disclaimer'); ?>
+echo $this->loadSnippet('footer_disclaimer');

@@ -68,7 +68,11 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
     public function getFile()
     {
         if ($this->_file == null) {
-            $this->_file = new EventgalleryLibraryFile($this->_lineitem->folder, $this->_lineitem->file);
+            /**
+             * @var EventgalleryLibraryManagerFile $fileMgr
+             */
+            $fileMgr = EventgalleryLibraryManagerFile::getInstance();
+            $this->_file = $fileMgr->getFile($this->_lineitem->folder, $this->_lineitem->file);
         }
         return $this->_file;
     }
@@ -108,10 +112,10 @@ class EventgalleryLibraryImagelineitem extends EventgalleryLibraryLineitem
      */
     public function setImageType($imagetypeid)
     {
-        $newImageType = $this->getFile()->getImageTypeSet()->getImageType($imagetypeid);
+        $newImageType = $this->getFile()->getFolder()->getImageTypeSet()->getImageType($imagetypeid);
         /* @var $newImageType EventgalleryLibraryImagetype */
         if ($newImageType == null) {
-            $newImageType = $this->getFile()->getImageTypeSet()->getDefaultImageType();
+            $newImageType = $this->getFile()->getFolder()->getImageTypeSet()->getDefaultImageType();
         }
 
         $this->_lineitem->imagetypeid = $newImageType->getId();

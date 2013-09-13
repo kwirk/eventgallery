@@ -17,7 +17,7 @@ class TrackorderController extends JControllerLegacy
 
     public function order($cachable = false, $urlparams = array()) {
         JSession::checkToken('post') or jexit(JText::_('JInvalid_Token'));
-        $app = JFactory::getApplication();
+
 
         // Get the model and validate the data.
         $data  = array(

@@ -105,7 +105,6 @@ class EventgalleryHelpersImageHelper
     public static function picasaweb_ListAlbum($userName, $albumNameOrId, $picasaKey = NULL, $imagesize = 1280)
     {
 
-
         #echo "Initial:". memory_get_usage() . "<br>";
 
         #$thumbsizeArray = array(32,48,64,72,104,144,150,160,'32u','48u','64u','72u','104u','144u','150u','160u',94,110,128,200,220,288,320,400,512,576,640,720,800,912,1024,1152,1280,1440);
@@ -208,7 +207,7 @@ class EventgalleryHelpersImageHelper
             $photo['published'] = 1;
 
 
-            $photos[] = new EventgalleryHelpersImagePicasa($photo);;
+            $photos[] = $photo;
             unset($photo);
         }
 

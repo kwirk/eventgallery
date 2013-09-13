@@ -12,16 +12,27 @@
 defined('_JEXEC') or die();
 
 
-class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements EventgalleryHelpersImageInterface
+abstract class EventgalleryLibraryFile implements EventgalleryLibraryInterfaceImage
 {
     /**
      * @var string
      */
     protected $_filename = NULL;
+
     /**
-     * @var EventgalleryHelpersImageInterface
+     * @var string
+     */
+    protected $_foldername = NULL;
+
+    /**
+     * @var TableFile
      */
     protected $_file = NULL;
+
+    /**
+     * @var EventgalleryLibraryFolder
+     */
+    protected $_folder = NULL;
 
     /**
      * creates the lineitem object. $dblineitem is the database object of this line item
@@ -31,82 +42,48 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
      */
     function __construct($foldername, $filename)
     {
-        parent::__construct($foldername);
+        $this->_foldername = $foldername;
         $this->_filename = $filename;
-        $this->_loadFile();
+
+        /**
+         * @var EventgalleryLibraryManagerFolder $folderMgr
+         */
+        $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+
+        $this->_folder = $folderMgr->getFolder($foldername);
+
+        if ($this->_file == null) {
+            $this->_loadFile();
+        }
 
     }
 
     /**
      * loads the file from the database
      */
-    protected function _loadFile()
-    {
-        $fileObject = NULL;
+    abstract protected function _loadFile();
 
-        if (strpos($this->_foldername, '@') > -1) {
-            $values = explode("@", $this->_foldername, 2);
-            $folderObject = $this->_folder;
-            $picasakey = $folderObject->picasakey;
-            $album = EventgalleryHelpersImageHelper::picasaweb_ListAlbum($values[0], $values[1], $picasakey);
-
-            foreach ($album->photos as $photo) {
-
-                if (strcmp($photo->file, $this->_filename) == 0) {
-                    $fileObject = new EventgalleryHelpersImagePicasa($photo);
-                    break;
-                }
-
-            }
-
-        } else {
-
-            $db = JFactory::getDBO();
-            $query = $db->getQuery(true);
-            $query->select('*');
-            $query->from('#__eventgallery_file');
-            $query->where('folder=' . $db->Quote($this->_foldername));
-            $query->where('file=' . $db->Quote($this->_filename));
-            $db->setQuery($query);
-            $result = $db->loadObject();
-            $fileObject = new EventgalleryHelpersImageLocal($result);
-        }
-
-        /**
-         * @var EventgalleryHelpersImageInterface $fileObject
-         */
-        $this->_file = $fileObject;
-
-    }
-
-    /**
-     * @param EventgalleryLibraryImagelineitem $lineitem
-     *
-     * @return string
-     */
-    public function getMiniCartThumb($lineitem)
-    {
-
-        return $this->_file->getMiniCartThumb($lineitem);
-    }
-
-    /**
-     * @param EventgalleryLibraryImagelineitem $lineitem
-     *
-     * @return string
-     */
-    public function getCartThumb($lineitem)
-    {
-
-        return $this->_file->getCartThumb($lineitem);
-    }
 
     /**
      * @return string
      */
     public function getFileName()
     {
-        return $this->_file->getFileName();
+        return $this->_filename;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFolderName() {
+        return $this->_foldername;
+    }
+
+    /**
+     * @return EventgalleryLibraryFolder
+     */
+    public function getFolder() {
+        return $this->_folder;
     }
 
     /**
@@ -114,69 +91,141 @@ class EventgalleryLibraryFile extends EventgalleryLibraryFolder implements Event
      */
     public function isPublished()
     {
-        return $this->_folder->published == 1 && $this->_file->isPublished() == 1;
+        return $this->getFolder()->isPublished() == 1 && $this->_file->published == 1;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isCommentingAllowed() {
+        return $this->_file->allowcomments==1;
     }
 
     /**
-     * @param int $width
-     * @param int $height
-     *
-     * @return string
+     * checks if the image has a title to show.
      */
-    public function getFullImgTag($width = 104, $height = 104)
+    public function hasTitle()
     {
-        return $this->_file->getFullImgTag($width, $height);
+        if (strlen($this->getTitle()) > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
-     * @param int    $width
-     * @param int    $height
-     * @param string $cssClass
-     * @param bool   $crop
-     *
-     * @return string
+     * returns the title of an image. Same as lightbox but without :: char.
      */
-    public function getThumbImgTag($width = 104, $height = 104, $cssClass = "", $crop = false)
+    public function getTitle()
     {
-        return $this->_file->getThumbImgTag($width, $height, $cssClass, $crop);
+        return str_replace("::", "", $this->getLightBoxTitle());
+    }
+
+    public function getHeight() {
+        return $this->_file->height;
+    }
+
+    public function getWidth() {
+        return $this->_file->width;
     }
 
     /**
-     * @param int    $width
-     * @param int    $height
-     * @param string $cssClass
-     * @param bool   $crop
+     *  returns a title with the following format:
      *
-     * @return string
+     *   <span class="img-caption img-caption-part1">Foo</span>[::<span class="img-caption img-caption-part1">Bar</span>][::<span class="img-exif">EXIF</span>]
+     *
+     *  :: is the separator for the lightbox to split in title and caption.
      */
-    public function getLazyThumbImgTag($width = 104, $height = 104, $cssClass = "", $crop = false)
+
+    public function getLightBoxTitle()
     {
-        return $this->_file->getLazyThumbImgTag($width, $height, $cssClass, $crop);
+
+        $params = JComponentHelper::getParams('com_eventgallery');
+
+        $showExif = $params->get('show_exif','1')=='1';
+
+        $caption = "";
+
+        if (isset($this->_file->title) && strlen($this->_file->title) > 0) {
+            $caption .= '<span class="img-caption img-caption-part1">' . $this->_file->title . '</span>';
+        }
+
+        if (isset($this->_file->caption) && strlen($this->_file->caption) > 0) {
+
+            if (strlen($caption) > 0) {
+                $caption .= "::";
+            }
+            $caption .= '<span class="img-caption img-caption-part2">' . $this->_file->caption . '</span>';
+
+        }
+
+        if ($showExif && isset($this->exif) && isset($this->exif->model)>0 && isset($this->exif->focallength)>0 && isset($this->exif->fstop)>0) {
+            $exif = '<span class="img-exif">'.$this->exif->model.", ".$this->exif->focallength. "mm, f/".$this->exif->fstop.", ISO ".$this->exif->iso."</span>";
+            if (!strpos($caption, "::")) {
+                $caption .= "::";
+            }
+            $caption .= $exif;
+        }
+
+
+        return $caption;
+    }
+
+    public function getCartThumb($lineitem)
+    {
+        return '<a class="thumbnail"
+    						href="' . $this->getImageUrl(NULL, NULL, true) . '"
+    						title="' . htmlentities($lineitem->getImageType()->getDisplayName()) . '"
+    						data-title="' . rawurlencode($this->getLightBoxTitle()) . '"
+    						data-lineitem-id="' . $lineitem->getId() . '"
+    						rel="lightbo2[cart]"> ' . $this->getThumbImgTag(48, 48) . '</a>';
+    }
+
+    public function getMiniCartThumb($lineitem)
+    {
+        return '<a class="thumbnail"
+    						href="' . $this->getImageUrl(NULL, NULL, true) . '"
+    						title="' . htmlentities($lineitem->getImageType()->getDisplayName()) . '"
+    						data-title="' . rawurlencode($this->getLightBoxTitle()) . '"
+    						data-lineitem-id="' . $lineitem->getId() . '"
+    						rel="lightbo2[cart]"> ' . $this->getThumbImgTag(48, 48) . '</a>';
     }
 
     /**
-     * @param int  $width
-     * @param int  $height
-     * @param      $fullsize
-     * @param bool $larger
-     *
-     * @return string
+     * returns the title of an image. Returns the part before the :: only and strips out all tag elements
      */
-    public function getImageUrl($width = 104, $height = 104, $fullsize, $larger = false)
+    public function getPlainTextTitle()
     {
-        return $this->_file->getImageUrl($width, $height, $fullsize, $larger);
+
+        if (isset($this->_file->title)) {
+            return strip_tags($this->_file->title);
+        }
+
+        if (isset($this->_file->caption)) {
+            return strip_tags($this->_file->caption);
+        }
+
+        return "";
+    }
+
+
+    /**
+     * counts a hit on this file.
+     */
+    public function countHit() {
+        return;
     }
 
     /**
-     * @param int  $width
-     * @param int  $height
-     * @param bool $larger
-     * @param bool $crop
+     * returns the number of hits for this file
      *
-     * @return string
+     * @return int
      */
-    public function getThumbUrl($width = 104, $height = 104, $larger = true, $crop = false)
-    {
-        return $this->_file->getThumbUrl($width, $height, $larger, $crop);
+    public function getHitCount() {
+        if (isset($this->_file->hits)) {
+            return $this->_file->hits;
+        }
+        return 0;
     }
 }

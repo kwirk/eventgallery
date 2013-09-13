@@ -70,5 +70,14 @@ class EventgalleryLibraryManagerImagetypeset extends  EventgalleryLibraryManager
     }
 
 
+    public function getImageTypeSet($id) {
+        $sets = $this->getImageTypeSets(false);
+        if (isset($sets[$id]))
+        {
+            return $sets[$id];
+        }
+        return $this->getDefaultImageTypeSet(true);
+    }
+
 
 }

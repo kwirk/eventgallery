@@ -7,9 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 // no direct access
-defined('_JEXEC') or die('Restricted access'); ?>
-
-<?php
+defined('_JEXEC') or die('Restricted access');
 
 /*
 220x220 220x220 220x220 220x220
@@ -24,6 +22,4 @@ echo $this->loadSnippet('cart');
 echo $this->loadSnippet('social');
 echo $this->loadSnippet('event/imagelist');
 
-?>
-
-<?php echo $this->loadSnippet('footer_disclaimer'); ?>
+echo $this->loadSnippet('footer_disclaimer');

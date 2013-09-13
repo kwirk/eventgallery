@@ -78,11 +78,11 @@ defined('_JEXEC') or die('Restricted access');
 <div id="event">
     <?php IF ($this->params->get('show_date', 1) == 1): ?>
         <h4 class="date">
-            <?php echo JHTML::Date($this->folder->date); ?>
+            <?php echo JHTML::Date($this->folder->getDate()); ?>
         </h4>
     <?php ENDIF ?>
     <h1 class="description">
-        <?php echo $this->folder->description; ?>
+        <?php echo $this->folder->getDescription(); ?>
     </h1>
 
     <form method="post" name="adminForm">
@@ -95,11 +95,11 @@ defined('_JEXEC') or die('Restricted access');
     </form>
 
     <div class="text">
-        <?php echo $this->folder->text; ?>
+        <?php echo $this->folder->getText(); ?>
     </div>
 
 
-    <?php IF ($this->folder->cartable == 1  && $this->params->get('use_cart', '1')==1): ?>
+    <?php IF ($this->folder->isCartable()  && $this->params->get('use_cart', '1')==1): ?>
         <?php echo $this->loadSnippet('imageset/imagesetselection'); ?>
     <?php ENDIF ?>
 
@@ -108,32 +108,32 @@ defined('_JEXEC') or die('Restricted access');
     <div style="clear:both"></div>
 
     <div class="eventgallery-thumbnails thumbnails">
-        <?php foreach ($this->entries as $entry) : /** @var EventgalleryHelpersImageDefault $entry */ ?>
+        <?php foreach ($this->entries as $entry) : /** @var EventgalleryLibraryFile $entry */ ?>
             <?php $this->assign('entry', $entry) ?>
 
             <div class="thumbnail" data-url="<?php echo JRoute::_(
-                "index.php?option=com_eventgallery&view=singleimage&folder=" . $this->entry->folder . "&file="
-                . $this->entry->file
+                "index.php?option=com_eventgallery&view=singleimage&folder=" . $this->entry->getFolderName() . "&file="
+                . $this->entry->getFileName()
             ) ?>">
                 <div class="img"
                      title="<?php echo htmlspecialchars($entry->getPlainTextTitle(), ENT_COMPAT, 'UTF-8') ?>">
                     <?php echo $this->entry->getLazyThumbImgTag(50, 50); ?>
-                    <?php IF ($this->folder->cartable == 1): ?>
+                    <?php IF ($this->folder->isCartable()): ?>
                         <a href="#" title="<?php echo JText::_('COM_EVENTGALLERY_CART_ITEM_ADD2CART') ?>"
                            class="button-add2cart eventgallery-add2cart btn btn-primary"
-                           data-id="folder=<?php echo $this->entry->folder . "&file=" . $this->entry->file ?>"><i
+                           data-id="folder=<?php echo $this->entry->getFolderName() . "&file=" . $this->entry->getFileName() ?>"><i
                                 class="big"></i></a>
                     <?php ENDIF ?>
-                    <?php IF ($this->folder->cartable == 1 && $this->params->get('show_cart_connector', 0) == 1): ?>
+                    <?php IF ($this->folder->isCartable() && $this->params->get('show_cart_connector', 0) == 1): ?>
                         <a href="<?php echo EventgalleryHelpersCartconnector::getLink(
-                            $this->entry->folder, $this->entry->file
+                            $this->entry->getFolderName(), $this->entry->getFileName()
                         ); ?>" class="button-cart-connector"
                            title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR') ?>"
-                           data-folder="<?php echo $this->entry->folder ?>"
-                           data-file="<?php echo $this->entry->file; ?>"><i class="big"></i></a>
+                           data-folder="<?php echo $this->entry->getFolderName() ?>"
+                           data-file="<?php echo $this->entry->getFileName(); ?>"><i class="big"></i></a>
                     <?php ENDIF ?>
-                    <?php IF ($this->params->get('use_social_sharing_button', 0)==1 && $this->folder->attribs->get('use_social_sharing', 1)==1):?>
-					     <a rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->folder.'&file='.$this->entry->file.'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="big"></i></a>
+                    <?php IF ($this->params->get('use_social_sharing_button', 0)==1 && $this->folder->getAttribs()->get('use_social_sharing', 1)==1):?>
+					     <a rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->getFolderName().'&file='.$this->entry->getFileName().'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="big"></i></a>
 					<?php ENDIF ?>
                 </div>
                 <div class="details">

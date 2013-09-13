@@ -21,6 +21,9 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
     protected $eventModel;
     protected $pageNav;
 
+    protected $folder;
+
+
     /**
      * @var JCacheControllerCallback $cache
      */
@@ -75,26 +78,17 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
             $images = array();
 
             foreach ($entries as $entry) {
-               $result =  $this->cache->call(array($eventModel, 'getEntries'), $entry->folder, -1, -1, 0);
+               $result =  $this->cache->call(array($eventModel, 'getEntries'), $entry->getFolderName(), -1, -1, 0);
                $images = array_merge($images, $result);
             }
 
             $this->entries = $images;
-            $folder = new stdClass();
-            $folder->cartable = false;
-            $folder->date = "";
-            $folder->description="";
-            $folder->text = "";
-            $folder->attribs = $this->params;           
-            $this->folder = $folder;
+            $this->folder = new DummyFolder($this->params);
             $this->entriesCount = count($images);
 
         } else {
 
             $this->entries = $entries;
-
-            $this->fileCount = $model->getFileCount();
-            $this->folderCount = $model->getFolderCount();
             $this->eventModel = $eventModel;
         }
 
@@ -146,6 +140,44 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
         {
             $this->document->setMetadata('robots', $this->params->get('robots'));
         }
+    }
+
+}
+
+class DummyFolder {
+
+    protected $_attribs;
+
+    public function __construct($attribs) {
+        $this->_attribs = $attribs;
+    }
+
+    public function getDate() {
+        return "";
+    }
+
+    public function getDescription() {
+        return "";
+    }
+
+    public function getText() {
+        return "";
+    }
+
+    public function getIntroText() {
+        return "";
+    }
+
+    public function getFolderName() {
+        return "";
+    }
+
+    public function isCartable() {
+        return false;
+    }
+
+    public function getAttribs() {
+        return $this->_attribs;
     }
 
 }

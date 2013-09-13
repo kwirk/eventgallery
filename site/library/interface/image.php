@@ -11,7 +11,7 @@
 defined('_JEXEC') or die;
 
 
-interface  EventgalleryHelpersImageInterface
+interface  EventgalleryLibraryInterfaceImage
 {
 
     public function getFullImgTag($width = 104, $height = 104);
@@ -38,11 +38,5 @@ interface  EventgalleryHelpersImageInterface
      * @return string
      */
     public function getCartThumb($lineitem);
-
-    public function getFileName();
-
-    public function getFolderName();
-
-    public function isPublished();
 
 }

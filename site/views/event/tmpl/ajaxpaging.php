@@ -6,19 +6,18 @@
  * @copyright   Copyright (C) 2005 - 2013 Sven Bluege All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-defined('_JEXEC') or die('Restricted access'); ?>
+defined('_JEXEC') or die('Restricted access');
 
 
+echo  $this->loadSnippet('cart');
+
+echo  $this->loadSnippet('social');
 
 
-<?php  echo  $this->loadSnippet('cart'); ?>
-<?php  echo  $this->loadSnippet('social'); ?>
+if ($this->folder->isCartable() && $this->params->get('use_cart', '1')==1) {
+    echo $this->loadSnippet('imageset/imagesetselectionajax');
+}
 
+echo $this->loadSnippet('event/ajaxpaging');
 
-<?php IF ($this->folder->cartable == 1 && $this->params->get('use_cart', '1')==1): ?>
-    <?php echo $this->loadSnippet('imageset/imagesetselectionajax'); ?>
-<?php ENDIF ?>
-
-<?php  echo $this->loadSnippet('event/ajaxpaging'); ?>
-
-<?php echo $this->loadSnippet('footer_disclaimer'); ?>
+echo $this->loadSnippet('footer_disclaimer');

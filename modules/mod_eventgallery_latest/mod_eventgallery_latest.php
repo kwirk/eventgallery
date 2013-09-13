@@ -44,15 +44,15 @@ $events = $cache->call(
 $position = $params->get('event_history_position', 0);
 
 if (count($events)>$position) {
-    $foldername = $events[$position]->folder;
+    $foldername = $events[$position]->getFolderName();
     /**
-     * @var EventModelEvent $model
-     * */
-    $model = JModelLegacy::getInstance('Event', 'EventModel', array('ignore_request' => true));
-    $folder = $model->getFolder($foldername);
+     * @var EventgalleryLibraryManagerFolder $folderMgr
+     */
+    $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+    $folder = $folderMgr->getFolder($foldername);
 
-    if (isset($folder) && $folder->published==1 && EventgalleryHelpersFolderprotection::isAccessAllowed($folder)) {
-        $files = $model->getEntries($foldername, -1, $params->get('max_images'), 1);
+    if (isset($folder) && $folder->isPublished() && EventgalleryHelpersFolderprotection::isAccessAllowed($folder) && $folder->isVisible()) {
+        $files = $folder->getFiles(-1, $params->get('max_images'), 1);
         require JModuleHelper::getLayoutPath('mod_eventgallery_latest', $params->get('layout', 'default'));
     }
 }

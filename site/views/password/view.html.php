@@ -43,15 +43,17 @@ class EventgalleryViewPassword extends EventgalleryLibraryCommonView
         $file = JRequest::getString('file', '');
         $folder = JRequest::getString('folder', '');
 
-        $model = JModelLegacy::getInstance('Event', 'EventModel');
-
-        $folder = $model->getFolder($folder);
+        /**
+         * @var EventgalleryLibraryManagerFolder $folderMgr
+         */
+        $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+        $folder = $folderMgr->getFolder($folder);
 
         if (!is_object($folder)) {
             $app->redirect(JRoute::_("index.php?", false));
         }
 
-        $formAction = JRoute::_("index.php?option=com_eventgallery&view=event&folder=" . $folder->folder);
+        $formAction = JRoute::_("index.php?option=com_eventgallery&view=event&folder=" . $folder->getFolderName());
 
         $this->folder = $folder;
         $this->file = $file;
@@ -82,8 +84,8 @@ class EventgalleryViewPassword extends EventgalleryLibraryCommonView
 
         $title = $this->params->get('page_title', '');
 
-        if ($this->folder->description) {
-            $title = $this->folder->description;
+        if ($this->folder->getDescription()) {
+            $title = $this->folder->getDescription();
         }
 
 
@@ -96,13 +98,13 @@ class EventgalleryViewPassword extends EventgalleryLibraryCommonView
             $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
         }
         if (empty($title)) {
-            $title = $this->folder->description;
+            $title = $this->folder->getDescription();
         }
         $this->document->setTitle($title);
 
-        if ($this->folder->text) {            
-            $this->document->setDescription($this->folder->text);
-        } elseif (!$this->folder->text && $this->params->get('menu-meta_description')) {
+        if ($this->folder->getText()) {
+            $this->document->setDescription($this->folder->getText());
+        } elseif (!$this->folder->getText() && $this->params->get('menu-meta_description')) {
             $this->document->setDescription($this->params->get('menu-meta_description'));
         }
     }

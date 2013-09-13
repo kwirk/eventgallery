@@ -23,9 +23,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
         <?php $count=0; foreach($this->entries as $entry) :?>
             <?php $this->assign('entry',$entry)?>
             <li class="event">  
-                <a href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->folder) ?>">
-                    <?php IF($this->params->get('show_date',1)==1):?><span class="date"><?php echo JHTML::Date($this->entry->date);?></span><?php ENDIF ?>
-                    <span class="description"><?php echo $this->entry->description;?></span>
+                <a href="<?php echo JRoute::_("index.php?view=event&folder=".$this->entry->getFolderName()) ?>">
+                    <?php IF($this->params->get('show_date',1)==1):?><span class="date"><?php echo JHTML::Date($this->entry->getDate());?></span><?php ENDIF ?>
+                    <span class="description"><?php echo $this->entry->getDescription();?></span>
                 </a>
             </li>
         <?php ENDFOREACH; ?>

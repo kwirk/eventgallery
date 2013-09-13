@@ -39,7 +39,7 @@ defined('_JEXEC') or die('Restricted access');
                                        value="<?php echo $lineitem->getQuantity() ?>"/>
                                 <select class="required imagetype" name="type_<?php echo $lineitem->getId() ?>">
                                     <?php
-                                    foreach ($lineitem->getFile()->getImageTypeSet()->getImageTypes() as $imageType) {
+                                    foreach ($lineitem->getFile()->getFolder()->getImageTypeSet()->getImageTypes() as $imageType) {
                                         /** @var EventgalleryLibraryImagetype $imageType */
                                         $selected = $lineitem->getImageType()->getId() == $imageType->getId()
                                             ? 'selected="selected"' : '';

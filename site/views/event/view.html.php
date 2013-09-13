@@ -24,6 +24,9 @@ class EventViewEvent extends EventgalleryLibraryCommonView
     protected $pageNav;
     protected $entries;
     protected $entriesCount;
+    /**
+     * @var EventgalleryLibraryFolder
+     */
     protected $folder;
     protected $use_comments;
     protected $imageset;
@@ -83,8 +86,11 @@ class EventViewEvent extends EventgalleryLibraryCommonView
             $entries = $this->cache->call(array($model, 'getEntries'), JRequest::getVar('folder', ''));
         }
 
-        //$folder = $model->getFolder(JRequest::getVar('folder',''));
-        $folder = $this->cache->call(array($model, 'getFolder'), JRequest::getVar('folder', ''));
+        /**
+         * @var EventgalleryLibraryManagerFolder $folderMgr
+         */
+        $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+        $folder = $folderMgr->getFolder(JRequest::getVar('folder', ''));
 
         if (!is_object($folder)) {
             $app->redirect(
@@ -95,11 +101,11 @@ class EventViewEvent extends EventgalleryLibraryCommonView
 
 
 
-        if (!EventgalleryHelpersFolderprotection::isVisible($folder)) {
+        if (!$folder->isVisible()) {
             $user = JFactory::getUser();
             if ($user->guest) {
 
-                $redirectUrl = JRoute::_("index.php?option=com_eventgallery&view=event&folder=" . $folder->folder, false);
+                $redirectUrl = JRoute::_("index.php?option=com_eventgallery&view=event&folder=" . $folder->getFolderName(), false);
                 $redirectUrl = urlencode(base64_encode($redirectUrl));
                 $redirectUrl = '&return='.$redirectUrl;
                 $joomlaLoginUrl = 'index.php?option=com_users&view=login';
@@ -115,21 +121,22 @@ class EventViewEvent extends EventgalleryLibraryCommonView
 
         if (!$accessAllowed) {
             $app->redirect(
-                JRoute::_("index.php?option=com_eventgallery&view=password&folder=" . $folder->folder, false)
+                JRoute::_("index.php?option=com_eventgallery&view=password&folder=" . $folder->getFolderName(), false)
             );
         }
 
         $this->pageNav = $pageNav;
         $this->entries = $entries;
-        $this->entriesCount = count($entries);       
+        $this->entriesCount = count($entries);
 
         $this->folder = $folder;
         $this->use_comments = $this->params->get('use_comments');
-        $folderObject = new EventgalleryLibraryFolder($folder->folder);
-        $this->imageset = $folderObject->getImageTypeSet();
+
+
+        $this->imageset = $folder->getImageTypeSet();
 
         $pathway = $app->getPathway();
-        $pathway->addItem($folder->description);
+        $pathway->addItem($folder->getDescription());
 
         $this->_prepareDocument();
 
@@ -152,12 +159,12 @@ class EventViewEvent extends EventgalleryLibraryCommonView
         {
             $this->params->def('page_heading', $this->params->get('page_title', $menu->title));
         }
-        
+
 
         $title = $this->params->get('page_title', '');
 
-        if ($this->folder->description) {
-            $title = $this->folder->description;
+        if ($this->folder->getDescription()) {
+            $title = $this->folder->getDescription();
         }
 
 
@@ -172,15 +179,15 @@ class EventViewEvent extends EventgalleryLibraryCommonView
             $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
         }
         if (empty($title)) {
-            $title = $this->folder->description;
+            $title = $this->folder->getDescription();
         }
         $this->document->setTitle($title);
 
-        if ($this->folder->text)
+        if ($this->folder->getText())
         {
-            $this->document->setDescription(strip_tags($this->folder->text));
+            $this->document->setDescription(strip_tags($this->folder->getText()));
         }
-        elseif (!$this->folder->text && $this->params->get('menu-meta_description'))
+        elseif (!$this->folder->getText() && $this->params->get('menu-meta_description'))
         {
             $this->document->setDescription($this->params->get('menu-meta_description'));
         }

@@ -8,28 +8,73 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die();
+
+
+class EventgalleryLibraryFilePicasa extends EventgalleryLibraryFile
 {
-    
+
     public $_blank_script_path = 'components/com_eventgallery/media/images/blank.gif';
 
     public $image;
     public $thumbs;
 
+    /**
+     * @var EventgalleryLibraryFolderPicasa
+     */
+    protected $_folder;
 
-    // constructor
-    public function __construct($photo)
+    /**
+     * creates the lineitem object. $dblineitem is the database object of this line item
+     *
+     * @param string $foldername
+     * @param string $filename
+     */
+    function __construct($foldername, $filename = NULL)
     {
-        foreach ((array)$photo as $key => $value) {
-            $this->$key = $value;
+        if (is_object($foldername)) {
+            $this->_file = $foldername;
+        } else {
+            parent::__construct($foldername, $filename);
         }
-
-        if (isset($this->height)) {
-            $this->imageRatio = $this->width / $this->height;
+        if (isset($this->_file->height)) {
+            $this->imageRatio = $this->_file->width / $this->_file->height;
         } else {
             $this->imageRatio = 1;
         }
+    }
 
+    /**
+     * Loads the current file based on the given folder and file name
+     */
+    protected function _loadFile()
+    {
+        $fileObject = NULL;
+
+        $album = $this->_folder->getAlbum();
+
+        foreach ($album->photos as $photo) {
+
+            if (strcmp($photo['file'], $this->_filename) == 0) {
+                $this->_file = (object)$photo;
+                break;
+            }
+        }
+    }
+
+    /**
+     * @return EventgalleryLibraryFolderPicasa
+     */
+    public function getFolder() {
+        return $this->_folder;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCommentingAllowed() {
+        return false;
     }
 
 
@@ -49,15 +94,15 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
 
         $caption = "";
 
-        if (isset($this->caption) && strlen($this->caption) > 0) {
-            $caption .= '<span class="img-caption img-caption-part1">' . $this->caption . '</span>';
+        if (isset($this->_file->caption) && strlen($this->_file->caption) > 0) {
+            $caption .= '<span class="img-caption img-caption-part1">' . $this->_file->caption . '</span>';
         }
 
-        if ($showExif && isset($this->exif) && strlen($this->exif->model) > 0 && strlen($this->exif->focallength) > 0
-            && strlen($this->exif->fstop) > 0
+        if ($showExif && isset($this->_file->exif) && strlen($this->_file->exif->model) > 0 && strlen($this->_file->exif->focallength) > 0
+            && strlen($this->_file->exif->fstop) > 0
         ) {
-            $exif = '<span class="img-exif">' . $this->exif->model . ", " . $this->exif->focallength . " mm, f/"
-                . $this->exif->fstop . ", ISO " . $this->exif->iso . "</span>";
+            $exif = '<span class="img-exif">' . $this->_file->exif->model . ", " . $this->_file->exif->focallength . " mm, f/"
+                . $this->_file->exif->fstop . ", ISO " . $this->_file->exif->iso . "</span>";
             if (!strpos($caption, "::")) {
                 $caption .= "::";
             }
@@ -79,14 +124,14 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
         }
         // css verschiebung berechnen
 
-        return '<img src="'.JURI::root().$this->_blank_script_path.'" 
-                     width="'.$width.'" 
+        return '<img src="'.JURI::root().$this->_blank_script_path.'"
+                     width="'.$width.'"
                      height="'.$height.'"
     				 style="width: '.$width.'px;
                             height: '.$height.'px;
-                            background-repeat:no-repeat; 
+                            background-repeat:no-repeat;
     						background-image:url(\'' . $this->getThumbUrl($width, $height, true, false) . '\');
-    						background-position: 50% 50%;" 
+    						background-position: 50% 50%;"
     						alt="" />';
     }
 
@@ -94,12 +139,12 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
     {
 
         return '<img class="' . $cssClass . '"
-    				 src="'.JURI::root().$this->_blank_script_path.'" 
-                     width="'.$width.'" 
+    				 src="'.JURI::root().$this->_blank_script_path.'"
+                     width="'.$width.'"
                      height="'.$height.'"
     				 style="width: '.$width.'px;
                             height: '.$height.'px;
-                            background-repeat:no-repeat; 
+                            background-repeat:no-repeat;
     						background-image:url(\'' . $this->getThumbUrl($width, $height, true, $crop) . '\');
     						background-position: 50% 50%;
 							filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\'' . $this->getThumbUrl(
@@ -107,7 +152,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
         ) . '\', sizingMethod=\'scale\');
 							-ms-filter: &qout;progid:DXImageTransform.Microsoft.AlphaImageLoader( src=\''
         . $this->getThumbUrl($width, $height, true, $crop) . '\', sizingMethod=\'scale\')&quot;;
-							" 
+							"
     				 alt="" />';
     }
 
@@ -115,15 +160,15 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
     {
 
         $imgTag = '<img class="lazyme ' . $cssClass . '"
-										data-width="' . $this->width . '"
-										data-height="' . $this->height . '"
+										data-width="' . $this->_file->width . '"
+										data-height="' . $this->_file->height . '"
 								    	longdesc="' . $this->getThumbUrl($width, $height, true, $crop) . '"
-								    	src="'.JURI::root().$this->_blank_script_path.'" 
+								    	src="'.JURI::root().$this->_blank_script_path.'"
                                         width="'.$width.'"
                                         height="'.$height.'"
 								    	style=" width: '.$width.'px;
                                                 height: '.$height.'px;
-                                                background-position: 50% 50%; 
+                                                background-position: 50% 50%;
                                                 background-repeat:no-repeat;"
 										alt=""
 					    			/>';
@@ -135,7 +180,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
     public function getImageUrl($width = 104, $height = 104, $fullsize, $larger = false)
     {
         if ($fullsize) {
-            return $this->image;
+            return $this->_file->image;
         } else {
             if ($this->imageRatio < 1) {
                 return $this->getThumbUrl($height * $this->imageRatio, $height, $larger);
@@ -156,7 +201,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
         }
 
 
-        if ($this->width > $this->height) {
+        if ($this->_file->width > $this->_file->height) {
             // querformat
             $googlewidth = $width;
             $resultingHeight = $googlewidth / $this->imageRatio;
@@ -177,7 +222,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
         $saveAsSize = $sizeSet->getMatchingSize($googlewidth);
 
         //modify google image url
-        $values = array_values($this->thumbs);
+        $values = array_values($this->_file->thumbs);
         $winner = str_replace('/s104/', "/s$saveAsSize/", $values[0]);
 
         return $winner;

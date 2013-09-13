@@ -12,7 +12,7 @@
 defined('_JEXEC') or die();
 
 
-class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
+abstract class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
 {
 
     /**
@@ -30,13 +30,24 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
      */
     protected $_imagetypeset = NULL;
 
+    protected $_filecount = NULL;
+
+    protected $_attribs = NULL;
+
     /**
      * $creates the lineitem object. $dblineitem is the database object of this line item
      */
     function __construct($foldername)
     {
+        if (is_object($foldername)) {
+            $this->_folder = $foldername;
+            $foldername = $this->_folder->folder;
+        }
+
         $this->_foldername = $foldername;
-        $this->_loadFolder();
+        if ($this->_folder == null) {
+            $this->_loadFolder();
+        }
         parent::__construct();
     }
 
@@ -64,7 +75,7 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
         if ($this->_folder->imagetypesetid == null) {
             $this->_imagetypeset = $imagetypesetMgr->getDefaultImageTypeSet(true);
         } else {
-            $this->_imagetypeset = new EventgalleryLibraryImagetypeset($this->_folder->imagetypesetid);
+            $this->_imagetypeset = $imagetypesetMgr->getImageTypeSet($this->_folder->imagetypesetid);
             if (!$this->_imagetypeset->isPublished()) {
                 $this->_imagetypeset = $imagetypesetMgr->getDefaultImageTypeSet(true);
             }
@@ -112,6 +123,27 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
         return $this->_folder->password;
     }
 
+    public function getUserGroupIds()
+    {
+        return $this->_folder->usergroupids;
+    }
+
+    /**
+     * returns a set of attributes
+     *
+     * @return JRegistry
+     */
+    public function getAttribs() {
+
+        if ($this->_attribs == NULL) {
+            $registry = new JRegistry;
+            $registry->loadString($this->_folder->attribs);
+            $this->_attribs = $registry;
+        }
+
+        return $this->_attribs;
+    }
+
     /**
      * @return bool
      */
@@ -141,7 +173,146 @@ class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObject
      * @return bool
      */
     public function isVisible() {
-        return EventgalleryHelpersFolderprotection::isVisible($this->_folder);
+        $user = JFactory::getUser();
+
+        $params = JComponentHelper::getParams('com_eventgallery');
+        $minUserGroups = $params->get('eventgallery_default_usergroup');
+
+        // if no user groups are set at all
+        if (strlen($this->getUserGroupIds())==0 && count($minUserGroups)==0 ) {
+            return true;
+        }
+
+        // use the default usergroups if the folder does not define any
+        if (strlen($this->getUserGroupIds())==0) {
+            $folderUserGroups = $minUserGroups;
+        } else {
+            $folderUserGroups = explode(',', $this->getUserGroupIds());
+        }
+
+        // if the public user group is part of the folder user groups
+        if (in_array(1, $folderUserGroups)) {
+            return true;
+        }
+
+
+
+        $userUserGroups = JUserHelper::getUserGroups($user->id);
+        foreach($userUserGroups as $userUserGroup) {
+
+            if (count(array_intersect(EventgalleryHelpersUsergroups::getGroupPath($userUserGroup), $folderUserGroups))>0 ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
+    /**
+     * returns the text for the folder.
+     *
+     * @return String
+     */
+    public function getText() {
+        $splittedText = EventgalleryHelpersTextsplitter::split($this->_folder->text);
+        return $splittedText->fulltext;
+    }
+
+    /**
+     * returns the intro text for the folder if there is a splitter in the text.
+     * Otherwise the introtext is the same as the text.
+     *
+     * @return String
+     */
+    public function getIntroText() {
+
+        $splittedText = EventgalleryHelpersTextsplitter::split($this->_folder->text);
+        return $splittedText->introtext;
+    }
+
+    /**
+     * Returns the description of this folder
+     *
+     * @return string
+     */
+    public function getDescription() {
+        return $this->_folder->description;
+    }
+
+    /**
+     * returns the date field
+     *
+     * @return string
+     */
+    public function getDate() {
+        return $this->_folder->date;
+    }
+
+    /**
+     * returns the number of comments for an event.
+     *
+     * @return mixed
+     */
+    public function getCommentCount() {
+
+        /**
+         * @var EventgalleryLibraryManagerFolder $folderMgr
+         */
+        $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+        return $folderMgr->getCommentCount($this->_foldername);
+
+    }
+
+    /**
+     * returns the number of files in this folder
+     *
+     * @param bool $publishedOnly defines is the return value contains unpublished files.
+     * @return int
+     */
+    public function getFileCount($publishedOnly = true) {
+
+        // this value might be part of a sql query
+        if (isset($this->_folder->overallCount)) {
+            return $this->_folder->overallCount;
+        }
+
+        if ($this->_filecount === NULL) {
+
+            $db = JFactory::getDBO();
+            $query = $db->getQuery(true)
+                ->select('count(1)')
+                ->from($db->quoteName('#__eventgallery_file') . ' AS file')
+                ->where('folder='.$db->quote($this->_foldername))
+                ->where('(file.ismainimageonly IS NULL OR file.ismainimageonly=0)');
+            if ($publishedOnly) {
+                $query->where('file.published=1');
+            }
+            $db->setQuery( $query );
+            $this->_filecount = $db->loadResult();
+
+        }
+
+        return $this->_filecount;
+
+    }
+
+    /**
+     * @param int $limitstart
+     * @param int $limit
+     * @param int $imagesForEvents if true load the main images at the first position
+     * @return array
+     */
+    public abstract function getFiles($limitstart = 0, $limit = 0, $imagesForEvents = 0);
+
+
+    public function getFolderTags() {
+        return $this->_folder->foldertags;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCommentingAllowed() {
+        return true;
+    }
 }

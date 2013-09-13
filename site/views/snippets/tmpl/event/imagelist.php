@@ -61,26 +61,26 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <div class="event">
     <?php IF ($this->params->get('show_date', 1) == 1): ?>
         <h4 class="date">
-            <?php echo JHTML::Date($this->folder->date); ?>
+            <?php echo JHTML::Date($this->folder->getDate()); ?>
         </h4>
     <?php ENDIF ?>
     <h1 class="description">
-        <?php echo $this->folder->description; ?>
+        <?php echo $this->folder->getDescription(); ?>
     </h1>
 
 
     <div class="text">
-        <?php echo $this->folder->text; ?>
+        <?php echo $this->folder->getText(); ?>
     </div>
 
-    <?php IF ($this->folder->cartable == 1  && $this->params->get('use_cart', '1')==1): ?>
+    <?php IF ($this->folder->isCartable()  && $this->params->get('use_cart', '1')==1): ?>
         <?php echo $this->loadSnippet('imageset/imagesetselection'); ?>
     <?php ENDIF ?>
 
     <div style="clear:both"></div>
 
     <div class="eventgallery-thumbnails thumbnails">
-        <?php foreach ($this->entries as $entry) : /** @var EventgalleryHelpersImageDefault $entry */ ?>
+        <?php foreach ($this->entries as $entry) : /** @var EventgalleryLibraryFile $entry */ ?>
             <?php $this->assign('entry', $entry) ?>
             <div class="thumbnail-container">
                 <a class="thumbnail" href="<?php echo $entry->getImageUrl(null, null, true); ?>"
@@ -88,18 +88,18 @@ defined('_JEXEC') or die('Restricted access'); ?>
                    data-title="<?php echo rawurlencode($entry->getLightBoxTitle()) ?>"
                    rel="lightbo2[gallery<?php echo $this->params->get('use_fullscreen_lightbox', 0) == 1 ? 'fullscreen'
                        : ''; ?>]"><?php echo $this->entry->getLazyThumbImgTag(50, 50); ?>
-                </a><?php IF ($this->folder->cartable == 1): ?><a href="#"title="<?php echo JText::_(
+                </a><?php IF ($this->folder->isCartable()): ?><a href="#"title="<?php echo JText::_(
                     'COM_EVENTGALLERY_CART_ITEM_ADD2CART'
                 ) ?>" class="button-add2cart eventgallery-add2cart btn btn-primary"data-id="folder=<?php echo
-                    $this->entry->folder . "&file=" . $this->entry->file ?>"><i class="big"></i></a><?php ENDIF
-                ?><?php IF ($this->folder->cartable == 1 && $this->params->get('show_cart_connector', 0) == 1):?><a
+                    $this->entry->getFolderName() . "&file=" . $this->entry->getFileName() ?>"><i class="big"></i></a><?php ENDIF
+                ?><?php IF ($this->folder->isCartable() && $this->params->get('show_cart_connector', 0) == 1):?><a
                     href="<?php echo EventgalleryHelpersCartconnector::getLink(
-                        $this->entry->folder, $this->entry->file
+                        $this->entry->getFolderName(), $this->entry->getFileName()
                     ); ?>" class="button-cart-connector"
                     title="<?php echo JText::_('COM_EVENTGALLERY_CART_CONNECTOR') ?>"
-                    data-folder="<?php echo $this->entry->folder ?>" data-file="<?php echo $this->entry->file; ?>"><i
+                    data-folder="<?php echo $this->entry->getFolderName() ?>" data-file="<?php echo $this->entry->getFileName(); ?>"><i
                             class="big"></i></a><?php ENDIF 
-        			?><?php IF ($this->params->get('use_social_sharing_button', 0)==1 && $this->folder->attribs->get('use_social_sharing', 1)==1):?><a rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->folder.'&file='.$this->entry->file.'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="big"></i></a><?php ENDIF
+        			?><?php IF ($this->params->get('use_social_sharing_button', 0)==1 && $this->folder->getAttribs()->get('use_social_sharing', 1)==1):?><a rel="sharingbutton" href="<?php echo JRoute::_('index.php?option=com_eventgallery&view=singleimage&layout=share&folder='.$this->entry->getFolderName().'&file='.$this->entry->getFileName().'&format=raw'); ?>" class="social-share-button" title="<?php echo JText::_('COM_EVENTGALLERY_SOCIAL_SHARE')?>" ><i class="big"></i></a><?php ENDIF
 			    ?></div>
         <?php endforeach ?>
         <div style="clear: both"></div>

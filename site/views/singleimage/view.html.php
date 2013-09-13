@@ -19,12 +19,24 @@ class EventgalleryViewSingleimage extends EventgalleryLibraryCommonView
     protected $params;
     protected $state;
     protected $use_comments;
-    protected $model;
+    /**
+     * @var EventgalleryLibraryFolder
+     */
+    protected $folder;
+
+    /**
+     * @var EventgalleryLibraryFile
+     */
+    protected $file;
+
+    protected $position;
     protected $imageset;
+    protected $model;
     /**
      * @var JDocument
      */
     public $document;
+
 
     function display($tpl = NULL)
     {
@@ -42,6 +54,10 @@ class EventgalleryViewSingleimage extends EventgalleryLibraryCommonView
         $model = $this->getModel('singleimage');
         $model->getData(JRequest::getString('folder'), JRequest::getString('file'));
 
+        $this->model = $model;
+        $this->file = $model->file;
+        $this->folder = $this->file->getFolder();
+        $this->position = $model->position;
 
         /* Default Page fallback*/
         $active = $app->getMenu()->getActive();
@@ -49,29 +65,29 @@ class EventgalleryViewSingleimage extends EventgalleryLibraryCommonView
             $this->params->merge($app->getMenu()->getDefault()->params);
         }
 
-        $this->model = $model;
+
         $this->use_comments = $this->params->get('use_comments');
 
 
-        $folder = $model->folder;
 
-        if (!is_object($folder)) {
+
+        if (!is_object($this->folder)) {
             $app->redirect(JRoute::_("index.php?option=com_eventgallery", false));
         }
 
 
-        if (!isset($model->file) || strlen($model->file->file) == 0) {
+        if (!isset($this->file) || strlen($this->file->getFileName()) == 0) {
             $app->redirect(
-                JRoute::_("index.php?option=com_eventgallery&view=event&folder=" . $folder->folder, false),
+                JRoute::_("index.php?option=com_eventgallery&view=event&folder=" . $this->folder->getFolderName(), false),
                 JText::_('COM_EVENTGALLERY_SINGLEIMAGE_NO_PUBLISHED_MESSAGE'), 'info'
             );
         }
 
-        if (!EventgalleryHelpersFolderprotection::isVisible($folder)) {
+        if (!$this->folder->isVisible()) {
             $user = JFactory::getUser();
             if ($user->guest) {
 
-                $redirectUrl = JRoute::_("index.php?option=com_eventgallery&view=singleimage&folder=" . $folder->folder."&file=".$model->file->file, false);
+                $redirectUrl = JRoute::_("index.php?option=com_eventgallery&view=singleimage&folder=" . $this->folder->getFolderName()."&file=".$this->file->getFileName(), false);
                 $redirectUrl = urlencode(base64_encode($redirectUrl));
                 $redirectUrl = '&return='.$redirectUrl;
                 $joomlaLoginUrl = 'index.php?option=com_users&view=login';
@@ -83,19 +99,19 @@ class EventgalleryViewSingleimage extends EventgalleryLibraryCommonView
         }
 
         $password = JRequest::getString('password', '');
-        $accessAllowed = EventgalleryHelpersFolderprotection::isAccessAllowed($folder, $password);
+        $accessAllowed = EventgalleryHelpersFolderprotection::isAccessAllowed($this->folder, $password);
         if (!$accessAllowed) {
             $app->redirect(
-                JRoute::_("index.php?option=com_eventgallery&view=password&folder=" . $folder->folder, false)
+                JRoute::_("index.php?option=com_eventgallery&view=password&folder=" . $this->folder->getFolderName(), false)
             );
         }
 
-        $folderObject = new EventgalleryLibraryFolder($folder->folder);
-        $this->imageset = $folderObject->getImageTypeSet();
+
+        $this->imageset = $this->folder->getImageTypeSet();
 
         $pathway = $app->getPathWay();
         $pathway->addItem(
-            $folder->description, JRoute::_('index.php?option=com_eventgallery&view=event&folder=' . $folder->folder)
+            $this->folder->getDescription(), JRoute::_('index.php?option=com_eventgallery&view=event&folder=' . $this->folder->getFolderName())
         );
         $pathway->addItem($model->position . ' / ' . $model->overallcount);
 
@@ -125,11 +141,11 @@ class EventgalleryViewSingleimage extends EventgalleryLibraryCommonView
 
         $title = $this->params->get('page_title', '');
 
-        if ($this->model->folder->description) {
-            $title = $this->model->folder->description;
+        if ($this->folder->getDescription()) {
+            $title = $this->folder->getDescription();
         }
         
-        $title .= " - ".$this->model->position.' / '.$this->model->overallcount;
+        $title .= " - ".$this->position.' / '.$this->folder->getFileCount();
 
 
         // Check for empty title and add site name if param is set
@@ -143,18 +159,18 @@ class EventgalleryViewSingleimage extends EventgalleryLibraryCommonView
             $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
         }
         if (empty($title)) {
-            $title = $this->model->folder->description;
+            $title = $this->folder->getDescription();
         }
         
         if ($this->document) {
 
             $this->document->setTitle($title);
 
-            if ($this->model->folder->text)
+            if ($this->folder->getText())
             {
-                $this->document->setDescription(strip_tags($this->model->folder->text));
+                $this->document->setDescription(strip_tags($this->folder->getText()));
             }
-            elseif (!$this->model->folder->text && $this->params->get('menu-meta_description'))
+            elseif (!$this->folder->getText() && $this->params->get('menu-meta_description'))
             {
                 $this->document->setDescription($this->params->get('menu-meta_description'));
             }

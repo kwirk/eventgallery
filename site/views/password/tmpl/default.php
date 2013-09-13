@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
     <form action="<?php echo $this->formaction; ?>" method="POST" class="form-horizontal">
         <fieldset>
             <div class="control-group">
-                <?php echo JText::sprintf('COM_EVENTGALLERY_PASSWORD_ENTER_PASSWORD', $this->folder->description) ?>
+                <?php echo JText::sprintf('COM_EVENTGALLERY_PASSWORD_ENTER_PASSWORD', $this->folder->getDescription()) ?>
             </div>
             <div class="control-group">
                 <label class="control-label" for="password"><?php echo JText::_(

@@ -42,12 +42,17 @@ class EventgalleryLibraryFactoryImagelineitem extends EventgalleryLibraryFactory
      */
     public function createLineitem($lineitemcontainerid, $foldername, $filename, $imagetypeid, $quantity) {
 
-        $file = new EventgalleryLibraryFile($foldername, $filename);
+        /**
+         * @var EventgalleryLibraryManagerFile $fileMgr
+         */
+        $fileMgr = EventgalleryLibraryManagerFile::getInstance();
+        $file = $fileMgr->getFile($foldername, $filename);
 
 
-        $imagetype = $file->getImageTypeSet()->getImageType($imagetypeid);
+
+        $imagetype = $file->getFolder()->getImageTypeSet()->getImageType($imagetypeid);
         if ($imagetype==null) {
-            $imagetype = $file->getImageTypeSet()->getDefaultImageType();
+            $imagetype = $file->getFolder()->getImageTypeSet()->getDefaultImageType();
         }
 
         $item = array(
