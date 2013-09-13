@@ -50,7 +50,7 @@ class EventgalleryHelpersImagePicasa extends EventgalleryHelpersImageDefault
         $caption = "";
 
         if (isset($this->caption) && strlen($this->caption) > 0) {
-            $caption .= '<span class="img-caption img-caption-part1">' . nl2br($this->caption) . '</span>';
+            $caption .= '<span class="img-caption img-caption-part1">' . nl2br(htmlspecialchars($this->caption)) . '</span>';
         }
 
         if ($showExif && isset($this->exif) && strlen($this->exif->model) > 0 && strlen($this->exif->focallength) > 0
