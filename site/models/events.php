@@ -93,9 +93,11 @@ class EventsModelEvents extends JModelLegacy
             foreach ($entries as $rownum=>$entry)
             {
                 $entryObject = $folderMgr->getFolder($entry);
-                if ($entryObject->getFileCount()>0) {
+                // count check commented out because of picasa performance issues
+                #if ($entryObject->getFileCount()>0) {
                      array_push($newList, $entryObject);
-                }
+                #}
+
             }
 
             
