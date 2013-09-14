@@ -60,8 +60,13 @@ class PlgContentEventgallery extends JPlugin
             #return;
         }
 
-        $row->text = $this->replace($row->text, $params);
-        $row->introtext = $this->replace($row->introtext, $params);
+        if (isset($row->text)) {
+            $row->text = $this->replace($row->text, $params);
+        }
+
+        if (isset($row->introtext)) {
+            $row->introtext = $this->replace($row->introtext, $params);
+        }
 
 
     }
