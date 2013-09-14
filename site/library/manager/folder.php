@@ -16,7 +16,11 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
 
     protected $_folders;
     protected $_commentCount;
+    protected $_maindir;
 
+    public function __construct() {
+        $this->_maindir = JPATH_ROOT.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'eventgallery'.DIRECTORY_SEPARATOR ;
+    }
 
     /**
      * Returns a folder
@@ -71,7 +75,155 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
         return 0;
     }
 
-    
+    /**
+     * scans the main dir and adds new folders to the database
+     * Does not add Files!
+     */
+    public function addNewFolders() {
+
+        $db = JFactory::getDBO();
+        $user = JFactory::getUser();
+
+        $folders = Array();
+
+        if (file_exists($this->_maindir)) {
+            $verzeichnis = dir($this->_maindir);
+        } else {
+            return;
+        }
+
+        # Hole die verfügbaren Verzeichnisse
+        while ($elm = $verzeichnis->read())
+        { //sucht alle Verzeichnisse mit Bilder
+            if (is_dir($this->_maindir.$elm) && !preg_match("/\./",$elm) && !preg_match("/.cache/",$elm))
+            {
+                if (is_dir($this->_maindir.$elm.DIRECTORY_SEPARATOR ))
+                {
+                    array_push($folders, $elm);
+                }
+            }
+        }
+
+        # Füge Verzeichnisse in die DB ein
+        foreach($folders as $folder)
+        {
+            #Versuchen wir, ein paar Infos zu erraten
+
+            $date = "";
+            $temp = array();
+            $created = date('Y-m-d H:i:s',filemtime($this->_maindir.$folder));
+
+            if (preg_match("/[0-9]{4}-[0-9]{2}-[0-9]{2}/",$folder, $temp))
+            {
+                $date = $temp[0];
+                $description = str_replace($temp[0],'',$folder);
+            }
+            else {
+                $description = $folder;
+            }
+
+            $description = trim(str_replace("_", " ", $description));
+
+            $query = "insert IGNORE into #__eventgallery_folder
+			            set folder=".$db->Quote($folder).",
+			                 published=0,
+			                 date=".$db->Quote($date).",
+			                 description=".$db->Quote($description).",
+			                 userid=".$db->Quote($user->id).",
+			                 created=".$db->quote($created).",
+			                 modified=NOW()
+			         ;";
+            $db->setQuery($query);
+            $db->query();
+
+        }
+
+    }
+
+    /**
+     * Syncs a folder. Includes deletion and adding/removing files
+     *
+     * true = sync
+     * false = deleted
+     *
+     * @param $folder
+     * @return bool
+     */
+    public function syncFolder($folder) {
+
+        $db = JFactory::getDBO();
+        $user = JFactory::getUser();
+
+
+        $folderpath = $this->_maindir.$folder;
+        if (!file_exists($folderpath)) {
+            $this->deleteFolder($folder);
+            return false;
+        }
+
+        $files = Array();
+        set_time_limit(120);
+
+        # Hole alle Dateien eines Verzeichnisses
+        $dir=dir($folderpath);
+        while ($elm = $dir->read())
+        {
+            if (is_file($folderpath.DIRECTORY_SEPARATOR.$elm))
+                array_push($files, $elm);
+        }
+
+        # Lösche nicht mehr vorhandene Files eines Verzeichnisses aus der DB
+        $query = $db->getQuery(true);
+        $query->delete('#__eventgallery_file')
+            ->where('folder='.$db->quote($folder))
+            ->where('file not in (\''.implode('\',\'',$files).'\')');
+
+        $db->setQuery($query);
+        $db->execute();
+
+        # Füge alle Dateien eines Verzeichnisses in die DB ein.
+        foreach($files as $file)
+        {
+            $filepath = $folderpath.DIRECTORY_SEPARATOR.$file;
+            @list($width, $height, $type, $attr) = getimagesize($filepath);
+
+            $created = date('Y-m-d H:i:s',filemtime($filepath));
+
+            $query = "insert IGNORE into #__eventgallery_file
+					set folder=".$db->quote($folder).",
+						file=".$db->quote($file).",
+						width=".$db->quote($width).",
+						height=".$db->quote($height).",
+						published=1,
+						created=".$db->quote($created).",
+						modified=now(),
+						userid=".$db->Quote($user->id)."
+					;";
+            $db->setQuery($query);
+            $db->execute();
+
+            EventgalleryController::updateMetadata($folderpath.DIRECTORY_SEPARATOR.$file, $folder, $file);
+        }
+
+        return true;
+    }
+
+    protected function deleteFolder($folder) {
+        $db = JFactory::getDBO();
+
+        $query = $db->getQuery(true);
+        $query->delete('#__eventgallery_folder')
+            ->where('folder='.$db->quote($folder));
+        $db->setQuery($query);
+        $db->execute();
+
+        $query = $db->getQuery(true);
+        $query->delete('#__eventgallery_file')
+            ->where('folder='.$db->quote($folder));
+        $db->setQuery($query);
+
+    }
+
 
 
 }
