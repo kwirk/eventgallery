@@ -60,6 +60,10 @@ class PlgContentEventgallery extends JPlugin
             #return;
         }
 
+        if (!class_exists('EventgalleryLibraryManagerFolder')) {
+            return;
+        }
+
         if (isset($row->text)) {
             $row->text = $this->replace($row->text, $params);
         }
