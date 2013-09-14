@@ -154,6 +154,9 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
         $db = JFactory::getDBO();
         $user = JFactory::getUser();
 
+        if (strpos($folder,'@')>0) {
+            return true;
+        }
 
         $folderpath = $this->_maindir.$folder;
         if (!file_exists($folderpath)) {
