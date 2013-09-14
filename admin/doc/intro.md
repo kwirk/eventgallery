@@ -1,5 +1,7 @@
 # Event Gallery Intro {#Intro}
 
+Installed Version: $$version$$
+
 It's time to introduce a new gallery component for Joomla. I guess you're already waiting for something like this since there is a real lack of such kind of components ;-)
 Initially I build this component to show photos of different events to the audience. To where other components have folders this component calls them events. Because of this this component is called Event Gallery. 
 

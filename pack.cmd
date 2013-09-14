@@ -38,8 +38,8 @@ rem COPY to temp folder
 	echo.
 	echo Replace the placeholders
 	echo.
-	%fartpath% -r  %tmppath%\*.xml "$$version$$" "%version%"
-	%fartpath% -r  %tmppath%\*.xml "$$fileversion$$" "%fileversion%"
+	%fartpath% -r  %tmppath%\*.* "$$version$$" "%version%"
+	%fartpath% -r  %tmppath%\*.* "$$fileversion$$" "%fileversion%"
 	echo.
 	echo.
 	echo.
