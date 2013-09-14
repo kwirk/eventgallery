@@ -30,7 +30,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
     /* start the eventgallery*/
     window.addEvent("domready", function () {
         adjustImageSize();
-        myGallery = new JSGallery2($$('.thumbnail'), $('bigImage'), $('pageContainer'),
+        myGallery = new JSGallery2($$('.ajax-thumbnail-container'), $('bigImage'), $('pageContainer'),
             {    'prevHandle': $('prev'),
                 'nextHandle': $('next'),
                 'countHandle': $('count'),
@@ -109,7 +109,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
                         <?php $this->assign('entry', $entry) ?>
                         <?php $imagesOnPage++ ?>
 
-                        <div class="thumbnail" id="image<?php echo $imageCount++; ?>">
+                        <div class="ajax-thumbnail-container thumbnail" id="image<?php echo $imageCount++; ?>">
                             <a longdesc="<?php echo $entry->getImageUrl(NULL, NULL, true); ?>"
                                class="ajax-thumbnail"
                                href="<?php echo $entry->getImageUrl(NULL, NULL, true); ?>"
