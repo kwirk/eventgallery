@@ -36,7 +36,6 @@ class PlgContentEventgallery extends JPlugin
         //load classes
         JLoader::registerPrefix('Eventgallery', JPATH_BASE.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_eventgallery');
 
-        JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_eventgallery/models', 'ContentModel');
         parent::__construct($subject, $config);
     }
 
@@ -54,16 +53,25 @@ class PlgContentEventgallery extends JPlugin
      */
     public function onContentPrepare($context, &$row, &$params, $page = 0)
     {
-        $canProceed = $context == 'com_content.article';
+        $canProceed = $context == 'com_content.article' || $context == 'com_content.category';
 
         if (!$canProceed)
         {
-            return;
+            #return;
         }
 
-        preg_match_all("/\{eventgallery ([^\}]*)\}/", $row->text, $matches);
+        $row->text = $this->replace($row->text, $params);
+        $row->introtext = $this->replace($row->introtext, $params);
 
 
+    }
+
+    private function replace($text, $params) {
+        preg_match_all("/\{eventgallery ([^\}]*)\}/", $text, $matches);
+
+        if ($params == NULL) {
+            $params = new JRegistry();
+        }
 
         foreach($matches[0] as $key=>$paramString) {
             $result = "";
@@ -81,14 +89,15 @@ class PlgContentEventgallery extends JPlugin
             $attr = $this->getParameterValue($paramString, 'attr', 'images');
             $type = $this->getParameterValue($paramString, 'type', null);
 
-            /**
-             * @var EventModelEvent $model
-             * */
-            $model = JModelLegacy::getInstance('Event', 'EventModel', array('ignore_request' => true));
-            $folder = $model->getFolder($foldername);
 
-            if (isset($folder) && $folder->published==1 && EventgalleryHelpersFolderprotection::isAccessAllowed($folder) && EventgalleryHelpersFolderprotection::isVisible($folder)) {
-                $files = $model->getEntries($foldername, 0, $max_images, 1);
+            /**
+             * @var EventgalleryLibraryManagerFolder $folderMgr
+             */
+            $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+            $folder = $folderMgr->getFolder($foldername);
+
+            if (isset($folder) && $folder->isPublished() && EventgalleryHelpersFolderprotection::isAccessAllowed($folder) && $folder->isVisible()) {
+                $files = $folder->getFiles(0, $max_images, 1);
 
                 if ($attr == 'images') {
                     // Get the path for the layout file
@@ -101,26 +110,26 @@ class PlgContentEventgallery extends JPlugin
                 }
 
                 if ($attr == 'description') {
-                    $result = $folder->description;
+                    $result = $folder->getDescription();
                 }
 
                 if ($attr == 'text') {
                     if ($type=="intro") {
-                        $result = $folder->introtext;
+                        $result = $folder->getIntroText();
                     } else {
-                        $result = $folder->text;
+                        $result = $folder->getText();
                     }
                 }
             }
 
 
-            $row->text = str_replace($paramString, $result, $row->text, $count );
+            $text = str_replace($paramString, $result, $text, $count );
         }
 
 
 
 
-        return true;
+        return $text;
     }
 
     /**
