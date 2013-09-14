@@ -31,29 +31,14 @@ class EventgalleryHelpersImageHelper
         //JLog::add('processing url '.$url, JLog::INFO, 'com_eventgallery');
 
 
-        if (!is_dir(JPATH_CACHE)) {
-            //mkdir($cachebasedir, 0777);
-            mkdir(JPATH_CACHE);
-            #echo "created $cachebasedir <br>";
-            #JLog::add('have to create dir ' . JPATH_CACHE, JLog::INFO, 'com_eventgallery');
-        }
+        self::initCacheDirs();
 
-        $cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery_picasa';
-        if (!is_dir($cachebasedir)) {
-            //mkdir($cachebasedir, 0777);
-            mkdir($cachebasedir);
-            #echo "created $cachebasedir <br>";
-            #JLog::add('have to create dir ' . $cachebasedir, JLog::INFO, 'com_eventgallery');
+        $cachefilename = self::$cachebasedir . DIRECTORY_SEPARATOR . md5($url) . '.xml';
 
 
-        }
-
-        $cachefilename = $cachebasedir . DIRECTORY_SEPARATOR . md5($url) . '.xml';        
 
 
-        $cache_life = '360000'; //caching time, in seconds
-
-        if (file_exists($cachefilename) && (time() - filemtime($cachefilename) <= $cache_life)) {
+        if (file_exists($cachefilename) && (time() - filemtime($cachefilename) <= self::$cache_life)) {
 
 
         } else {
@@ -81,6 +66,23 @@ class EventgalleryHelpersImageHelper
 
     }
 
+    public static $cachebasedir;
+    public static $cache_life = '360000'; //caching time, in seconds
+
+
+    public static  function initCacheDirs() {
+
+        if (!is_dir(JPATH_CACHE)) {
+            mkdir(JPATH_CACHE);
+        }
+
+        self::$cachebasedir = JPATH_CACHE . DIRECTORY_SEPARATOR . 'com_eventgallery_picasa';
+
+        if (!is_dir(self::$cachebasedir)) {
+            mkdir(self::$cachebasedir);
+        }
+    }
+
 
     /**
      * The following values are valid for the thumbsize and imgmax query parameters and are embeddable on a webpage. These images
@@ -104,6 +106,17 @@ class EventgalleryHelpersImageHelper
      */
     public static function picasaweb_ListAlbum($userName, $albumNameOrId, $picasaKey = NULL, $imagesize = 1280)
     {
+        self::initCacheDirs();
+
+
+        $filename = md5($userName.$albumNameOrId.$picasaKey).'.obj';
+        $serOBjectPath = self::$cachebasedir . DIRECTORY_SEPARATOR . $filename;
+
+        if (file_exists($serOBjectPath) && (time() - filemtime($serOBjectPath) <= self::$cache_life)) {
+            $c = file_get_contents($serOBjectPath);
+            return unserialize($c);
+        }
+
 
         #echo "Initial:". memory_get_usage() . "<br>";
 
@@ -124,6 +137,7 @@ class EventgalleryHelpersImageHelper
                     $albumNameOrId
                 ) . "?" . $authkeyParam . "thumbsize=$thumbsize&imgmax=$imagesize&prettyprint=$prettyprint";
         }
+
 
 
         $xmlFile = EventgalleryHelpersImageHelper::getPicasawebResult($url);
@@ -232,7 +246,14 @@ class EventgalleryHelpersImageHelper
         #echo memory_get_peak_usage() . "<br>";
 
         #echo "<pre>"; 		print_r($album);		echo "</pre>";
-        return (object)$album;
+
+        $album = (object)$album;
+
+        $c = serialize($album);
+        file_put_contents($serOBjectPath, $c);
+
+
+        return $album;
     }
 
 
