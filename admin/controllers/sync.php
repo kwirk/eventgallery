@@ -36,11 +36,20 @@ class EventgalleryControllerSync extends JControllerForm
         $model = parent::getModel($name, $prefix, $config);
         return $model;
     }
-	
+
+    /**
+     * just cancels this view
+     */
 	public function cancel($key = NULL) {
 		$this->setRedirect( 'index.php?option=com_eventgallery&view=events');
 	}
 
+    /**
+     * starts the syncronization.
+     *
+     * @param bool $cachable
+     * @param array $urlparams
+     */
     public function start($cachable = false, $urlparams = array()) {
         JSession::checkToken();
 
@@ -51,6 +60,12 @@ class EventgalleryControllerSync extends JControllerForm
         $this->display($cachable, $urlparams);
     }
 
+    /**
+     * Syncs one folder
+     *
+     * @param bool $cachable
+     * @param array $urlparams
+     */
     public function process($cachable = false, $urlparams = array()) {
         JSession::checkToken();
         $folder = JRequest::getString('folder','');

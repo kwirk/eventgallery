@@ -103,17 +103,17 @@ if ($version->isCompatible('3.0')) {
                 var cssClass = "";
 
                 if (responseJSON.status == 'sync') {
-                    text = "Folder " + responseJSON.folder + " synced";
+                    text = responseJSON.folder + " synced";
                     cssClass = "sync";
                 }
 
                 if (responseJSON.status == 'deleted') {
-                    text = "Folder " + responseJSON.folder + " deleted";
+                    text = responseJSON.folder + " deleted";
                     cssClass = "deleted";
                 }
 
                 if (responseJSON.status == 'nosync') {
-                    text = "Folder " + responseJSON.folder + " not synced";
+                    text = responseJSON.folder + " not synced";
                     cssClass = "no-sync";
                 }
                 myElement.set('html', text);
