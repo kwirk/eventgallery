@@ -36,11 +36,12 @@ class EventgalleryLibraryManagerFile extends  EventgalleryLibraryManagerManager
 
         if (!isset($this->_folders[$currentFolder][$filename])) {
 
-            if (strpos($currentFolder, '@')>0) {
-                $this->_folders[$currentFolder][$filename] = new EventgalleryLibraryFilePicasa($foldername, $filename);
-            } else {
-                $this->_folders[$currentFolder][$filename] = new EventgalleryLibraryFileLocal($foldername, $filename);
-            }
+            /**
+             * @var EventgalleryLibraryManagerFolder $folderMgr
+             */
+            $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
+            $fileClass = $folderMgr->getFileHandlerClassname($currentFolder);
+            $this->_folders[$currentFolder][$filename] = new $fileClass($foldername, $filename);
 
         }
 

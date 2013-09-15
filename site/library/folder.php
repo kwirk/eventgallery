@@ -34,10 +34,12 @@ abstract class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObje
 
     protected $_attribs = NULL;
 
+
+
     /**
      * $creates the lineitem object. $dblineitem is the database object of this line item
      */
-    function __construct($foldername)
+    public function __construct($foldername)
     {
         if (is_object($foldername)) {
             $this->_folder = $foldername;
@@ -49,6 +51,27 @@ abstract class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObje
             $this->_loadFolder();
         }
         parent::__construct();
+    }
+
+
+    /**
+     * use this method to sync new folders to the database
+     */
+    public static function addNewFolders() {
+
+    }
+
+    /**
+     * defines if this class can handle the given folder
+     *
+     * @param $folder
+     */
+    public static function canHandle($folder) {
+        return false;
+    }
+
+    public static function getFileHandlerClassname() {
+        return null;
     }
 
     /**
@@ -314,5 +337,15 @@ abstract class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObje
      */
     public function isCommentingAllowed() {
         return true;
+    }
+
+
+    /**
+     * syncs a folder with the used data structure
+     *
+     * @param $foldername string
+     */
+    public static function syncFolder($foldername) {
+
     }
 }

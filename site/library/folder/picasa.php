@@ -29,6 +29,20 @@ class EventgalleryLibraryFolderPicasa extends EventgalleryLibraryFolder
     }
 
     /**
+     * defines if this class can handle the given folder
+     *
+     * @param $folder
+     */
+    public static function canHandle($foldername) {
+
+        if (strpos($foldername,'@' ) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the number of files in this album.
      *
      * @param bool $publishedOnly
@@ -120,5 +134,17 @@ class EventgalleryLibraryFolderPicasa extends EventgalleryLibraryFolder
      */
     public function isCommentingAllowed() {
         return false;
+    }
+
+    public static function syncFolder($foldername) {
+        return EventgalleryLibraryManagerFolder::$SYNC_STATUS_NOSYNC;
+    }
+
+    public static function addNewFolders() {
+
+    }
+
+    public static function getFileHandlerClassname() {
+        return 'EventgalleryLibraryFilePicasa';
     }
 }

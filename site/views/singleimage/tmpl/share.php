@@ -19,9 +19,10 @@ $this->twitter = $this->description;
 
 $this->imageurl = JURI::base().'images/eventgallery/'.$this->model->file->getFolderName().'/'.$this->model->file->getFileName();
 // handle picasa images
-if (strpos($this->model->file->getFolderName(),'@')>0) {
-	$this->imageurl = $this->model->file->getImageUrl(600, 600, true);
-}
+
+$this->imageurl = $this->model->file->getOriginalImageUrl();
+
+
 
 ?>
 <?php IF ($this->params->get('use_social_sharing_button', 0)==1 && $this->model->folder->getAttribs()->get('use_social_sharing',1)==1):?>			    		

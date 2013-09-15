@@ -122,7 +122,7 @@ class EventgalleryControllerUpload extends JControllerForm
 
 				$db->setQuery($query);
 				$db->query();
-				EventgalleryController::updateMetadata($path.$uploadedFile, $folder, $uploadedFile);			
+				EventgalleryLibraryFolderLocal::updateMetadata($path.$uploadedFile, $folder, $uploadedFile);
 			} 
 		}
 
