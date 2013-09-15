@@ -22,7 +22,7 @@ class EventgalleryModelSingleimage extends JModelLegacy
      */
     var $folder = NULL;
     /**
-     * @var TableFile
+     * @var EventgalleryLibraryFile
      */
     var $file = NULL;
     var $nextFile = NULL;
@@ -54,8 +54,6 @@ class EventgalleryModelSingleimage extends JModelLegacy
             $this->loadFolder($foldername);
 
             // picasa files are not stored in the database
-
-            $eventModel = JModelLegacy::getInstance('Event', 'EventModel');
             $files = $this->folder->getFiles(0, -1);
 
 
@@ -72,15 +70,6 @@ class EventgalleryModelSingleimage extends JModelLegacy
                      */
 
                     $file->countHit();
-                    /**
-                     * @var TableFile $table
-                     */
-                    $table = $this->getTable('File');
-                    if  (isset($file->id) && $table->load($file->id)) {
-                        $table->bind($file->getInternalFile());
-                        $table->hits++;
-                        $table->store();
-                    }
 
                     /**
                      * Set Data

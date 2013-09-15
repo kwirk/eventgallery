@@ -1052,7 +1052,9 @@ class PelIfd implements IteratorAggregate, ArrayAccess {
      * @param int the offset of the first byte of this directory.
      *
      * @param PelByteOrder the byte order that should be used when
-     * turning integers into bytes.  This should be one of {@link
+     * turning integers into bytes.  This should be one of {
+     * @return string
+    @link
      * PelConvert::LITTLE_ENDIAN} and {@link PelConvert::BIG_ENDIAN}.
      */
     function getBytes($offset, $order) {

@@ -14,12 +14,18 @@ jimport('joomla.application.component.view');
 
 class EventsViewEvents extends EventgalleryLibraryCommonView
 {
+
+
+    /**
+     * @var JRegistry
+     */
     protected $params;
     protected $entries;
     protected $fileCount;
     protected $folderCount;
     protected $eventModel;
     protected $pageNav;
+    protected $entriesCount;
 
     protected $folder;
 
@@ -28,6 +34,11 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
      * @var JCacheControllerCallback $cache
      */
     protected $cache;
+
+    /**
+     * @var JDocument
+     */
+    public $document;
 
 
     function display($tpl = NULL)
@@ -77,6 +88,9 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
         if ($this->getLayout()=='magic') {
             $images = array();
 
+            /**
+             * @var EventgalleryLibraryFolder $entry
+             */
             foreach ($entries as $entry) {
                $result =  $this->cache->call(array($eventModel, 'getEntries'), $entry->getFolderName(), -1, -1, 0);
                $images = array_merge($images, $result);
@@ -111,7 +125,7 @@ class EventsViewEvents extends EventgalleryLibraryCommonView
         $menu = $menus->getActive();
         if($menu)
         {
-            $this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+            $this->params->get('page_heading', $this->params->get('page_title', $menu->title));
         }
 
         $title = $this->params->get('page_title', '');

@@ -39,7 +39,7 @@ class EventsModelEvents extends JModelLegacy
      * @param int $limit
      * @param string $tags
      * @param string $sortAttribute
-     * @param $usergroups even if unused we need this for the cache call
+     * @param $usergroups array even if unused we need this for the cache call
      * @return array
      */
     function getEntries($limitstart=0, $limit=0, $tags = "", $sortAttribute='ordering', $usergroups)
@@ -90,7 +90,7 @@ class EventsModelEvents extends JModelLegacy
              */
             $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
 
-            foreach ($entries as $rownum=>$entry)
+            foreach ($entries as $entry)
             {
                 $entryObject = $folderMgr->getFolder($entry);
                 // count check commented out because of picasa performance issues
@@ -110,7 +110,10 @@ class EventsModelEvents extends JModelLegacy
 
                 
                 $finalWinners = Array();
-                
+
+                /**
+                 * @var EventgalleryLibraryFolder $entry
+                 */
                 foreach($entries as $entry) {
                     if (EventgalleryHelpersTags::checkTags($tags, $entry->getFolderTags()) ) {
                         $finalWinners[] = $entry;

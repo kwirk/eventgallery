@@ -26,6 +26,8 @@ class TableFile extends JTable
 	public $ismainimageonly = null;
 	public $modified = null;
 	public $created = null;
+    public $height = null;
+    public $width = null;
 
     /**
      * Constructor

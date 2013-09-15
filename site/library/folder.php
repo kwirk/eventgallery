@@ -65,6 +65,7 @@ abstract class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObje
      * defines if this class can handle the given folder
      *
      * @param $folder
+     * @return bool
      */
     public static function canHandle($folder) {
         return false;

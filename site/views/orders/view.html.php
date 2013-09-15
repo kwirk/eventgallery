@@ -32,7 +32,9 @@ class OrdersViewOrders extends EventgalleryLibraryCommonView
      */
     public function display($tpl = null)
     {
-        
+        /**
+         * @var JSite $app
+         */
         $app = JFactory::getApplication();
         $this->state = $this->get('State');
         $this->params = $app->getParams();

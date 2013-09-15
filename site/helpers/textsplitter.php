@@ -19,6 +19,7 @@ class EventgalleryHelpersTextsplitter
      * If no hr is available, the intro and the full text returns the initial text
      *
      * @param $initialtext
+     * @return \stdClass
      */
     public static function split($initialtext) {
 

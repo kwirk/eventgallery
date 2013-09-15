@@ -21,7 +21,15 @@ class EventgalleryViewPassword extends EventgalleryLibraryCommonView
      */
     protected $params;
     protected $state;
+
+    /**
+     * @var EventgalleryLibraryFile
+     */
     protected $file;
+
+    /**
+     * @var EventgalleryLibraryFolder
+     */
     protected $folder;
     protected $formaction;
 

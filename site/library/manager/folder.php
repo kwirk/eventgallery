@@ -65,6 +65,7 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
      * returns the name of the file handler class for the given folder name
      *
      * @param $foldername string
+     * @return null|string
      */
     public function getFileHandlerClassname($foldername) {
         foreach($this->_folderTypes as $folderType) {
@@ -77,6 +78,8 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
             }
 
         }
+
+        return null;
     }
 
     public function getCommentCount($foldername)
@@ -143,6 +146,8 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
             }
 
         }
+
+        return EventgalleryLibraryManagerFolder::$SYNC_STATUS_NOSYNC;
     }
 
 

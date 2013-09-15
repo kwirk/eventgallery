@@ -39,9 +39,7 @@ class EventgalleryLibraryFileLocal extends EventgalleryLibraryFile
             $params	 = $app->getParams();
 
         }else {
-            /**
-             * @var JAdministrator $app
-             */
+
             $params = JComponentHelper::getParams('com_eventgallery');
         }
 

@@ -31,7 +31,8 @@ class EventgalleryLibraryFolderPicasa extends EventgalleryLibraryFolder
     /**
      * defines if this class can handle the given folder
      *
-     * @param $folder
+     * @param $foldername
+     * @return bool
      */
     public static function canHandle($foldername) {
 

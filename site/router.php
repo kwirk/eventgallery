@@ -20,11 +20,7 @@ jimport('joomla.application.categories');
  */
 function EventgalleryBuildRoute(&$query)
 {
-	
-	$segments	= array();
 
-	
-	$app		= JFactory::getApplication();	
 	$config 	= JFactory::getConfig();
 	$segments = array();
 	
@@ -81,14 +77,6 @@ function EventgalleryBuildRoute(&$query)
 function EventgalleryParseRoute($segments)
 {
 	$vars = array();
-
-	//Get the active menu item.
-	$app	= JFactory::getApplication();
-	$menu	= $app->getMenu();
-	$item	= $menu->getActive();
-	$params = JComponentHelper::getParams('com_eventgallery');
-	$advanced = $params->get('sef_advanced_link', 0);
-	$db = JFactory::getDBO();
 
 	// Count route segments
 	$count = count($segments);
