@@ -31,7 +31,7 @@ class EventgalleryViewSync extends EventgalleryLibraryCommonView
 	}
 
 	protected function addToolbar() {
-		JToolBarHelper::title(   JText::_( 'Event' ).': <small>[ '.JText::_('COM_EVENTGALLERY_SUBMENU_SYNC_DATABASE').' ]</small>' );
+		JToolBarHelper::title(   JText::_('COM_EVENTGALLERY_SUBMENU_SYNC_DATABASE') );
 		JToolBarHelper::cancel( 'sync.cancel', 'Close' );
 	}
 }
