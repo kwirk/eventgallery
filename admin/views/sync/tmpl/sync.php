@@ -21,10 +21,10 @@ if ($version->isCompatible('3.0')) {
 
 <progress id="syncprogress" value="0" max="100"></progress>
 
-<div>
+<div class="row-fluid">
 <?php
     foreach($this->folders as $folder) {
-        echo '<div class="eventgallery-folder" data-status="open" data-folder="'.$folder.'">'.$folder.'</div>';
+        echo '<div class="span4 eventgallery-folder" data-status="open" data-folder="'.$folder.'">'.$folder.'</div>';
 }
 ?>
 </div>
@@ -37,17 +37,40 @@ if ($version->isCompatible('3.0')) {
 
 
 <style>
-    .eventgallery-folder {
-        width: 25%;
-        float: left;
+    #syncprogress {
+        width: 100%;
+        height: 20px;
     }
 
-    .success {
-        color: green;
+    .eventgallery-folder {
+        float: left;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #DDD;
+        -webkit-box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow:    1px 1px 1px rgba(50, 50, 50, 0.75);
+        box-shadow:         1px 1px 1px rgba(50, 50, 50, 0.75);
+
+        box-sizing:border-box;
+        -moz-box-sizing:border-box; /* Firefox */
+    }
+
+    .done {
+        -webkit-box-shadow: 0px 0px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow:    0px 0px 0px rgba(50, 50, 50, 0.75);
+        box-shadow:         0px 0px 0px rgba(50, 50, 50, 0.75);
+    }
+
+    .sync {
+        background-color: darkseagreen;
+    }
+
+    .no-sync {
+        background-color: lightblue;
     }
 
     .deleted {
-        color: red;
+        background-color: lightsalmon;
     }
 </style>
 
@@ -68,20 +91,41 @@ if ($version->isCompatible('3.0')) {
         }
 
         var myElement = folderContainers.pop();
-        var myRequest = new Request({
+        var myRequest = new Request.JSON({
             url: '<?php echo JRoute::_('index.php?option=com_eventgallery&format=raw&task=sync.process&'.JSession::getFormToken().'=1', false);?>',
             method: 'get',
             onRequest: function(){
                 myElement.set('html', 'loading...');
             },
-            onSuccess: function(responseText){
+            onSuccess: function(responseJSON, responseText){
                 myElement.addClass('done');
-                myElement.set('html', responseText);
+                var text = "";
+                var cssClass = "";
+
+                if (responseJSON.status == 'sync') {
+                    text = "Folder " + responseJSON.folder + " synced";
+                    cssClass = "sync";
+                }
+
+                if (responseJSON.status == 'deleted') {
+                    text = "Folder " + responseJSON.folder + " deleted";
+                    cssClass = "deleted";
+                }
+
+                if (responseJSON.status == 'nosync') {
+                    text = "Folder " + responseJSON.folder + " not synced";
+                    cssClass = "no-sync";
+                }
+                myElement.set('html', text);
+                myElement.addClass(cssClass);
                 syncFolder();
             },
-            onFailure: function(){
+            onFailure: function(xhr){
                 myElement.addClass('failed');
-                myElement.set('html', 'Sorry, your request failed :(');
+                myElement.set('html', 'Sorry, your request failed :('+xhr.status+')');
+            },
+            onError: function(text, error) {
+                myElement.set('html', 'Sorry, an error occured :('+error+')');
             }
         });
         myRequest.send('folder='+myElement.getAttribute('data-folder'));

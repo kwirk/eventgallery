@@ -19,6 +19,10 @@ if ($version->isCompatible('3.0')) {
 }
 ?>
 
+<p>
+    <?php echo JText::_('COM_EVENTGALLERY_SYNC_START_DESC'); ?>
+</p>
+
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 <input type="submit" class="btn btn-primary" value="<?php echo JText::_('COM_EVENTGALLERY_SYNC_START');?>" />
 <input type="hidden" name="option" value="com_eventgallery" />

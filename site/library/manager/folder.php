@@ -14,6 +14,11 @@ defined('_JEXEC') or die();
 class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManager
 {
 
+    public static $SYNC_STATUS_NOSYNC = 0;
+    public static $SYNC_STATUS_SYNC = 1;
+    public static $SYNC_STATUS_DELTED = 2;
+
+
     protected $_folders;
     protected $_commentCount;
     protected $_maindir;
@@ -143,11 +148,14 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
     /**
      * Syncs a folder. Includes deletion and adding/removing files
      *
-     * true = sync
-     * false = deleted
+     * return values:
+     *
+     * synced
+     * notsynced
+     * deleted
      *
      * @param $folder
-     * @return bool
+     * @return string
      */
     public function syncFolder($folder) {
 
@@ -155,13 +163,13 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
         $user = JFactory::getUser();
 
         if (strpos($folder,'@')>0) {
-            return true;
+            return self::$SYNC_STATUS_NOSYNC;
         }
 
         $folderpath = $this->_maindir.$folder;
         if (!file_exists($folderpath)) {
             $this->deleteFolder($folder);
-            return false;
+            return self::$SYNC_STATUS_DELTED;
         }
 
         $files = Array();
@@ -208,7 +216,7 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
             EventgalleryController::updateMetadata($folderpath.DIRECTORY_SEPARATOR.$file, $folder, $file);
         }
 
-        return true;
+        return self::$SYNC_STATUS_SYNC;
     }
 
     protected function deleteFolder($folder) {

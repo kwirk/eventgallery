@@ -59,11 +59,23 @@ class EventgalleryControllerSync extends JControllerForm
          */
         $folderMgr = EventgalleryLibraryManagerFolder::getInstance();
         $syncResult = $folderMgr->syncFolder($folder);
-        if ($syncResult)  {
-            echo '<span class="success">sync of '.$folder.' done</span>';
-        } else {
-            echo '<span class="deleted">deleted '.$folder.' </span>';
+
+        $result = Array();
+        $result['folder'] = htmlspecialchars($folder);
+
+        if ($syncResult == EventgalleryLibraryManagerFolder::$SYNC_STATUS_NOSYNC) {
+            $result['status'] = "nosync";
         }
+
+        if ($syncResult == EventgalleryLibraryManagerFolder::$SYNC_STATUS_SYNC)  {
+            $result['status'] = "sync";
+        }
+
+        if ($syncResult == EventgalleryLibraryManagerFolder::$SYNC_STATUS_DELTED)  {
+            $result['status'] = "deleted";
+        }
+
+        echo json_encode($result);
     }
 
 
