@@ -195,6 +195,10 @@ class EventgalleryLibraryManagerFolder extends  EventgalleryLibraryManagerManage
         # Füge alle Dateien eines Verzeichnisses in die DB ein.
         foreach($files as $file)
         {
+            if ($file == 'index.html') {
+                continue;
+            }
+
             $filepath = $folderpath.DIRECTORY_SEPARATOR.$file;
             @list($width, $height, $type, $attr) = getimagesize($filepath);
 
