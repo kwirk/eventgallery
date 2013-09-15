@@ -24,7 +24,7 @@ interface  EventgalleryLibraryInterfaceImage
 
     public function getThumbUrl($width = 104, $height = 104, $larger = true, $crop = false);
 
-
+    public function getOriginalImageUrl();
     /**
      * @param EventgalleryLibraryImagelineitem $lineitem
      *

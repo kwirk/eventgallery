@@ -228,4 +228,8 @@ class EventgalleryLibraryFilePicasa extends EventgalleryLibraryFile
         return $winner;
     }
 
+    public function getOriginalImageUrl() {
+        return $this->getImageUrl(600, 600, true);
+    }
+
 }

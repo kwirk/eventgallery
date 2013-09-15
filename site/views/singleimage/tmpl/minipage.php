@@ -22,16 +22,14 @@ if (strlen($this->model->folder->getDescription())>0) {
 $title .= ' - ';
 
 if (strlen($this->model->file->getTitle())>0) {
-	$title .= $this->model->file->getTitle();
+	$title .= $this->model->file->getPlainTextTitle();
 } else {
 	$title .= $this->model->file->getFileName();
 }
 
-$imageurl = JURI::base().'images/eventgallery/'.$this->model->file->getFolderName().'/'.$this->model->file->getFileName();
-// handle picasa images
-if (strpos($this->model->file->getFolderName(),'@')>0) {
-	$imageurl = $this->model->file->getImageUrl(600, 600, true);
-}
+$imageurl = $this->model->file->getOriginalImageUrl();
+
+
 
 ?><html>
 	<head prefix="og: http://ogp.me/ns#">

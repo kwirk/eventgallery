@@ -159,6 +159,10 @@ class EventgalleryLibraryFileLocal extends EventgalleryLibraryFile
         return JURI::root().$this->_image_script_path."?option=com_eventgallery&mode=".$mode."&width=".$width."&view=resizeimage&folder=".$this->getFolderName()."&file=".urlencode($this->getFileName());
     }
 
+    public function getOriginalImageUrl() {
+        return JURI::base().'images/eventgallery/'.$this->getFolderName().'/'.$this->getFileName();
+    }
+
     /**
      * increases the hit counter in the database
      */
