@@ -142,8 +142,20 @@ class EventgalleryLibraryFolderLocal extends EventgalleryLibraryFolder
         $db->setQuery($query);
         $db->execute();
 
+        $query = $db->getQuery(true);
+        $query->select('file')
+            ->from($db->quoteName('#__eventgallery_file'))
+            ->where('folder='.$db->quote($foldername));
+        $db->setQuery($query);
+        $currentfiles = $db->loadAssocList(null, 'file');
+
+        foreach($currentfiles as $file)
+        {
+            self::updateMetadata($folderpath.DIRECTORY_SEPARATOR.$file, $foldername, $file);
+        }
+
         # Füge alle Dateien eines Verzeichnisses in die DB ein.
-        foreach($files as $file)
+        foreach(array_diff($files, $currentfiles) as $file)
         {
             if ($file == 'index.html') {
                 continue;
@@ -154,16 +166,22 @@ class EventgalleryLibraryFolderLocal extends EventgalleryLibraryFolder
 
             $created = date('Y-m-d H:i:s',filemtime($filepath));
 
-            $query = "insert IGNORE into #__eventgallery_file
-					set folder=".$db->quote($foldername).",
-						file=".$db->quote($file).",
-						width=".$db->quote($width).",
-						height=".$db->quote($height).",
-						published=1,
-						created=".$db->quote($created).",
-						modified=now(),
-						userid=".$db->Quote($user->id)."
-					;";
+            $query = $db->getQuery(true);
+            $query->insert($db->quoteName('#__eventgallery_file'))
+                ->columns(
+                    'folder,file,width,height,published,'
+                    .'userid,created,modified'
+                    )
+                ->values(implode(',',array(
+                    $db->quote($foldername),
+                    $db->quote($file),
+                    $db->quote($width),
+                    $db->quote($height),
+                    '1',
+                    $db->Quote($user->id),
+                    $db->quote($created),
+                    'now()'
+                    )));
             $db->setQuery($query);
             $db->execute();
 
@@ -285,8 +303,14 @@ class EventgalleryLibraryFolderLocal extends EventgalleryLibraryFolder
             }
         }
 
+        $query = $db->getQuery(true);
+        $query->select('folder')
+            ->from($db->quoteName('#__eventgallery_folder'));
+        $db->setQuery($query);
+        $currentfolders = $db->loadAssocList(null, 'folder');
+
         # Füge Verzeichnisse in die DB ein
-        foreach($folders as $folder)
+        foreach(array_diff($folders, $currentfolders) as $folder)
         {
             #Versuchen wir, ein paar Infos zu erraten
 
@@ -305,15 +329,21 @@ class EventgalleryLibraryFolderLocal extends EventgalleryLibraryFolder
 
             $description = trim(str_replace("_", " ", $description));
 
-            $query = "insert IGNORE into #__eventgallery_folder
-                                set folder=".$db->Quote($folder).",
-                                     published=0,
-                                     date=".$db->Quote($date).",
-                                     description=".$db->Quote($description).",
-                                     userid=".$db->Quote($user->id).",
-                                     created=".$db->quote($created).",
-                                     modified=NOW()
-                             ;";
+            $query = $db->getQuery(true);
+            $query->insert($db->quoteName('#__eventgallery_folder'))
+                ->columns(
+                    'folder,published,date,description,'
+                    .'userid,created,modified'
+                    )
+                ->values(implode(',', array(
+                    $db->quote($folder),
+                    '0',
+                    $db->quote($date),
+                    $db->quote($description),
+                    $db->quote($user->id),
+                    $db->quote($created),
+                    'now()'
+                    )));
             $db->setQuery($query);
             $db->execute();
 
