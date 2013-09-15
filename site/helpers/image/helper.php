@@ -146,6 +146,7 @@ class EventgalleryHelpersImageHelper
 
         $dom = new DOMDocument;
         if (!$dom->load($xmlFile)) {
+            $album['photos'] = $photos;
             return (object)$album;
         }
 

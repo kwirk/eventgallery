@@ -89,8 +89,12 @@ abstract class EventgalleryLibraryFolder extends EventgalleryLibraryDatabaseObje
 
         $db->setQuery($query);
         $folderObject = $db->loadObject();
+
         $this->_folder = $folderObject;
 
+        if ($this->_folder == null) {
+            return;
+        }
         /**
          * @var EventgalleryLibraryManagerImagetypeset $imagetypesetMgr
          */

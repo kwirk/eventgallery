@@ -179,6 +179,10 @@ class EventgalleryLibraryFilePicasa extends EventgalleryLibraryFile
 
     public function getImageUrl($width = 104, $height = 104, $fullsize, $larger = false)
     {
+        if ($this->_file == null) {
+            return "";
+        }
+
         if ($fullsize) {
             return $this->_file->image;
         } else {
@@ -192,6 +196,10 @@ class EventgalleryLibraryFilePicasa extends EventgalleryLibraryFile
 
     public function getThumbUrl($width = 104, $height = 104, $larger = true, $crop = false)
     {
+
+        if ($this->_file == null) {
+            return "";
+        }
 
         if ($width == 0) {
             $width = 104;

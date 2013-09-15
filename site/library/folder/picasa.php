@@ -94,6 +94,9 @@ class EventgalleryLibraryFolderPicasa extends EventgalleryLibraryFolder
      * @return string
      */
     public function getPicasaKey() {
+        if ($this->_folder == null) {
+            return "";
+        }
         return $this->_folder->picasakey;
     }
 
