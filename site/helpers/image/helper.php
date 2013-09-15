@@ -138,20 +138,23 @@ class EventgalleryHelpersImageHelper
                 ) . "?" . $authkeyParam . "thumbsize=$thumbsize&imgmax=$imagesize&prettyprint=$prettyprint";
         }
 
+        $album = Array();
+        $photos = Array();
 
 
         $xmlFile = EventgalleryHelpersImageHelper::getPicasawebResult($url);
 
         $dom = new DOMDocument;
-        $dom->load($xmlFile);
+        if (!$dom->load($xmlFile)) {
+            return (object)$album;
+        }
 
         #echo "After DOM loaded:". memory_get_usage() . "<br>";
 
         $xpath = new domxpath($dom);
         $nodes = $xpath->query('//entry');
 
-        $album = Array();
-        $photos = Array();
+       
 
         foreach ($nodes as $node) {
 
